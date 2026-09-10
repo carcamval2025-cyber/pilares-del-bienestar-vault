@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="es">
 <head>
+<script>
+  (function(){
+    var saved = localStorage.getItem('pb_theme');
+    var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if(dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.setAttribute('data-theme', 'light');
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unidad III — Pilar intelectual · Pilares del Bienestar</title>
@@ -248,10 +256,425 @@
     font-weight: 800;
   }
 
+
+  /* ==================== COMPLETE CLASSICAL GREEK DARK MODE ==================== */
+  :root {
+    --svg-bg-start: #FCFAF7;
+    --svg-bg-mid: #F5F0E6;
+    --svg-bg-end: #EAE1D0;
+    --svg-card-start: #FFFFFF;
+    --svg-card-mid: #FBF8F2;
+    --svg-card-end: #EFE8DA;
+    --svg-card-edge: #E2D8C6;
+    --svg-ped-start: #EDE7DA;
+    --svg-ped-mid: #DCD2C0;
+    --svg-ped-end: #C2B59F;
+    --svg-clay-bg-start: #FAF1ED;
+    --svg-clay-bg-end: #EED8CF;
+    --svg-pine-bg-start: #F0F6F3;
+    --svg-pine-bg-end: #D6E6DE;
+    --svg-gold-bg-start: #FFFDF7;
+    --svg-gold-bg-end: #F7EED8;
+    --svg-shaft-edge: #C2B7A2;
+    --svg-shaft-light: #EAE3D4;
+    --svg-shaft-peak: #FAF7F2;
+    --svg-shaft-mid: #DDD3BF;
+    --svg-shaft-dark: #AEA18A;
+    --svg-greca: #A84E32;
+  }
+
+  [data-theme="dark"] {
+    --bg: #110F0D;
+    --bg-elev: #1A1714;
+    --bg-elev2: #24201B;
+    --border: #3D352B;
+    --border-soft: #2B251E;
+    --text: #F5EFE6;
+    --text-dim: #C9BFB0;
+    --text-faint: #948A7A;
+    --pine: #4E9B79;
+    --pine-deep: #163628;
+    --pine-light: #64B28E;
+    --moss: #4E9B79;
+    --clay: #E07A5F;
+    --clay-deep: #F2957B;
+    --clay-pale: #2C1812;
+    --gold: #DFC07A;
+    --gold-doric: #DFC07A;
+    --gold-light: #FFEAA7;
+    --gold-deep: #C5A059;
+    --marble: #191613;
+    --marble-elev: #211D18;
+    --marble-elev2: #2A2520;
+    --success: #4E9B79;
+    --danger: #E26D7D;
+
+    --svg-bg-start: #161310;
+    --svg-bg-mid: #1C1814;
+    --svg-bg-end: #221D18;
+    --svg-card-start: #241F1A;
+    --svg-card-mid: #201B16;
+    --svg-card-end: #1B1713;
+    --svg-card-edge: #332B22;
+    --svg-ped-start: #2D261F;
+    --svg-ped-mid: #383027;
+    --svg-ped-end: #443B30;
+    --svg-clay-bg-start: #2C1812;
+    --svg-clay-bg-end: #3A2018;
+    --svg-pine-bg-start: #13241C;
+    --svg-pine-bg-end: #1A3328;
+    --svg-gold-bg-start: #2C2516;
+    --svg-gold-bg-end: #38301C;
+    --svg-shaft-edge: #1C1814;
+    --svg-shaft-light: #332C24;
+    --svg-shaft-peak: #473E34;
+    --svg-shaft-mid: #2A241E;
+    --svg-shaft-dark: #161310;
+    --svg-greca: #E07A5F;
+  }
+
+  [data-theme="dark"] body {
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: 
+      radial-gradient(var(--border) 1.2px, transparent 1.2px),
+      linear-gradient(to right, rgba(224, 122, 95, 0.03) 1px, transparent 1px);
+  }
+
+  [data-theme="dark"] ::selection {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] a {
+    color: var(--gold);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .plate {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .plate div {
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] .plate span {
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .plate b {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .aviso {
+    background: rgba(224, 122, 95, 0.09);
+    border-color: var(--clay);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .aviso .tag {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] nav.toc {
+    background: var(--marble);
+    border-bottom-color: var(--border);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] nav.toc a {
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] nav.toc a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] nav.toc a.nav-temple {
+    color: var(--gold);
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] nav.toc a.nav-highlight {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] section.unit {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] .unit-num {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .fuente {
+    border-left-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  [data-theme="dark"] .two {
+    background: var(--marble-elev);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two > div {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two h4 {
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .two .resp {
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .note {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .note.gap {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .note.gap .tag {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] blockquote {
+    border-left-color: var(--gold);
+    color: var(--text);
+  }
+
+  [data-theme="dark"] figure.diag {
+    background: #171411;
+    border-color: var(--border);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  }
+  [data-theme="dark"] figure.diag figcaption {
+    color: var(--gold);
+    border-top-color: var(--border);
+  }
+
+  [data-theme="dark"] dl.glos {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos > div {
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos dt {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .q-card {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .opt {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  [data-theme="dark"] .opt:hover {
+    background: var(--marble-elev2);
+    border-color: var(--gold);
+  }
+  [data-theme="dark"] .opt.selected {
+    background: rgba(223, 192, 122, 0.12);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-chk {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    font-weight: 800;
+  }
+  [data-theme="dark"] .fb {
+    background: var(--bg-elev2);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .fb.ok {
+    border-left-color: var(--pine);
+  }
+  [data-theme="dark"] .fb.ok .verdict {
+    color: var(--pine);
+  }
+  [data-theme="dark"] .fb.no {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .fb.no .verdict {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] .p-track {
+    background: var(--border);
+  }
+  [data-theme="dark"] .p-bar {
+    background: var(--gold);
+  }
+
+  [data-theme="dark"] table.vacios {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios th {
+    background: var(--marble-elev2);
+    color: var(--gold-light);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios td {
+    border-color: var(--border);
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] table.vacios tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  [data-theme="dark"] footer {
+    border-top-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  /* Portal Index Specific Dark Mode */
+  [data-theme="dark"] .titleblock-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .stele-pediment {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele-cornice {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele .status-col {
+    background: var(--marble-elev);
+    border-left-color: var(--border);
+  }
+  [data-theme="dark"] .stamp-greek {
+    background: var(--marble);
+    border-color: var(--border);
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .stamp-greek.disponible {
+    background: rgba(78, 155, 121, 0.18);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .spec-link {
+    background: var(--marble-elev);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  [data-theme="dark"] .spec-link:hover {
+    background: var(--pine);
+    color: #110F0D;
+  }
+  [data-theme="dark"] .spec-link.repaso {
+    border-color: var(--clay);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .spec-link.repaso:hover {
+    background: var(--clay);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .control-grand-card {
+    background: linear-gradient(135deg, #1C1814 0%, #15120F 100%);
+    border-color: var(--gold-deep);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  }
+  [data-theme="dark"] .control-title {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .control-features {
+    background: rgba(22, 19, 16, 0.85);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .btn-greek-gold {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    border-color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline:hover {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .study-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .study-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .study-card h3 {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .study-btn {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] .study-btn:hover {
+    color: var(--clay-deep);
+    border-bottom-color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] .triad-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .sello-wrap {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+
+  /* Theme Toggle Button Styling */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--marble-elev);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+  [data-theme="dark"] .theme-toggle-btn {
+    background: var(--marble-elev2);
+    border-color: var(--border);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .theme-toggle-btn:hover {
+    border-color: var(--gold-light);
+    color: #FFEAA7;
+  }
+
 </style>
 </head>
 <body>
-<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="../unidad-02/">← UNIDAD II</a></li><li><a href="#u3">UNIDAD III</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li></ul></nav>
+<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="../unidad-02/">← UNIDAD II</a></li><li><a href="#u3">UNIDAD III</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema visual"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
 <div class="wrap">
 <div class="greek-frieze"></div>
 <header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Unidad</span><b>III</b></div><div><span>Sesiones</span>8 sep</div></div><h1>Unidad III<br><em>Pilar intelectual</em></h1><p class="lede">Resumen, glosario y autoevaluación de esta unidad, con retroalimentación inmediata. Parte del repaso acumulado para el Control 1.</p><div class="aviso"><span class="tag">Esto no es el Control</span><p>Este documento es <b>estudio previo</b>, no una evaluación ni un intento de replicar el Control pregunta por pregunta. El Programa del curso permite usar IA <b>solo como herramienta de revisión y formato</b> para las evaluaciones, nunca para generar su contenido; el Control 1 es <b>físico y presencial</b>, y sus respuestas son y serán 100% de autoría propia.</p><p>Todo lo que aparece aquí sale <b>únicamente</b> de los PDF y PPTX de clase. Donde el material no dice algo, esta guía lo señala como vacío en vez de rellenarlo.</p></div></header><section class="unit" id="u3"><p class="fuente">Fuente: «4. Dimensión intelectual.pdf» (16 pp.)</p>
@@ -317,48 +740,48 @@
     <p class="sub">Las ocho, con la definición del PDF</p>
     <figure class="diag"><div class="scroller"><svg style="min-width:700px; width:100%;" viewBox="0 0 920 370" role="img" aria-label="Lámina 9 — Las ocho inteligencias múltiples de Howard Gardner">
 <defs>
-  <!-- Stone and Marble Gradients -->
+  <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
   <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#FCFAF7"/>
-    <stop offset="50%" stop-color="#F5F0E6"/>
-    <stop offset="100%" stop-color="#EAE1D0"/>
+    <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
+    <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
+    <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
   <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="15%" stop-color="#FBF8F2"/>
-    <stop offset="85%" stop-color="#EFE8DA"/>
-    <stop offset="100%" stop-color="#E2D8C6"/>
+    <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
+    <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
+    <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
+    <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
   <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#EDE7DA"/>
-    <stop offset="45%" stop-color="#DCD2C0"/>
-    <stop offset="100%" stop-color="#C2B59F"/>
+    <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
+    <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
+    <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
   <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#D96E4C"/>
-    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="0%" stop-color="#E07A5F"/>
+    <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
   <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FAF1ED"/>
-    <stop offset="100%" stop-color="#EED8CF"/>
+    <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
+    <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
   <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
-    <stop offset="100%" stop-color="#0F281E"/>
+    <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
   <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
   <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#F0F6F3"/>
-    <stop offset="100%" stop-color="#D6E6DE"/>
+    <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
+    <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
@@ -369,17 +792,17 @@
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
   <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFDF7"/>
-    <stop offset="100%" stop-color="#F7EED8"/>
+    <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
+    <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
-  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <!-- Fluted Column Cylinder Lighting -->
   <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#C2B7A2"/>
-    <stop offset="15%" stop-color="#EAE3D4"/>
-    <stop offset="40%" stop-color="#FAF7F2"/>
-    <stop offset="70%" stop-color="#DDD3BF"/>
-    <stop offset="100%" stop-color="#AEA18A"/>
+    <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
+    <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
+    <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
+    <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
+    <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
   <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
@@ -398,100 +821,99 @@
 
   <!-- Drop Shadow Filters -->
   <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
-    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
   <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
   <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
   <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
-  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-  <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
   <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
 
   <!-- Header -->
-  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">
+  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">
     INTELIGENCIAS MÚLTIPLES · HOWARD GARDNER (OCHO MANIFESTACIONES)
   </text>
 
   <!-- Octagonal Wind Rose (Horologion) (Center=(460, 185)) -->
-  <!-- Outer Compass Ring -->
-  <circle cx="460" cy="185" r="115" fill="none" stroke="#D8CEBA" stroke-width="1.5" stroke-dasharray="2 4"/>
-  <circle cx="460" cy="185" r="80" fill="url(#gk-pediment)" stroke="#C4B79F" stroke-width="1" opacity="0.6"/>
+  <circle cx="460" cy="185" r="115" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <circle cx="460" cy="185" r="80" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="1" opacity="0.6"/>
 
   <!-- Center Sacred Altar -->
   <circle cx="460" cy="185" r="50" fill="url(#gk-card-stone)" stroke="#D4AF37" stroke-width="1.8" filter="url(#gk-shadow-sm)"/>
-  <text x="460" y="172" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#1B4234">¿De qué</text>
-  <text x="460" y="186" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#1B4234">maneras soy</text>
-  <text x="460" y="202" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="#7A2D15">INTELIGENTE?</text>
+  <text x="460" y="172" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="var(--pine)">¿De qué</text>
+  <text x="460" y="186" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="var(--pine)">maneras soy</text>
+  <text x="460" y="202" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="var(--clay-deep)">INTELIGENTE?</text>
 
   <!-- 8 Radiating Rays & Stelae Tablets -->
-  <!-- 01 Lingüística (Top: 0 deg, y=70) -->
-  <line x1="460" y1="135" x2="460" y2="92" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 01 Lingüística (Top) -->
+  <line x1="460" y1="135" x2="460" y2="92" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(460, 78)">
-    <rect x="-85" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">01 · LINGÜÍSTICA</text>
+    <rect x="-85" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">01 · LINGÜÍSTICA</text>
   </g>
 
-  <!-- 02 Lógico-matemática (Top-Right: 45 deg, (540, 105)) -->
-  <line x1="495" y1="150" x2="540" y2="105" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 02 Lógico-matemática (Top-Right) -->
+  <line x1="495" y1="150" x2="540" y2="105" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(555, 96)">
-    <rect x="0" y="-14" width="190" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="95" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">02 · LÓGICO-MATEMÁTICA</text>
+    <rect x="0" y="-14" width="190" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="95" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">02 · LÓGICO-MATEMÁTICA</text>
   </g>
 
-  <!-- 03 Espacial (Right: 90 deg, (575, 185)) -->
-  <line x1="510" y1="185" x2="565" y2="185" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 03 Espacial (Right) -->
+  <line x1="510" y1="185" x2="565" y2="185" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(580, 185)">
-    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">03 · ESPACIAL</text>
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">03 · ESPACIAL</text>
   </g>
 
-  <!-- 04 Musical (Bottom-Right: 135 deg, (540, 265)) -->
-  <line x1="495" y1="220" x2="540" y2="265" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 04 Musical (Bottom-Right) -->
+  <line x1="495" y1="220" x2="540" y2="265" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(555, 274)">
-    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">04 · MUSICAL</text>
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">04 · MUSICAL</text>
   </g>
 
-  <!-- 05 Corporal-cinestésica (Bottom: 180 deg, y=300) -->
-  <line x1="460" y1="235" x2="460" y2="280" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 05 Corporal-cinestésica (Bottom) -->
+  <line x1="460" y1="235" x2="460" y2="280" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(460, 294)">
-    <rect x="-115" y="-14" width="230" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">05 · CORPORAL-CINESTÉSICA</text>
+    <rect x="-115" y="-14" width="230" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">05 · CORPORAL-CINESTÉSICA</text>
   </g>
 
-  <!-- 06 Interpersonal (Bottom-Left: 225 deg, (380, 265)) -->
-  <line x1="425" y1="220" x2="380" y2="265" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 06 Interpersonal (Bottom-Left) -->
+  <line x1="425" y1="220" x2="380" y2="265" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(365, 274)">
-    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">06 · INTERPERSONAL</text>
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">06 · INTERPERSONAL</text>
   </g>
 
-  <!-- 07 Intrapersonal (Left: 270 deg, (345, 185)) -->
-  <line x1="410" y1="185" x2="355" y2="185" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 07 Intrapersonal (Left) -->
+  <line x1="410" y1="185" x2="355" y2="185" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(340, 185)">
-    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">07 · INTRAPERSONAL</text>
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">07 · INTRAPERSONAL</text>
   </g>
 
-  <!-- 08 Naturalista (Top-Left: 315 deg, (380, 105)) -->
-  <line x1="425" y1="150" x2="380" y2="105" stroke="#2D5E4A" stroke-width="1.5"/>
+  <!-- 08 Naturalista (Top-Left) -->
+  <line x1="425" y1="150" x2="380" y2="105" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(365, 96)">
-    <rect x="-160" y="-14" width="160" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="-80" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">08 · NATURALISTA</text>
+    <rect x="-160" y="-14" width="160" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-80" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">08 · NATURALISTA</text>
   </g>
 
   <!-- Warning Banner -->
-  <rect x="20" y="328" width="880" height="26" rx="2" fill="url(#gk-clay-light)" stroke="#AB4F33" stroke-width="1"/>
-  <text x="460" y="345" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="700" fill="#7A2D15">
+  <rect x="20" y="328" width="880" height="26" rx="2" fill="url(#gk-clay-light)" stroke="var(--clay)" stroke-width="1"/>
+  <text x="460" y="345" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="700" fill="var(--clay-deep)">
     CUIDADO DE EVALUACIÓN: LA «INTELIGENCIA EMOCIONAL» NO ESTÁ EN ESTA LISTA · LO MÁS CERCANO SON INTERPERSONAL E INTRAPERSONAL
   </text>
 </svg></div><figcaption>Lámina 9 — Las ocho inteligencias múltiples de Gardner · PDF Unidad III, p. 9</figcaption></figure>
@@ -534,48 +956,48 @@
     <p class="sub">El puente explícito con la Unidad II</p>
     <figure class="diag"><div class="scroller"><svg style="min-width:720px; width:100%;" viewBox="0 0 920 270" role="img" aria-label="Lámina 10 — Conexión cuerpo–mente: ejercicio, sueño y alimentación">
 <defs>
-  <!-- Stone and Marble Gradients -->
+  <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
   <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#FCFAF7"/>
-    <stop offset="50%" stop-color="#F5F0E6"/>
-    <stop offset="100%" stop-color="#EAE1D0"/>
+    <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
+    <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
+    <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
   <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="15%" stop-color="#FBF8F2"/>
-    <stop offset="85%" stop-color="#EFE8DA"/>
-    <stop offset="100%" stop-color="#E2D8C6"/>
+    <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
+    <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
+    <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
+    <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
   <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#EDE7DA"/>
-    <stop offset="45%" stop-color="#DCD2C0"/>
-    <stop offset="100%" stop-color="#C2B59F"/>
+    <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
+    <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
+    <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
   <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#D96E4C"/>
-    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="0%" stop-color="#E07A5F"/>
+    <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
   <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FAF1ED"/>
-    <stop offset="100%" stop-color="#EED8CF"/>
+    <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
+    <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
   <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
-    <stop offset="100%" stop-color="#0F281E"/>
+    <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
   <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
   <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#F0F6F3"/>
-    <stop offset="100%" stop-color="#D6E6DE"/>
+    <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
+    <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
@@ -586,17 +1008,17 @@
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
   <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFDF7"/>
-    <stop offset="100%" stop-color="#F7EED8"/>
+    <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
+    <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
-  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <!-- Fluted Column Cylinder Lighting -->
   <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#C2B7A2"/>
-    <stop offset="15%" stop-color="#EAE3D4"/>
-    <stop offset="40%" stop-color="#FAF7F2"/>
-    <stop offset="70%" stop-color="#DDD3BF"/>
-    <stop offset="100%" stop-color="#AEA18A"/>
+    <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
+    <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
+    <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
+    <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
+    <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
   <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
@@ -615,50 +1037,46 @@
 
   <!-- Drop Shadow Filters -->
   <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
-    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
   <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
   <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
   <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
-  <rect x="2" y="2" width="916" height="266" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-  <rect x="6" y="6" width="908" height="258" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="2" y="2" width="916" height="266" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="258" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
   <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
 
   <!-- Header -->
-  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">
+  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">
     EL PUENTE INTERDIMENSIONAL · CÓMO EL PILAR FÍSICO POTENCIA EL INTELECTUAL
   </text>
 
   <!-- LEFT TEMPLE: PILAR FÍSICO (UNIDAD II) -->
   <g transform="translate(24, 52)">
-    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
-    <!-- Pediment -->
-    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
-    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">PILAR FÍSICO</text>
-    <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#7A2D15">UNIDAD II</text>
+    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="var(--pine)">PILAR FÍSICO</text>
+    <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="var(--clay)">UNIDAD II</text>
 
     <!-- 3 Core Levers -->
     <g transform="translate(15, 52)">
-      <!-- Lever 1: Ejercicio -->
-      <rect x="0" y="0" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="95" y="19" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">EJERCICIO</text>
+      <rect x="0" y="0" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="95" y="19" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">EJERCICIO</text>
 
-      <!-- Lever 2: Sueño -->
-      <rect x="0" y="38" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="95" y="57" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">SUEÑO</text>
+      <rect x="0" y="38" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="95" y="57" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">SUEÑO</text>
 
-      <!-- Lever 3: Alimentación -->
-      <rect x="0" y="76" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="95" y="95" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">ALIMENTACIÓN</text>
+      <rect x="0" y="76" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="95" y="95" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">ALIMENTACIÓN</text>
     </g>
   </g>
 
@@ -666,30 +1084,30 @@
   <g transform="translate(244, 98)">
     <!-- Channel 1: Ejercicio -> Dopamina/Serotonina -->
     <g transform="translate(0, 0)">
-      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
-      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
-      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         ↑ dopamina · serotonina · norepinefrina · oxigenación cerebral
       </text>
     </g>
 
     <!-- Channel 2: Sueño -> Consolidación memoria -->
     <g transform="translate(0, 38)">
-      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
-      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
-      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         consolidación de la memoria &amp; regeneración neuronal
       </text>
     </g>
 
     <!-- Channel 3: Alimentación -> Nutrientes cognitivos -->
     <g transform="translate(0, 76)">
-      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
-      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
-      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         glucosa estable &amp; nutrientes para el funcionamiento cognitivo
       </text>
     </g>
@@ -698,9 +1116,8 @@
   <!-- RIGHT TEMPLE: PILAR INTELECTUAL (UNIDAD III) -->
   <g transform="translate(676, 52)">
     <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-pine)" stroke="#0E231B" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
-    <!-- Pediment -->
-    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
-    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">PILAR INTELECTUAL</text>
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="var(--pine)">PILAR INTELECTUAL</text>
     <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#FFEAA7">UNIDAD III</text>
 
     <!-- 3 Cognitive Outcomes -->
@@ -717,9 +1134,9 @@
   </g>
 
   <!-- Footnote -->
-  <line x1="20" y1="240" x2="900" y2="240" stroke="#D8CEBA" stroke-width="1"/>
-  <text x="24" y="254" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#5F655F">PDF UNIDAD III, P. 15 · LAS DIMENSIONES DEL BIENESTAR ESTÁN INTERCONECTADAS</text>
-  <text x="896" y="254" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="#A84E32">LÁMINA X · MMXXVI</text>
+  <line x1="20" y1="240" x2="900" y2="240" stroke="var(--border)" stroke-width="1"/>
+  <text x="24" y="254" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="var(--text-faint)">PDF UNIDAD III, P. 15 · LAS DIMENSIONES DEL BIENESTAR ESTÁN INTERCONECTADAS</text>
+  <text x="896" y="254" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="var(--clay)">LÁMINA X · MMXXVI</text>
 </svg></div><figcaption>Lámina 10 — Conexión cuerpo–mente · PDF Unidad III, p. 15</figcaption></figure>
     <ul class="clean">
       <li><b>Ejercicio físico</b> — mejora la circulación sanguínea, la oxigenación del cerebro y la
@@ -796,6 +1213,35 @@ var QUIZ = {"u3": [{"q": "¿Cuáles son las tres habilidades fundamentales del b
   });
 })();
 
+</script>
+<script>
+  // Classical Greek Theme Toggle (Nix / Helios)
+  function initGreekTheme() {
+    function updateThemeUI(isDark) {
+      var icon = document.getElementById('theme-icon');
+      var text = document.getElementById('theme-text');
+      if(icon) icon.textContent = isDark ? '☀️' : '🌙';
+      if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
+    }
+    window.toggleTheme = function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('pb_theme', next);
+      updateThemeUI(next === 'dark');
+    };
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    updateThemeUI(isDark);
+    var btn = document.getElementById('theme-toggle');
+    if(btn) {
+      btn.onclick = window.toggleTheme;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGreekTheme);
+  } else {
+    initGreekTheme();
+  }
 </script>
 </body>
 </html>

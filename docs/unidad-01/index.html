@@ -1,6 +1,14 @@
 <!doctype html>
 <html lang="es">
 <head>
+<script>
+  (function(){
+    var saved = localStorage.getItem('pb_theme');
+    var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    if(dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.setAttribute('data-theme', 'light');
+  })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Unidad I — Redefiniendo el éxito y pilares del bienestar · Pilares del Bienestar</title>
@@ -248,10 +256,425 @@
     font-weight: 800;
   }
 
+
+  /* ==================== COMPLETE CLASSICAL GREEK DARK MODE ==================== */
+  :root {
+    --svg-bg-start: #FCFAF7;
+    --svg-bg-mid: #F5F0E6;
+    --svg-bg-end: #EAE1D0;
+    --svg-card-start: #FFFFFF;
+    --svg-card-mid: #FBF8F2;
+    --svg-card-end: #EFE8DA;
+    --svg-card-edge: #E2D8C6;
+    --svg-ped-start: #EDE7DA;
+    --svg-ped-mid: #DCD2C0;
+    --svg-ped-end: #C2B59F;
+    --svg-clay-bg-start: #FAF1ED;
+    --svg-clay-bg-end: #EED8CF;
+    --svg-pine-bg-start: #F0F6F3;
+    --svg-pine-bg-end: #D6E6DE;
+    --svg-gold-bg-start: #FFFDF7;
+    --svg-gold-bg-end: #F7EED8;
+    --svg-shaft-edge: #C2B7A2;
+    --svg-shaft-light: #EAE3D4;
+    --svg-shaft-peak: #FAF7F2;
+    --svg-shaft-mid: #DDD3BF;
+    --svg-shaft-dark: #AEA18A;
+    --svg-greca: #A84E32;
+  }
+
+  [data-theme="dark"] {
+    --bg: #110F0D;
+    --bg-elev: #1A1714;
+    --bg-elev2: #24201B;
+    --border: #3D352B;
+    --border-soft: #2B251E;
+    --text: #F5EFE6;
+    --text-dim: #C9BFB0;
+    --text-faint: #948A7A;
+    --pine: #4E9B79;
+    --pine-deep: #163628;
+    --pine-light: #64B28E;
+    --moss: #4E9B79;
+    --clay: #E07A5F;
+    --clay-deep: #F2957B;
+    --clay-pale: #2C1812;
+    --gold: #DFC07A;
+    --gold-doric: #DFC07A;
+    --gold-light: #FFEAA7;
+    --gold-deep: #C5A059;
+    --marble: #191613;
+    --marble-elev: #211D18;
+    --marble-elev2: #2A2520;
+    --success: #4E9B79;
+    --danger: #E26D7D;
+
+    --svg-bg-start: #161310;
+    --svg-bg-mid: #1C1814;
+    --svg-bg-end: #221D18;
+    --svg-card-start: #241F1A;
+    --svg-card-mid: #201B16;
+    --svg-card-end: #1B1713;
+    --svg-card-edge: #332B22;
+    --svg-ped-start: #2D261F;
+    --svg-ped-mid: #383027;
+    --svg-ped-end: #443B30;
+    --svg-clay-bg-start: #2C1812;
+    --svg-clay-bg-end: #3A2018;
+    --svg-pine-bg-start: #13241C;
+    --svg-pine-bg-end: #1A3328;
+    --svg-gold-bg-start: #2C2516;
+    --svg-gold-bg-end: #38301C;
+    --svg-shaft-edge: #1C1814;
+    --svg-shaft-light: #332C24;
+    --svg-shaft-peak: #473E34;
+    --svg-shaft-mid: #2A241E;
+    --svg-shaft-dark: #161310;
+    --svg-greca: #E07A5F;
+  }
+
+  [data-theme="dark"] body {
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: 
+      radial-gradient(var(--border) 1.2px, transparent 1.2px),
+      linear-gradient(to right, rgba(224, 122, 95, 0.03) 1px, transparent 1px);
+  }
+
+  [data-theme="dark"] ::selection {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] a {
+    color: var(--gold);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .plate {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .plate div {
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] .plate span {
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .plate b {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .aviso {
+    background: rgba(224, 122, 95, 0.09);
+    border-color: var(--clay);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .aviso .tag {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] nav.toc {
+    background: var(--marble);
+    border-bottom-color: var(--border);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] nav.toc a {
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] nav.toc a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] nav.toc a.nav-temple {
+    color: var(--gold);
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] nav.toc a.nav-highlight {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] section.unit {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] .unit-num {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .fuente {
+    border-left-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  [data-theme="dark"] .two {
+    background: var(--marble-elev);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two > div {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two h4 {
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .two .resp {
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .note {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .note.gap {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .note.gap .tag {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] blockquote {
+    border-left-color: var(--gold);
+    color: var(--text);
+  }
+
+  [data-theme="dark"] figure.diag {
+    background: #171411;
+    border-color: var(--border);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  }
+  [data-theme="dark"] figure.diag figcaption {
+    color: var(--gold);
+    border-top-color: var(--border);
+  }
+
+  [data-theme="dark"] dl.glos {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos > div {
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos dt {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .q-card {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .opt {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  [data-theme="dark"] .opt:hover {
+    background: var(--marble-elev2);
+    border-color: var(--gold);
+  }
+  [data-theme="dark"] .opt.selected {
+    background: rgba(223, 192, 122, 0.12);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-chk {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    font-weight: 800;
+  }
+  [data-theme="dark"] .fb {
+    background: var(--bg-elev2);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .fb.ok {
+    border-left-color: var(--pine);
+  }
+  [data-theme="dark"] .fb.ok .verdict {
+    color: var(--pine);
+  }
+  [data-theme="dark"] .fb.no {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .fb.no .verdict {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] .p-track {
+    background: var(--border);
+  }
+  [data-theme="dark"] .p-bar {
+    background: var(--gold);
+  }
+
+  [data-theme="dark"] table.vacios {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios th {
+    background: var(--marble-elev2);
+    color: var(--gold-light);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios td {
+    border-color: var(--border);
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] table.vacios tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  [data-theme="dark"] footer {
+    border-top-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  /* Portal Index Specific Dark Mode */
+  [data-theme="dark"] .titleblock-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .stele-pediment {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele-cornice {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele .status-col {
+    background: var(--marble-elev);
+    border-left-color: var(--border);
+  }
+  [data-theme="dark"] .stamp-greek {
+    background: var(--marble);
+    border-color: var(--border);
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .stamp-greek.disponible {
+    background: rgba(78, 155, 121, 0.18);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .spec-link {
+    background: var(--marble-elev);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  [data-theme="dark"] .spec-link:hover {
+    background: var(--pine);
+    color: #110F0D;
+  }
+  [data-theme="dark"] .spec-link.repaso {
+    border-color: var(--clay);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .spec-link.repaso:hover {
+    background: var(--clay);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .control-grand-card {
+    background: linear-gradient(135deg, #1C1814 0%, #15120F 100%);
+    border-color: var(--gold-deep);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  }
+  [data-theme="dark"] .control-title {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .control-features {
+    background: rgba(22, 19, 16, 0.85);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .btn-greek-gold {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    border-color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline:hover {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .study-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .study-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .study-card h3 {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .study-btn {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] .study-btn:hover {
+    color: var(--clay-deep);
+    border-bottom-color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] .triad-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .sello-wrap {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+
+  /* Theme Toggle Button Styling */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--marble-elev);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+  [data-theme="dark"] .theme-toggle-btn {
+    background: var(--marble-elev2);
+    border-color: var(--border);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .theme-toggle-btn:hover {
+    border-color: var(--gold-light);
+    color: #FFEAA7;
+  }
+
 </style>
 </head>
 <body>
-<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="#u1">UNIDAD I</a></li><li><a href="../unidad-02/">UNIDAD II →</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li></ul></nav>
+<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="#u1">UNIDAD I</a></li><li><a href="../unidad-02/">UNIDAD II →</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema visual"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
 <div class="wrap">
 <div class="greek-frieze"></div>
 <header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Unidad</span><b>I</b></div><div><span>Sesiones</span>25 y 27 ago</div></div><h1>Unidad I<br><em>Redefiniendo el éxito y pilares del bienestar</em></h1><p class="lede">Resumen, glosario y autoevaluación de esta unidad, con retroalimentación inmediata. Parte del repaso acumulado para el Control 1.</p><div class="aviso"><span class="tag">Esto no es el Control</span><p>Este documento es <b>estudio previo</b>, no una evaluación ni un intento de replicar el Control pregunta por pregunta. El Programa del curso permite usar IA <b>solo como herramienta de revisión y formato</b> para las evaluaciones, nunca para generar su contenido; el Control 1 es <b>físico y presencial</b>, y sus respuestas son y serán 100% de autoría propia.</p><p>Todo lo que aparece aquí sale <b>únicamente</b> de los PDF y PPTX de clase. Donde el material no dice algo, esta guía lo señala como vacío en vez de rellenarlo.</p></div></header><section class="unit" id="u1"><p class="fuente">Fuente: «1. Introducción a las dimensiones del bienestar.pdf» (10 pp.)</p>
@@ -262,48 +685,48 @@
     bienestar de la ESEN, porque este curso los da por sabidos y construye encima.</p>
     <figure class="diag"><div class="scroller"><svg style="min-width:720px; width:100%;" viewBox="0 0 920 280" role="img" aria-label="Lámina 1 — Marcos previos: BT I (renovación) y BT II (modelo PERMA)">
 <defs>
-  <!-- Stone and Marble Gradients -->
+  <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
   <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#FCFAF7"/>
-    <stop offset="50%" stop-color="#F5F0E6"/>
-    <stop offset="100%" stop-color="#EAE1D0"/>
+    <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
+    <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
+    <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
   <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="15%" stop-color="#FBF8F2"/>
-    <stop offset="85%" stop-color="#EFE8DA"/>
-    <stop offset="100%" stop-color="#E2D8C6"/>
+    <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
+    <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
+    <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
+    <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
   <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#EDE7DA"/>
-    <stop offset="45%" stop-color="#DCD2C0"/>
-    <stop offset="100%" stop-color="#C2B59F"/>
+    <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
+    <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
+    <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
   <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#D96E4C"/>
-    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="0%" stop-color="#E07A5F"/>
+    <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
   <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FAF1ED"/>
-    <stop offset="100%" stop-color="#EED8CF"/>
+    <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
+    <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
   <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
-    <stop offset="100%" stop-color="#0F281E"/>
+    <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
   <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
   <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#F0F6F3"/>
-    <stop offset="100%" stop-color="#D6E6DE"/>
+    <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
+    <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
@@ -314,17 +737,17 @@
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
   <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFDF7"/>
-    <stop offset="100%" stop-color="#F7EED8"/>
+    <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
+    <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
-  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <!-- Fluted Column Cylinder Lighting -->
   <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#C2B7A2"/>
-    <stop offset="15%" stop-color="#EAE3D4"/>
-    <stop offset="40%" stop-color="#FAF7F2"/>
-    <stop offset="70%" stop-color="#DDD3BF"/>
-    <stop offset="100%" stop-color="#AEA18A"/>
+    <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
+    <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
+    <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
+    <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
+    <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
   <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
@@ -343,160 +766,160 @@
 
   <!-- Drop Shadow Filters -->
   <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
-    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
   <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
   <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
   <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
   <!-- Outer Classical Stele Container -->
-  <rect x="2" y="2" width="916" height="276" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-  <rect x="6" y="6" width="908" height="268" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="2" y="2" width="916" height="276" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="268" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
 
   <!-- Top Greek Frieze Ribbon -->
   <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
 
   <!-- LEFT: BT I RENOVACIÓN -->
   <g transform="translate(24, 28)">
-    <rect x="0" y="0" width="380" height="24" rx="2" fill="url(#gk-pediment)" stroke="#C4B79F" stroke-width="0.8"/>
-    <text x="14" y="16" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">BT I — RENOVACIÓN · CUATRO DIMENSIONES</text>
+    <rect x="0" y="0" width="380" height="24" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="14" y="16" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">BT I — RENOVACIÓN · CUATRO DIMENSIONES</text>
 
     <!-- 01 Física -->
     <g transform="translate(0, 32)">
-      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
       <rect x="0" y="0" width="6" height="38" rx="1" fill="url(#gk-pine)"/>
-      <text x="18" y="24" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1B4234">FÍSICA</text>
-      <text x="140" y="24" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#5F655F">cuerpo, energía y vitalidad</text>
-      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#1B4234">01</text>
+      <text x="18" y="18" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--pine)">FÍSICA</text>
+      <text x="18" y="31" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" font-style="italic" fill="var(--text-dim)">cuerpo, energía, vitalidad y descanso</text>
+      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="var(--pine)">01</text>
     </g>
 
     <!-- 02 Mental -->
     <g transform="translate(0, 76)">
-      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
       <rect x="0" y="0" width="6" height="38" rx="1" fill="url(#gk-pine)"/>
-      <text x="18" y="24" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1B4234">MENTAL</text>
-      <text x="140" y="24" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#5F655F">intelecto, lectura y claridad</text>
-      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#1B4234">02</text>
+      <text x="18" y="18" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--pine)">MENTAL</text>
+      <text x="18" y="31" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" font-style="italic" fill="var(--text-dim)">lectura, intelecto, escritura y claridad</text>
+      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="var(--pine)">02</text>
     </g>
 
     <!-- 03 Socio-emocional -->
     <g transform="translate(0, 120)">
-      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
       <rect x="0" y="0" width="6" height="38" rx="1" fill="url(#gk-pine)"/>
-      <text x="18" y="24" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1B4234">SOCIO-EMOCIONAL</text>
-      <text x="180" y="24" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#5F655F">vínculos, empatía y calma</text>
-      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#1B4234">03</text>
+      <text x="18" y="18" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--pine)">SOCIO-EMOCIONAL</text>
+      <text x="18" y="31" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" font-style="italic" fill="var(--text-dim)">vínculos interpersonales, empatía y calma</text>
+      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="var(--pine)">03</text>
     </g>
 
     <!-- 04 Espiritual -->
     <g transform="translate(0, 164)">
-      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+      <rect x="0" y="0" width="380" height="38" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
       <rect x="0" y="0" width="6" height="38" rx="1" fill="url(#gk-pine)"/>
-      <text x="18" y="24" font-family="'Cinzel',serif" font-size="13" font-weight="700" fill="#1B4234">ESPIRITUAL</text>
-      <text x="150" y="24" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#5F655F">sentido, valores y trascendencia</text>
-      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
-      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="#1B4234">04</text>
+      <text x="18" y="18" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--pine)">ESPIRITUAL</text>
+      <text x="18" y="31" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" font-style="italic" fill="var(--text-dim)">sentido, valores rectores y trascendencia</text>
+      <circle cx="355" cy="19" r="11" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <text x="355" y="23" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="9" font-weight="600" fill="var(--pine)">04</text>
     </g>
   </g>
 
   <!-- Central Divider -->
   <g transform="translate(432, 28)">
-    <line x1="0" y1="0" x2="0" y2="202" stroke="#C4B79F" stroke-width="1.5" stroke-dasharray="4 4"/>
-    <rect x="-8" y="90" width="16" height="24" rx="2" fill="url(#gk-clay)" stroke="#7A2D15" stroke-width="0.8"/>
+    <line x1="0" y1="0" x2="0" y2="202" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <rect x="-8" y="90" width="16" height="24" rx="2" fill="url(#gk-clay)" stroke="var(--clay-deep)" stroke-width="0.8"/>
     <text x="0" y="105" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#FAF8F5">VS</text>
   </g>
 
   <!-- RIGHT: BT II MODELO PERMA -->
   <g transform="translate(466, 28)">
-    <rect x="0" y="0" width="430" height="24" rx="2" fill="url(#gk-pediment)" stroke="#C4B79F" stroke-width="0.8"/>
-    <text x="14" y="16" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">BT II — MODELO PERMA · 5 PILARES MONUMENTALES</text>
+    <rect x="0" y="0" width="430" height="24" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="14" y="16" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">BT II — MODELO PERMA · 5 PILARES MONUMENTALES</text>
 
     <!-- 5 Columns for P-E-R-M-A -->
     <!-- P -->
     <g transform="translate(20, 34)">
-      <rect x="-16" y="0" width="32" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="#C9BFAB"/>
+      <rect x="-16" y="0" width="32" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="var(--border)"/>
       <rect x="-10" y="11" width="20" height="98" fill="url(#gk-shaft-pine)" stroke="#11291F" stroke-width="0.7"/>
-      <rect x="-14" y="109" width="28" height="5" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <rect x="-17" y="114" width="34" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
+      <rect x="-14" y="109" width="28" height="5" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <rect x="-17" y="114" width="34" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
       <circle cx="0" cy="50" r="9" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="0.8"/>
       <text x="0" y="54" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">P</text>
-      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#1B4234">Emociones</text>
-      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="#5F655F">positivas</text>
+      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="var(--pine)">Emociones</text>
+      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="var(--text-dim)">positivas</text>
     </g>
 
     <!-- E -->
     <g transform="translate(108, 34)">
-      <rect x="-16" y="0" width="32" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="#C9BFAB"/>
+      <rect x="-16" y="0" width="32" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="var(--border)"/>
       <rect x="-10" y="11" width="20" height="98" fill="url(#gk-shaft-pine)" stroke="#11291F" stroke-width="0.7"/>
-      <rect x="-14" y="109" width="28" height="5" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <rect x="-17" y="114" width="34" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
+      <rect x="-14" y="109" width="28" height="5" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <rect x="-17" y="114" width="34" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
       <circle cx="0" cy="50" r="9" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="0.8"/>
       <text x="0" y="54" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">E</text>
-      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#1B4234">Compromiso</text>
-      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="#5F655F">(flow / tarea)</text>
+      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="var(--pine)">Compromiso</text>
+      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="var(--text-dim)">(flow / tarea)</text>
     </g>
 
     <!-- R -->
     <g transform="translate(196, 34)">
-      <rect x="-16" y="0" width="32" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="#C9BFAB"/>
+      <rect x="-16" y="0" width="32" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="var(--border)"/>
       <rect x="-10" y="11" width="20" height="98" fill="url(#gk-shaft-pine)" stroke="#11291F" stroke-width="0.7"/>
-      <rect x="-14" y="109" width="28" height="5" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <rect x="-17" y="114" width="34" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
+      <rect x="-14" y="109" width="28" height="5" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <rect x="-17" y="114" width="34" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
       <circle cx="0" cy="50" r="9" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="0.8"/>
       <text x="0" y="54" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">R</text>
-      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#1B4234">Relaciones</text>
-      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="#5F655F">positivas</text>
+      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="var(--pine)">Relaciones</text>
+      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="var(--text-dim)">sanas</text>
     </g>
 
     <!-- M -->
     <g transform="translate(284, 34)">
-      <rect x="-16" y="0" width="32" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="#C9BFAB"/>
+      <rect x="-16" y="0" width="32" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="var(--border)"/>
       <rect x="-10" y="11" width="20" height="98" fill="url(#gk-shaft-pine)" stroke="#11291F" stroke-width="0.7"/>
-      <rect x="-14" y="109" width="28" height="5" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <rect x="-17" y="114" width="34" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
+      <rect x="-14" y="109" width="28" height="5" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <rect x="-17" y="114" width="34" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
       <circle cx="0" cy="50" r="9" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="0.8"/>
       <text x="0" y="54" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">M</text>
-      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#1B4234">Propósito</text>
-      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="#5F655F">significado</text>
+      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="var(--pine)">Propósito</text>
+      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="var(--text-dim)">significado</text>
     </g>
 
     <!-- A -->
     <g transform="translate(372, 34)">
-      <rect x="-16" y="0" width="32" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="#C9BFAB"/>
+      <rect x="-16" y="0" width="32" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <path d="M-14 6 L14 6 L10 11 L-10 11 Z" fill="var(--border)"/>
       <rect x="-10" y="11" width="20" height="98" fill="url(#gk-shaft-pine)" stroke="#11291F" stroke-width="0.7"/>
-      <rect x="-14" y="109" width="28" height="5" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-      <rect x="-17" y="114" width="34" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
+      <rect x="-14" y="109" width="28" height="5" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+      <rect x="-17" y="114" width="34" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
       <circle cx="0" cy="50" r="9" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="0.8"/>
       <text x="0" y="54" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">A</text>
-      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="#1B4234">Logro</text>
-      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="#5F655F">metas cumplidas</text>
+      <text x="0" y="134" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="700" fill="var(--pine)">Logro</text>
+      <text x="0" y="146" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="11" font-style="italic" fill="var(--text-dim)">metas cumplidas</text>
     </g>
 
     <!-- Bottom Delphic Note Ribbon -->
-    <rect x="0" y="184" width="430" height="20" rx="2" fill="url(#gk-gold-card)" stroke="#DFC07A" stroke-width="0.8"/>
-    <text x="215" y="198" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" font-weight="600" fill="#7A2D15">EL ACRÓNIMO PERMA VIENE DEL INGLÉS · LOS 5 ELEMENTOS SE ESTUDIAN EN ESPAÑOL</text>
+    <rect x="0" y="184" width="430" height="20" rx="2" fill="url(#gk-gold-card)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="215" y="198" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.8" font-weight="600" fill="var(--clay-deep)">EL ACRÓNIMO PERMA VIENE DEL INGLÉS · LOS 5 ELEMENTOS SE ESTUDIAN EN ESPAÑOL</text>
   </g>
 
   <!-- Bottom Architrave Inscription -->
-  <line x1="20" y1="248" x2="900" y2="248" stroke="#D8CEBA" stroke-width="1"/>
-  <text x="24" y="263" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#5F655F">ESEN · PILARES DEL BIENESTAR · MARCOS PREVIOS FUNDACIONALES</text>
-  <text x="896" y="263" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="#A84E32">LÁMINA I · MMXXVI</text>
+  <line x1="20" y1="248" x2="900" y2="248" stroke="var(--border)" stroke-width="1"/>
+  <text x="24" y="263" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="var(--text-faint)">ESEN · PILARES DEL BIENESTAR · MARCOS PREVIOS FUNDACIONALES</text>
+  <text x="896" y="263" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="var(--clay)">LÁMINA I · MMXXVI</text>
 </svg></div><figcaption>Lámina 1 — Marcos previos: BT I (renovación) y BT II (PERMA) · PDF Unidad I, p. 4</figcaption></figure>
     <p>La diapositiva deja abierta una pregunta que la profesora plantea a la clase:
     <em>¿cómo se relacionan la victoria privada y la pública con el bienestar?</em></p>
@@ -519,48 +942,48 @@
     <p class="sub">Los cinco niveles, con la definición textual del PDF</p>
     <figure class="diag"><div class="scroller"><svg style="min-width:680px; width:100%;" viewBox="0 0 920 370" role="img" aria-label="Lámina 2 — Pirámide de necesidades de Maslow con cinco niveles y rótulos de clase">
 <defs>
-  <!-- Stone and Marble Gradients -->
+  <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
   <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#FCFAF7"/>
-    <stop offset="50%" stop-color="#F5F0E6"/>
-    <stop offset="100%" stop-color="#EAE1D0"/>
+    <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
+    <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
+    <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
   <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="15%" stop-color="#FBF8F2"/>
-    <stop offset="85%" stop-color="#EFE8DA"/>
-    <stop offset="100%" stop-color="#E2D8C6"/>
+    <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
+    <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
+    <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
+    <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
   <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#EDE7DA"/>
-    <stop offset="45%" stop-color="#DCD2C0"/>
-    <stop offset="100%" stop-color="#C2B59F"/>
+    <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
+    <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
+    <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
   <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#D96E4C"/>
-    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="0%" stop-color="#E07A5F"/>
+    <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
   <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FAF1ED"/>
-    <stop offset="100%" stop-color="#EED8CF"/>
+    <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
+    <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
   <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
-    <stop offset="100%" stop-color="#0F281E"/>
+    <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
   <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
   <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#F0F6F3"/>
-    <stop offset="100%" stop-color="#D6E6DE"/>
+    <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
+    <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
@@ -571,17 +994,17 @@
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
   <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFDF7"/>
-    <stop offset="100%" stop-color="#F7EED8"/>
+    <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
+    <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
-  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <!-- Fluted Column Cylinder Lighting -->
   <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#C2B7A2"/>
-    <stop offset="15%" stop-color="#EAE3D4"/>
-    <stop offset="40%" stop-color="#FAF7F2"/>
-    <stop offset="70%" stop-color="#DDD3BF"/>
-    <stop offset="100%" stop-color="#AEA18A"/>
+    <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
+    <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
+    <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
+    <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
+    <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
   <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
@@ -600,95 +1023,96 @@
 
   <!-- Drop Shadow Filters -->
   <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
-    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
   <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
   <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
   <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
   <!-- Outer Container -->
-  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-  <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
   <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
 
   <!-- Left: Monumental Stepped Pyramid (Ziggurat) -->
   <g transform="translate(40, 32)">
-    <!-- Header title -->
-    <text x="180" y="16" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">PIRÁMIDE DE NECESIDADES · ABRAHAM MASLOW</text>
+    <text x="180" y="16" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">PIRÁMIDE DE NECESIDADES · ABRAHAM MASLOW</text>
 
     <!-- Tier 1: Autorrealización (Apex) -->
-    <polygon points="180,36 240,86 120,86" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="180" y="74" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="800" fill="#1B1713">AUTORREALIZACIÓN</text>
+    <polygon points="180,36 235,86 125,86" fill="url(#gk-gold)" stroke="#644D1E" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="180" y="74" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="800" fill="#1B1713">AUTORREALIZACIÓN</text>
 
     <!-- Tier 2: Estima -->
-    <polygon points="118,90 242,90 274,142 86,142" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="180" y="122" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="#24201A">ESTIMA</text>
+    <polygon points="123,90 237,90 270,142 90,142" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="180" y="122" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="var(--text)">ESTIMA</text>
 
     <!-- Tier 3: Afiliación y amor -->
-    <polygon points="84,146 276,146 308,198 52,198" fill="url(#gk-moss)" stroke="#1B4234" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <polygon points="88,146 272,146 304,198 56,198" fill="url(#gk-moss)" stroke="#1B4234" stroke-width="1" filter="url(#gk-shadow-sm)"/>
     <text x="180" y="178" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="#FAF8F5">AFILIACIÓN Y AMOR</text>
 
     <!-- Tier 4: Seguridad -->
-    <polygon points="50,202 310,202 342,254 18,254" fill="url(#gk-clay)" stroke="#7A2D15" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <polygon points="54,202 306,202 338,254 22,254" fill="url(#gk-clay)" stroke="#7A2D15" stroke-width="1" filter="url(#gk-shadow-sm)"/>
     <text x="180" y="234" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="#FAF8F5">SEGURIDAD</text>
 
     <!-- Tier 5: Fisiológicas (Base) -->
-    <polygon points="16,258 344,258 376,310 -16,310" fill="url(#gk-pine)" stroke="#0F281E" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <text x="180" y="288" text-anchor="middle" font-family="'Cinzel',serif" font-size="13" font-weight="800" fill="#FFEAA7">FISIOLÓGICAS</text>
-    <text x="180" y="302" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="12" font-style="italic" fill="#FAF8F5">base de supervivencia · dormir</text>
+    <polygon points="20,258 340,258 370,310 -10,310" fill="url(#gk-pine)" stroke="#0F281E" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="180" y="287" text-anchor="middle" font-family="'Cinzel',serif" font-size="12.5" font-weight="800" fill="#FFEAA7">FISIOLÓGICAS</text>
+    <text x="180" y="301" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="12" font-style="italic" fill="#FAF8F5">base de supervivencia · dormir</text>
   </g>
 
   <!-- Right: Monumental Inscription Tablets with Callout Lines -->
+  <!-- Direct connecting guide lines from pyramid tier right edges to tablets -->
+  <line x1="280" y1="94" x2="436" y2="94" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="315" y1="152" x2="436" y2="152" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="349" y1="210" x2="436" y2="210" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="383" y1="268" x2="436" y2="268" stroke="var(--border)" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="415" y1="326" x2="436" y2="326" stroke="var(--clay)" stroke-width="1.6"/>
+
   <g transform="translate(436, 48)">
     <!-- 1: Autorrealización -->
-    <line x1="-30" y1="46" x2="0" y2="46" stroke="#C4B79F" stroke-width="1.2" stroke-dasharray="3 3"/>
-    <rect x="0" y="24" width="440" height="42" rx="3" fill="url(#gk-card-stone)" stroke="#DFC07A" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="24" width="6" height="42" rx="1" fill="url(#gk-gold)"/>
-    <text x="16" y="42" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#644D1E">AUTORREALIZACIÓN · CÚSPIDE</text>
-    <text x="16" y="57" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="#3D4244">Máximo potencial personal · creatividad, espontaneidad, juicio ético.</text>
+    <rect x="0" y="24" width="440" height="44" rx="3" fill="url(#gk-card-stone)" stroke="var(--gold)" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="24" width="6" height="44" rx="1" fill="url(#gk-gold)"/>
+    <text x="16" y="42" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--gold-deep)">AUTORREALIZACIÓN · CÚSPIDE</text>
+    <text x="16" y="58" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="var(--text-dim)">Máximo potencial personal · creatividad, juicio ético y espontaneidad.</text>
 
     <!-- 2: Estima -->
-    <line x1="-70" y1="104" x2="0" y2="104" stroke="#C4B79F" stroke-width="1.2" stroke-dasharray="3 3"/>
-    <rect x="0" y="82" width="440" height="42" rx="3" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="82" width="6" height="42" rx="1" fill="#A89C86"/>
-    <text x="16" y="100" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#24201A">ESTIMA Y RECONOCIMIENTO</text>
-    <text x="16" y="115" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="#3D4244">Sentirse valorado por uno mismo y los demás · confianza, logro, respeto.</text>
+    <rect x="0" y="82" width="440" height="44" rx="3" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="82" width="6" height="44" rx="1" fill="var(--text-faint)"/>
+    <text x="16" y="100" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--text)">ESTIMA Y RECONOCIMIENTO</text>
+    <text x="16" y="116" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="var(--text-dim)">Sentirse valorado por uno mismo y otros · confianza, logro y respeto.</text>
 
     <!-- 3: Afiliación y amor -->
-    <line x1="-100" y1="162" x2="0" y2="162" stroke="#C4B79F" stroke-width="1.2" stroke-dasharray="3 3"/>
-    <rect x="0" y="140" width="440" height="42" rx="3" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="140" width="6" height="42" rx="1" fill="url(#gk-moss)"/>
-    <text x="16" y="158" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">AFILIACIÓN Y CONEXIÓN SOCIAL</text>
-    <text x="16" y="173" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="#3D4244">Conectado con otros · amistad, amor, intimidad y pertenencia comunitaria.</text>
+    <rect x="0" y="140" width="440" height="44" rx="3" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="140" width="6" height="44" rx="1" fill="url(#gk-moss)"/>
+    <text x="16" y="158" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">AFILIACIÓN Y CONEXIÓN SOCIAL</text>
+    <text x="16" y="174" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="var(--text-dim)">Conexión con otros seres · amistad, amor, intimidad y pertenencia.</text>
 
     <!-- 4: Seguridad -->
-    <line x1="-130" y1="220" x2="0" y2="220" stroke="#C4B79F" stroke-width="1.2" stroke-dasharray="3 3"/>
-    <rect x="0" y="198" width="440" height="42" rx="3" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="198" width="6" height="42" rx="1" fill="url(#gk-clay)"/>
-    <text x="16" y="216" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#7A2D15">SEGURIDAD Y PROTECCIÓN</text>
-    <text x="16" y="231" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="#3D4244">Física, financiera, de la salud y personal · certidumbre y estabilidad.</text>
+    <rect x="0" y="198" width="440" height="44" rx="3" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="198" width="6" height="44" rx="1" fill="url(#gk-clay)"/>
+    <text x="16" y="216" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--clay-deep)">SEGURIDAD Y PROTECCIÓN</text>
+    <text x="16" y="232" font-family="'Cormorant Garamond',Georgia,serif" font-size="12.5" fill="var(--text-dim)">Física, financiera, de salud y personal · estabilidad frente a amenazas.</text>
 
     <!-- 5: Fisiológicas (PUENTE UNIDAD II) -->
-    <line x1="-160" y1="278" x2="0" y2="278" stroke="#AB4F33" stroke-width="1.6"/>
-    <rect x="0" y="256" width="440" height="46" rx="3" fill="url(#gk-clay-light)" stroke="#AB4F33" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="256" width="6" height="46" rx="1" fill="url(#gk-pine)"/>
-    <text x="16" y="273" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="#1B4234">NECESIDADES FISIOLÓGICAS · FUNDAMENTO VITAL</text>
-    <text x="16" y="287" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="600" fill="#7A2D15">respirar · comer · beber · DORMIR · temperatura y homeostasis</text>
-    <text x="16" y="297" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#1B4234">↑ PUENTE DIRECTO CON LA UNIDAD II (SUEÑO Y NUTRICIÓN)</text>
+    <rect x="0" y="256" width="440" height="52" rx="3" fill="url(#gk-clay-light)" stroke="var(--clay)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="256" width="6" height="52" rx="1" fill="url(#gk-pine)"/>
+    <text x="16" y="272" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="var(--pine)">NECESIDADES FISIOLÓGICAS · FUNDAMENTO VITAL</text>
+    <text x="16" y="287" font-family="'IBM Plex Mono',monospace" font-size="9.5" font-weight="600" fill="var(--clay-deep)">respirar · comer · beber · DORMIR · homeostasis</text>
+    <text x="16" y="301" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--pine)">↑ PUENTE DIRECTO CON LA UNIDAD II (SUEÑO Y NUTRICIÓN)</text>
   </g>
 
   <!-- Bottom Footer -->
-  <line x1="20" y1="344" x2="900" y2="344" stroke="#D8CEBA" stroke-width="1"/>
-  <text x="24" y="358" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#5F655F">PDF UNIDAD I, P. 6 · RÓTULOS Y DEFINICIONES TEXTUALES DE CÁTEDRA</text>
-  <text x="896" y="358" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="#A84E32">LÁMINA II · MMXXVI</text>
+  <line x1="20" y1="344" x2="900" y2="344" stroke="var(--border)" stroke-width="1"/>
+  <text x="24" y="358" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="var(--text-faint)">PDF UNIDAD I, P. 6 · RÓTULOS Y DEFINICIONES TEXTUALES DE CÁTEDRA</text>
+  <text x="896" y="358" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="var(--clay)">LÁMINA II · MMXXVI</text>
 </svg></div><figcaption>Lámina 2 — Pirámide de Maslow · rótulos textuales del PDF de la Unidad I, p. 6</figcaption></figure>
     <ul class="clean">
       <li><b>Autorrealización:</b> alcanzar el máximo potencial personal — creatividad,
@@ -744,48 +1168,48 @@
     <p class="sub">Marco general del curso</p>
     <figure class="diag"><div class="scroller"><svg style="min-width:720px; width:100%;" viewBox="0 0 920 280" role="img" aria-label="Lámina 3 — Fachada de ocho columnas del bienestar (Unidades II y III destacadas)">
 <defs>
-  <!-- Stone and Marble Gradients -->
+  <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
   <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#FCFAF7"/>
-    <stop offset="50%" stop-color="#F5F0E6"/>
-    <stop offset="100%" stop-color="#EAE1D0"/>
+    <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
+    <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
+    <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
   <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFFFF"/>
-    <stop offset="15%" stop-color="#FBF8F2"/>
-    <stop offset="85%" stop-color="#EFE8DA"/>
-    <stop offset="100%" stop-color="#E2D8C6"/>
+    <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
+    <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
+    <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
+    <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
   <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#EDE7DA"/>
-    <stop offset="45%" stop-color="#DCD2C0"/>
-    <stop offset="100%" stop-color="#C2B59F"/>
+    <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
+    <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
+    <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
   <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#D96E4C"/>
-    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="0%" stop-color="#E07A5F"/>
+    <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
   <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FAF1ED"/>
-    <stop offset="100%" stop-color="#EED8CF"/>
+    <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
+    <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
   <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
-    <stop offset="100%" stop-color="#0F281E"/>
+    <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
   <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
   <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#F0F6F3"/>
-    <stop offset="100%" stop-color="#D6E6DE"/>
+    <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
+    <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
@@ -796,17 +1220,17 @@
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
   <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
-    <stop offset="0%" stop-color="#FFFDF7"/>
-    <stop offset="100%" stop-color="#F7EED8"/>
+    <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
+    <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
-  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <!-- Fluted Column Cylinder Lighting -->
   <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#C2B7A2"/>
-    <stop offset="15%" stop-color="#EAE3D4"/>
-    <stop offset="40%" stop-color="#FAF7F2"/>
-    <stop offset="70%" stop-color="#DDD3BF"/>
-    <stop offset="100%" stop-color="#AEA18A"/>
+    <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
+    <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
+    <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
+    <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
+    <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
   <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
@@ -825,34 +1249,30 @@
 
   <!-- Drop Shadow Filters -->
   <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
-    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
   <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
-    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
   <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
   <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
-    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
-  <rect x="2" y="2" width="916" height="276" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
-  <rect x="6" y="6" width="908" height="268" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
-
-  <!-- Top Greek Frieze -->
+  <rect x="2" y="2" width="916" height="276" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="268" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
   <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
 
   <!-- Entablature (Architrave + Cornice) -->
   <g transform="translate(20, 26)">
-    <!-- Pediment Cornice -->
-    <rect x="0" y="0" width="880" height="14" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
-    <!-- Triglyph & Metope Band -->
-    <rect x="0" y="14" width="880" height="16" fill="url(#gk-card-stone)" stroke="#C4B79F" stroke-width="0.8"/>
-    <text x="440" y="26" text-anchor="middle" font-family="'Cinzel',serif" font-size="9.5" font-weight="700" fill="#7A2D15" letter-spacing="0.16em">COLONNADE OF HUMAN FLOURISHING · OCTASTYLE ELEVATION</text>
-    <line x1="0" y1="30" x2="880" y2="30" stroke="#887F6F" stroke-width="1"/>
+    <rect x="0" y="0" width="880" height="14" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="0" y="14" width="880" height="16" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+    <text x="440" y="26" text-anchor="middle" font-family="'Cinzel',serif" font-size="9.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.16em">COLONNADE OF HUMAN FLOURISHING · OCTASTYLE ELEVATION</text>
+    <line x1="0" y1="30" x2="880" y2="30" stroke="var(--border)" stroke-width="1"/>
   </g>
 
   <!-- 8 Doric Columns -->
@@ -860,21 +1280,16 @@
   <g transform="translate(68, 56)">
     <rect x="-24" y="-18" width="48" height="14" rx="2" fill="url(#gk-clay)" stroke="#7A2D15" stroke-width="0.8"/>
     <text x="0" y="-8" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="7.5" font-weight="700" fill="#FFFDF7">UNIDAD II</text>
-    <!-- Capital -->
     <rect x="-20" y="0" width="40" height="6" fill="#D4AF37" stroke="#644D1E" stroke-width="0.8"/>
     <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#9E7B35"/>
-    <!-- Shaft with Pine Green + Fluting -->
     <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-pine)" stroke="#0E231B" stroke-width="0.8" filter="url(#gk-shadow-sm)"/>
-    <!-- Flute lines -->
     <line x1="-7" y1="12" x2="-7" y2="142" stroke="#357D61" stroke-width="0.8"/>
     <line x1="0" y1="12" x2="0" y2="142" stroke="#357D61" stroke-width="0.8"/>
     <line x1="7" y1="12" x2="7" y2="142" stroke="#357D61" stroke-width="0.8"/>
-    <!-- Base -->
     <rect x="-18" y="142" width="36" height="6" fill="#D4AF37" stroke="#644D1E" stroke-width="0.8"/>
     <rect x="-22" y="148" width="44" height="6" fill="#9E7B35" stroke="#644D1E" stroke-width="0.8"/>
-    <!-- Label -->
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">FÍSICA</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#7A2D15">PHYSICAL</text>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="800" fill="var(--pine)">FÍSICA</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--clay)">PHYSICAL</text>
   </g>
 
   <!-- Col 2: Intelectual (Highlighted Unit III) -->
@@ -889,103 +1304,103 @@
     <line x1="7" y1="12" x2="7" y2="142" stroke="#357D61" stroke-width="0.8"/>
     <rect x="-18" y="142" width="36" height="6" fill="#D4AF37" stroke="#644D1E" stroke-width="0.8"/>
     <rect x="-22" y="148" width="44" height="6" fill="#9E7B35" stroke="#644D1E" stroke-width="0.8"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">INTELECTUAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#7A2D15">INTELLECTUAL</text>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="800" fill="var(--pine)">INTELECTUAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--clay)">INTELLECTUAL</text>
   </g>
 
   <!-- Col 3: Emocional -->
   <g transform="translate(284, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">EMOCIONAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">EMOTIONAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="600" fill="var(--text-dim)">EMOCIONAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">EMOTIONAL</text>
   </g>
 
   <!-- Col 4: Social -->
   <g transform="translate(392, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">SOCIAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">SOCIAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="600" fill="var(--text-dim)">SOCIAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">SOCIAL</text>
   </g>
 
   <!-- Col 5: Financiera -->
   <g transform="translate(500, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">FINANCIERA</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">FINANCIAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="600" fill="var(--text-dim)">FINANCIERA</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">FINANCIAL</text>
   </g>
 
   <!-- Col 6: Ocupacional -->
   <g transform="translate(608, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">OCUPACIONAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">OCCUPATIONAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10" font-weight="600" fill="var(--text-dim)">OCUPACIONAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">OCCUPATIONAL</text>
   </g>
 
   <!-- Col 7: Espiritual -->
   <g transform="translate(716, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">ESPIRITUAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">SPIRITUAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="600" fill="var(--text-dim)">ESPIRITUAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">SPIRITUAL</text>
   </g>
 
   <!-- Col 8: Ambiental -->
   <g transform="translate(824, 56)">
-    <rect x="-20" y="0" width="40" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="#C9BFAB"/>
-    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="#A89C86" stroke-width="0.7"/>
-    <line x1="-7" y1="12" x2="-7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="0" y1="12" x2="0" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <line x1="7" y1="12" x2="7" y2="142" stroke="#FAF7F2" stroke-width="0.8"/>
-    <rect x="-18" y="142" width="36" height="6" fill="#DDD4C2" stroke="#A89C86" stroke-width="0.6"/>
-    <rect x="-22" y="148" width="44" height="6" fill="#C9BFAB" stroke="#A89C86" stroke-width="0.6"/>
-    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="600" fill="#43494A">AMBIENTAL</text>
-    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="#5F655F">ENVIRONMENTAL</text>
+    <rect x="-20" y="0" width="40" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <path d="M-18 6 L18 6 L14 12 L-14 12 Z" fill="var(--border)"/>
+    <rect x="-14" y="12" width="28" height="130" fill="url(#gk-shaft-light)" stroke="var(--border)" stroke-width="0.7"/>
+    <line x1="-7" y1="12" x2="-7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="0" y1="12" x2="0" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <line x1="7" y1="12" x2="7" y2="142" stroke="var(--border-soft)" stroke-width="0.8"/>
+    <rect x="-18" y="142" width="36" height="6" fill="var(--border-soft)" stroke="var(--border)" stroke-width="0.6"/>
+    <rect x="-22" y="148" width="44" height="6" fill="var(--border)" stroke="var(--border)" stroke-width="0.6"/>
+    <text x="0" y="168" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="600" fill="var(--text-dim)">AMBIENTAL</text>
+    <text x="0" y="180" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" fill="var(--text-faint)">ENVIRONMENTAL</text>
   </g>
 
   <!-- Stepped Crepidoma (Base) -->
   <g transform="translate(20, 210)">
-    <rect x="0" y="0" width="880" height="10" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
-    <rect x="-8" y="10" width="896" height="14" fill="url(#gk-card-stone)" stroke="#A89C86" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="0" width="880" height="10" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="-8" y="10" width="896" height="14" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
   </g>
 
   <!-- Bottom Architrave Inscription -->
-  <rect x="20" y="240" width="880" height="24" rx="2" fill="url(#gk-gold-card)" stroke="#DFC07A" stroke-width="0.8"/>
-  <text x="440" y="255" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">EN EL PDF APARECEN SOLO CON SUS NOMBRES, EN INGLÉS — NO HAY DEFINICIÓN POR DIMENSIÓN</text>
+  <rect x="20" y="240" width="880" height="24" rx="2" fill="url(#gk-gold-card)" stroke="var(--border)" stroke-width="0.8"/>
+  <text x="440" y="255" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">EN EL PDF APARECEN SOLO CON SUS NOMBRES, EN INGLÉS — NO HAY DEFINICIÓN POR DIMENSIÓN</text>
 </svg></div><figcaption>Lámina 3 — Las 8 dimensiones · en verde, las dos que corresponden a las Unidades II y III</figcaption></figure>
     <div class="note gap"><span class="tag">Vacío del material</span>
       <p>En el PDF, las ocho dimensiones aparecen <b>solo como una infografía en inglés con sus
@@ -1059,6 +1474,35 @@ var QUIZ = {"u1": [{"q": "¿Cuál de estos NO es uno de los cinco elementos del 
   });
 })();
 
+</script>
+<script>
+  // Classical Greek Theme Toggle (Nix / Helios)
+  function initGreekTheme() {
+    function updateThemeUI(isDark) {
+      var icon = document.getElementById('theme-icon');
+      var text = document.getElementById('theme-text');
+      if(icon) icon.textContent = isDark ? '☀️' : '🌙';
+      if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
+    }
+    window.toggleTheme = function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('pb_theme', next);
+      updateThemeUI(next === 'dark');
+    };
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    updateThemeUI(isDark);
+    var btn = document.getElementById('theme-toggle');
+    if(btn) {
+      btn.onclick = window.toggleTheme;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGreekTheme);
+  } else {
+    initGreekTheme();
+  }
 </script>
 </body>
 </html>
