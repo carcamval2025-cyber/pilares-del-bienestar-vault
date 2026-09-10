@@ -12,6 +12,7 @@
     --text:#15181A; --text-dim:#43494A; --text-faint:#5F655F;
     --pine:#1F4B3F; --moss:#2E7A5C; --clay:#A54A2A; --sage:#6E8B78;
     --success:#1F4B3F; --danger:#B23347;
+    --gold:#C98A3C; --gold-light:#F4D9A6;
     --ease: cubic-bezier(.22,1,.36,1);
   }
   *{box-sizing:border-box;}
@@ -58,55 +59,109 @@
   h1 em{ color:var(--pine); font-style:italic; }
   .hero p.lede{ font-size:1.08rem; color:var(--text-dim); max-width:52ch; margin:0 0 34px; }
 
-  .stat-line{ display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:56px; }
+  .stat-line{ display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
   .stat{ flex:1 1 140px; padding:14px 20px 14px 0; border-right:1px solid var(--border); }
   .stat:last-child{ border-right:none; }
   .stat .n{ font-family:'Instrument Serif',serif; font-size:1.9rem; color:var(--pine); line-height:1; }
   .stat .l{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; margin-top:6px; }
 
-  /* ---------- Temple diagram ---------- */
-  .temple-wrap{ position:relative; margin:0 0 8px; }
-  .temple-scroll{ overflow-x:auto; overflow-y:visible; padding-bottom:2px; }
-  .temple-caption{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); text-align:center; margin:10px 0 30px; }
-  svg#temple{ width:100%; min-width:760px; height:auto; display:block; overflow:visible; }
-  .col-group{ cursor:pointer; }
-  .col-group .shaft, .col-group .cap, .col-group .base{ transition: stroke .25s var(--ease), fill .25s var(--ease); }
-  .col-group .shaft{ stroke:var(--text-dim); fill:none; stroke-width:1.6; vector-effect:non-scaling-stroke; }
-  .col-group .flute{ stroke:var(--border); stroke-width:1.2; transition:stroke .25s var(--ease); vector-effect:non-scaling-stroke; }
-  .col-group .cap, .col-group .base{ stroke:var(--text-dim); fill:var(--bg); stroke-width:1.6; vector-effect:non-scaling-stroke; }
-  .col-group .numeral{ fill:var(--text-faint); font-family:'IBM Plex Mono',monospace; font-size:13px; transition:fill .25s var(--ease); }
-  .col-group:hover .shaft, .col-group:hover .cap, .col-group:hover .base, .col-group.active .shaft, .col-group.active .cap, .col-group.active .base{ stroke:var(--pine); }
-  .col-group:hover .flute, .col-group.active .flute{ stroke:var(--clay); }
-  .col-group:hover .numeral, .col-group.active .numeral{ fill:var(--pine); }
-  .col-group:focus{ outline:none; }
-  .col-group:focus .shaft, .col-group:focus .cap, .col-group:focus .base{ stroke:var(--moss); }
-  .pediment{ fill:none; stroke:var(--border); stroke-width:1.4; vector-effect:non-scaling-stroke; }
-  .baseline{ stroke:var(--border); stroke-width:1.4; vector-effect:non-scaling-stroke; }
-  .col-group.reveal{ opacity:0; transform:translateY(14px); }
+  /* ---------- Temple diagram (Realistic Classical Facade) ---------- */
+  .temple-wrap{ position:relative; margin:0 0 12px; }
+  .temple-scroll{
+    overflow-x:auto; overflow-y:visible; padding-bottom:8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .temple-scroll::-webkit-scrollbar{ height: 6px; }
+  .temple-scroll::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 3px; }
+  .temple-caption{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); text-align:center; margin:14px 0 32px; }
+  
+  svg#temple{
+    width:100%; min-width:820px; height:auto; display:block; overflow:visible;
+    filter: drop-shadow(0 12px 24px rgba(21, 24, 26, 0.05));
+  }
+
+  /* Pillar interactivity & realistic lighting */
+  .col-group{
+    cursor:pointer; outline:none;
+    transform-origin: center bottom;
+    transition: transform .32s var(--ease);
+  }
+  .col-group .column-body{
+    transition: transform .32s var(--ease), filter .32s var(--ease);
+  }
+  .col-group .num-plaque{
+    transition: fill .25s var(--ease), stroke .25s var(--ease), filter .25s var(--ease);
+  }
+  .col-group .col-numeral{
+    font-family:'Instrument Serif', serif; font-size: 13.5px; font-weight: 600;
+    fill: var(--text-dim);
+    transition: fill .25s var(--ease);
+    pointer-events: none;
+  }
+  .col-group .shaft-glow{
+    transition: opacity .32s var(--ease);
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+  }
+  .col-group .col-base-shadow{
+    transition: opacity .32s var(--ease), transform .32s var(--ease);
+    transform-origin: center center;
+  }
+
+  /* Hover and active states */
+  .col-group:hover, .col-group:focus, .col-group.active{
+    outline: none;
+  }
+  .col-group:hover .column-body, .col-group:focus .column-body, .col-group.active .column-body{
+    transform: translateY(-5px);
+    filter: drop-shadow(0 8px 16px rgba(31, 75, 63, 0.22));
+  }
+  .col-group:hover .shaft-glow, .col-group:focus .shaft-glow, .col-group.active .shaft-glow{
+    opacity: 0.92;
+  }
+  .col-group:hover .col-base-shadow, .col-group:focus .col-base-shadow, .col-group.active .col-base-shadow{
+    opacity: 0.95;
+    transform: scaleX(1.18);
+  }
+  .col-group:hover .num-plaque, .col-group:focus .num-plaque, .col-group.active .num-plaque{
+    fill: var(--pine);
+    stroke: var(--gold);
+    stroke-width: 1.2;
+    filter: drop-shadow(0 2px 5px rgba(31,75,63,0.35));
+  }
+  .col-group:hover .col-numeral, .col-group:focus .col-numeral, .col-group.active .col-numeral{
+    fill: #F5F5F3;
+  }
+
+  /* Sequential entrance reveal */
+  .col-group.reveal{ opacity:0; transform:translateY(18px); }
   .col-group.shown{ opacity:1; transform:translateY(0); transition:opacity .55s var(--ease), transform .55s var(--ease); }
 
   /* ---------- Spec panel ---------- */
   .spec{
     border:1px solid var(--border); background:var(--bg-elev); margin:0 0 90px;
     display:grid; grid-template-columns:120px 1fr auto; gap:0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
   }
   @media (max-width:640px){ .spec{ grid-template-columns:1fr; } }
   .spec .num{
     display:flex; align-items:center; justify-content:center; font-family:'Instrument Serif',serif;
-    font-size:2.6rem; color:var(--pine); border-right:1px solid var(--border); padding:22px 10px;
+    font-size:2.8rem; color:var(--pine); border-right:1px solid var(--border); padding:22px 10px;
+    background: #E6E6E1;
   }
   @media (max-width:640px){ .spec .num{ border-right:none; border-bottom:1px solid var(--border); padding:16px; } }
   .spec .body{ padding:22px 24px; min-width:0; }
-  .spec .body h3{ font-family:'Instrument Serif',serif; font-weight:400; font-size:1.4rem; margin:0 0 8px; transition:opacity .2s var(--ease); }
+  .spec .body h3{ font-family:'Instrument Serif',serif; font-weight:400; font-size:1.5rem; margin:0 0 8px; transition:opacity .2s var(--ease); color:var(--text); }
   .spec .body p{ margin:0 0 4px; color:var(--text-dim); font-size:.92rem; }
-  .spec .body .hito{ color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.76rem; margin-top:10px; display:inline-block; }
+  .spec .body .hito{ color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.76rem; margin-top:10px; display:inline-block; font-weight:500; }
   .spec .status{ display:flex; align-items:center; padding:22px 24px; border-left:1px solid var(--border); }
   @media (max-width:640px){ .spec .status{ border-left:none; border-top:1px solid var(--border); padding:14px 24px; } }
   .stamp{
     font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase;
     border:1.5px solid var(--text-faint); color:var(--text-faint); padding:6px 12px; border-radius:2px; white-space:nowrap;
   }
-  .stamp.disponible{ border-color:var(--success); color:var(--success); }
+  .stamp.disponible{ border-color:var(--success); color:var(--success); font-weight:600; }
 
   /* ---------- Module 2: sello ---------- */
   .modulo{ padding:0 0 90px; }
@@ -155,7 +210,7 @@
       <p class="kicker">ESEN · vault de estudio</p>
       <h1>Diez columnas <em>sostienen</em> el bienestar.</h1>
       <p class="lede">Cada unidad del curso de la Ing. Gabriela Carranza es una columna de esta
-      fachada — física, intelectual, vocacional, emocional, relacional, espiritual,
+      fachada clásica — física, intelectual, vocacional, emocional, relacional, espiritual,
       financiera, ambiental, y el balance que las corona. Pasa el cursor sobre una para
       leer su contenido, sus fechas y lo que se evalúa.</p>
     </div>
@@ -169,27 +224,348 @@
 
     <div class="temple-wrap">
      <div class="temple-scroll">
-      <svg id="temple" viewBox="0 0 1180 360" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada de diez columnas, una por unidad del curso">
+      <svg id="temple" viewBox="0 0 1180 396" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada clásica de diez columnas monumentales, una por unidad del curso">
         <defs>
-          <g id="capital">
-            <rect x="-24" y="-14" width="48" height="8" class="cap"/>
-            <path d="M -18 -6 L 18 -6 L 13 8 L -13 8 Z" class="cap"/>
+          <!-- Dentils pattern for horizontal cornice -->
+          <pattern id="dentil-pattern" width="8" height="6" patternUnits="userSpaceOnUse">
+            <rect x="0" y="0" width="8" height="6" fill="#C7C8BE"/>
+            <rect x="1.5" y="0.5" width="4.5" height="5" fill="#EAEBE3" stroke="#8E9087" stroke-width="0.5"/>
+            <line x1="6" y1="0.5" x2="6" y2="5.5" stroke="#686A62" stroke-width="0.8"/>
+          </pattern>
+
+          <!-- Shadow beneath the architrave onto capitals -->
+          <linearGradient id="architrave-cast-shadow" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1E2320" stop-opacity="0.48"/>
+            <stop offset="60%" stop-color="#1E2320" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#1E2320" stop-opacity="0"/>
+          </linearGradient>
+
+          <!-- Pediment tympanum deep recessed stone -->
+          <linearGradient id="tympanum-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#B8BAAF"/>
+            <stop offset="25%" stop-color="#C9CAC0"/>
+            <stop offset="70%" stop-color="#DCDDD4"/>
+            <stop offset="100%" stop-color="#ECECE4"/>
+          </linearGradient>
+
+          <!-- Raking cornice (cornisa inclinada) -->
+          <linearGradient id="raking-cornice-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="35%" stop-color="#E7E8E0"/>
+            <stop offset="85%" stop-color="#C5C6BC"/>
+            <stop offset="100%" stop-color="#9A9C92"/>
+          </linearGradient>
+
+          <!-- Corona overhang -->
+          <linearGradient id="corona-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="30%" stop-color="#EDEEE6"/>
+            <stop offset="75%" stop-color="#D2D3CA"/>
+            <stop offset="100%" stop-color="#A5A79E"/>
+          </linearGradient>
+
+          <!-- Frieze stone background -->
+          <linearGradient id="frieze-stone-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#DCDDD5"/>
+            <stop offset="50%" stop-color="#D2D3CA"/>
+            <stop offset="100%" stop-color="#C5C6BC"/>
+          </linearGradient>
+
+          <!-- Architrave stone beam -->
+          <linearGradient id="architrave-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#EBECE4"/>
+            <stop offset="35%" stop-color="#DFE0D7"/>
+            <stop offset="75%" stop-color="#CED0C6"/>
+            <stop offset="100%" stop-color="#B8BAB0"/>
+          </linearGradient>
+
+          <!-- Crepidoma step treads (top surface in sunlight) -->
+          <linearGradient id="step-tread-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="40%" stop-color="#EFF0E8"/>
+            <stop offset="100%" stop-color="#DFE0D7"/>
+          </linearGradient>
+
+          <!-- Crepidoma step risers (vertical front face in shadow) -->
+          <linearGradient id="step-riser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#C9CAC0"/>
+            <stop offset="50%" stop-color="#B7B9AF"/>
+            <stop offset="100%" stop-color="#A2A49A"/>
+          </linearGradient>
+
+          <!-- Triglyph stone block background -->
+          <linearGradient id="triglyph-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#E6E7DF"/>
+            <stop offset="50%" stop-color="#D6D7CE"/>
+            <stop offset="100%" stop-color="#C1C3B9"/>
+          </linearGradient>
+
+          <!-- Roman Numeral Plaque in frieze -->
+          <linearGradient id="num-plaque-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="40%" stop-color="#F2F3EC"/>
+            <stop offset="100%" stop-color="#D5D6CC"/>
+          </linearGradient>
+
+          <!-- 3D Cylindrical Stone Gradient for Column Shaft -->
+          <linearGradient id="shaft-stone-3d" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#9C9E96"/>
+            <stop offset="5%" stop-color="#B2B4AB"/>
+            <stop offset="18%" stop-color="#E8EAE1"/>
+            <stop offset="34%" stop-color="#F7F8F3"/>
+            <stop offset="56%" stop-color="#DFE0D7"/>
+            <stop offset="80%" stop-color="#B6B8AE"/>
+            <stop offset="94%" stop-color="#9A9C93"/>
+            <stop offset="100%" stop-color="#B2B4AB"/>
+          </linearGradient>
+
+          <!-- Flute concave groove shadow & rim highlight -->
+          <linearGradient id="flute-groove" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2D302C" stop-opacity="0.55"/>
+            <stop offset="35%" stop-color="#4B4E48" stop-opacity="0.32"/>
+            <stop offset="70%" stop-color="#FFFFFF" stop-opacity="0.10"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.35"/>
+          </linearGradient>
+
+          <!-- Soft ambient glow when column is hovered/active -->
+          <linearGradient id="shaft-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1F4B3F" stop-opacity="0.25"/>
+            <stop offset="35%" stop-color="#F4D9A6" stop-opacity="0.80"/>
+            <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+            <stop offset="85%" stop-color="#F4D9A6" stop-opacity="0.60"/>
+            <stop offset="100%" stop-color="#A54A2A" stop-opacity="0.30"/>
+          </linearGradient>
+
+          <!-- Capital Abacus stone -->
+          <linearGradient id="abacus-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="25%" stop-color="#EBEDE5"/>
+            <stop offset="80%" stop-color="#C5C6BC"/>
+            <stop offset="100%" stop-color="#93958C"/>
+          </linearGradient>
+
+          <!-- Capital Echinus ovolo cushion volume -->
+          <linearGradient id="echinus-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="25%" stop-color="#ECEEE6"/>
+            <stop offset="65%" stop-color="#D0D2C8"/>
+            <stop offset="100%" stop-color="#9E9F95"/>
+          </linearGradient>
+
+          <!-- Necking stone gradient -->
+          <linearGradient id="shaft-neck-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#A0A299"/>
+            <stop offset="30%" stop-color="#F2F3EB"/>
+            <stop offset="70%" stop-color="#CED0C6"/>
+            <stop offset="100%" stop-color="#9A9C94"/>
+          </linearGradient>
+
+          <!-- Base Torus convex ring -->
+          <linearGradient id="torus-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="20%" stop-color="#F0F1EA"/>
+            <stop offset="65%" stop-color="#CCCDC4"/>
+            <stop offset="100%" stop-color="#8C8E84"/>
+          </linearGradient>
+
+          <!-- Base Scotia concave shadowed groove -->
+          <linearGradient id="scotia-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#555750"/>
+            <stop offset="50%" stop-color="#3B3D37"/>
+            <stop offset="100%" stop-color="#7B7D74"/>
+          </linearGradient>
+
+          <!-- Base Plinth solid stone block -->
+          <linearGradient id="plinth-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="15%" stop-color="#E8EAE2"/>
+            <stop offset="75%" stop-color="#C7C8BF"/>
+            <stop offset="100%" stop-color="#96988E"/>
+          </linearGradient>
+
+          <!-- Contact shadow under plinth on stylobate floor -->
+          <radialGradient id="plinth-drop-shadow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#141816" stop-opacity="0.55"/>
+            <stop offset="45%" stop-color="#141816" stop-opacity="0.30"/>
+            <stop offset="80%" stop-color="#141816" stop-opacity="0.08"/>
+            <stop offset="100%" stop-color="#141816" stop-opacity="0"/>
+          </radialGradient>
+
+          <!-- Rosette medallion gradients -->
+          <radialGradient id="medallion-grad" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="45%" stop-color="#DFE0D7"/>
+            <stop offset="100%" stop-color="#A5A79E"/>
+          </radialGradient>
+          <radialGradient id="medallion-inner-grad" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#F2F3EC"/>
+            <stop offset="70%" stop-color="#C4C6BC"/>
+            <stop offset="100%" stop-color="#8E9087"/>
+          </radialGradient>
+
+          <!-- REUSABLE CLASSICAL CAPITAL (Doric/Ionic monumental profile) -->
+          <!-- Centered at (0, 0) top of abacus -->
+          <g id="classic-capital">
+            <!-- Abacus stone slab with chamfer -->
+            <rect x="-22" y="0" width="44" height="8" rx="0.5" fill="url(#abacus-grad)" stroke="#9A9C93" stroke-width="0.75"/>
+            <line x1="-21" y1="0.75" x2="21" y2="0.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.75"/>
+            <line x1="-21.5" y1="8" x2="21.5" y2="8" stroke="#3F423C" stroke-opacity="0.45" stroke-width="0.8"/>
+            
+            <!-- Echinus convex ovolo cushion -->
+            <path d="M -21 8 C -21 14.5, -16.5 19, -15 19 L 15 19 C 16.5 19, 21 14.5, 21 8 Z" fill="url(#echinus-grad)" stroke="#92948B" stroke-width="0.75"/>
+            <path d="M -18 9 Q 0 8.2 18 9" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.75"/>
+            <path d="M -16 18.5 Q 0 18.2 16 18.5" fill="none" stroke="#50534C" stroke-opacity="0.5" stroke-width="0.6"/>
+
+            <!-- 3 Annulets (anillos finos tallados) -->
+            <rect x="-15.5" y="19" width="31" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
+            <line x1="-15" y1="19.4" x2="15" y2="19.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
+            <rect x="-15.3" y="21" width="30.6" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
+            <line x1="-14.8" y1="21.4" x2="14.8" y2="21.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
+            <rect x="-15.1" y="23" width="30.2" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
+            <line x1="-14.6" y1="23.4" x2="14.6" y2="23.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
+
+            <!-- Hypotrachelion / Necking connecting to shaft -->
+            <rect x="-15" y="25" width="30" height="3" fill="url(#shaft-neck-grad)" stroke="#8C8E85" stroke-width="0.5"/>
+            <line x1="-14.5" y1="28" x2="14.5" y2="28" stroke="#484B44" stroke-opacity="0.4" stroke-width="0.6"/>
           </g>
-          <g id="basecol">
-            <rect x="-16" y="0" width="32" height="7" class="base"/>
-            <rect x="-22" y="7" width="44" height="7" class="base"/>
+
+          <!-- REUSABLE CLASSICAL ATTIC BASE (Basa monumental tallada) -->
+          <!-- Centered at (0, 0) bottom of shaft -->
+          <g id="classic-base">
+            <!-- Apophyge flare -->
+            <path d="M -17 0 C -17 1.8, -18 3, -19 4 L 19 4 C 18 3, 17 1.8, 17 0 Z" fill="url(#shaft-stone-3d)" stroke="#94968D" stroke-width="0.5"/>
+            
+            <!-- Upper Torus -->
+            <path d="M -18.5 4 C -20 4, -20.2 7, -18.5 8 L 18.5 8 C 20.2 7, 20 4, 18.5 4 Z" fill="url(#torus-grad)" stroke="#8E9087" stroke-width="0.6"/>
+            <path d="M -17 4.8 Q 0 4.2 17 4.8" fill="none" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.6"/>
+            
+            <!-- Scotia concave hollow -->
+            <path d="M -17.5 8 C -16.2 9, -16.2 12, -17.5 13 L 17.5 13 C 16.2 12, 16.2 9, 17.5 8 Z" fill="url(#scotia-grad)" stroke="#4A4C45" stroke-width="0.5"/>
+            
+            <!-- Lower Torus (wide convex ring) -->
+            <path d="M -21 13 C -23.2 13, -23.2 18.5, -21 19 L 21 19 C 23.2 18.5, 23.2 13, 21 13 Z" fill="url(#torus-grad)" stroke="#8C8E85" stroke-width="0.75"/>
+            <path d="M -19.5 14.5 Q 0 13.8 19.5 14.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.7"/>
+            <line x1="-20.5" y1="19" x2="20.5" y2="19" stroke="#3D4039" stroke-opacity="0.45" stroke-width="0.75"/>
+
+            <!-- Plinth stone block -->
+            <rect x="-23" y="19" width="46" height="8" rx="0.5" fill="url(#plinth-grad)" stroke="#8E9087" stroke-width="0.75"/>
+            <line x1="-22.5" y1="19.75" x2="22.5" y2="19.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
+            <line x1="-22.5" y1="27" x2="22.5" y2="27" stroke="#3F423C" stroke-opacity="0.5" stroke-width="0.75"/>
+          </g>
+
+          <!-- Contact shadow under plinth -->
+          <g id="classic-base-shadow">
+            <ellipse cx="0" cy="27.5" rx="27" ry="3.5" fill="url(#plinth-drop-shadow)" class="col-base-shadow"/>
           </g>
         </defs>
 
-        <!-- pediment -->
-        <path class="pediment" d="M 40 60 L 590 10 L 1140 60"/>
-        <line class="baseline" x1="20" y1="330" x2="1160" y2="330"/>
-        <line class="baseline" x1="20" y1="338" x2="1160" y2="338"/>
+        <!-- ==================== STATIC TEMPLE ARCHITECTURE ==================== -->
+        
+        <!-- Crepidoma (3 classical stone steps / crepidoma) -->
+        <!-- Step 3: Euthynteria (bottom) -->
+        <rect x="2" y="380" width="1176" height="12" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
+        <line x1="2" y1="380.75" x2="1178" y2="380.75" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.8"/>
+        <!-- Step 3 masonry joints -->
+        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
+          <line x1="140" y1="380" x2="140" y2="392"/>
+          <line x1="320" y1="380" x2="320" y2="392"/>
+          <line x1="500" y1="380" x2="500" y2="392"/>
+          <line x1="680" y1="380" x2="680" y2="392"/>
+          <line x1="860" y1="380" x2="860" y2="392"/>
+          <line x1="1040" y1="380" x2="1040" y2="392"/>
+        </g>
 
+        <!-- Step 2: Stereobate (middle) -->
+        <rect x="12" y="369" width="1156" height="11" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
+        <line x1="12" y1="369.75" x2="1168" y2="369.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.8"/>
+        <!-- Step 2 masonry joints -->
+        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
+          <line x1="230" y1="369" x2="230" y2="380"/>
+          <line x1="410" y1="369" x2="410" y2="380"/>
+          <line x1="590" y1="369" x2="590" y2="380"/>
+          <line x1="770" y1="369" x2="770" y2="380"/>
+          <line x1="950" y1="369" x2="950" y2="380"/>
+        </g>
+
+        <!-- Step 1: Stylobate (top platform) -->
+        <rect x="22" y="358" width="1136" height="11" fill="url(#step-riser-grad)" stroke="#8C8E85" stroke-width="0.75"/>
+        <line x1="22" y1="358.75" x2="1158" y2="358.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
+        <!-- Step 1 masonry joints -->
+        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
+          <line x1="160" y1="358" x2="160" y2="369"/>
+          <line x1="340" y1="358" x2="340" y2="369"/>
+          <line x1="520" y1="358" x2="520" y2="369"/>
+          <line x1="700" y1="358" x2="700" y2="369"/>
+          <line x1="880" y1="358" x2="880" y2="369"/>
+          <line x1="1060" y1="358" x2="1060" y2="369"/>
+        </g>
+
+        <!-- Architrave (massive stone lintel beam) -->
+        <rect x="26" y="106" width="1128" height="18" fill="url(#architrave-grad)" stroke="#989A91" stroke-width="0.75"/>
+        <!-- Taenia band on top -->
+        <rect x="24" y="106" width="1132" height="3" fill="#D8D9D0" stroke="#888A81" stroke-width="0.5"/>
+        <line x1="24" y1="106.75" x2="1156" y2="106.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
+        <!-- Fascia step line -->
+        <line x1="26" y1="116" x2="1154" y2="116" stroke="#A0A299" stroke-width="0.6"/>
+        
+        <!-- Frieze background -->
+        <rect x="26" y="80" width="1128" height="26" fill="url(#frieze-stone-grad)" stroke="#9A9C93" stroke-width="0.75"/>
+
+        <!-- Horizontal Cornice with Dentils -->
+        <!-- Dentil bed -->
+        <rect x="22" y="74" width="1136" height="6" fill="#C9CAC0" stroke="#82847B" stroke-width="0.6"/>
+        <rect x="22" y="74" width="1136" height="6" fill="url(#dentil-pattern)"/>
+        <!-- Corona projecting slab -->
+        <rect x="18" y="68" width="1144" height="6" fill="url(#corona-grad)" stroke="#8C8E85" stroke-width="0.75"/>
+        <line x1="18" y1="68.75" x2="1162" y2="68.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.8"/>
+        <line x1="18" y1="74" x2="1162" y2="74" stroke="#40433C" stroke-opacity="0.4" stroke-width="0.6"/>
+
+        <!-- Pediment (Tympanum & Rosette) -->
+        <polygon points="34,68 590,16 1146,68" fill="url(#tympanum-grad)" stroke="#92948B" stroke-width="0.75"/>
+
+        <!-- Tympanum Rosette of Balance -->
+        <g class="pediment-rosette" transform="translate(590, 48)">
+          <circle r="16" fill="url(#medallion-grad)" stroke="#808279" stroke-width="0.8"/>
+          <circle r="13" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.6"/>
+          <circle r="9" fill="url(#medallion-inner-grad)" stroke="#6C6E66" stroke-width="0.6"/>
+          <circle r="3.5" fill="#1F4B3F"/>
+          <!-- 10 carved relief rays (10 dimensions) -->
+          <g stroke="#6E7068" stroke-width="0.75" stroke-opacity="0.75">
+            <line x1="0" y1="-12" x2="0" y2="-5"/>
+            <line x1="7.05" y1="-9.71" x2="2.94" y2="-4.05"/>
+            <line x1="11.41" y1="-3.71" x2="4.76" y2="-1.55"/>
+            <line x1="11.41" y1="3.71" x2="4.76" y2="1.55"/>
+            <line x1="7.05" y1="9.71" x2="2.94" y2="4.05"/>
+            <line x1="0" y1="12" x2="0" y2="5"/>
+            <line x1="-7.05" y1="9.71" x2="-2.94" y2="4.05"/>
+            <line x1="-11.41" y1="3.71" x2="-4.76" y2="1.55"/>
+            <line x1="-11.41" y1="-3.71" x2="-4.76" y2="-1.55"/>
+            <line x1="-7.05" y1="-9.71" x2="-2.94" y2="-4.05"/>
+          </g>
+        </g>
+
+        <!-- Raking Cornices (Cornisas inclinadas del frontón) -->
+        <!-- Left raking cornice -->
+        <polygon points="16,70 590,12 590,17 26,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
+        <line x1="16" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
+        <!-- Right raking cornice -->
+        <polygon points="1164,70 590,12 590,17 1154,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
+        <line x1="1164" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
+
+        <!-- Apex Acroterion -->
+        <g transform="translate(590, 8)">
+          <path d="M -8 4 L 8 4 L 6 0 L -6 0 Z" fill="#D2D4CA" stroke="#7A7C73" stroke-width="0.6"/>
+          <path d="M 0 -6 C -5 -2, -6 0, -4 2 C -2 3, 0 1, 0 0 C 0 1, 2 3, 4 2 C 6 0, 5 -2, 0 -6 Z" fill="#ECEEE5" stroke="#686A61" stroke-width="0.6"/>
+        </g>
+
+        <!-- Continuous cast shadow under architrave onto capitals -->
+        <rect x="26" y="124" width="1128" height="8" fill="url(#architrave-cast-shadow)" pointer-events="none"/>
+
+        <!-- ==================== THE 10 INTERACTIVE COLUMNS ==================== -->
         <g id="columns"></g>
       </svg>
      </div>
-      <p class="temple-caption mono">FACHADA — 10 UNIDADES · escala no representativa · desliza para ver todas</p>
+      <p class="temple-caption mono">FACHADA DÓRICA CLÁSICA — 10 UNIDADES MONUMENTALES · desliza horizontalmente para navegar</p>
     </div>
 
     <div class="spec" id="spec">
@@ -250,7 +626,7 @@
   const svgColumns = document.getElementById("columns");
   const NS = "http://www.w3.org/2000/svg";
   const spacing = 1180 / (UNIDADES.length + 1);
-  const shaftTop = 62, shaftBottom = 330, shaftH = shaftBottom - shaftTop;
+  const uFlutes = [-0.72, -0.48, -0.24, 0.0, 0.24, 0.48, 0.72];
 
   UNIDADES.forEach((u, i) => {
     const cx = spacing * (i + 1);
@@ -261,52 +637,179 @@
     g.setAttribute("aria-label", "Unidad " + u.romano + ": " + u.nombre);
     g.dataset.index = i;
 
+    // Invisible wide hit area for flawless hover & touch
     const hit = document.createElementNS(NS, "rect");
-    hit.setAttribute("x", cx - 26);
-    hit.setAttribute("y", 20);
-    hit.setAttribute("width", 52);
-    hit.setAttribute("height", 320);
+    hit.setAttribute("x", cx - 28);
+    hit.setAttribute("y", 78);
+    hit.setAttribute("width", 56);
+    hit.setAttribute("height", 286);
     hit.setAttribute("fill", "transparent");
     g.appendChild(hit);
 
-    const shaft = document.createElementNS(NS, "rect");
-    shaft.setAttribute("class", "shaft");
-    shaft.setAttribute("x", cx - 15);
-    shaft.setAttribute("y", shaftTop);
-    shaft.setAttribute("width", 30);
-    shaft.setAttribute("height", shaftH);
-    g.appendChild(shaft);
+    // ==================== FRIEZE TRIGLYPH & NUMERAL PLAQUE ====================
+    const trigGroup = document.createElementNS(NS, "g");
+    trigGroup.setAttribute("class", "triglyph-group");
 
-    for (let f = -2; f <= 2; f++) {
-      const fl = document.createElementNS(NS, "line");
-      fl.setAttribute("class", "flute");
-      fl.setAttribute("x1", cx + f * 5.5);
-      fl.setAttribute("y1", shaftTop + 4);
-      fl.setAttribute("x2", cx + f * 5.5);
-      fl.setAttribute("y2", shaftBottom - 4);
-      g.appendChild(fl);
-    }
+    // Triglyph stone block (y=80 to 106)
+    const trigBlock = document.createElementNS(NS, "rect");
+    trigBlock.setAttribute("x", cx - 14);
+    trigBlock.setAttribute("y", 80);
+    trigBlock.setAttribute("width", 28);
+    trigBlock.setAttribute("height", 26);
+    trigBlock.setAttribute("fill", "url(#triglyph-bg)");
+    trigBlock.setAttribute("stroke", "#B0B2A8");
+    trigBlock.setAttribute("stroke-width", "0.6");
+    trigGroup.appendChild(trigBlock);
 
-    const cap = document.createElementNS(NS, "use");
-    cap.setAttribute("href", "#capital");
-    cap.setAttribute("x", cx);
-    cap.setAttribute("y", shaftTop);
-    g.appendChild(cap);
+    // 3 Carved vertical V-grooves
+    [-6.5, 0, 6.5].forEach(gx => {
+      const groove = document.createElementNS(NS, "line");
+      groove.setAttribute("x1", cx + gx);
+      groove.setAttribute("y1", 82);
+      groove.setAttribute("x2", cx + gx);
+      groove.setAttribute("y2", 104);
+      groove.setAttribute("stroke", "#64675F");
+      groove.setAttribute("stroke-width", "1.4");
+      trigGroup.appendChild(groove);
 
-    const base = document.createElementNS(NS, "use");
-    base.setAttribute("href", "#basecol");
-    base.setAttribute("x", cx);
-    base.setAttribute("y", shaftBottom - 7);
-    g.appendChild(base);
+      const grooveHighlight = document.createElementNS(NS, "line");
+      grooveHighlight.setAttribute("x1", cx + gx + 0.8);
+      grooveHighlight.setAttribute("y1", 82);
+      grooveHighlight.setAttribute("x2", cx + gx + 0.8);
+      grooveHighlight.setAttribute("y2", 104);
+      grooveHighlight.setAttribute("stroke", "#FFFFFF");
+      grooveHighlight.setAttribute("stroke-opacity", "0.65");
+      grooveHighlight.setAttribute("stroke-width", "0.7");
+      trigGroup.appendChild(grooveHighlight);
+    });
 
-    const numeral = document.createElementNS(NS, "text");
-    numeral.setAttribute("class", "numeral");
-    numeral.setAttribute("x", cx);
-    numeral.setAttribute("y", shaftTop - 20);
-    numeral.setAttribute("text-anchor", "middle");
-    numeral.textContent = u.romano;
-    g.appendChild(numeral);
+    // Regula band under triglyph (y=106 to 109)
+    const regula = document.createElementNS(NS, "rect");
+    regula.setAttribute("x", cx - 14);
+    regula.setAttribute("y", 106);
+    regula.setAttribute("width", 28);
+    regula.setAttribute("height", 3);
+    regula.setAttribute("fill", "#C6C7BD");
+    regula.setAttribute("stroke", "#888A81");
+    regula.setAttribute("stroke-width", "0.5");
+    trigGroup.appendChild(regula);
 
+    // 6 Guttae (gotas clásicas)
+    [-11, -6.6, -2.2, 2.2, 6.6, 11].forEach(gx => {
+      const gutta = document.createElementNS(NS, "circle");
+      gutta.setAttribute("cx", cx + gx);
+      gutta.setAttribute("cy", 107.5);
+      gutta.setAttribute("r", 1.0);
+      gutta.setAttribute("fill", "#4A4D45");
+      trigGroup.appendChild(gutta);
+    });
+
+    // Roman Numeral Carved Stone Plaque
+    const plaque = document.createElementNS(NS, "rect");
+    plaque.setAttribute("x", cx - 12);
+    plaque.setAttribute("y", 85);
+    plaque.setAttribute("width", 24);
+    plaque.setAttribute("height", 17);
+    plaque.setAttribute("rx", 2);
+    plaque.setAttribute("class", "num-plaque");
+    plaque.setAttribute("fill", "url(#num-plaque-grad)");
+    plaque.setAttribute("stroke", "#989A90");
+    plaque.setAttribute("stroke-width", "0.8");
+    trigGroup.appendChild(plaque);
+
+    const numText = document.createElementNS(NS, "text");
+    numText.setAttribute("x", cx);
+    numText.setAttribute("y", 98);
+    numText.setAttribute("class", "col-numeral");
+    numText.setAttribute("text-anchor", "middle");
+    numText.textContent = u.romano;
+    trigGroup.appendChild(numText);
+
+    g.appendChild(trigGroup);
+
+    // ==================== COLUMN ASSEMBLY ====================
+    const colBody = document.createElementNS(NS, "g");
+    colBody.setAttribute("class", "column-body");
+
+    // Floor contact shadow
+    const shadowUse = document.createElementNS(NS, "use");
+    shadowUse.setAttribute("href", "#classic-base-shadow");
+    shadowUse.setAttribute("x", cx);
+    shadowUse.setAttribute("y", 330);
+    colBody.appendChild(shadowUse);
+
+    // Attic Base
+    const baseUse = document.createElementNS(NS, "use");
+    baseUse.setAttribute("href", "#classic-base");
+    baseUse.setAttribute("x", cx);
+    baseUse.setAttribute("y", 330);
+    colBody.appendChild(baseUse);
+
+    // Fluted Shaft with Éntasis (top hw=15, bot hw=17, y=152 to 330)
+    const shaftPath = `M ${cx - 15} 152 Q ${cx - 17.5} 245, ${cx - 17} 330 L ${cx + 17} 330 Q ${cx + 17.5} 245, ${cx + 15} 152 Z`;
+    
+    const shaft = document.createElementNS(NS, "path");
+    shaft.setAttribute("d", shaftPath);
+    shaft.setAttribute("fill", "url(#shaft-stone-3d)");
+    shaft.setAttribute("stroke", "#909289");
+    shaft.setAttribute("stroke-width", "0.75");
+    colBody.appendChild(shaft);
+
+    // 7 Flutes with cosine perspective and 3D highlights
+    const flutesLayer = document.createElementNS(NS, "g");
+    flutesLayer.setAttribute("class", "flutes-layer");
+
+    uFlutes.forEach(uPos => {
+      const cosVal = Math.cos(Math.asin(Math.max(-0.99, Math.min(0.99, uPos))));
+      const fwTop = Math.max(1.8, 3.2 * cosVal);
+      const fwBot = Math.max(2.0, 3.6 * cosVal);
+
+      const xt = cx + uPos * 15.0;
+      const xb = cx + uPos * 17.0;
+
+      const x1t = xt - fwTop / 2;
+      const x2t = xt + fwTop / 2;
+      const x1b = xb - fwBot / 2;
+      const x2b = xb + fwBot / 2;
+
+      const fPath = `M ${x1t.toFixed(2)} 155 Q ${xt.toFixed(2)} 153 ${x2t.toFixed(2)} 155 L ${x2b.toFixed(2)} 327 Q ${xb.toFixed(2)} 329 ${x1b.toFixed(2)} 327 Z`;
+
+      const flute = document.createElementNS(NS, "path");
+      flute.setAttribute("d", fPath);
+      flute.setAttribute("fill", "url(#flute-groove)");
+      flutesLayer.appendChild(flute);
+
+      // Specular ridge line along the crest
+      const rxTop = uPos <= 0 ? x1t : x2t;
+      const rxBot = uPos <= 0 ? x1b : x2b;
+      const ridge = document.createElementNS(NS, "line");
+      ridge.setAttribute("x1", rxTop.toFixed(2));
+      ridge.setAttribute("y1", 155);
+      ridge.setAttribute("x2", rxBot.toFixed(2));
+      ridge.setAttribute("y2", 327);
+      ridge.setAttribute("stroke", "#FFFFFF");
+      ridge.setAttribute("stroke-opacity", "0.45");
+      ridge.setAttribute("stroke-width", "0.6");
+      flutesLayer.appendChild(ridge);
+    });
+    colBody.appendChild(flutesLayer);
+
+    // Classical Capital
+    const capUse = document.createElementNS(NS, "use");
+    capUse.setAttribute("href", "#classic-capital");
+    capUse.setAttribute("x", cx);
+    capUse.setAttribute("y", 124);
+    colBody.appendChild(capUse);
+
+    // Warm ambient illumination overlay (soft light mode)
+    const glow = document.createElementNS(NS, "path");
+    glow.setAttribute("d", shaftPath);
+    glow.setAttribute("fill", "url(#shaft-glow-grad)");
+    glow.setAttribute("class", "shaft-glow");
+    glow.setAttribute("opacity", "0");
+    colBody.appendChild(glow);
+
+    g.appendChild(colBody);
     svgColumns.appendChild(g);
   });
 
@@ -337,7 +840,7 @@
 
   requestAnimationFrame(() => {
     groups.forEach((g, i) => {
-      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 90 * i);
+      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 75 * i);
     });
   });
 </script>
