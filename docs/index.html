@@ -3,16 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pilares del Bienestar — Vault</title>
+<title>Pilares del Bienestar — Ateneo de Estudio</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
   :root{
-    --bg:#F5F5F3; --bg-elev:#ECECE8; --bg-elev2:#E2E2DC; --border:#D3D3CC; --border-soft:#DEDED8;
-    --text:#15181A; --text-dim:#43494A; --text-faint:#5F655F;
-    --pine:#1F4B3F; --moss:#2E7A5C; --clay:#A54A2A; --sage:#6E8B78;
-    --success:#1F4B3F; --danger:#B23347;
-    --gold:#C98A3C; --gold-light:#F4D9A6;
+    --bg:#F6F5F0; --bg-elev:#ECEAE2; --bg-elev2:#E2DFD4; --border:#D2CFC2; --border-soft:#DEDBD0;
+    --text:#181A19; --text-dim:#424643; --text-faint:#616662;
+    --pine:#1D473B; --moss:#2A7558; --clay:#A34626; --sage:#6B8A75;
+    --gold:#C28536; --gold-light:#F5DCAC; --gold-deep:#8C5B1C;
+    --marble:#FAF9F5; --terracotta:#9E3E1F;
+    --success:#1D473B; --danger:#B23347;
     --ease: cubic-bezier(.22,1,.36,1);
   }
   *{box-sizing:border-box;}
@@ -22,66 +23,130 @@
     background:var(--bg); color:var(--text);
     font-family:'Work Sans',sans-serif;
     line-height:1.6;
-    background-image: radial-gradient(var(--border-soft) 1.2px, transparent 1.2px);
-    background-size:26px 26px;
-    background-position:-13px -13px;
+    background-image: 
+      radial-gradient(var(--border-soft) 1.2px, transparent 1.2px),
+      linear-gradient(to right, rgba(163, 70, 38, 0.02) 1px, transparent 1px);
+    background-size:26px 26px, 130px 130px;
+    background-position:-13px -13px, 0 0;
   }
-  ::selection{ background:var(--pine); color:#F5F5F3; }
-  a{color:var(--moss);}
-  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; position:relative;}
+  ::selection{ background:var(--pine); color:#F6F5F0; }
+  a{color:var(--moss); text-decoration:none; border-bottom:1px solid var(--border);}
+  a:hover{border-color:var(--pine); color:var(--pine);}
+  .wrap{max-width:1200px; margin:0 auto; padding:0 24px; position:relative;}
   .mono{ font-family:'IBM Plex Mono',monospace; }
+  .cinzel{ font-family:'Cinzel',serif; letter-spacing:0.04em; }
 
-  /* ---------- Title block (blueprint corner stamp) ---------- */
-  .titleblock{
-    position:absolute; top:28px; right:24px;
-    border:1px solid var(--border); background:var(--bg-elev);
-    font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--text-dim);
-    width:206px; z-index:3;
+  /* ---------- Classical Greek Meander Ribbon (Greca clásica) ---------- */
+  .greek-frieze{
+    height: 14px; width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23A34626' stroke-width='1.25' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    opacity: 0.82;
+    margin: 28px 0;
   }
-  .titleblock .row{ display:flex; justify-content:space-between; padding:6px 10px; border-bottom:1px solid var(--border); gap:8px; }
-  .titleblock .row:last-child{ border-bottom:none; }
-  .titleblock .row b{ color:var(--pine); font-weight:600; text-align:right; }
-  @media (max-width:720px){ .titleblock{ position:static; width:100%; margin:0 0 28px; } }
+  .greek-frieze.subtle{
+    opacity: 0.45;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23616662' stroke-width='1' stroke-linecap='square'/%3E%3C/svg%3E");
+  }
 
-  /* ---------- Hero ---------- */
-  header.hero{ padding:120px 0 0; position:relative; }
-  @media (max-width:720px){ header.hero{ padding-top:24px; } }
-  .hero-head{ max-width:640px; }
-  .kicker{
-    font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em;
-    color:var(--clay); text-transform:uppercase; margin:0 0 16px; display:flex; align-items:center; gap:10px;
+  /* ---------- Title block (Classical Greek Stele / Tabula Ansata) ---------- */
+  .titleblock-stele{
+    position:absolute; top:32px; right:24px;
+    border:1.5px solid var(--border); background:var(--marble);
+    box-shadow:0 6px 18px rgba(24, 26, 25, 0.05);
+    width:230px; z-index:3;
   }
-  .kicker::before{ content:""; width:22px; height:1px; background:var(--clay); display:inline-block; }
+  .stele-pediment{
+    background:var(--bg-elev); border-bottom:1.5px solid var(--border);
+    padding:8px 10px 6px; text-align:center;
+  }
+  .stele-pediment svg{ display:block; margin:0 auto 4px; }
+  .stele-pediment span{
+    font-family:'Cinzel',serif; font-size:.65rem; font-weight:700;
+    color:var(--clay); letter-spacing:.12em; text-transform:uppercase;
+  }
+  .stele-body{ padding:4px 0; }
+  .stele-row{
+    display:flex; justify-content:space-between; padding:5px 12px;
+    border-bottom:1px solid var(--border-soft); font-family:'IBM Plex Mono',monospace;
+    font-size:.64rem; color:var(--text-dim); gap:6px;
+  }
+  .stele-row:last-child{ border-bottom:none; }
+  .stele-row b{ color:var(--pine); font-weight:600; text-align:right; font-family:'Cinzel',serif; font-size:.7rem; }
+  @media (max-width:768px){ .titleblock-stele{ position:static; width:100%; margin:0 0 32px; } }
+
+  /* ---------- Hero Section ---------- */
+  header.hero{ padding:110px 0 0; position:relative; }
+  @media (max-width:768px){ header.hero{ padding-top:24px; } }
+  .hero-head{ max-width:680px; }
+  
+  .delphic-motto{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Cinzel',serif; font-size:.76rem; font-weight:700; letter-spacing:.14em;
+    color:var(--clay); text-transform:uppercase; margin:0 0 16px;
+    border-left: 2px solid var(--clay); padding-left: 10px;
+  }
+  .delphic-motto .greek{ color:var(--pine); font-weight:800; }
+
   h1{
-    font-family:'Instrument Serif', serif; font-weight:400; font-size:clamp(2.6rem, 6.4vw, 4.6rem);
-    line-height:1.02; margin:0 0 22px; letter-spacing:-.01em;
+    font-family:'Instrument Serif', serif; font-weight:400; font-size:clamp(2.7rem, 6.8vw, 4.8rem);
+    line-height:1.02; margin:0 0 18px; letter-spacing:-.015em;
   }
   h1 em{ color:var(--pine); font-style:italic; }
-  .hero p.lede{ font-size:1.08rem; color:var(--text-dim); max-width:52ch; margin:0 0 34px; }
 
-  .stat-line{ display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:48px; }
-  .stat{ flex:1 1 140px; padding:14px 20px 14px 0; border-right:1px solid var(--border); }
-  .stat:last-child{ border-right:none; }
-  .stat .n{ font-family:'Instrument Serif',serif; font-size:1.9rem; color:var(--pine); line-height:1; }
-  .stat .l{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; margin-top:6px; }
+  .hero-epigraph{
+    font-family:'Cinzel',serif; font-size:.82rem; color:var(--text-dim);
+    letter-spacing:.05em; font-style:italic; margin:0 0 18px;
+    border-left:2px solid var(--gold); padding-left:14px; max-width:60ch;
+  }
+  .hero p.lede{ font-size:1.05rem; color:var(--text-dim); max-width:54ch; margin:0 0 32px; line-height:1.65; }
 
-  /* ---------- Temple diagram (Realistic Classical Facade) ---------- */
+  /* ---------- Classical Stylobate Stat Line ---------- */
+  .stat-line-greek{
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:2px solid var(--border); border-bottom:2px solid var(--border);
+    background:var(--marble); margin-bottom:44px;
+    box-shadow:0 4px 14px rgba(24, 26, 25, 0.03);
+  }
+  .stat-card{
+    flex:1 1 150px; padding:16px 20px; border-right:1px solid var(--border);
+    position:relative;
+  }
+  .stat-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    opacity:0.6;
+  }
+  .stat-card:last-child{ border-right:none; }
+  .stat-card .n{
+    font-family:'Cinzel',serif; font-size:1.85rem; font-weight:700;
+    color:var(--pine); line-height:1; letter-spacing:0.02em;
+  }
+  .stat-card .l{
+    font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:.06em; margin-top:8px; font-weight:500;
+  }
+
+  /* ---------- Temple Architecture Diagram ---------- */
   .temple-wrap{ position:relative; margin:0 0 12px; }
   .temple-scroll{
-    overflow-x:auto; overflow-y:visible; padding-bottom:8px;
+    overflow-x:auto; overflow-y:visible; padding-bottom:10px;
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
   }
   .temple-scroll::-webkit-scrollbar{ height: 6px; }
   .temple-scroll::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 3px; }
-  .temple-caption{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); text-align:center; margin:14px 0 32px; }
+  .temple-caption{
+    font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.12em; font-weight:600;
+    color:var(--text-faint); text-align:center; margin:16px 0 34px; text-transform:uppercase;
+  }
   
   svg#temple{
-    width:100%; min-width:820px; height:auto; display:block; overflow:visible;
-    filter: drop-shadow(0 12px 24px rgba(21, 24, 26, 0.05));
+    width:100%; min-width:840px; height:auto; display:block; overflow:visible;
+    filter: drop-shadow(0 14px 28px rgba(24, 26, 25, 0.07));
   }
 
-  /* Pillar interactivity & realistic lighting */
+  /* Pillar Interactivity */
   .col-group{
     cursor:pointer; outline:none;
     transform-origin: center bottom;
@@ -94,7 +159,7 @@
     transition: fill .25s var(--ease), stroke .25s var(--ease), filter .25s var(--ease);
   }
   .col-group .col-numeral{
-    font-family:'Instrument Serif', serif; font-size: 13.5px; font-weight: 600;
+    font-family:'Cinzel', serif; font-size: 13.5px; font-weight: 700;
     fill: var(--text-dim);
     transition: fill .25s var(--ease);
     pointer-events: none;
@@ -109,122 +174,237 @@
     transform-origin: center center;
   }
 
-  /* Hover and active states */
-  .col-group:hover, .col-group:focus, .col-group.active{
-    outline: none;
-  }
+  .col-group:hover, .col-group:focus, .col-group.active{ outline: none; }
   .col-group:hover .column-body, .col-group:focus .column-body, .col-group.active .column-body{
-    transform: translateY(-5px);
-    filter: drop-shadow(0 8px 16px rgba(31, 75, 63, 0.22));
+    transform: translateY(-6px);
+    filter: drop-shadow(0 10px 20px rgba(29, 71, 59, 0.26));
   }
   .col-group:hover .shaft-glow, .col-group:focus .shaft-glow, .col-group.active .shaft-glow{
-    opacity: 0.92;
+    opacity: 0.95;
   }
   .col-group:hover .col-base-shadow, .col-group:focus .col-base-shadow, .col-group.active .col-base-shadow{
     opacity: 0.95;
-    transform: scaleX(1.18);
+    transform: scaleX(1.22);
   }
   .col-group:hover .num-plaque, .col-group:focus .num-plaque, .col-group.active .num-plaque{
     fill: var(--pine);
     stroke: var(--gold);
-    stroke-width: 1.2;
-    filter: drop-shadow(0 2px 5px rgba(31,75,63,0.35));
+    stroke-width: 1.3;
+    filter: drop-shadow(0 2px 6px rgba(29,71,59,0.4));
   }
   .col-group:hover .col-numeral, .col-group:focus .col-numeral, .col-group.active .col-numeral{
-    fill: #F5F5F3;
+    fill: #FAF9F5;
   }
 
-  /* Sequential entrance reveal */
   .col-group.reveal{ opacity:0; transform:translateY(18px); }
   .col-group.shown{ opacity:1; transform:translateY(0); transition:opacity .55s var(--ease), transform .55s var(--ease); }
 
-  /* ---------- Spec panel ---------- */
-  .spec{
-    border:1px solid var(--border); background:var(--bg-elev); margin:0 0 90px;
-    display:grid; grid-template-columns:120px 1fr auto; gap:0;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  /* ---------- Spec Panel (Estela Epigráfica Griega) ---------- */
+  .spec-stele{
+    border:2px solid var(--border); background:var(--marble); margin:0 0 80px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05); position:relative;
   }
-  @media (max-width:640px){ .spec{ grid-template-columns:1fr; } }
-  .spec .num{
-    display:flex; align-items:center; justify-content:center; font-family:'Instrument Serif',serif;
-    font-size:2.8rem; color:var(--pine); border-right:1px solid var(--border); padding:22px 10px;
-    background: #E6E6E1;
+  .spec-stele-cornice{
+    background:var(--bg-elev); border-bottom:1.5px solid var(--border);
+    padding:8px 20px; display:flex; justify-content:space-between; align-items:center;
   }
-  @media (max-width:640px){ .spec .num{ border-right:none; border-bottom:1px solid var(--border); padding:16px; } }
-  .spec .body{ padding:22px 24px; min-width:0; }
-  .spec .body h3{ font-family:'Instrument Serif',serif; font-weight:400; font-size:1.5rem; margin:0 0 8px; transition:opacity .2s var(--ease); color:var(--text); }
-  .spec .body p{ margin:0 0 4px; color:var(--text-dim); font-size:.92rem; }
-  .spec .body .hito{ color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.76rem; margin-top:10px; display:inline-block; font-weight:500; }
-  .spec .status{ display:flex; align-items:center; padding:22px 24px; border-left:1px solid var(--border); }
-  @media (max-width:640px){ .spec .status{ border-left:none; border-top:1px solid var(--border); padding:14px 24px; } }
-  .stamp{
-    font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase;
-    border:1.5px solid var(--text-faint); color:var(--text-faint); padding:6px 12px; border-radius:2px; white-space:nowrap;
+  .spec-stele-cornice .tag{
+    font-family:'Cinzel',serif; font-size:.7rem; font-weight:700;
+    letter-spacing:.12em; color:var(--clay); text-transform:uppercase;
   }
-  .stamp.disponible{ border-color:var(--success); color:var(--success); font-weight:600; }
+  .spec-stele-cornice .coord{
+    font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--text-faint);
+  }
 
-  /* ---------- Module 2: sello ---------- */
-  .modulo{ padding:0 0 90px; }
-  .modulo-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:30px; border-top:1px solid var(--border); padding-top:26px; }
-  .modulo-num{ font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--pine); border:1px solid var(--pine); padding:3px 9px; }
-  .modulo h2{ font-family:'Instrument Serif', serif; font-weight:400; font-size:1.7rem; margin:0; }
-
-  .sello-row{ display:flex; flex-wrap:wrap; gap:40px; align-items:center; }
-  .sello{
-    flex:0 0 auto; width:150px; height:150px; border:3px double var(--danger); border-radius:50%;
-    display:flex; align-items:center; justify-content:center; text-align:center;
-    transform:rotate(-9deg); color:var(--danger); font-family:'IBM Plex Mono',monospace;
-    font-size:.72rem; letter-spacing:.03em; text-transform:uppercase; line-height:1.5; padding:14px;
+  .spec-grid{
+    display:grid; grid-template-columns:140px 1fr auto; gap:0;
   }
-  .sello-text{ flex:1 1 380px; }
-  .sello-text p{ color:var(--text-dim); font-size:.98rem; margin:0 0 14px; max-width:62ch; }
-  .sello-text p b{ color:var(--text); font-weight:600; }
+  @media (max-width:680px){ .spec-grid{ grid-template-columns:1fr; } }
+  
+  .spec-stele .num-col{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:var(--bg-elev2); border-right:2px solid var(--border); padding:24px 16px;
+    text-align:center;
+  }
+  @media (max-width:680px){ .spec-stele .num-col{ border-right:none; border-bottom:2px solid var(--border); padding:16px; } }
+  .spec-stele .num-col .large-roman{
+    font-family:'Cinzel',serif; font-size:3.2rem; font-weight:800;
+    color:var(--pine); line-height:1;
+  }
+  .spec-stele .num-col .greek-sub{
+    font-family:'Cinzel',serif; font-size:.7rem; font-weight:700;
+    color:var(--clay); letter-spacing:.1em; margin-top:4px; text-transform:uppercase;
+  }
 
-  footer{ padding:30px 0 60px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; align-items:center; border-top:1px solid var(--border); }
-  footer .txt{ color:var(--text-faint); font-size:.8rem; max-width:44ch; }
-  footer .txt code{ color:var(--text-dim); }
-  .scalebar{ display:flex; align-items:center; gap:8px; }
-  .scalebar .bar{ display:flex; height:6px; width:120px; border:1px solid var(--text-faint); }
-  .scalebar .bar span{ flex:1; }
-  .scalebar .bar span:nth-child(odd){ background:var(--text-faint); }
-  .scalebar .lab{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--text-faint); }
+  .spec-stele .body{ padding:26px 28px; min-width:0; }
+  .spec-stele .body h3{
+    font-family:'Instrument Serif',serif; font-weight:400; font-size:1.65rem;
+    margin:0 0 10px; color:var(--text); line-height:1.15;
+  }
+  .spec-stele .body p{ margin:0 0 6px; color:var(--text-dim); font-size:.95rem; }
+  .spec-stele .body .hito{
+    color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.78rem;
+    margin-top:12px; display:inline-block; font-weight:600;
+    border-left:2px solid var(--clay); padding-left:8px;
+  }
+
+  .spec-stele .status-col{
+    display:flex; align-items:center; padding:24px 28px; border-left:2px solid var(--border);
+    background:var(--bg-elev);
+  }
+  @media (max-width:680px){ .spec-stele .status-col{ border-left:none; border-top:2px solid var(--border); padding:16px 24px; } }
+  .stamp-greek{
+    font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
+    border:2px solid var(--text-faint); color:var(--text-faint); padding:8px 16px;
+    font-weight:700; border-radius:2px; white-space:nowrap; background:var(--marble);
+  }
+  .stamp-greek.disponible{ border-color:var(--success); color:var(--success); background:#EBF2ED; }
+
+  /* ---------- Greek Philosophy & Pillars Section (Eudaimonía & Areté) ---------- */
+  .agora-section{ margin:0 0 85px; }
+  .agora-head{
+    display:flex; align-items:baseline; gap:16px; margin-bottom:28px;
+    border-bottom:2px solid var(--border); padding-bottom:12px;
+  }
+  .agora-num{
+    font-family:'Cinzel',serif; font-size:.9rem; font-weight:800;
+    color:var(--clay); border:1.5px solid var(--clay); padding:3px 10px;
+  }
+  .agora-section h2{
+    font-family:'Cinzel', serif; font-weight:700; font-size:1.65rem; margin:0;
+    letter-spacing:0.02em; color:var(--pine);
+  }
+
+  .triad-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:22px; margin-bottom:44px;
+  }
+  .triad-card{
+    background:var(--marble); border:1.5px solid var(--border); padding:24px 22px;
+    position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.02);
+  }
+  .triad-card::after{
+    content:""; position:absolute; bottom:0; left:0; width:100%; height:3px;
+    background:var(--border); transition:background .25s var(--ease);
+  }
+  .triad-card:hover::after{ background:var(--clay); }
+  .triad-greek{
+    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:800;
+    color:var(--clay); margin:0 0 4px; letter-spacing:.04em;
+  }
+  .triad-trans{
+    font-family:'Instrument Serif',serif; font-size:1.25rem; font-style:italic;
+    color:var(--pine); margin:0 0 10px;
+  }
+  .triad-card p{ font-size:.92rem; color:var(--text-dim); margin:0; line-height:1.55; }
+
+  /* ---------- Sello Moneda Griega (Medallón de Atenas) ---------- */
+  .sello-wrap{
+    display:flex; flex-wrap:wrap; gap:40px; align-items:center;
+    background:var(--marble); border:2px solid var(--border); padding:34px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.03);
+  }
+  .coin-stamp{
+    flex:0 0 auto; width:154px; height:154px;
+    display:flex; align-items:center; justify-content:center;
+    filter: drop-shadow(0 6px 14px rgba(163,70,38,0.22));
+  }
+  .sello-content{ flex:1 1 380px; }
+  .sello-content h4{
+    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:800;
+    color:var(--terracotta); margin:0 0 10px; letter-spacing:.03em;
+  }
+  .sello-content p{ color:var(--text-dim); font-size:.96rem; margin:0 0 14px; max-width:62ch; line-height:1.6; }
+  .sello-content p b{ color:var(--text); font-weight:600; }
+
+  /* ---------- Footer (Basamento Monumental) ---------- */
+  footer.temple-footer{
+    padding:40px 0 70px; border-top:2px solid var(--border);
+    display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; align-items:center;
+  }
+  footer .txt{ color:var(--text-faint); font-size:.84rem; max-width:48ch; line-height:1.6; }
+  footer .txt b{ color:var(--text-dim); font-family:'Cinzel',serif; }
+  footer .txt code{ color:var(--pine); font-weight:600; }
+  .scalebar-greek{ display:flex; align-items:center; gap:10px; }
+  .scalebar-greek .bar{ display:flex; height:8px; width:130px; border:1.5px solid var(--text-faint); }
+  .scalebar-greek .bar span{ flex:1; }
+  .scalebar-greek .bar span:nth-child(odd){ background:var(--clay); }
+  .scalebar-greek .bar span:nth-child(even){ background:var(--marble); }
+  .scalebar-greek .lab{ font-family:'Cinzel',serif; font-size:.68rem; font-weight:700; color:var(--text-faint); letter-spacing:.08em; }
 
   @media (prefers-reduced-motion: reduce){
     .col-group.reveal{ opacity:1; transform:none; }
     .col-group.shown{ transition:none; }
+    .col-group:hover .column-body{ transform:none; }
   }
 </style>
 </head>
 <body>
+
 <div class="wrap">
 
-  <div class="titleblock">
-    <div class="row"><span>PROYECTO</span><b>Pilares del Bienestar</b></div>
-    <div class="row"><span>CICLO</span><b>III / 2026</b></div>
-    <div class="row"><span>DOCENTE</span><b>G. Carranza</b></div>
-    <div class="row"><span>LÁMINA</span><b>01 / 10</b></div>
+  <!-- Top Meander Border -->
+  <div class="greek-frieze"></div>
+
+  <!-- Stele Titleblock / Tabula Ansata -->
+  <div class="titleblock-stele">
+    <div class="stele-pediment">
+      <svg width="180" height="14" viewBox="0 0 180 14">
+        <polygon points="10,12 90,2 170,12" fill="#DFDCD2" stroke="#B0ADA0" stroke-width="0.75"/>
+        <circle cx="90" cy="8" r="2.5" fill="#1D473B"/>
+      </svg>
+      <span>ΕΛΛΑΣ · ATENEO ESEN</span>
+    </div>
+    <div class="stele-body">
+      <div class="stele-row"><span>PROYECTO</span><b>Pilares del Bienestar</b></div>
+      <div class="stele-row"><span>CICLO</span><b>III / MMXXVI</b></div>
+      <div class="stele-row"><span>CÁTEDRA</span><b>G. Carranza</b></div>
+      <div class="stele-row"><span>ESTUDIANTE</span><b>Carlos Navas</b></div>
+      <div class="stele-row"><span>ORDEN</span><b>Dórico Decástilo</b></div>
+    </div>
   </div>
 
   <header class="hero">
     <div class="hero-head">
-      <p class="kicker">ESEN · vault de estudio</p>
+      <div class="delphic-motto">
+        <span class="greek">ΕΥΔΑΙΜΟΝΙΑ</span> · CÁTEDRA DE BIENESTAR INTEGRAL
+      </div>
       <h1>Diez columnas <em>sostienen</em> el bienestar.</h1>
+      <div class="hero-epigraph">
+        «Γνῶθι σεαυτόν · Conócete a ti mismo · Meden Agan: Nada en exceso, la clave está en el balance.»
+        <span style="display:block; font-size:.72rem; color:var(--text-faint); margin-top:4px; font-family:'IBM Plex Mono',monospace; font-style:normal;">
+          — Máxima délfica, frontón del Templo de Apolo en Delfos
+        </span>
+      </div>
       <p class="lede">Cada unidad del curso de la Ing. Gabriela Carranza es una columna de esta
-      fachada clásica — física, intelectual, vocacional, emocional, relacional, espiritual,
-      financiera, ambiental, y el balance que las corona. Pasa el cursor sobre una para
-      leer su contenido, sus fechas y lo que se evalúa.</p>
+      fachada monumental — física, intelectual, vocacional, emocional, relacional, espiritual,
+      financiera, ambiental, y el balance supremo que las corona. Pasa el cursor sobre un pilar
+      para consultar su sabiduría, fechas y ponderación.</p>
     </div>
 
-    <div class="stat-line">
-      <div class="stat"><div class="n">10</div><div class="l">Unidades</div></div>
-      <div class="stat"><div class="n">03</div><div class="l">Controles</div></div>
-      <div class="stat"><div class="n">20%</div><div class="l">Peso del Workbook</div></div>
-      <div class="stat"><div class="n">IA</div><div class="l">Solo revisión y formato</div></div>
+    <!-- Classical Stylobate Stat Line -->
+    <div class="stat-line-greek">
+      <div class="stat-card">
+        <div class="n">X</div>
+        <div class="l">Columnas · Unidades</div>
+      </div>
+      <div class="stat-card">
+        <div class="n">III</div>
+        <div class="l">Controles Presenciales</div>
+      </div>
+      <div class="stat-card">
+        <div class="n">XX%</div>
+        <div class="l">Peso del Workbook</div>
+      </div>
+      <div class="stat-card">
+        <div class="n">ΙΣΟΤΗΤΑ</div>
+        <div class="l">IA Solo Formato · Autoría 100%</div>
+      </div>
     </div>
 
+    <!-- ==================== THE SACRED TEMPLE FACADE ==================== -->
     <div class="temple-wrap">
      <div class="temple-scroll">
-      <svg id="temple" viewBox="0 0 1180 396" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada clásica de diez columnas monumentales, una por unidad del curso">
+      <svg id="temple" viewBox="0 0 1180 396" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada monumental griega de diez columnas dóricas, una por unidad del curso">
         <defs>
           <!-- Dentils pattern for horizontal cornice -->
           <pattern id="dentil-pattern" width="8" height="6" patternUnits="userSpaceOnUse">
@@ -279,14 +459,7 @@
             <stop offset="100%" stop-color="#B8BAB0"/>
           </linearGradient>
 
-          <!-- Crepidoma step treads (top surface in sunlight) -->
-          <linearGradient id="step-tread-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="40%" stop-color="#EFF0E8"/>
-            <stop offset="100%" stop-color="#DFE0D7"/>
-          </linearGradient>
-
-          <!-- Crepidoma step risers (vertical front face in shadow) -->
+          <!-- Crepidoma step risers -->
           <linearGradient id="step-riser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#C9CAC0"/>
             <stop offset="50%" stop-color="#B7B9AF"/>
@@ -329,11 +502,11 @@
 
           <!-- Soft ambient glow when column is hovered/active -->
           <linearGradient id="shaft-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#1F4B3F" stop-opacity="0.25"/>
-            <stop offset="35%" stop-color="#F4D9A6" stop-opacity="0.80"/>
+            <stop offset="0%" stop-color="#1D473B" stop-opacity="0.28"/>
+            <stop offset="35%" stop-color="#F5DCAC" stop-opacity="0.85"/>
             <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-            <stop offset="85%" stop-color="#F4D9A6" stop-opacity="0.60"/>
-            <stop offset="100%" stop-color="#A54A2A" stop-opacity="0.30"/>
+            <stop offset="85%" stop-color="#F5DCAC" stop-opacity="0.65"/>
+            <stop offset="100%" stop-color="#A34626" stop-opacity="0.35"/>
           </linearGradient>
 
           <!-- Capital Abacus stone -->
@@ -403,20 +576,16 @@
             <stop offset="100%" stop-color="#8E9087"/>
           </radialGradient>
 
-          <!-- REUSABLE CLASSICAL CAPITAL (Doric/Ionic monumental profile) -->
-          <!-- Centered at (0, 0) top of abacus -->
+          <!-- CLASSICAL CAPITAL (Doric profile) -->
           <g id="classic-capital">
-            <!-- Abacus stone slab with chamfer -->
             <rect x="-22" y="0" width="44" height="8" rx="0.5" fill="url(#abacus-grad)" stroke="#9A9C93" stroke-width="0.75"/>
             <line x1="-21" y1="0.75" x2="21" y2="0.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.75"/>
             <line x1="-21.5" y1="8" x2="21.5" y2="8" stroke="#3F423C" stroke-opacity="0.45" stroke-width="0.8"/>
             
-            <!-- Echinus convex ovolo cushion -->
             <path d="M -21 8 C -21 14.5, -16.5 19, -15 19 L 15 19 C 16.5 19, 21 14.5, 21 8 Z" fill="url(#echinus-grad)" stroke="#92948B" stroke-width="0.75"/>
             <path d="M -18 9 Q 0 8.2 18 9" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.75"/>
             <path d="M -16 18.5 Q 0 18.2 16 18.5" fill="none" stroke="#50534C" stroke-opacity="0.5" stroke-width="0.6"/>
 
-            <!-- 3 Annulets (anillos finos tallados) -->
             <rect x="-15.5" y="19" width="31" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
             <line x1="-15" y1="19.4" x2="15" y2="19.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
             <rect x="-15.3" y="21" width="30.6" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
@@ -424,48 +593,37 @@
             <rect x="-15.1" y="23" width="30.2" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
             <line x1="-14.6" y1="23.4" x2="14.6" y2="23.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
 
-            <!-- Hypotrachelion / Necking connecting to shaft -->
             <rect x="-15" y="25" width="30" height="3" fill="url(#shaft-neck-grad)" stroke="#8C8E85" stroke-width="0.5"/>
             <line x1="-14.5" y1="28" x2="14.5" y2="28" stroke="#484B44" stroke-opacity="0.4" stroke-width="0.6"/>
           </g>
 
-          <!-- REUSABLE CLASSICAL ATTIC BASE (Basa monumental tallada) -->
-          <!-- Centered at (0, 0) bottom of shaft -->
+          <!-- CLASSICAL BASE (Attic profile) -->
           <g id="classic-base">
-            <!-- Apophyge flare -->
             <path d="M -17 0 C -17 1.8, -18 3, -19 4 L 19 4 C 18 3, 17 1.8, 17 0 Z" fill="url(#shaft-stone-3d)" stroke="#94968D" stroke-width="0.5"/>
             
-            <!-- Upper Torus -->
             <path d="M -18.5 4 C -20 4, -20.2 7, -18.5 8 L 18.5 8 C 20.2 7, 20 4, 18.5 4 Z" fill="url(#torus-grad)" stroke="#8E9087" stroke-width="0.6"/>
             <path d="M -17 4.8 Q 0 4.2 17 4.8" fill="none" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.6"/>
             
-            <!-- Scotia concave hollow -->
             <path d="M -17.5 8 C -16.2 9, -16.2 12, -17.5 13 L 17.5 13 C 16.2 12, 16.2 9, 17.5 8 Z" fill="url(#scotia-grad)" stroke="#4A4C45" stroke-width="0.5"/>
             
-            <!-- Lower Torus (wide convex ring) -->
             <path d="M -21 13 C -23.2 13, -23.2 18.5, -21 19 L 21 19 C 23.2 18.5, 23.2 13, 21 13 Z" fill="url(#torus-grad)" stroke="#8C8E85" stroke-width="0.75"/>
             <path d="M -19.5 14.5 Q 0 13.8 19.5 14.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.7"/>
             <line x1="-20.5" y1="19" x2="20.5" y2="19" stroke="#3D4039" stroke-opacity="0.45" stroke-width="0.75"/>
 
-            <!-- Plinth stone block -->
             <rect x="-23" y="19" width="46" height="8" rx="0.5" fill="url(#plinth-grad)" stroke="#8E9087" stroke-width="0.75"/>
             <line x1="-22.5" y1="19.75" x2="22.5" y2="19.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
             <line x1="-22.5" y1="27" x2="22.5" y2="27" stroke="#3F423C" stroke-opacity="0.5" stroke-width="0.75"/>
           </g>
 
-          <!-- Contact shadow under plinth -->
           <g id="classic-base-shadow">
             <ellipse cx="0" cy="27.5" rx="27" ry="3.5" fill="url(#plinth-drop-shadow)" class="col-base-shadow"/>
           </g>
         </defs>
 
-        <!-- ==================== STATIC TEMPLE ARCHITECTURE ==================== -->
-        
-        <!-- Crepidoma (3 classical stone steps / crepidoma) -->
-        <!-- Step 3: Euthynteria (bottom) -->
+        <!-- STATIC TEMPLE ARCHITECTURE -->
+        <!-- Step 3: Euthynteria -->
         <rect x="2" y="380" width="1176" height="12" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
         <line x1="2" y1="380.75" x2="1178" y2="380.75" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.8"/>
-        <!-- Step 3 masonry joints -->
         <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
           <line x1="140" y1="380" x2="140" y2="392"/>
           <line x1="320" y1="380" x2="320" y2="392"/>
@@ -475,10 +633,9 @@
           <line x1="1040" y1="380" x2="1040" y2="392"/>
         </g>
 
-        <!-- Step 2: Stereobate (middle) -->
+        <!-- Step 2: Stereobate -->
         <rect x="12" y="369" width="1156" height="11" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
         <line x1="12" y1="369.75" x2="1168" y2="369.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.8"/>
-        <!-- Step 2 masonry joints -->
         <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
           <line x1="230" y1="369" x2="230" y2="380"/>
           <line x1="410" y1="369" x2="410" y2="380"/>
@@ -487,10 +644,9 @@
           <line x1="950" y1="369" x2="950" y2="380"/>
         </g>
 
-        <!-- Step 1: Stylobate (top platform) -->
+        <!-- Step 1: Stylobate -->
         <rect x="22" y="358" width="1136" height="11" fill="url(#step-riser-grad)" stroke="#8C8E85" stroke-width="0.75"/>
         <line x1="22" y1="358.75" x2="1158" y2="358.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
-        <!-- Step 1 masonry joints -->
         <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
           <line x1="160" y1="358" x2="160" y2="369"/>
           <line x1="340" y1="358" x2="340" y2="369"/>
@@ -500,36 +656,31 @@
           <line x1="1060" y1="358" x2="1060" y2="369"/>
         </g>
 
-        <!-- Architrave (massive stone lintel beam) -->
+        <!-- Architrave -->
         <rect x="26" y="106" width="1128" height="18" fill="url(#architrave-grad)" stroke="#989A91" stroke-width="0.75"/>
-        <!-- Taenia band on top -->
         <rect x="24" y="106" width="1132" height="3" fill="#D8D9D0" stroke="#888A81" stroke-width="0.5"/>
         <line x1="24" y1="106.75" x2="1156" y2="106.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
-        <!-- Fascia step line -->
         <line x1="26" y1="116" x2="1154" y2="116" stroke="#A0A299" stroke-width="0.6"/>
         
         <!-- Frieze background -->
         <rect x="26" y="80" width="1128" height="26" fill="url(#frieze-stone-grad)" stroke="#9A9C93" stroke-width="0.75"/>
 
-        <!-- Horizontal Cornice with Dentils -->
-        <!-- Dentil bed -->
+        <!-- Cornice with Dentils -->
         <rect x="22" y="74" width="1136" height="6" fill="#C9CAC0" stroke="#82847B" stroke-width="0.6"/>
         <rect x="22" y="74" width="1136" height="6" fill="url(#dentil-pattern)"/>
-        <!-- Corona projecting slab -->
         <rect x="18" y="68" width="1144" height="6" fill="url(#corona-grad)" stroke="#8C8E85" stroke-width="0.75"/>
         <line x1="18" y1="68.75" x2="1162" y2="68.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.8"/>
         <line x1="18" y1="74" x2="1162" y2="74" stroke="#40433C" stroke-opacity="0.4" stroke-width="0.6"/>
 
-        <!-- Pediment (Tympanum & Rosette) -->
+        <!-- Pediment Tympanum -->
         <polygon points="34,68 590,16 1146,68" fill="url(#tympanum-grad)" stroke="#92948B" stroke-width="0.75"/>
 
-        <!-- Tympanum Rosette of Balance -->
+        <!-- Rosette of Balance -->
         <g class="pediment-rosette" transform="translate(590, 48)">
           <circle r="16" fill="url(#medallion-grad)" stroke="#808279" stroke-width="0.8"/>
           <circle r="13" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.6"/>
           <circle r="9" fill="url(#medallion-inner-grad)" stroke="#6C6E66" stroke-width="0.6"/>
-          <circle r="3.5" fill="#1F4B3F"/>
-          <!-- 10 carved relief rays (10 dimensions) -->
+          <circle r="3.5" fill="#1D473B"/>
           <g stroke="#6E7068" stroke-width="0.75" stroke-opacity="0.75">
             <line x1="0" y1="-12" x2="0" y2="-5"/>
             <line x1="7.05" y1="-9.71" x2="2.94" y2="-4.05"/>
@@ -544,11 +695,9 @@
           </g>
         </g>
 
-        <!-- Raking Cornices (Cornisas inclinadas del frontón) -->
-        <!-- Left raking cornice -->
+        <!-- Raking Cornices -->
         <polygon points="16,70 590,12 590,17 26,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
         <line x1="16" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
-        <!-- Right raking cornice -->
         <polygon points="1164,70 590,12 590,17 1154,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
         <line x1="1164" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
 
@@ -558,69 +707,179 @@
           <path d="M 0 -6 C -5 -2, -6 0, -4 2 C -2 3, 0 1, 0 0 C 0 1, 2 3, 4 2 C 6 0, 5 -2, 0 -6 Z" fill="#ECEEE5" stroke="#686A61" stroke-width="0.6"/>
         </g>
 
-        <!-- Continuous cast shadow under architrave onto capitals -->
+        <!-- Architrave shadow -->
         <rect x="26" y="124" width="1128" height="8" fill="url(#architrave-cast-shadow)" pointer-events="none"/>
 
-        <!-- ==================== THE 10 INTERACTIVE COLUMNS ==================== -->
+        <!-- THE 10 INTERACTIVE COLUMNS -->
         <g id="columns"></g>
       </svg>
      </div>
-      <p class="temple-caption mono">FACHADA DÓRICA CLÁSICA — 10 UNIDADES MONUMENTALES · desliza horizontalmente para navegar</p>
+      <p class="temple-caption">FACHADA DÓRICA DEL BIENESTAR · DIEZ PILARES MONUMENTALES · DESLIZA PARA EXPLORAR</p>
     </div>
 
-    <div class="spec" id="spec">
-      <div class="num mono" id="spec-num">—</div>
-      <div class="body">
-        <h3 id="spec-title">Elige una columna</h3>
-        <p id="spec-dates">Cada columna guarda las sesiones de clase de esa unidad — pasa el cursor o tócala.</p>
-        <span class="hito mono" id="spec-hito"></span>
+    <!-- ==================== SPEC PANEL (ESTELA DÉLICA) ==================== -->
+    <div class="spec-stele" id="spec">
+      <div class="spec-stele-cornice">
+        <span class="tag">✦ INSCRIPCIÓN DE LA COLUMNA ✦</span>
+        <span class="coord mono" id="spec-coord">ORDEN DÓRICO · ESEN MMXXVI</span>
       </div>
-      <div class="status"><span class="stamp" id="spec-status">—</span></div>
+      <div class="spec-grid">
+        <div class="num-col">
+          <span class="large-roman" id="spec-num">—</span>
+          <span class="greek-sub" id="spec-greek">PILAR</span>
+        </div>
+        <div class="body">
+          <h3 id="spec-title">Selecciona un pilar del templo</h3>
+          <p id="spec-dates">Toca o pasa el cursor sobre cada columna para consultar el alcance temático, cronograma e hitos evaluados.</p>
+          <span class="hito" id="spec-hito"></span>
+        </div>
+        <div class="status-col">
+          <span class="stamp-greek" id="spec-status">—</span>
+        </div>
+      </div>
     </div>
   </header>
 
-  <section class="modulo">
-    <div class="modulo-head">
-      <span class="modulo-num">01</span>
-      <h2>Qué vas a encontrar aquí</h2>
+  <!-- Divider Greca -->
+  <div class="greek-frieze"></div>
+
+  <!-- ==================== GREEK PHILOSOPHICAL FOUNDATION ==================== -->
+  <section class="agora-section">
+    <div class="agora-head">
+      <span class="agora-num">I</span>
+      <h2>Fundamentos Clásicos del Bienestar</h2>
     </div>
-    <div class="sello-row">
-      <div class="sello">nunca<br>evaluaciones<br>publicadas</div>
-      <div class="sello-text">
-        <p>El Programa permite usar IA <b>solo como herramienta de revisión y formato</b> para
-        evaluaciones — nunca para generar su contenido. Por eso este sitio solo publicará
-        guías de estudio, resúmenes y repasos personales de cada columna, a medida que se
-        generen a lo largo del ciclo.</p>
-        <p>Un Foro, un Control, la Dinámica vivencial, el Ikigai, el Propósito de vida y el
-        Workbook <b>"Redefiniendo el Éxito"</b> no aparecerán jamás aquí: siguen siendo, en
-        su totalidad, trabajo de autoría de Carlos Navas.</p>
+    <div class="triad-grid">
+      <div class="triad-card">
+        <div class="triad-greek">ΕΥΔΑΙΜΟΝΙΑ</div>
+        <div class="triad-trans">Eudaimonía · Florecimiento</div>
+        <p>No el placer pasajero (*hedoné*), sino la plenitud serena que brota de cultivar todas las dimensiones del ser humano en armonía.</p>
+      </div>
+      <div class="triad-card">
+        <div class="triad-greek">ΑΡΕΤΗ</div>
+        <div class="triad-trans">Areté · Excelencia Moral y Personal</div>
+        <p>El compromiso constante con dar la mejor versión de uno mismo en lo físico, intelectual, emocional, vocacional y relacional.</p>
+      </div>
+      <div class="triad-card">
+        <div class="triad-greek">ΣΩΦΡΟΣΥΝΗ</div>
+        <div class="triad-trans">Sōphrosýnē · Templanza y Balance</div>
+        <p>La sabiduría de la medida justa (*mêden agan*). Como enseña la Unidad X, el verdadero bienestar se sostiene cuando ninguna columna eclipsa a las demás.</p>
       </div>
     </div>
   </section>
 
-  <footer>
-    <p class="txt">Generado a partir del vault de Obsidian del curso. Ver <code>AGENTS.md</code>
-    en la raíz del repositorio para el detalle completo de reglas y fuentes.</p>
-    <div class="scalebar">
+  <!-- ==================== COIN SEAL SECTION ==================== -->
+  <section class="agora-section">
+    <div class="agora-head">
+      <span class="agora-num">II</span>
+      <h2>Compromiso Académico y Ético</h2>
+    </div>
+    <div class="sello-wrap">
+      <!-- Ancient Greek Drachma / Terracotta Medallion SVG -->
+      <div class="coin-stamp">
+        <svg width="154" height="154" viewBox="0 0 154 154" role="img" aria-label="Sello griego en terracota de autoría propia">
+          <defs>
+            <radialGradient id="terracotta-coin" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stop-color="#C25A38"/>
+              <stop offset="50%" stop-color="#9E3E1F"/>
+              <stop offset="90%" stop-color="#6B240F"/>
+              <stop offset="100%" stop-color="#4A1608"/>
+            </radialGradient>
+            <radialGradient id="coin-highlight" cx="35%" cy="30%" r="50%">
+              <stop offset="0%" stop-color="#FCE6C2" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#FCE6C2" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Outer irregular antique coin relief -->
+          <circle cx="77" cy="77" r="73" fill="url(#terracotta-coin)" stroke="#4A1608" stroke-width="2.5"/>
+          <circle cx="77" cy="77" r="73" fill="url(#coin-highlight)"/>
+          
+          <!-- Beaded rim (astragal) -->
+          <circle cx="77" cy="77" r="67" fill="none" stroke="#FCE6C2" stroke-width="1.2" stroke-dasharray="2.5,2.5" stroke-opacity="0.8"/>
+          <circle cx="77" cy="77" r="63" fill="none" stroke="#6B240F" stroke-width="1"/>
+
+          <!-- Laurel wreath ring (Daphne) -->
+          <g stroke="#FCE6C2" stroke-width="1.1" fill="none" stroke-opacity="0.85">
+            <!-- Left branch -->
+            <path d="M 28 85 C 24 60 40 32 77 24"/>
+            <circle cx="34" cy="72" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="36" cy="56" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="45" cy="42" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="60" cy="31" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+
+            <!-- Right branch -->
+            <path d="M 126 85 C 130 60 114 32 77 24"/>
+            <circle cx="120" cy="72" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="118" cy="56" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="109" cy="42" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+            <circle cx="94" cy="31" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
+          </g>
+
+          <!-- Center Column / Temple Symbol -->
+          <g transform="translate(77, 75)">
+            <!-- Mini Doric Column in relief -->
+            <rect x="-12" y="-18" width="24" height="4" fill="#FCE6C2" fill-opacity="0.9"/>
+            <path d="M -10 -14 L 10 -14 L 8 -9 L -8 -9 Z" fill="#FCE6C2" fill-opacity="0.9"/>
+            <rect x="-8" y="-9" width="16" height="28" fill="#FCE6C2" fill-opacity="0.85"/>
+            <!-- Column flutes -->
+            <line x1="-4" y1="-9" x2="-4" y2="19" stroke="#6B240F" stroke-width="0.8"/>
+            <line x1="0" y1="-9" x2="0" y2="19" stroke="#6B240F" stroke-width="0.8"/>
+            <line x1="4" y1="-9" x2="4" y2="19" stroke="#6B240F" stroke-width="0.8"/>
+            <!-- Base -->
+            <rect x="-11" y="19" width="22" height="4" fill="#FCE6C2" fill-opacity="0.9"/>
+            <rect x="-13" y="23" width="26" height="5" fill="#FCE6C2" fill-opacity="0.9"/>
+          </g>
+
+          <!-- Chiseled Text in Arch -->
+          <text x="77" y="128" text-anchor="middle" font-family="'Cinzel',serif" font-size="7.5" font-weight="800" fill="#FCE6C2" letter-spacing="1.2">
+            AUTORÍA PROPIA
+          </text>
+          <text x="77" y="137" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" font-weight="600" fill="#FCE6C2" fill-opacity="0.9" letter-spacing="0.8">
+            NUNCA IA EN EVALUACIONES
+          </text>
+        </svg>
+      </div>
+      <div class="sello-content">
+        <h4>Canon de Integridad · Normas ESEN</h4>
+        <p>El Programa del curso permite el uso de inteligencia artificial <b>únicamente como instrumento de revisión gramatical, ortográfica y de formato</b> — jamás para la generación de contenido. Por este principio ético y pedagógico, este sitio web no publicará jamás respuestas de foros, controles, la dinámica vivencial, el Ikigai o el Workbook.</p>
+        <p>El Workbook <b>«Redefiniendo el Éxito»</b> y los ejercicios de reflexión personal son y seguirán siendo, en su totalidad, obra de autoría humana de <b>Carlos Navas</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Divider Greca -->
+  <div class="greek-frieze"></div>
+
+  <!-- ==================== MONUMENTAL FOOTER ==================== -->
+  <footer class="temple-footer">
+    <div class="txt">
+      <b>CÁTEDRA PILARES DEL BIENESTAR · ESEN</b><br>
+      Base de conocimiento persistente y lámina digital. Consulta <code>AGENTS.md</code> en el repositorio para las normas maestras y fuentes de cátedra.
+    </div>
+    <div class="scalebar-greek">
       <div class="bar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <span class="lab">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 UNIDAD</span>
+      <span class="lab">I · CANON DE PROPORCIÓN</span>
     </div>
   </footer>
+
+  <!-- Bottom Meander Border -->
+  <div class="greek-frieze subtle" style="margin-top:0; margin-bottom:40px;"></div>
 
 </div>
 
 <script>
   const UNIDADES = [
-    {n:1, romano:"I", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:false},
-    {n:2, romano:"II", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:false},
-    {n:3, romano:"III", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:false},
-    {n:4, romano:"IV", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
-    {n:5, romano:"V", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:false},
-    {n:6, romano:"VI", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:false},
-    {n:7, romano:"VII", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
-    {n:8, romano:"VIII", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
-    {n:9, romano:"IX", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
-    {n:10, romano:"X", nombre:"La clave está en el balance", fechas:"6 y 9 nov", hito:"Control 3 · 3 nov · Entrega de Workbook · 9 nov (20%)", disponible:false},
+    {n:1, romano:"I", greek:"Α", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:false},
+    {n:2, romano:"II", greek:"Β", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:false},
+    {n:3, romano:"III", greek:"Γ", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:false},
+    {n:4, romano:"IV", greek:"Δ", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
+    {n:5, romano:"V", greek:"Ε", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:false},
+    {n:6, romano:"VI", greek:"Ϛ", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:false},
+    {n:7, romano:"VII", greek:"Ζ", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
+    {n:8, romano:"VIII", greek:"Η", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
+    {n:9, romano:"IX", greek:"Θ", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
+    {n:10, romano:"X", greek:"Ι", nombre:"La clave está en el balance", fechas:"6 y 9 nov", hito:"Control 3 · 3 nov · Entrega de Workbook · 9 nov (20%)", disponible:false},
   ];
 
   const svgColumns = document.getElementById("columns");
@@ -634,10 +893,10 @@
     g.setAttribute("class", "col-group reveal");
     g.setAttribute("tabindex", "0");
     g.setAttribute("role", "button");
-    g.setAttribute("aria-label", "Unidad " + u.romano + ": " + u.nombre);
+    g.setAttribute("aria-label", "Pilar " + u.romano + ": " + u.nombre);
     g.dataset.index = i;
 
-    // Invisible wide hit area for flawless hover & touch
+    // Invisible wide hit area
     const hit = document.createElementNS(NS, "rect");
     hit.setAttribute("x", cx - 28);
     hit.setAttribute("y", 78);
@@ -817,17 +1076,21 @@
   const specDates = document.getElementById("spec-dates");
   const specHito = document.getElementById("spec-hito");
   const specNum = document.getElementById("spec-num");
+  const specGreek = document.getElementById("spec-greek");
+  const specCoord = document.getElementById("spec-coord");
   const specStatus = document.getElementById("spec-status");
   const groups = Array.from(document.querySelectorAll(".col-group"));
 
   function showUnidad(i){
     const u = UNIDADES[i];
     specNum.textContent = u.romano;
+    specGreek.textContent = "PILAR " + u.greek + " (" + u.romano + ")";
     specTitle.textContent = u.nombre;
-    specDates.textContent = "Fechas de clase: " + u.fechas;
+    specDates.textContent = "Cátedra y sesiones: " + u.fechas;
     specHito.textContent = u.hito;
+    specCoord.textContent = "COLUMNA " + u.romano + " · SECCIÓN " + (i + 1) + "/10";
     specStatus.textContent = u.disponible ? "Disponible" : "Pendiente";
-    specStatus.className = "stamp" + (u.disponible ? " disponible" : "");
+    specStatus.className = "stamp-greek" + (u.disponible ? " disponible" : "");
     groups.forEach((g, gi) => g.classList.toggle("active", gi === i));
   }
 
@@ -840,7 +1103,7 @@
 
   requestAnimationFrame(() => {
     groups.forEach((g, i) => {
-      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 75 * i);
+      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 70 * i);
     });
   });
 </script>
