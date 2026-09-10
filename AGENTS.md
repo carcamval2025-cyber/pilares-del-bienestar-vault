@@ -104,11 +104,7 @@ RESTRICCIONES: [extensión, nivel, etc. — si aplica]
 - `04 Materiales Generados/` — índice de material de estudio ya producido (actualmente
   vacío) y `_Plantilla de Material.md` para registrar uno nuevo.
 - `README.md` — una línea, identificación del repositorio.
-- `docs/` — sitio estático pensado para publicarse en GitHub Pages, mismo patrón que los
-  otros vaults del usuario. **A diferencia de Modelos Macroeconómicos, este repositorio
-  todavía no existe en GitHub** — `docs/index.html` está listo como scaffold (10 tarjetas,
-  todas en estado "Pendiente"), pero crear el repositorio y activar Pages es un paso
-  pendiente para cuando Navas lo pida.
+- `docs/` — sitio estático publicado en GitHub Pages: `https://carcamval2025-cyber.github.io/pilares-del-bienestar-vault/`. `docs/index.html` contiene el scaffold interactivo de la fachada de diez columnas del bienestar.
 
 ## Sistema de diseño HTML (solo para Guía / Resumen / Repaso — nunca para Foro, Control, Ikigai, Propósito de vida o Workbook)
 
@@ -124,13 +120,11 @@ gradientes/sombras decorativas, debe abrir directo en navegador sin servidor, re
 todo diagrama o ilustración como SVG inline, nunca imágenes externas ni capturas de
 diapositivas de la profesora.
 
-## GitHub Pages (`docs/`) — pendiente de activar
+## GitHub Pages (`docs/`) — activo
 
-A diferencia de los otros dos vaults, el repositorio de este todavía no se ha creado.
-Cuando Navas lo pida: crear un repositorio público (sugerido:
-`pilares-del-bienestar-vault`, mismo patrón de nombre que
-`modelos-macroeconomicos-vault`), subir esta carpeta, y activar en Settings → Pages →
-"Deploy from a branch" → rama `main`, carpeta `/docs`.
+Repositorio público: `https://github.com/carcamval2025-cyber/pilares-del-bienestar-vault`
+Sitio en vivo: `https://carcamval2025-cyber.github.io/pilares-del-bienestar-vault/`
+Rama de despliegue: `main`, carpeta `/docs`.
 
 **Regla que no se negocia sobre este sitio, igual que en los otros vaults**: `docs/` es
 público en internet. Nunca publicar ahí un Foro, un Control, un Ikigai, un Propósito de
