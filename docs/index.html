@@ -336,6 +336,98 @@
     .col-group.shown{ transition:none; }
     .col-group:hover .column-body{ transform:none; }
   }
+  .spec-link{ display:inline-block; margin-top:12px; font-family:'Cinzel',serif; font-size:.8rem;
+    font-weight:700; letter-spacing:.06em; text-decoration:none; color:var(--pine);
+    border:2px solid var(--pine); padding:8px 14px; }
+  .spec-link:hover{ background:var(--pine); color:#F5F5F3; }
+  .spec-link[hidden]{ display:none; }
+
+  .spec-actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+  .spec-link{
+    display:inline-flex; align-items:center; gap:6px; font-family:'Cinzel',serif; font-size:.76rem;
+    font-weight:700; letter-spacing:.06em; text-decoration:none; color:var(--pine);
+    border:2px solid var(--pine); padding:8px 16px; background:var(--marble);
+    transition:all .2s var(--ease);
+  }
+  .spec-link:hover{ background:var(--pine); color:#F5F5F3; }
+  .spec-link.repaso{
+    border-color:var(--clay); color:var(--clay);
+  }
+  .spec-link.repaso:hover{ background:var(--clay); color:#F5F5F3; }
+  .spec-actions[hidden]{ display:none; }
+
+  /* Study Agora Section Styles */
+  .control-grand-card{
+    background: linear-gradient(135deg, #FFFDF9 0%, #F5EFE4 100%);
+    border: 2px solid var(--gold-doric);
+    padding: 30px; margin-bottom: 28px;
+    position: relative; box-shadow: 0 8px 24px rgba(158,123,53,0.12);
+  }
+  .control-grand-card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:5px;
+    background: linear-gradient(90deg, var(--clay) 0%, var(--gold-light) 50%, var(--pine) 100%);
+  }
+  .control-header{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
+  .control-badge{
+    font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700;
+    color:var(--clay); background:var(--clay-pale); border:1px solid var(--clay);
+    padding:4px 10px; border-radius:2px; letter-spacing:.06em;
+  }
+  .control-title{
+    font-family:'Cinzel',serif; font-size:1.45rem; font-weight:800; color:var(--pine);
+    margin:0 0 6px; letter-spacing:.02em;
+  }
+  .control-sub{
+    font-family:'Cormorant Garamond',Georgia,serif; font-size:1.15rem; font-style:italic;
+    color:var(--text-dim); margin:0 0 16px; line-height:1.45;
+  }
+  .control-features{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:14px; margin-bottom:22px; padding:16px; background:rgba(255,255,255,0.7);
+    border:1px solid var(--border);
+  }
+  .feature-item{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--text-dim); }
+  .feature-item b{ color:var(--pine); font-weight:700; font-family:'Cinzel',serif; }
+  .control-actions{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn-greek-gold{
+    font-family:'Cinzel',serif; font-size:.82rem; font-weight:800; letter-spacing:.06em;
+    text-decoration:none; color:#1B1713; background:linear-gradient(135deg, #FFEAA7, #DFC07A);
+    border:1.5px solid var(--gold-doric); padding:10px 20px; box-shadow:0 3px 8px rgba(158,123,53,0.2);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-greek-gold:hover{ transform:translateY(-1px); box-shadow:0 5px 14px rgba(158,123,53,0.3); }
+  .btn-greek-outline{
+    font-family:'Cinzel',serif; font-size:.82rem; font-weight:700; letter-spacing:.06em;
+    text-decoration:none; color:var(--pine); background:transparent;
+    border:1.5px solid var(--pine); padding:10px 18px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .btn-greek-outline:hover{ background:var(--pine); color:#F5F5F3; }
+
+  .study-card{
+    background:var(--marble); border:1.5px solid var(--border); padding:22px 20px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .study-card:hover{ border-color:var(--pine); box-shadow:0 6px 18px rgba(27,23,19,0.06); }
+  .study-card-top{ margin-bottom:16px; }
+  .study-num{
+    font-family:'Cinzel',serif; font-size:.82rem; font-weight:800; color:var(--clay);
+    border:1px solid var(--clay); padding:2px 8px; display:inline-block; margin-bottom:10px;
+  }
+  .study-card h3{
+    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:700; color:var(--pine);
+    margin:0 0 6px;
+  }
+  .study-dates{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--text-faint); margin-bottom:8px; }
+  .study-desc{ font-size:.9rem; color:var(--text-dim); line-height:1.5; margin:0; }
+  .study-btn{
+    margin-top:16px; display:inline-block; font-family:'Cinzel',serif; font-size:.76rem;
+    font-weight:700; color:var(--pine); text-decoration:none; border-bottom:1.5px solid var(--pine);
+    padding-bottom:2px;
+  }
+  .study-btn:hover{ color:var(--clay); border-bottom-color:var(--clay); }
+
 </style>
 </head>
 <body>
@@ -732,6 +824,10 @@
           <h3 id="spec-title">Selecciona un pilar del templo</h3>
           <p id="spec-dates">Toca o pasa el cursor sobre cada columna para consultar el alcance temático, cronograma e hitos evaluados.</p>
           <span class="hito" id="spec-hito"></span>
+          <div class="spec-actions" id="spec-actions" hidden>
+            <a class="spec-link" id="spec-link-unit" href="#">Abrir material de estudio &rarr;</a>
+            <a class="spec-link repaso" id="spec-link-repaso" href="repaso-control-1/">Repaso Control 1 &rarr;</a>
+          </div>
         </div>
         <div class="status-col">
           <span class="stamp-greek" id="spec-status">—</span>
@@ -742,6 +838,92 @@
 
   <!-- Divider Greca -->
   <div class="greek-frieze"></div>
+
+  
+  <!-- Divider Greca -->
+  <div class="greek-frieze"></div>
+
+  <!-- ==================== STUDY AGORA & EXAM REVIEWS ==================== -->
+  <section class="agora-section" id="agora-estudio">
+    <div class="agora-head">
+      <span class="agora-num">🏛</span>
+      <h2>Ágora de Estudio · Materiales y Controles MMXXVI</h2>
+    </div>
+
+    <!-- Grand Feature Card for Control 1 -->
+    <div class="control-grand-card">
+      <div class="control-header">
+        <div>
+          <span class="control-badge">CONTROL 1 ACUMULADO · UNIDADES I, II Y III</span>
+          <h3 class="control-title">Repaso General para el Control 1</h3>
+        </div>
+        <span class="stamp-greek disponible">Jue 10 Sep · Presencial</span>
+      </div>
+      <p class="control-sub">
+        Compendio integral de estudio personal de Carlos Navas. Abarca desde la redefinición del éxito y el modelo PERMA, pasando por el pilar físico (continuo de salud, hormonas, arquitectura del sueño, ortosomnia y macronutrientes), hasta el pilar intelectual (inteligencias múltiples de Gardner y conexión mente–cuerpo).
+      </p>
+
+      <div class="control-features">
+        <div class="feature-item"><b>10 Láminas</b> · Grabados arquitectónicos</div>
+        <div class="feature-item"><b>Autoevaluación</b> · 12 reactivos con retroalimentación</div>
+        <div class="feature-item"><b>Glosarios</b> · 8 términos por unidad</div>
+        <div class="feature-item"><b>Mapas de vacíos</b> · Identificación precisa de ausencias</div>
+      </div>
+
+      <div class="control-actions">
+        <a href="repaso-control-1/" class="btn-greek-gold">Abrir Repaso Acumulado (Control 1) &rarr;</a>
+        <a href="repaso-control-1/#quiz" class="btn-greek-outline">Simulador de Preguntas (Quiz) &rarr;</a>
+      </div>
+    </div>
+
+    <!-- 3 Unit Study Cards -->
+    <div class="triad-grid">
+      <!-- Unidad I -->
+      <div class="study-card">
+        <div class="study-card-top">
+          <span class="study-num">PILAR I · Α</span>
+          <h3>Redefiniendo el Éxito</h3>
+          <div class="study-dates">25 y 27 de agosto · 10 pp.</div>
+          <p class="study-desc">
+            Marcos previos (BT I y BT II PERMA), pirámide de Maslow de 5 niveles, felicidad vs. bienestar objetivo/subjetivo y la fachada de las 8 dimensiones.
+          </p>
+        </div>
+        <div>
+          <a href="unidad-01/" class="study-btn">Estudiar Unidad I (3 Láminas) &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Unidad II -->
+      <div class="study-card">
+        <div class="study-card-top">
+          <span class="study-num">PILAR II · Β</span>
+          <h3>Pilar Físico</h3>
+          <div class="study-dates">1, 3 y 4 de septiembre · Cátedra &amp; Charla</div>
+          <p class="study-desc">
+            Continuo de la salud (enfermedad–bienestar–fitness), las 6 hormonas rectoras, arquitectura del sueño (fases NREM/REM), ciclo de la ortosomnia y macronutrientes completos.
+          </p>
+        </div>
+        <div>
+          <a href="unidad-02/" class="study-btn">Estudiar Unidad II (5 Láminas) &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Unidad III -->
+      <div class="study-card">
+        <div class="study-card-top">
+          <span class="study-num">PILAR III · Γ</span>
+          <h3>Pilar Intelectual</h3>
+          <div class="study-dates">8 y 11 de septiembre · Cátedra ESEN</div>
+          <p class="study-desc">
+            Bienestar intelectual, las 8 inteligencias múltiples de Howard Gardner (rosa délfica) y el triple canal neuroquímico de conexión entre cuerpo y mente.
+          </p>
+        </div>
+        <div>
+          <a href="unidad-03/" class="study-btn">Estudiar Unidad III (2 Láminas) &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ==================== GREEK PHILOSOPHICAL FOUNDATION ==================== -->
   <section class="agora-section">
@@ -870,9 +1052,9 @@
 
 <script>
   const UNIDADES = [
-    {n:1, romano:"I", greek:"Α", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:false},
-    {n:2, romano:"II", greek:"Β", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:false},
-    {n:3, romano:"III", greek:"Γ", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:false},
+    {n:1, romano:"I", greek:"Α", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:true, slug:"unidad-01"},
+    {n:2, romano:"II", greek:"Β", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:true, slug:"unidad-02"},
+    {n:3, romano:"III", greek:"Γ", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:true, slug:"unidad-03"},
     {n:4, romano:"IV", greek:"Δ", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
     {n:5, romano:"V", greek:"Ε", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:false},
     {n:6, romano:"VI", greek:"Ϛ", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:false},
@@ -1079,6 +1261,7 @@
   const specGreek = document.getElementById("spec-greek");
   const specCoord = document.getElementById("spec-coord");
   const specStatus = document.getElementById("spec-status");
+  const specActions = document.getElementById("spec-actions");
   const groups = Array.from(document.querySelectorAll(".col-group"));
 
   function showUnidad(i){
@@ -1091,6 +1274,22 @@
     specCoord.textContent = "COLUMNA " + u.romano + " · SECCIÓN " + (i + 1) + "/10";
     specStatus.textContent = u.disponible ? "Disponible" : "Pendiente";
     specStatus.className = "stamp-greek" + (u.disponible ? " disponible" : "");
+    const specActions = document.getElementById("spec-actions");
+    const specLinkUnit = document.getElementById("spec-link-unit");
+    const specLinkRepaso = document.getElementById("spec-link-repaso");
+    if(u.slug){
+      specLinkUnit.href = u.slug + "/";
+      specLinkUnit.textContent = "Abrir Unidad " + u.romano + " →";
+      if(u.n <= 3){
+        specLinkRepaso.href = "repaso-control-1/#u" + u.n;
+        specLinkRepaso.style.display = "inline-flex";
+      } else {
+        specLinkRepaso.style.display = "none";
+      }
+      specActions.hidden = false;
+    } else {
+      specActions.hidden = true;
+    }
     groups.forEach((g, gi) => g.classList.toggle("active", gi === i));
   }
 

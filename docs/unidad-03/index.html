@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unidad III — Pilar intelectual · Pilares del Bienestar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+  :root{
+    --bg:#F5F5F3; --bg-elev:#ECECE8; --bg-elev2:#E2E2DC; --border:#D3D3CC; --border-soft:#DEDED8;
+    --text:#15181A; --text-dim:#43494A; --text-faint:#5F655F;
+    --pine:#1F4B3F; --moss:#2E7A5C; --clay:#A54A2A; --sage:#6E8B78;
+    --success:#1F4B3F; --danger:#B23347;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Work Sans',system-ui,sans-serif; line-height:1.62;
+    background-image: radial-gradient(var(--border-soft) 1.2px, transparent 1.2px);
+    background-size:26px 26px; background-position:-13px -13px;
+  }
+  ::selection{ background:var(--pine); color:#F5F5F3; }
+  a{ color:var(--moss); }
+  .wrap{ max-width:940px; margin:0 auto; padding:0 20px; }
+  .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  h1,h2,h3{ font-family:'Instrument Serif',Georgia,serif; font-weight:400; line-height:1.15; margin:0; }
+  h1{ font-size:clamp(2rem,5.6vw,3.2rem); letter-spacing:-.01em; }
+  h2{ font-size:clamp(1.55rem,4vw,2.25rem); }
+  h3{ font-size:clamp(1.12rem,2.6vw,1.42rem); }
+  h4.sec{ font-family:'Work Sans',sans-serif; font-size:.95rem; color:var(--clay);
+    margin:24px 0 8px; font-weight:600; }
+  p{ margin:0 0 .9em; color:var(--text-dim); }
+  b,strong{ color:var(--text); font-weight:600; }
+
+  header.top{ padding:40px 0 28px; border-bottom:1px solid var(--border); }
+  .plate{ border:1px solid var(--border); background:var(--bg-elev);
+    font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-dim);
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(146px,1fr)); margin-bottom:24px; }
+  .plate div{ padding:8px 12px; border-right:1px solid var(--border); }
+  .plate div:last-child{ border-right:none; }
+  .plate span{ display:block; color:var(--text-faint); font-size:.59rem; letter-spacing:.08em; text-transform:uppercase; }
+  .plate b{ color:var(--pine); font-weight:600; }
+  header.top h1 em{ color:var(--pine); font-style:italic; }
+  .lede{ font-size:1.04rem; max-width:64ch; margin-top:14px; }
+
+  .aviso{ border:1px solid var(--danger); border-left-width:4px; background:var(--bg-elev);
+    padding:15px 18px; margin:24px 0 0; }
+  .aviso .tag{ font-family:'IBM Plex Mono',monospace; font-size:.61rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--danger); display:block; margin-bottom:6px; }
+  .aviso p{ margin:0; font-size:.91rem; }
+  .aviso p + p{ margin-top:.6em; }
+
+  nav.toc{ position:sticky; top:0; z-index:9; background:var(--bg); border-bottom:1px solid var(--border); }
+  nav.toc ul{ list-style:none; display:flex; gap:2px; margin:0 auto; padding:0 20px; overflow-x:auto; max-width:940px; }
+  nav.toc a{ display:block; padding:11px 12px; font-family:'IBM Plex Mono',monospace; font-size:.67rem;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); text-decoration:none;
+    white-space:nowrap; border-bottom:2px solid transparent; }
+  nav.toc a:hover{ color:var(--pine); border-bottom-color:var(--border); }
+
+  section.unit{ padding:48px 0 8px; border-top:1px solid var(--border); margin-top:34px; }
+  section.unit:first-of-type{ border-top:none; margin-top:0; }
+  .unit-head{ display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; }
+  .unit-num{ font-family:'IBM Plex Mono',monospace; font-size:.71rem; letter-spacing:.14em; color:var(--clay);
+    border:1px solid var(--border); background:var(--bg-elev); padding:4px 9px; }
+  .unit-dates{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); margin-top:8px; }
+  .fuente{ font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint);
+    border-left:2px solid var(--border); padding-left:10px; margin:12px 0 24px; }
+
+  .block{ margin:32px 0; }
+  .block > h3{ color:var(--pine); margin-bottom:4px; }
+  .block .sub{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-faint); margin-bottom:12px; }
+
+  ul.clean{ margin:0 0 1em; padding-left:0; list-style:none; }
+  ul.clean li{ position:relative; padding-left:20px; margin-bottom:.5em; color:var(--text-dim); }
+  ul.clean li::before{ content:""; position:absolute; left:2px; top:.62em; width:7px; height:7px; background:var(--pine); }
+  ul.clean li.clay::before{ background:var(--clay); }
+
+  .two{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--border); background:var(--bg-elev); }
+  .two > div{ padding:16px 18px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .two > div:nth-child(2n){ border-right:none; }
+  .two > div:nth-last-child(-n+2){ border-bottom:none; }
+  .two h4{ margin:0 0 8px; font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--clay); font-weight:600; }
+  .two ul{ margin:0; padding-left:16px; }
+  .two li{ color:var(--text-dim); font-size:.92rem; margin-bottom:.35em; }
+  .two .resp{ margin:10px 0 0; color:var(--pine); font-weight:600; font-size:.92rem; }
+  @media (max-width:640px){
+    .two{ grid-template-columns:1fr; }
+    .two > div{ border-right:none; }
+    .two > div:last-child{ border-bottom:none; }
+    .two > div:nth-last-child(2){ border-bottom:1px solid var(--border); }
+  }
+
+  .note{ border:1px solid var(--border); border-left:3px solid var(--clay); background:var(--bg-elev);
+    padding:13px 16px; margin:18px 0; font-size:.91rem; }
+  .note .tag{ font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--clay); display:block; margin-bottom:5px; }
+  .note p{ margin:0; }
+  .note.gap{ border-left-color:var(--danger); }
+  .note.gap .tag{ color:var(--danger); }
+  .tagline{ font-family:'IBM Plex Mono',monospace; font-size:.61rem; color:var(--clay); }
+
+  blockquote{ margin:22px 0; padding:0 0 0 20px; border-left:3px solid var(--pine);
+    font-family:'Instrument Serif',Georgia,serif; font-size:1.28rem; line-height:1.35;
+    color:var(--text); font-style:italic; }
+  blockquote cite{ display:block; font-family:'IBM Plex Mono',monospace; font-size:.63rem;
+    font-style:normal; color:var(--text-faint); margin-top:9px; letter-spacing:.06em; }
+
+  figure.diag{ margin:26px 0; border:1px solid var(--border); background:var(--bg-elev); padding:16px 14px 10px; }
+  figure.diag .scroller{ overflow-x:auto; }
+  figure.diag svg{ display:block; width:100%; height:auto; }
+  figure.diag figcaption{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; color:var(--text-faint);
+    letter-spacing:.06em; margin-top:10px; text-transform:uppercase; border-top:1px solid var(--border);
+    padding-top:8px; }
+
+  dl.glos{ margin:0; border-top:1px solid var(--border); }
+  dl.glos > div{ display:grid; grid-template-columns:196px 1fr; border-bottom:1px solid var(--border); }
+  dl.glos dt{ padding:13px 14px 13px 0; font-weight:600; color:var(--pine); font-size:.94rem; }
+  dl.glos dd{ margin:0; padding:13px 0 13px 14px; border-left:1px solid var(--border);
+    color:var(--text-dim); font-size:.92rem; }
+  @media (max-width:640px){
+    dl.glos > div{ grid-template-columns:1fr; }
+    dl.glos dt{ padding-bottom:2px; }
+    dl.glos dd{ border-left:none; padding:0 0 13px; }
+  }
+
+  .quizhead{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+    border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:4px; }
+  .score{ font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint); }
+  .q{ border-bottom:1px solid var(--border); padding:22px 0; }
+  .q .qn{ font-family:'IBM Plex Mono',monospace; font-size:.63rem; letter-spacing:.1em; color:var(--clay);
+    display:block; margin-bottom:6px; }
+  .q .qt{ font-weight:600; color:var(--text); margin:0 0 14px; font-size:1.01rem; }
+  .opts{ display:flex; flex-direction:column; gap:7px; }
+  .opt{ text-align:left; font:inherit; font-size:.93rem; color:var(--text-dim); cursor:pointer;
+    background:var(--bg-elev); border:1px solid var(--border); padding:11px 14px; display:flex; gap:11px;
+    align-items:flex-start; line-height:1.45; }
+  .opt:hover:not(:disabled){ background:var(--bg-elev2); border-color:var(--text-faint); }
+  .opt:disabled{ cursor:default; }
+  .opt .k{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--text-faint); padding-top:2px; }
+  .opt.good{ border-color:var(--success); border-left-width:4px; background:#E6EDE9; color:var(--text); }
+  .opt.good .k{ color:var(--success); }
+  .opt.bad{ border-color:var(--danger); border-left-width:4px; background:#F2E4E6; color:var(--text); }
+  .opt.bad .k{ color:var(--danger); }
+  .fb{ margin-top:13px; border-left:3px solid var(--pine); background:var(--bg-elev); padding:12px 15px; font-size:.91rem; }
+  .fb .verdict{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.1em;
+    text-transform:uppercase; display:block; margin-bottom:6px; color:var(--success); }
+  .fb.no{ border-left-color:var(--danger); }
+  .fb.no .verdict{ color:var(--danger); }
+  .fb p{ margin:0 0 .55em; }
+  .fb p:last-child{ margin-bottom:0; }
+  .fb .src{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; color:var(--text-faint); letter-spacing:.04em; }
+
+  .pager{ display:flex; gap:10px; flex-wrap:wrap; margin:34px 0 0; }
+  .pager a{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.06em; text-decoration:none;
+    color:var(--pine); border:1px solid var(--border); background:var(--bg-elev); padding:9px 13px; }
+  .pager a:hover{ background:var(--bg-elev2); }
+
+  footer{ border-top:1px solid var(--border); margin-top:48px; padding:26px 0 56px;
+    font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint); }
+  footer p{ color:var(--text-faint); font-size:.67rem; margin:0 0 .5em; }
+
+  /* Classical Greek Design System additions */
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+  :root{
+    --marble:#FAF8F5; --marble-elev:#F2EDE4; --marble-elev2:#E8DFC8;
+    --border:#D8CEBA; --border-soft:#EAE2D2;
+    --text:#1B1713; --text-dim:#3D4244; --text-faint:#5F655F;
+    --pine:#1B4234; --pine-deep:#0F281E; --pine-light:#2D5E4A;
+    --moss:#2E7A5C; --clay:#A84E32; --clay-deep:#7A2D15;
+    --gold-doric:#9E7B35; --gold-light:#D4AF37;
+    --success:#1B4234; --danger:#B23347;
+  }
+
+  h1,h2,h3{ font-family:'Cinzel',serif; font-weight:700; letter-spacing:0.02em; }
+  .cinzel{ font-family:'Cinzel',serif; }
+  .cormorant{ font-family:'Cormorant Garamond',Georgia,serif; }
+
+  /* Greek Key Meander Ribbon */
+  .greek-frieze{
+    height: 14px; width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23A84E32' stroke-width='1.2' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    opacity: 0.85;
+    margin: 22px 0;
+  }
+  .greek-frieze.subtle{
+    opacity: 0.45;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%235F655F' stroke-width='1' stroke-linecap='square'/%3E%3C/svg%3E");
+  }
+
+  /* Classical Stele Plaque & Badges */
+  .plate{
+    border: 1.5px solid var(--border);
+    background: var(--marble-elev);
+    box-shadow: 0 3px 12px rgba(27,23,19,0.06);
+  }
+  .plate b{ color: var(--pine); font-family:'Cinzel',serif; }
+  .aviso{
+    border: 1.5px solid var(--clay);
+    border-left: 5px solid var(--clay);
+    background: var(--marble-elev);
+    box-shadow: 0 3px 10px rgba(168,78,50,0.08);
+  }
+  .aviso .tag{ color: var(--clay-deep); font-family:'Cinzel',serif; font-weight:700; }
+
+  /* Enhanced Monumental Figure Diag Container */
+  figure.diag{
+    margin: 32px 0;
+    border: 1.5px solid var(--border);
+    background: var(--marble-elev);
+    padding: 18px 16px 14px;
+    box-shadow: 0 4px 18px rgba(27,23,19,0.07);
+    border-radius: 4px;
+  }
+  figure.diag figcaption{
+    font-family:'Cinzel',serif; font-size:0.75rem; font-weight:700;
+    letter-spacing:0.06em; color:var(--clay-deep); margin-top:14px;
+    border-top:1.5px solid var(--border); padding-top:10px;
+  }
+
+  /* Navigation Bar Upgrades */
+  nav.toc{
+    background: var(--marble);
+    border-bottom: 2px solid var(--border);
+    box-shadow: 0 2px 8px rgba(27,23,19,0.05);
+  }
+  nav.toc a{
+    font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.06em; color:var(--text-dim);
+  }
+  nav.toc a:hover{
+    color: var(--clay-deep);
+    border-bottom-color: var(--clay);
+  }
+  nav.toc a.nav-temple{
+    color: var(--pine);
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+    margin-right: 6px;
+  }
+  nav.toc a.nav-highlight{
+    color: var(--clay-deep);
+    font-weight: 800;
+  }
+
+</style>
+</head>
+<body>
+<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="../unidad-02/">← UNIDAD II</a></li><li><a href="#u3">UNIDAD III</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li></ul></nav>
+<div class="wrap">
+<div class="greek-frieze"></div>
+<header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Unidad</span><b>III</b></div><div><span>Sesiones</span>8 sep</div></div><h1>Unidad III<br><em>Pilar intelectual</em></h1><p class="lede">Resumen, glosario y autoevaluación de esta unidad, con retroalimentación inmediata. Parte del repaso acumulado para el Control 1.</p><div class="aviso"><span class="tag">Esto no es el Control</span><p>Este documento es <b>estudio previo</b>, no una evaluación ni un intento de replicar el Control pregunta por pregunta. El Programa del curso permite usar IA <b>solo como herramienta de revisión y formato</b> para las evaluaciones, nunca para generar su contenido; el Control 1 es <b>físico y presencial</b>, y sus respuestas son y serán 100% de autoría propia.</p><p>Todo lo que aparece aquí sale <b>únicamente</b> de los PDF y PPTX de clase. Donde el material no dice algo, esta guía lo señala como vacío en vez de rellenarlo.</p></div></header><section class="unit" id="u3"><p class="fuente">Fuente: «4. Dimensión intelectual.pdf» (16 pp.)</p>
+  <div class="block">
+    <h3>Qué es el bienestar intelectual</h3>
+    <p class="sub">Definición y por qué importa</p>
+    <p>El bienestar intelectual se refiere a la <b>búsqueda constante de conocimiento y la apertura a
+    nuevas ideas</b>, desarrollando habilidades de <b>pensamiento crítico y creativo</b>. No se limita
+    al ámbito académico: abarca la capacidad de <b>resolver problemas, adaptarse a nuevas situaciones
+    y mantener una curiosidad activa</b> sobre el mundo que nos rodea. En una segunda formulación del
+    PDF, es un estado de bienestar caracterizado por la <b>curiosidad, la creatividad y la capacidad
+    de aprendizaje continuo</b>.</p>
+    <p><b>Importancia:</b> contribuye al desarrollo personal y profesional. A través de la mejora
+    continua de habilidades cognitivas y la exploración de nuevas ideas se pueden afrontar desafíos de
+    manera más efectiva, aumentar la productividad y contribuir positivamente al entorno social y laboral.</p>
+  </div>
+
+  <div class="block">
+    <h3>Las tres habilidades fundamentales</h3>
+    <p class="sub">Curiosidad · Creatividad · Flexibilidad mental</p>
+    <ul class="clean">
+      <li><b>Curiosidad</b> — es el <em>motor de todo aprendizaje</em>; impulsa la búsqueda de nuevos
+      conocimientos y experiencias.</li>
+      <li><b>Creatividad</b> — <em>convierte el conocimiento en algo útil</em>; permite ver el mundo
+      desde diferentes perspectivas, aporta en la resolución de problemas e incentiva soluciones
+      innovadoras.</li>
+      <li><b>Flexibilidad mental</b> — permite <em>desaprender y reaprender rápido</em>; ayuda a
+      adaptarse a nuevas situaciones y perspectivas. En un mundo cambiante, la rigidez intelectual limita.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>La paradoja moderna</h3>
+    <p class="sub">Siete capacidades frente a la sobrecarga cognitiva</p>
+    <blockquote>Somos la generación más informada, sin embargo sufrimos de una sobrecarga cognitiva…
+    <cite>PDF Unidad III, p. 5</cite></blockquote>
+    <ul class="clean">
+      <li><b>Discernimiento</b></li>
+      <li><b>Pensamiento dialéctico</b></li>
+      <li><b>Análisis de sesgos</b></li>
+      <li><b>Pensamiento lateral</b> — capacidad de resolver problemas conectando puntos de áreas que
+      parecen no tener nada que ver.</li>
+      <li><b>Auto-observación</b></li>
+      <li><b>Gestión de la atención</b> — capacidad de tener un enfoque profundo y presencia.</li>
+      <li><b>Regulación de la carga cognitiva</b> — tiene que ver con la higiene mental.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Aprendizaje continuo y hábitos saludables</h3>
+    <p class="sub">Tres hábitos intelectuales</p>
+    <p>La búsqueda de conocimiento no se detiene después de la educación formal: el bienestar
+    intelectual implica el deseo constante de aprender y explorar. Los tres hábitos que propone el PDF:</p>
+    <ul class="clean">
+      <li><b>Lectura diaria</b> — amplía el conocimiento y fortalece la capacidad de análisis.</li>
+      <li><b>Meditación</b> — mejora la concentración y la claridad mental.</li>
+      <li><b>Aprendizaje de nuevas habilidades</b> — estimula el cerebro y mantiene la mente activa.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Inteligencias múltiples de Howard Gardner</h3>
+    <p class="sub">Las ocho, con la definición del PDF</p>
+    <figure class="diag"><div class="scroller"><svg style="min-width:700px; width:100%;" viewBox="0 0 920 370" role="img" aria-label="Lámina 9 — Las ocho inteligencias múltiples de Howard Gardner">
+<defs>
+  <!-- Stone and Marble Gradients -->
+  <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#FCFAF7"/>
+    <stop offset="50%" stop-color="#F5F0E6"/>
+    <stop offset="100%" stop-color="#EAE1D0"/>
+  </linearGradient>
+  <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="15%" stop-color="#FBF8F2"/>
+    <stop offset="85%" stop-color="#EFE8DA"/>
+    <stop offset="100%" stop-color="#E2D8C6"/>
+  </linearGradient>
+  <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#EDE7DA"/>
+    <stop offset="45%" stop-color="#DCD2C0"/>
+    <stop offset="100%" stop-color="#C2B59F"/>
+  </linearGradient>
+
+  <!-- Clay & Terracotta Gradients -->
+  <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#D96E4C"/>
+    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="100%" stop-color="#7A2D15"/>
+  </linearGradient>
+  <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAF1ED"/>
+    <stop offset="100%" stop-color="#EED8CF"/>
+  </linearGradient>
+
+  <!-- Pine & Moss Gradients -->
+  <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="50%" stop-color="#1B4234"/>
+    <stop offset="100%" stop-color="#0F281E"/>
+  </linearGradient>
+  <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3B8F6D"/>
+    <stop offset="100%" stop-color="#25694D"/>
+  </linearGradient>
+  <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#F0F6F3"/>
+    <stop offset="100%" stop-color="#D6E6DE"/>
+  </linearGradient>
+
+  <!-- Gold & Electrum -->
+  <linearGradient id="gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#FFEAA7"/>
+    <stop offset="35%" stop-color="#DFC07A"/>
+    <stop offset="75%" stop-color="#9E7B35"/>
+    <stop offset="100%" stop-color="#644D1E"/>
+  </linearGradient>
+  <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FFFDF7"/>
+    <stop offset="100%" stop-color="#F7EED8"/>
+  </linearGradient>
+
+  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#C2B7A2"/>
+    <stop offset="15%" stop-color="#EAE3D4"/>
+    <stop offset="40%" stop-color="#FAF7F2"/>
+    <stop offset="70%" stop-color="#DDD3BF"/>
+    <stop offset="100%" stop-color="#AEA18A"/>
+  </linearGradient>
+  <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#11291F"/>
+    <stop offset="20%" stop-color="#21523F"/>
+    <stop offset="42%" stop-color="#357D61"/>
+    <stop offset="75%" stop-color="#1B4736"/>
+    <stop offset="100%" stop-color="#0E231B"/>
+  </linearGradient>
+
+  <!-- Nocturnal Sky / Lapislazuli stone -->
+  <linearGradient id="gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#1B2228"/>
+    <stop offset="50%" stop-color="#13191E"/>
+    <stop offset="100%" stop-color="#0C1014"/>
+  </linearGradient>
+
+  <!-- Drop Shadow Filters -->
+  <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+  </filter>
+  <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+  </filter>
+
+  <!-- Greca pattern strip -->
+  <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+  </pattern>
+  <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+  </pattern>
+</defs>
+  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
+
+  <!-- Header -->
+  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">
+    INTELIGENCIAS MÚLTIPLES · HOWARD GARDNER (OCHO MANIFESTACIONES)
+  </text>
+
+  <!-- Octagonal Wind Rose (Horologion) (Center=(460, 185)) -->
+  <!-- Outer Compass Ring -->
+  <circle cx="460" cy="185" r="115" fill="none" stroke="#D8CEBA" stroke-width="1.5" stroke-dasharray="2 4"/>
+  <circle cx="460" cy="185" r="80" fill="url(#gk-pediment)" stroke="#C4B79F" stroke-width="1" opacity="0.6"/>
+
+  <!-- Center Sacred Altar -->
+  <circle cx="460" cy="185" r="50" fill="url(#gk-card-stone)" stroke="#D4AF37" stroke-width="1.8" filter="url(#gk-shadow-sm)"/>
+  <text x="460" y="172" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#1B4234">¿De qué</text>
+  <text x="460" y="186" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="#1B4234">maneras soy</text>
+  <text x="460" y="202" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="#7A2D15">INTELIGENTE?</text>
+
+  <!-- 8 Radiating Rays & Stelae Tablets -->
+  <!-- 01 Lingüística (Top: 0 deg, y=70) -->
+  <line x1="460" y1="135" x2="460" y2="92" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(460, 78)">
+    <rect x="-85" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">01 · LINGÜÍSTICA</text>
+  </g>
+
+  <!-- 02 Lógico-matemática (Top-Right: 45 deg, (540, 105)) -->
+  <line x1="495" y1="150" x2="540" y2="105" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(555, 96)">
+    <rect x="0" y="-14" width="190" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="95" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">02 · LÓGICO-MATEMÁTICA</text>
+  </g>
+
+  <!-- 03 Espacial (Right: 90 deg, (575, 185)) -->
+  <line x1="510" y1="185" x2="565" y2="185" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(580, 185)">
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">03 · ESPACIAL</text>
+  </g>
+
+  <!-- 04 Musical (Bottom-Right: 135 deg, (540, 265)) -->
+  <line x1="495" y1="220" x2="540" y2="265" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(555, 274)">
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">04 · MUSICAL</text>
+  </g>
+
+  <!-- 05 Corporal-cinestésica (Bottom: 180 deg, y=300) -->
+  <line x1="460" y1="235" x2="460" y2="280" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(460, 294)">
+    <rect x="-115" y="-14" width="230" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">05 · CORPORAL-CINESTÉSICA</text>
+  </g>
+
+  <!-- 06 Interpersonal (Bottom-Left: 225 deg, (380, 265)) -->
+  <line x1="425" y1="220" x2="380" y2="265" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(365, 274)">
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">06 · INTERPERSONAL</text>
+  </g>
+
+  <!-- 07 Intrapersonal (Left: 270 deg, (345, 185)) -->
+  <line x1="410" y1="185" x2="355" y2="185" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(340, 185)">
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">07 · INTRAPERSONAL</text>
+  </g>
+
+  <!-- 08 Naturalista (Top-Left: 315 deg, (380, 105)) -->
+  <line x1="425" y1="150" x2="380" y2="105" stroke="#2D5E4A" stroke-width="1.5"/>
+  <g transform="translate(365, 96)">
+    <rect x="-160" y="-14" width="160" height="28" rx="3" fill="url(#gk-card-stone)" stroke="#2D5E4A" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <text x="-80" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="#1B4234">08 · NATURALISTA</text>
+  </g>
+
+  <!-- Warning Banner -->
+  <rect x="20" y="328" width="880" height="26" rx="2" fill="url(#gk-clay-light)" stroke="#AB4F33" stroke-width="1"/>
+  <text x="460" y="345" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="700" fill="#7A2D15">
+    CUIDADO DE EVALUACIÓN: LA «INTELIGENCIA EMOCIONAL» NO ESTÁ EN ESTA LISTA · LO MÁS CERCANO SON INTERPERSONAL E INTRAPERSONAL
+  </text>
+</svg></div><figcaption>Lámina 9 — Las ocho inteligencias múltiples de Gardner · PDF Unidad III, p. 9</figcaption></figure>
+    <dl class="glos">
+      <div><dt>Lingüística</dt><dd>Facilidad para hablar, escribir, leer y usar las palabras de forma correcta.</dd></div>
+      <div><dt>Lógico-matemática</dt><dd>Capacidad para resolver problemas de números, lógica, análisis y razonamiento.</dd></div>
+      <div><dt>Espacial</dt><dd>Habilidad para pensar en tres dimensiones, crear imágenes y orientarse visualmente.</dd></div>
+      <div><dt>Musical</dt><dd>Talento para percibir, crear, tocar y apreciar tonos, ritmos y melodías musicales.</dd></div>
+      <div><dt>Corporal-cinestésica</dt><dd>Destreza para usar el cuerpo en la expresión de ideas, deportes o manualidades.</dd></div>
+      <div><dt>Interpersonal</dt><dd>Empatía y facilidad para entender, motivar y relacionarse de forma sana con otras personas.</dd></div>
+      <div><dt>Intrapersonal</dt><dd>Capacidad para conocer los propios sentimientos, emociones, virtudes y limitaciones.</dd></div>
+      <div><dt>Naturalista</dt><dd>Habilidad para observar, distinguir y entender el entorno natural, plantas y animales.</dd></div>
+    </dl>
+    <blockquote>En lugar de preguntarte «¿qué tan inteligente soy?» empezá a preguntarte «¿de qué
+    maneras soy inteligente?»<cite>PDF Unidad III, p. 10 — cambio de paradigma</cite></blockquote>
+  </div>
+
+  <div class="block">
+    <h3>Manejo de la información en la era digital</h3>
+    <p class="sub">Deepfakes, sobrecarga y pensamiento crítico</p>
+    <p>Antes de esta sección, la clase muestra <b>ejemplos en video de contenido generado con IA y de
+    un <em>deepfake</em></b> — material visual sin texto en el PDF, usado para ilustrar lo difícil que
+    resulta distinguir lo real de lo fabricado.</p>
+    <blockquote>En nuestra era digital no sobrevive el que más sabe, sino el que mejor sabe filtrar y
+    cuestionar.<cite>PDF Unidad III, p. 14</cite></blockquote>
+    <p>En un mundo de ruido, el bienestar intelectual depende de la capacidad para <b>elegir qué
+    información entra a tu mente y cómo la procesas</b>. Los tres puntos de la diapositiva:</p>
+    <ul class="clean">
+      <li><b>Sobrecarga de información</b> — puede generar ansiedad y dificultar la toma de decisiones;
+      por eso es crucial desarrollar el pensamiento crítico.</li>
+      <li><b>Pensamiento crítico</b> — permite evaluar la veracidad de la información y tomar decisiones
+      informadas.</li>
+      <li><b>Evaluación de la información</b> — aprender a identificar fuentes confiables y a discernir
+      la información veraz de la falsa.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Conexión entre cuerpo y mente</h3>
+    <p class="sub">El puente explícito con la Unidad II</p>
+    <figure class="diag"><div class="scroller"><svg style="min-width:720px; width:100%;" viewBox="0 0 920 270" role="img" aria-label="Lámina 10 — Conexión cuerpo–mente: ejercicio, sueño y alimentación">
+<defs>
+  <!-- Stone and Marble Gradients -->
+  <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#FCFAF7"/>
+    <stop offset="50%" stop-color="#F5F0E6"/>
+    <stop offset="100%" stop-color="#EAE1D0"/>
+  </linearGradient>
+  <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FFFFFF"/>
+    <stop offset="15%" stop-color="#FBF8F2"/>
+    <stop offset="85%" stop-color="#EFE8DA"/>
+    <stop offset="100%" stop-color="#E2D8C6"/>
+  </linearGradient>
+  <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#EDE7DA"/>
+    <stop offset="45%" stop-color="#DCD2C0"/>
+    <stop offset="100%" stop-color="#C2B59F"/>
+  </linearGradient>
+
+  <!-- Clay & Terracotta Gradients -->
+  <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#D96E4C"/>
+    <stop offset="45%" stop-color="#AB4F33"/>
+    <stop offset="100%" stop-color="#7A2D15"/>
+  </linearGradient>
+  <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAF1ED"/>
+    <stop offset="100%" stop-color="#EED8CF"/>
+  </linearGradient>
+
+  <!-- Pine & Moss Gradients -->
+  <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2D5E4A"/>
+    <stop offset="50%" stop-color="#1B4234"/>
+    <stop offset="100%" stop-color="#0F281E"/>
+  </linearGradient>
+  <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#3B8F6D"/>
+    <stop offset="100%" stop-color="#25694D"/>
+  </linearGradient>
+  <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#F0F6F3"/>
+    <stop offset="100%" stop-color="#D6E6DE"/>
+  </linearGradient>
+
+  <!-- Gold & Electrum -->
+  <linearGradient id="gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#FFEAA7"/>
+    <stop offset="35%" stop-color="#DFC07A"/>
+    <stop offset="75%" stop-color="#9E7B35"/>
+    <stop offset="100%" stop-color="#644D1E"/>
+  </linearGradient>
+  <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FFFDF7"/>
+    <stop offset="100%" stop-color="#F7EED8"/>
+  </linearGradient>
+
+  <!-- Column Shaft Fluting (Light from upper-left) -->
+  <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#C2B7A2"/>
+    <stop offset="15%" stop-color="#EAE3D4"/>
+    <stop offset="40%" stop-color="#FAF7F2"/>
+    <stop offset="70%" stop-color="#DDD3BF"/>
+    <stop offset="100%" stop-color="#AEA18A"/>
+  </linearGradient>
+  <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#11291F"/>
+    <stop offset="20%" stop-color="#21523F"/>
+    <stop offset="42%" stop-color="#357D61"/>
+    <stop offset="75%" stop-color="#1B4736"/>
+    <stop offset="100%" stop-color="#0E231B"/>
+  </linearGradient>
+
+  <!-- Nocturnal Sky / Lapislazuli stone -->
+  <linearGradient id="gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#1B2228"/>
+    <stop offset="50%" stop-color="#13191E"/>
+    <stop offset="100%" stop-color="#0C1014"/>
+  </linearGradient>
+
+  <!-- Drop Shadow Filters -->
+  <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
+    <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#261E14" flood-opacity="0.14"/>
+  </filter>
+  <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+    <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#261E14" flood-opacity="0.12"/>
+  </filter>
+
+  <!-- Greca pattern strip -->
+  <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#A84E32" stroke-width="0.9" stroke-linecap="square" opacity="0.4"/>
+  </pattern>
+  <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
+    <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#9E7B35" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
+  </pattern>
+</defs>
+  <rect x="2" y="2" width="916" height="266" rx="4" fill="url(#gk-bg-grad)" stroke="#D8CEBA" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="6" y="6" width="908" height="258" rx="2" fill="none" stroke="#EAE2D2" stroke-width="1"/>
+  <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
+
+  <!-- Header -->
+  <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="#7A2D15" letter-spacing="0.08em">
+    EL PUENTE INTERDIMENSIONAL · CÓMO EL PILAR FÍSICO POTENCIA EL INTELECTUAL
+  </text>
+
+  <!-- LEFT TEMPLE: PILAR FÍSICO (UNIDAD II) -->
+  <g transform="translate(24, 52)">
+    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-card-stone)" stroke="#D8CEBA" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
+    <!-- Pediment -->
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
+    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">PILAR FÍSICO</text>
+    <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#7A2D15">UNIDAD II</text>
+
+    <!-- 3 Core Levers -->
+    <g transform="translate(15, 52)">
+      <!-- Lever 1: Ejercicio -->
+      <rect x="0" y="0" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
+      <text x="95" y="19" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">EJERCICIO</text>
+
+      <!-- Lever 2: Sueño -->
+      <rect x="0" y="38" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
+      <text x="95" y="57" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">SUEÑO</text>
+
+      <!-- Lever 3: Alimentación -->
+      <rect x="0" y="76" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="#2D5E4A" stroke-width="0.8"/>
+      <text x="95" y="95" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#1B4234">ALIMENTACIÓN</text>
+    </g>
+  </g>
+
+  <!-- TRIPLE AQUEDUCT CHANNELS (Center Connecting Canals) -->
+  <g transform="translate(244, 98)">
+    <!-- Channel 1: Ejercicio -> Dopamina/Serotonina -->
+    <g transform="translate(0, 0)">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+        ↑ dopamina · serotonina · norepinefrina · oxigenación cerebral
+      </text>
+    </g>
+
+    <!-- Channel 2: Sueño -> Consolidación memoria -->
+    <g transform="translate(0, 38)">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+        consolidación de la memoria &amp; regeneración neuronal
+      </text>
+    </g>
+
+    <!-- Channel 3: Alimentación -> Nutrientes cognitivos -->
+    <g transform="translate(0, 76)">
+      <line x1="0" y1="18" x2="410" y2="18" stroke="#AB4F33" stroke-width="2.5"/>
+      <polygon points="410,13 422,18 410,23" fill="#AB4F33"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="#FAF8F5" stroke="#D8CEBA" stroke-width="0.8"/>
+      <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="#7A2D15">
+        glucosa estable &amp; nutrientes para el funcionamiento cognitivo
+      </text>
+    </g>
+  </g>
+
+  <!-- RIGHT TEMPLE: PILAR INTELECTUAL (UNIDAD III) -->
+  <g transform="translate(676, 52)">
+    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-pine)" stroke="#0E231B" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
+    <!-- Pediment -->
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="#A89C86" stroke-width="0.8"/>
+    <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="#1B4234">PILAR INTELECTUAL</text>
+    <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#FFEAA7">UNIDAD III</text>
+
+    <!-- 3 Cognitive Outcomes -->
+    <g transform="translate(15, 52)">
+      <rect x="0" y="0" width="190" height="30" rx="2" fill="#1B4234" stroke="#FFEAA7" stroke-width="0.8"/>
+      <text x="95" y="19" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#FFEAA7">CONCENTRACIÓN</text>
+
+      <rect x="0" y="38" width="190" height="30" rx="2" fill="#1B4234" stroke="#FFEAA7" stroke-width="0.8"/>
+      <text x="95" y="57" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#FFEAA7">MEMORIA</text>
+
+      <rect x="0" y="76" width="190" height="30" rx="2" fill="#1B4234" stroke="#FFEAA7" stroke-width="0.8"/>
+      <text x="95" y="95" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="#FFEAA7">FUNCIÓN COGNITIVA</text>
+    </g>
+  </g>
+
+  <!-- Footnote -->
+  <line x1="20" y1="240" x2="900" y2="240" stroke="#D8CEBA" stroke-width="1"/>
+  <text x="24" y="254" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#5F655F">PDF UNIDAD III, P. 15 · LAS DIMENSIONES DEL BIENESTAR ESTÁN INTERCONECTADAS</text>
+  <text x="896" y="254" text-anchor="end" font-family="'Cinzel',serif" font-size="9" font-weight="700" fill="#A84E32">LÁMINA X · MMXXVI</text>
+</svg></div><figcaption>Lámina 10 — Conexión cuerpo–mente · PDF Unidad III, p. 15</figcaption></figure>
+    <ul class="clean">
+      <li><b>Ejercicio físico</b> — mejora la circulación sanguínea, la oxigenación del cerebro y la
+      concentración. Aumenta los niveles de neurotransmisores que «silencian el cerebro»:
+      <b>dopamina</b> (relajación – aprendizaje), <b>serotonina</b> (regulación del estado de ánimo –
+      actividad) y <b>norepinefrina</b> (respuesta al estrés – atención).</li>
+      <li><b>Sueño</b> — fundamental para la <b>consolidación de la memoria</b> y la recuperación del cuerpo.</li>
+      <li><b>Alimentación</b> — aporta los nutrientes necesarios para un buen funcionamiento cognitivo.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <h3>Glosario — Unidad III</h3>
+    <p class="sub">8 términos</p>
+    <dl class="glos">
+      <div><dt>Bienestar intelectual</dt><dd>Búsqueda constante de conocimiento y apertura a nuevas ideas, con pensamiento crítico y creativo; incluye resolver problemas, adaptarse y mantener curiosidad activa. No se limita a lo académico.</dd></div>
+      <div><dt>Curiosidad</dt><dd>El motor de todo aprendizaje; impulsa la búsqueda de nuevos conocimientos y experiencias.</dd></div>
+      <div><dt>Creatividad</dt><dd>Convierte el conocimiento en algo útil; permite ver el mundo desde distintas perspectivas y aporta soluciones innovadoras.</dd></div>
+      <div><dt>Flexibilidad mental</dt><dd>Capacidad de desaprender y reaprender rápido, adaptándose a nuevas situaciones y perspectivas.</dd></div>
+      <div><dt>Pensamiento lateral</dt><dd>Resolver problemas conectando puntos de áreas que parecen no tener nada que ver.</dd></div>
+      <div><dt>Regulación de la carga cognitiva</dt><dd>Gestionar cuánta información se procesa; el PDF lo asocia a la higiene mental.</dd></div>
+      <div><dt>Sobrecarga de información</dt><dd>Exceso de información que puede generar ansiedad y dificultar la toma de decisiones.</dd></div>
+      <div><dt>Inteligencias múltiples</dt><dd>Modelo de Howard Gardner: lingüística, lógico-matemática, espacial, musical, corporal-cinestésica, interpersonal, intrapersonal y naturalista.</dd></div>
+    </dl>
+  </div>
+<div id="quiz"></div><div class="block"><div class="quizhead"><h3 style="margin:0;">Autoevaluación — Unidad III</h3><span class="score mono" data-score="u3">0 / 5 respondidas</span></div><div data-quiz="u3"></div></div><div class="pager"><a href="../repaso-control-1/">Repaso acumulado completo →</a><a href="../repaso-control-1/#integrado">Ronda integrada (10 preguntas) →</a><a href="../repaso-control-1/#vacios">Vacíos del material →</a></div></section><div class="greek-frieze subtle"></div>
+<footer><p>Repaso personal · Pilares del Bienestar, ESEN, Ciclo III/2026 · Ing. Gabriela Carranza · generado el 10 sep 2026.</p><p>Elaborado únicamente a partir de: «1. Introducción a las dimensiones del bienestar.pdf» · «2. Dimensión física 2025 (1).pdf» · «3. Dimensión física 2025 parte II V2 (sueño).pptx» · «4. Clase macros.pdf» · «4. Dimensión intelectual.pdf».</p><p>No es una evaluación ni una simulación del Control. Las respuestas del Control 1 son de autoría propia de Carlos Navas.</p></footer>
+</div>
+<script>
+var QUIZ = {"u3": [{"q": "¿Cuáles son las tres habilidades fundamentales del bienestar intelectual según el PDF?", "o": ["Memoria, atención y concentración", "Curiosidad, creatividad y flexibilidad mental", "Lectura diaria, meditación y aprendizaje de nuevas habilidades", "Discernimiento, análisis de sesgos y auto-observación"], "ok": 1, "why": "Curiosidad (motor de todo aprendizaje), creatividad (convierte el conocimiento en algo útil) y flexibilidad mental (permite desaprender y reaprender rápido). Cuidado con la opción 3: lectura, meditación y aprendizaje de nuevas habilidades son los tres HÁBITOS saludables, no las habilidades. Y la opción 4 son algunas de las capacidades que enumera «la paradoja moderna».", "src": "PDF Unidad III, p. 4"}, {"q": "El PDF define el pensamiento lateral como:", "o": ["La capacidad de sostener dos ideas contradictorias a la vez", "La capacidad de resolver problemas conectando puntos de áreas que parecen no tener nada que ver", "La capacidad de detectar sesgos en la información que se recibe", "La capacidad de mantener un enfoque profundo y presencia"], "ok": 1, "why": "Es la definición literal entre paréntesis en la diapositiva de «la paradoja moderna». Las otras opciones corresponden a otros elementos de esa misma lista: pensamiento dialéctico, análisis de sesgos y gestión de la atención, respectivamente.", "src": "PDF Unidad III, p. 5 — «La paradoja moderna»"}, {"q": "¿Cuál de estas NO es una de las ocho inteligencias múltiples de Gardner según el PDF?", "o": ["Naturalista", "Corporal-cinestésica", "Emocional", "Intrapersonal"], "ok": 2, "why": "Las ocho son: lingüística, lógico-matemática, espacial, musical, corporal-cinestésica, interpersonal, intrapersonal y naturalista. «Inteligencia emocional» no está en la lista de Gardner del PDF — lo más cercano son la interpersonal (entender y relacionarse con otros) y la intrapersonal (conocer los propios sentimientos, emociones, virtudes y limitaciones). Es la confusión más fácil de cometer.", "src": "PDF Unidad III, p. 9"}, {"q": "El cambio de paradigma que propone la clase sobre la inteligencia es pasar de…", "o": ["«¿qué tan inteligente soy?» a «¿de qué maneras soy inteligente?»", "«¿qué sé?» a «¿qué puedo aprender?»", "«¿cuánto estudio?» a «¿cómo estudio?»", "«¿soy creativo?» a «¿soy disciplinado?»"], "ok": 0, "why": "Literal de la diapositiva 10, justo después de presentar las ocho inteligencias. La lógica es directa: si la inteligencia tiene ocho formas, la pregunta por «cuánta» tienes está mal planteada; la pregunta útil es por cuál o cuáles.", "src": "PDF Unidad III, p. 10"}, {"q": "Según la sección de conexión cuerpo–mente, el ejercicio físico aumenta tres neurotransmisores que «silencian el cerebro». ¿Cuál es la asociación correcta?", "o": ["Dopamina (atención) · serotonina (memoria) · melatonina (sueño)", "Dopamina (relajación–aprendizaje) · serotonina (regulación del estado de ánimo–actividad) · norepinefrina (respuesta al estrés–atención)", "Endorfinas (placer) · cortisol (energía) · dopamina (motivación)", "Serotonina (aprendizaje) · norepinefrina (memoria) · dopamina (ánimo)"], "ok": 1, "why": "El PDF los empareja exactamente así: dopamina → relajación-aprendizaje; serotonina → regulación del estado de ánimo-actividad; norepinefrina → respuesta al estrés-atención. Además, el ejercicio mejora la circulación sanguínea, la oxigenación del cerebro y la concentración. Las otras dos vías de esta sección son el sueño (consolidación de la memoria) y la alimentación (nutrientes para el funcionamiento cognitivo).", "src": "PDF Unidad III, p. 15 — «Conexión entre cuerpo y mente»"}]};
+
+(function(){
+  var LETTERS = ["A","B","C","D"];
+  Object.keys(QUIZ).forEach(function(key){
+    var host = document.querySelector('[data-quiz="'+key+'"]');
+    if(!host) return;
+    var badge = document.querySelector('[data-score="'+key+'"]');
+    var total = QUIZ[key].length, answered = 0, right = 0;
+    QUIZ[key].forEach(function(item, idx){
+      var wrap = document.createElement("div"); wrap.className = "q";
+      var n = document.createElement("span"); n.className = "qn";
+      n.textContent = "PREGUNTA " + (idx+1) + " / " + total; wrap.appendChild(n);
+      var t = document.createElement("p"); t.className = "qt"; t.textContent = item.q; wrap.appendChild(t);
+      var opts = document.createElement("div"); opts.className = "opts";
+      var buttons = [];
+      item.o.forEach(function(text, i){
+        var b = document.createElement("button"); b.type = "button"; b.className = "opt";
+        var k = document.createElement("span"); k.className = "k"; k.textContent = LETTERS[i];
+        var s = document.createElement("span"); s.textContent = text;
+        b.appendChild(k); b.appendChild(s);
+        b.addEventListener("click", function(){
+          if(wrap.dataset.done) return;
+          wrap.dataset.done = "1"; answered++;
+          var acierto = (i === item.ok); if(acierto) right++;
+          buttons.forEach(function(bb, bi){
+            bb.disabled = true;
+            if(bi === item.ok) bb.classList.add("good");
+            else if(bi === i) bb.classList.add("bad");
+          });
+          var fb = document.createElement("div"); fb.className = "fb" + (acierto ? "" : " no");
+          var v = document.createElement("span"); v.className = "verdict";
+          v.textContent = acierto ? "Correcto" : ("Incorrecto — la respuesta es " + LETTERS[item.ok]);
+          fb.appendChild(v);
+          var p = document.createElement("p"); p.textContent = item.why; fb.appendChild(p);
+          var sr = document.createElement("p"); sr.className = "src"; sr.textContent = "FUENTE: " + item.src;
+          fb.appendChild(sr);
+          wrap.appendChild(fb);
+          if(badge) badge.textContent = right + " / " + answered + " correctas · " + answered + " de " + total + " respondidas";
+        });
+        buttons.push(b); opts.appendChild(b);
+      });
+      wrap.appendChild(opts); host.appendChild(wrap);
+    });
+  });
+})();
+
+</script>
+</body>
+</html>
