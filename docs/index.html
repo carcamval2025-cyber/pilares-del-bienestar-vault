@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilares del Bienestar — Vault</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+  :root{
+    --bg:#F5F5F3; --bg-elev:#ECECE8; --bg-elev2:#E2E2DC; --border:#D3D3CC; --border-soft:#DEDED8;
+    --text:#15181A; --text-dim:#43494A; --text-faint:#5F655F;
+    --pine:#1F4B3F; --moss:#2E7A5C; --clay:#A54A2A; --sage:#6E8B78;
+    --success:#1F4B3F; --danger:#B23347;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Work Sans',sans-serif;
+    line-height:1.6;
+    background-image: radial-gradient(var(--border-soft) 1.2px, transparent 1.2px);
+    background-size:26px 26px;
+    background-position:-13px -13px;
+  }
+  ::selection{ background:var(--pine); color:#F5F5F3; }
+  a{color:var(--moss);}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 24px; position:relative;}
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+
+  /* ---------- Title block (blueprint corner stamp) ---------- */
+  .titleblock{
+    position:absolute; top:28px; right:24px;
+    border:1px solid var(--border); background:var(--bg-elev);
+    font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--text-dim);
+    width:206px; z-index:3;
+  }
+  .titleblock .row{ display:flex; justify-content:space-between; padding:6px 10px; border-bottom:1px solid var(--border); gap:8px; }
+  .titleblock .row:last-child{ border-bottom:none; }
+  .titleblock .row b{ color:var(--pine); font-weight:600; text-align:right; }
+  @media (max-width:720px){ .titleblock{ position:static; width:100%; margin:0 0 28px; } }
+
+  /* ---------- Hero ---------- */
+  header.hero{ padding:120px 0 0; position:relative; }
+  @media (max-width:720px){ header.hero{ padding-top:24px; } }
+  .hero-head{ max-width:640px; }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace; font-size:.72rem; letter-spacing:.08em;
+    color:var(--clay); text-transform:uppercase; margin:0 0 16px; display:flex; align-items:center; gap:10px;
+  }
+  .kicker::before{ content:""; width:22px; height:1px; background:var(--clay); display:inline-block; }
+  h1{
+    font-family:'Instrument Serif', serif; font-weight:400; font-size:clamp(2.6rem, 6.4vw, 4.6rem);
+    line-height:1.02; margin:0 0 22px; letter-spacing:-.01em;
+  }
+  h1 em{ color:var(--pine); font-style:italic; }
+  .hero p.lede{ font-size:1.08rem; color:var(--text-dim); max-width:52ch; margin:0 0 34px; }
+
+  .stat-line{ display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:56px; }
+  .stat{ flex:1 1 140px; padding:14px 20px 14px 0; border-right:1px solid var(--border); }
+  .stat:last-child{ border-right:none; }
+  .stat .n{ font-family:'Instrument Serif',serif; font-size:1.9rem; color:var(--pine); line-height:1; }
+  .stat .l{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--text-faint); text-transform:uppercase; letter-spacing:.04em; margin-top:6px; }
+
+  /* ---------- Temple diagram ---------- */
+  .temple-wrap{ position:relative; margin:0 0 8px; }
+  .temple-scroll{ overflow-x:auto; overflow-y:visible; padding-bottom:2px; }
+  .temple-caption{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); text-align:center; margin:10px 0 30px; }
+  svg#temple{ width:100%; min-width:760px; height:auto; display:block; overflow:visible; }
+  .col-group{ cursor:pointer; }
+  .col-group .shaft, .col-group .cap, .col-group .base{ transition: stroke .25s var(--ease), fill .25s var(--ease); }
+  .col-group .shaft{ stroke:var(--text-dim); fill:none; stroke-width:1.6; vector-effect:non-scaling-stroke; }
+  .col-group .flute{ stroke:var(--border); stroke-width:1.2; transition:stroke .25s var(--ease); vector-effect:non-scaling-stroke; }
+  .col-group .cap, .col-group .base{ stroke:var(--text-dim); fill:var(--bg); stroke-width:1.6; vector-effect:non-scaling-stroke; }
+  .col-group .numeral{ fill:var(--text-faint); font-family:'IBM Plex Mono',monospace; font-size:13px; transition:fill .25s var(--ease); }
+  .col-group:hover .shaft, .col-group:hover .cap, .col-group:hover .base, .col-group.active .shaft, .col-group.active .cap, .col-group.active .base{ stroke:var(--pine); }
+  .col-group:hover .flute, .col-group.active .flute{ stroke:var(--clay); }
+  .col-group:hover .numeral, .col-group.active .numeral{ fill:var(--pine); }
+  .col-group:focus{ outline:none; }
+  .col-group:focus .shaft, .col-group:focus .cap, .col-group:focus .base{ stroke:var(--moss); }
+  .pediment{ fill:none; stroke:var(--border); stroke-width:1.4; vector-effect:non-scaling-stroke; }
+  .baseline{ stroke:var(--border); stroke-width:1.4; vector-effect:non-scaling-stroke; }
+  .col-group.reveal{ opacity:0; transform:translateY(14px); }
+  .col-group.shown{ opacity:1; transform:translateY(0); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+
+  /* ---------- Spec panel ---------- */
+  .spec{
+    border:1px solid var(--border); background:var(--bg-elev); margin:0 0 90px;
+    display:grid; grid-template-columns:120px 1fr auto; gap:0;
+  }
+  @media (max-width:640px){ .spec{ grid-template-columns:1fr; } }
+  .spec .num{
+    display:flex; align-items:center; justify-content:center; font-family:'Instrument Serif',serif;
+    font-size:2.6rem; color:var(--pine); border-right:1px solid var(--border); padding:22px 10px;
+  }
+  @media (max-width:640px){ .spec .num{ border-right:none; border-bottom:1px solid var(--border); padding:16px; } }
+  .spec .body{ padding:22px 24px; min-width:0; }
+  .spec .body h3{ font-family:'Instrument Serif',serif; font-weight:400; font-size:1.4rem; margin:0 0 8px; transition:opacity .2s var(--ease); }
+  .spec .body p{ margin:0 0 4px; color:var(--text-dim); font-size:.92rem; }
+  .spec .body .hito{ color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.76rem; margin-top:10px; display:inline-block; }
+  .spec .status{ display:flex; align-items:center; padding:22px 24px; border-left:1px solid var(--border); }
+  @media (max-width:640px){ .spec .status{ border-left:none; border-top:1px solid var(--border); padding:14px 24px; } }
+  .stamp{
+    font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase;
+    border:1.5px solid var(--text-faint); color:var(--text-faint); padding:6px 12px; border-radius:2px; white-space:nowrap;
+  }
+  .stamp.disponible{ border-color:var(--success); color:var(--success); }
+
+  /* ---------- Module 2: sello ---------- */
+  .modulo{ padding:0 0 90px; }
+  .modulo-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:30px; border-top:1px solid var(--border); padding-top:26px; }
+  .modulo-num{ font-family:'IBM Plex Mono',monospace; font-size:.85rem; color:var(--pine); border:1px solid var(--pine); padding:3px 9px; }
+  .modulo h2{ font-family:'Instrument Serif', serif; font-weight:400; font-size:1.7rem; margin:0; }
+
+  .sello-row{ display:flex; flex-wrap:wrap; gap:40px; align-items:center; }
+  .sello{
+    flex:0 0 auto; width:150px; height:150px; border:3px double var(--danger); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    transform:rotate(-9deg); color:var(--danger); font-family:'IBM Plex Mono',monospace;
+    font-size:.72rem; letter-spacing:.03em; text-transform:uppercase; line-height:1.5; padding:14px;
+  }
+  .sello-text{ flex:1 1 380px; }
+  .sello-text p{ color:var(--text-dim); font-size:.98rem; margin:0 0 14px; max-width:62ch; }
+  .sello-text p b{ color:var(--text); font-weight:600; }
+
+  footer{ padding:30px 0 60px; display:flex; flex-wrap:wrap; justify-content:space-between; gap:20px; align-items:center; border-top:1px solid var(--border); }
+  footer .txt{ color:var(--text-faint); font-size:.8rem; max-width:44ch; }
+  footer .txt code{ color:var(--text-dim); }
+  .scalebar{ display:flex; align-items:center; gap:8px; }
+  .scalebar .bar{ display:flex; height:6px; width:120px; border:1px solid var(--text-faint); }
+  .scalebar .bar span{ flex:1; }
+  .scalebar .bar span:nth-child(odd){ background:var(--text-faint); }
+  .scalebar .lab{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--text-faint); }
+
+  @media (prefers-reduced-motion: reduce){
+    .col-group.reveal{ opacity:1; transform:none; }
+    .col-group.shown{ transition:none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="titleblock">
+    <div class="row"><span>PROYECTO</span><b>Pilares del Bienestar</b></div>
+    <div class="row"><span>CICLO</span><b>III / 2026</b></div>
+    <div class="row"><span>DOCENTE</span><b>G. Carranza</b></div>
+    <div class="row"><span>LÁMINA</span><b>01 / 10</b></div>
+  </div>
+
+  <header class="hero">
+    <div class="hero-head">
+      <p class="kicker">ESEN · vault de estudio</p>
+      <h1>Diez columnas <em>sostienen</em> el bienestar.</h1>
+      <p class="lede">Cada unidad del curso de la Ing. Gabriela Carranza es una columna de esta
+      fachada — física, intelectual, vocacional, emocional, relacional, espiritual,
+      financiera, ambiental, y el balance que las corona. Pasa el cursor sobre una para
+      leer su contenido, sus fechas y lo que se evalúa.</p>
+    </div>
+
+    <div class="stat-line">
+      <div class="stat"><div class="n">10</div><div class="l">Unidades</div></div>
+      <div class="stat"><div class="n">03</div><div class="l">Controles</div></div>
+      <div class="stat"><div class="n">20%</div><div class="l">Peso del Workbook</div></div>
+      <div class="stat"><div class="n">IA</div><div class="l">Solo revisión y formato</div></div>
+    </div>
+
+    <div class="temple-wrap">
+     <div class="temple-scroll">
+      <svg id="temple" viewBox="0 0 1180 360" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada de diez columnas, una por unidad del curso">
+        <defs>
+          <g id="capital">
+            <rect x="-24" y="-14" width="48" height="8" class="cap"/>
+            <path d="M -18 -6 L 18 -6 L 13 8 L -13 8 Z" class="cap"/>
+          </g>
+          <g id="basecol">
+            <rect x="-16" y="0" width="32" height="7" class="base"/>
+            <rect x="-22" y="7" width="44" height="7" class="base"/>
+          </g>
+        </defs>
+
+        <!-- pediment -->
+        <path class="pediment" d="M 40 60 L 590 10 L 1140 60"/>
+        <line class="baseline" x1="20" y1="330" x2="1160" y2="330"/>
+        <line class="baseline" x1="20" y1="338" x2="1160" y2="338"/>
+
+        <g id="columns"></g>
+      </svg>
+     </div>
+      <p class="temple-caption mono">FACHADA — 10 UNIDADES · escala no representativa · desliza para ver todas</p>
+    </div>
+
+    <div class="spec" id="spec">
+      <div class="num mono" id="spec-num">—</div>
+      <div class="body">
+        <h3 id="spec-title">Elige una columna</h3>
+        <p id="spec-dates">Cada columna guarda las sesiones de clase de esa unidad — pasa el cursor o tócala.</p>
+        <span class="hito mono" id="spec-hito"></span>
+      </div>
+      <div class="status"><span class="stamp" id="spec-status">—</span></div>
+    </div>
+  </header>
+
+  <section class="modulo">
+    <div class="modulo-head">
+      <span class="modulo-num">01</span>
+      <h2>Qué vas a encontrar aquí</h2>
+    </div>
+    <div class="sello-row">
+      <div class="sello">nunca<br>evaluaciones<br>publicadas</div>
+      <div class="sello-text">
+        <p>El Programa permite usar IA <b>solo como herramienta de revisión y formato</b> para
+        evaluaciones — nunca para generar su contenido. Por eso este sitio solo publicará
+        guías de estudio, resúmenes y repasos personales de cada columna, a medida que se
+        generen a lo largo del ciclo.</p>
+        <p>Un Foro, un Control, la Dinámica vivencial, el Ikigai, el Propósito de vida y el
+        Workbook <b>"Redefiniendo el Éxito"</b> no aparecerán jamás aquí: siguen siendo, en
+        su totalidad, trabajo de autoría de Carlos Navas.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="txt">Generado a partir del vault de Obsidian del curso. Ver <code>AGENTS.md</code>
+    en la raíz del repositorio para el detalle completo de reglas y fuentes.</p>
+    <div class="scalebar">
+      <div class="bar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+      <span class="lab">0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1 UNIDAD</span>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const UNIDADES = [
+    {n:1, romano:"I", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:false},
+    {n:2, romano:"II", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:false},
+    {n:3, romano:"III", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:false},
+    {n:4, romano:"IV", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
+    {n:5, romano:"V", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:false},
+    {n:6, romano:"VI", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:false},
+    {n:7, romano:"VII", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
+    {n:8, romano:"VIII", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
+    {n:9, romano:"IX", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
+    {n:10, romano:"X", nombre:"La clave está en el balance", fechas:"6 y 9 nov", hito:"Control 3 · 3 nov · Entrega de Workbook · 9 nov (20%)", disponible:false},
+  ];
+
+  const svgColumns = document.getElementById("columns");
+  const NS = "http://www.w3.org/2000/svg";
+  const spacing = 1180 / (UNIDADES.length + 1);
+  const shaftTop = 62, shaftBottom = 330, shaftH = shaftBottom - shaftTop;
+
+  UNIDADES.forEach((u, i) => {
+    const cx = spacing * (i + 1);
+    const g = document.createElementNS(NS, "g");
+    g.setAttribute("class", "col-group reveal");
+    g.setAttribute("tabindex", "0");
+    g.setAttribute("role", "button");
+    g.setAttribute("aria-label", "Unidad " + u.romano + ": " + u.nombre);
+    g.dataset.index = i;
+
+    const hit = document.createElementNS(NS, "rect");
+    hit.setAttribute("x", cx - 26);
+    hit.setAttribute("y", 20);
+    hit.setAttribute("width", 52);
+    hit.setAttribute("height", 320);
+    hit.setAttribute("fill", "transparent");
+    g.appendChild(hit);
+
+    const shaft = document.createElementNS(NS, "rect");
+    shaft.setAttribute("class", "shaft");
+    shaft.setAttribute("x", cx - 15);
+    shaft.setAttribute("y", shaftTop);
+    shaft.setAttribute("width", 30);
+    shaft.setAttribute("height", shaftH);
+    g.appendChild(shaft);
+
+    for (let f = -2; f <= 2; f++) {
+      const fl = document.createElementNS(NS, "line");
+      fl.setAttribute("class", "flute");
+      fl.setAttribute("x1", cx + f * 5.5);
+      fl.setAttribute("y1", shaftTop + 4);
+      fl.setAttribute("x2", cx + f * 5.5);
+      fl.setAttribute("y2", shaftBottom - 4);
+      g.appendChild(fl);
+    }
+
+    const cap = document.createElementNS(NS, "use");
+    cap.setAttribute("href", "#capital");
+    cap.setAttribute("x", cx);
+    cap.setAttribute("y", shaftTop);
+    g.appendChild(cap);
+
+    const base = document.createElementNS(NS, "use");
+    base.setAttribute("href", "#basecol");
+    base.setAttribute("x", cx);
+    base.setAttribute("y", shaftBottom - 7);
+    g.appendChild(base);
+
+    const numeral = document.createElementNS(NS, "text");
+    numeral.setAttribute("class", "numeral");
+    numeral.setAttribute("x", cx);
+    numeral.setAttribute("y", shaftTop - 20);
+    numeral.setAttribute("text-anchor", "middle");
+    numeral.textContent = u.romano;
+    g.appendChild(numeral);
+
+    svgColumns.appendChild(g);
+  });
+
+  const specTitle = document.getElementById("spec-title");
+  const specDates = document.getElementById("spec-dates");
+  const specHito = document.getElementById("spec-hito");
+  const specNum = document.getElementById("spec-num");
+  const specStatus = document.getElementById("spec-status");
+  const groups = Array.from(document.querySelectorAll(".col-group"));
+
+  function showUnidad(i){
+    const u = UNIDADES[i];
+    specNum.textContent = u.romano;
+    specTitle.textContent = u.nombre;
+    specDates.textContent = "Fechas de clase: " + u.fechas;
+    specHito.textContent = u.hito;
+    specStatus.textContent = u.disponible ? "Disponible" : "Pendiente";
+    specStatus.className = "stamp" + (u.disponible ? " disponible" : "");
+    groups.forEach((g, gi) => g.classList.toggle("active", gi === i));
+  }
+
+  groups.forEach((g) => {
+    const i = Number(g.dataset.index);
+    g.addEventListener("mouseenter", () => showUnidad(i));
+    g.addEventListener("focus", () => showUnidad(i));
+    g.addEventListener("click", () => showUnidad(i));
+  });
+
+  requestAnimationFrame(() => {
+    groups.forEach((g, i) => {
+      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 90 * i);
+    });
+  });
+</script>
+
+</body>
+</html>

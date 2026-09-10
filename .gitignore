@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+.obsidian/.DS_Store
+
+# Obsidian local UI state (churns constantly, not real content)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Community plugin code (reinstalable desde community-plugins.json) —
+# se versiona la configuración (data.json de cada plugin) pero no el código
+.obsidian/plugins/*/main.js
+.obsidian/plugins/*/styles.css
+.obsidian/plugins/*/manifest.json
+
+# artefacto temporal usado para el primer push
+vault.bundle
