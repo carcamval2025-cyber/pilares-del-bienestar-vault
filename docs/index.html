@@ -3,7 +3,8 @@
 <head>
 <script>
   (function(){
-    var saved = localStorage.getItem('pb_theme');
+    var saved = null;
+    try { saved = localStorage.getItem('pb_theme'); } catch (_) {}
     var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if(dark) document.documentElement.setAttribute('data-theme', 'dark');
     else document.documentElement.setAttribute('data-theme', 'light');
@@ -856,7 +857,7 @@
 <body>
 
 <div class="wrap">
-<div style="display:flex; justify-content:flex-end; margin-bottom:12px;"><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema visual"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></div>
+<div style="display:flex; justify-content:flex-end; margin-bottom:12px;"><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar a modo noche" aria-pressed="false"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></div>
 
   <!-- Top Meander Border -->
   <div class="greek-frieze"></div>
@@ -1289,8 +1290,8 @@
 
       <div class="control-features">
         <div class="feature-item"><b>10 Láminas</b> · Grabados arquitectónicos</div>
-        <div class="feature-item"><b>Autoevaluación</b> · 12 reactivos con retroalimentación</div>
-        <div class="feature-item"><b>Glosarios</b> · 8 términos por unidad</div>
+        <div class="feature-item"><b>Autoevaluación</b> · 25 reactivos con retroalimentación</div>
+        <div class="feature-item"><b>Glosarios</b> · 7–8 términos por unidad</div>
         <div class="feature-item"><b>Mapas de vacíos</b> · Identificación precisa de ausencias</div>
       </div>
 
@@ -1737,14 +1738,19 @@
     function updateThemeUI(isDark) {
       var icon = document.getElementById('theme-icon');
       var text = document.getElementById('theme-text');
+      var btn = document.getElementById('theme-toggle');
       if(icon) icon.textContent = isDark ? '☀️' : '🌙';
       if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
+      if(btn) {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.setAttribute('aria-label', isDark ? 'Cambiar a modo día' : 'Cambiar a modo noche');
+      }
     }
     window.toggleTheme = function() {
       var current = document.documentElement.getAttribute('data-theme') || 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('pb_theme', next);
+      try { localStorage.setItem('pb_theme', next); } catch (_) {}
       updateThemeUI(next === 'dark');
     };
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';

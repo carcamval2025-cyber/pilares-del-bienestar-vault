@@ -38,65 +38,62 @@ de Contabilidad — mismo principio de pareja tipográfica con contraste serif/s
 distintas. La tipografía no cambió en la revisión de color — solo la paleta y la
 composición.)*
 
-## Paleta — Piedra y musgo (tema claro)
+## Paletas — Acrópolis del Bienestar (Modo Claro y Modo Oscuro)
+
+### Modo Claro — Mármol Pentélico y Musgo
 
 | Token | Hex | Uso |
 |---|---|---|
-| `--bg` | `#F5F5F3` | Fondo general — blanco roto neutro, sin tinte cálido de "crema" |
-| `--bg-elev` | `#ECECE8` | Superficies elevadas: paneles, fichas, cajetines |
-| `--bg-elev2` | `#E2E2DC` | Superficies aún más elevadas / hover |
-| `--border` | `#D3D3CC` | Bordes sutiles entre superficies |
-| `--text` | `#15181A` | Texto principal — tinta casi negra, no negro puro |
-| `--text-dim` | `#43494A` | Texto secundario, cuerpo largo |
-| `--text-faint` | `#5F655F` | Metadatos, etiquetas pequeñas en mono |
-| `--pine` | `#1F4B3F` | Acento dominante — verde pino: títulos en énfasis, ficha activa, éxito |
-| `--moss` | `#2E7A5C` | Verde más claro — enlaces, hover suave |
-| `--clay` | `#A54A2A` | Acento secundario — terracota: ejemplo aplicado, hitos de evaluación |
-| `--sage` | `#6E8B78` | Acento terciario, uso puntual — unidades IX (ambiental) y X (balance) |
-| `--success` | `#1F4B3F` | Respuestas correctas en repasos (mismo verde pino) |
-| `--danger` | `#B23347` | Errores, avisos, el sello "nunca evaluaciones publicadas" |
+| `--bg` | `#F5F5F3` | Fondo general — blanco roto neutro de mármol pulido |
+| `--bg-elev` | `#ECECE8` | Superficies elevadas: paneles, sillares de piedra, fichas |
+| `--bg-elev2` | `#E2E2DC` | Superficies aún más elevadas / hover de relieve |
+| `--border` | `#D3D3CC` | Bordes y junturas de cantería |
+| `--text` | `#15181A` | Texto principal — tinta de inscripción sobre piedra |
+| `--text-dim` | `#43494A` | Texto secundario, descripciones analíticas |
+| `--text-faint` | `#5F655F` | Metadatos y etiquetas técnicas en mono |
+| `--pine` | `#1F4B3F` | Acento dominante — verde pino: conceptos axiales, éxito |
+| `--moss` | `#2E7A5C` | Verde claro — enlaces, acentos de follaje |
+| `--clay` | `#A54A2A` | Acento secundario — terracota: ejemplos, hitos evaluativos |
+| `--gold` | `#B8934A` | Oro ceremonial — distinciones académicas, coronas de lámina |
+| `--danger` | `#B23347` | Errores, alertas críticas |
 
-Todos los pares texto/fondo relevantes fueron verificados contra WCAG AA (≥4.5:1 para
-texto normal): `--text`/`--bg` = 16.3:1, `--text-dim`/`--bg` = 8.4:1, `--text-dim`/
-`--bg-elev` = 7.7:1, `--text-faint`/`--bg` = 5.5:1, `--text-faint`/`--bg-elev` = 5.1:1,
-`--pine`/`--bg` = 9.0:1, `--moss`/`--bg` = 4.7:1, `--clay`/`--bg` = 5.8:1, `--clay`/
-`--bg-elev` = 5.4:1, `--danger`/`--bg-elev` = 5.1:1. `--moss` y `--clay` se reservan para
-texto sobre `--bg`; sobre `--bg-elev` usar `--pine` o `--clay` (ya verificado), no `--moss`
-para texto pequeño.
+### Modo Oscuro — Basalto Volcánico y Bronce Patinado (`[data-theme="dark"]`)
 
-## Cómo se relaciona cada Unidad con un acento (para diagramas y badges)
+| Token | Hex | Uso |
+|---|---|---|
+| `--bg` | `#110F0D` | Fondo general — basalto nocturno cálido |
+| `--bg-elev` | `#191613` | Superficies elevadas: losas de pórfido y piedra volcánica |
+| `--bg-elev2` | `#25201A` | Superficies destacadas / hover nocturno |
+| `--border` | `#3A332A` | Bordes en bronce envejecido y juntas sombreadas |
+| `--text` | `#F5EFE6` | Texto principal — papiro marfil iluminado |
+| `--text-dim` | `#C8C0B2` | Texto secundario de alta legibilidad nocturna |
+| `--text-faint` | `#8C8273` | Metadatos y citas en mono |
+| `--pine` | `#4E9B79` | Verde esmeralda luminoso |
+| `--clay` | `#E07A5F` | Terracota suave iluminado |
+| `--gold` | `#DFC07A` | Oro brillante ceremonial |
+| `--danger` | `#E57373` | Alertas nocturnas |
 
-No se le asigna un color distinto a cada una de las 10 unidades (serían demasiados
-acentos y perdería cohesión) — en su lugar, los colores de acento se usan por *función*,
-no por unidad:
+## Reglas técnicas (Arquitectura visual y estándares web)
 
-- **Verde pino** — concepto central / idea principal de cualquier unidad, estado activo.
-- **Terracota** — ejemplo aplicado, historia personal, cita de un testimonio, hito de
-  evaluación (Control, entrega).
-- **Sage** — balance, naturaleza, unidades IX (ambiental) y X (la clave está en el
-  balance) cuando se necesite un acento propio.
-- **Verde musgo** — enlaces y llamadas a la acción secundarias (solo sobre `--bg`).
-
-## Reglas técnicas (heredadas del resto del sistema del usuario)
-
-- Sin `<form>` — usar eventos JS para cualquier interacción (quiz, repaso, reflexión
-  guiada).
-- Sin gradientes ni sombras decorativas — superficies planas, profundidad por color de
-  fondo (`--bg` → `--bg-elev` → `--bg-elev2`), no por `box-shadow` difuso.
-- Sin grillas de tarjetas idénticas como patrón por defecto — preferir un diagrama
-  interactivo (como la fachada de columnas) a repetir la misma tarjeta 10 veces.
-- Debe abrir directo en el navegador sin servidor ni build (HTML/CSS/JS plano en un solo
-  archivo).
-- Responsive para escritorio y para el teléfono de Navas — un diagrama ancho (como la
-  fachada) puede desplazarse horizontalmente dentro de su propio contenedor en pantallas
-  angostas; la página en sí nunca hace scroll horizontal.
-- Cualquier diagrama (ej. las 8 dimensiones del bienestar, la pirámide de Maslow, el
-  modelo PERMA) siempre como SVG inline etiquetado — nunca una imagen externa ni una
-  captura de las diapositivas de la profesora.
-- Radios de tarjeta moderados (≤16px) — nunca "insanamente redondeado".
-- Nada de iconografía de spa/wellness genérica (lotos, hojas sueltas, manos en posición
-  de meditación) — si un ícono ayuda, usar el mismo estilo de línea SVG limpia que en los
-  otros dos vaults del usuario, o el motivo de columna/plano técnico propio de este vault.
+- **Sin `<form>`** — usar eventos JS para cualquier interacción (cuestionarios, repasos interactivos).
+- **Relieve arquitectónico y volumen pétreo**: en lugar de sombras difusas indiscriminadas,
+  se emplean bordes cincelados y gradientes vectoriales controlados en SVG inline para dar volumen
+  de cantería clásica, adaptables dinámicamente entre luz solar y luz de antorcha mediante variables CSS.
+- **Identificadores únicos por lámina**: todo elemento `<defs>` (filtros, gradientes, patrones,
+  máscaras) dentro de un SVG debe llevar un prefijo exclusivo de su lámina (ej. `l01-`, `l02-`) para
+  prevenir colisiones o referencias cruzadas cuando múltiples diagramas conviven en una misma página.
+- **Tolerancia y accesibilidad en el selector de tema**: el script de tema en el `<head>` debe
+  encapsular la lectura de `localStorage` en un bloque seguro (`try/catch`) para funcionar sin
+  excepciones al abrirse como archivo local `file://` o en contextos con almacenamiento restringido.
+  El botón de tema (`#theme-toggle`) debe comunicar su estado mediante `aria-pressed`.
+- **Cero dependencias externas**: debe abrir directo en el navegador sin servidor ni build step.
+- **Responsive**: diseño adaptado a pantallas de escritorio y dispositivos móviles (≥390px) sin
+  desbordamiento horizontal.
+- **Diagramas vectoriales**: cada figura conceptual es un SVG inline etiquetado y semántico; nunca
+  imágenes rasterizadas externas ni capturas de diapositivas.
+- **Cero estética de spa comercial**: sin flores de loto genéricas, sin degradados multicolores
+  pastel y sin clisés de marketing "wellness". Motivos basados en orden dórico/jónico, metopas,
+  grecas y cantería clásica.
 
 ## Estructura de página sugerida (mientras no haya una razón para desviarse)
 

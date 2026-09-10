@@ -3,7 +3,8 @@
 <head>
 <script>
   (function(){
-    var saved = localStorage.getItem('pb_theme');
+    var saved = null;
+    try { saved = localStorage.getItem('pb_theme'); } catch (_) {}
     var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     if(dark) document.documentElement.setAttribute('data-theme', 'dark');
     else document.documentElement.setAttribute('data-theme', 'light');
@@ -674,7 +675,7 @@
 </style>
 </head>
 <body>
-<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="../unidad-02/">← UNIDAD II</a></li><li><a href="#u3">UNIDAD III</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema visual"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
+<nav class="toc"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="../repaso-control-1/" class="nav-highlight">📜 CONTROL 1 (ACUMULADO)</a></li><li><a href="../unidad-02/">← UNIDAD II</a></li><li><a href="#u3">UNIDAD III</a></li><li><a href="#quiz">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar a modo noche" aria-pressed="false"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
 <div class="wrap">
 <div class="greek-frieze"></div>
 <header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Unidad</span><b>III</b></div><div><span>Sesiones</span>8 sep</div></div><h1>Unidad III<br><em>Pilar intelectual</em></h1><p class="lede">Resumen, glosario y autoevaluación de esta unidad, con retroalimentación inmediata. Parte del repaso acumulado para el Control 1.</p><div class="aviso"><span class="tag">Esto no es el Control</span><p>Este documento es <b>estudio previo</b>, no una evaluación ni un intento de replicar el Control pregunta por pregunta. El Programa del curso permite usar IA <b>solo como herramienta de revisión y formato</b> para las evaluaciones, nunca para generar su contenido; el Control 1 es <b>físico y presencial</b>, y sus respuestas son y serán 100% de autoría propia.</p><p>Todo lo que aparece aquí sale <b>únicamente</b> de los PDF y PPTX de clase. Donde el material no dice algo, esta guía lo señala como vacío en vez de rellenarlo.</p></div></header><section class="unit" id="u3"><p class="fuente">Fuente: «4. Dimensión intelectual.pdf» (16 pp.)</p>
@@ -741,70 +742,70 @@
     <figure class="diag"><div class="scroller"><svg style="min-width:700px; width:100%;" viewBox="0 0 920 370" role="img" aria-label="Lámina 9 — Las ocho inteligencias múltiples de Howard Gardner">
 <defs>
   <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
-  <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
     <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
     <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
-  <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s1-gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
     <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
     <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
     <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
-  <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s1-gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
     <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
     <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
-  <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#E07A5F"/>
     <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
-  <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s1-gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
     <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
-  <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
     <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
-  <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
-  <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s1-gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
     <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
-  <linearGradient id="gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#FFEAA7"/>
     <stop offset="35%" stop-color="#DFC07A"/>
     <stop offset="75%" stop-color="#9E7B35"/>
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
-  <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s1-gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
     <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
   <!-- Fluted Column Cylinder Lighting -->
-  <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
+  <linearGradient id="u3-s1-gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
     <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
     <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
     <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
     <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
-  <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
+  <linearGradient id="u3-s1-gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
     <stop offset="20%" stop-color="#21523F"/>
     <stop offset="42%" stop-color="#357D61"/>
@@ -813,31 +814,31 @@
   </linearGradient>
 
   <!-- Nocturnal Sky / Lapislazuli stone -->
-  <linearGradient id="gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s1-gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#1B2228"/>
     <stop offset="50%" stop-color="#13191E"/>
     <stop offset="100%" stop-color="#0C1014"/>
   </linearGradient>
 
   <!-- Drop Shadow Filters -->
-  <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
+  <filter id="u3-s1-gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
     <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
-  <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+  <filter id="u3-s1-gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
     <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
-  <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
+  <pattern id="u3-s1-gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
     <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
-  <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
+  <pattern id="u3-s1-gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
     <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
-  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="2" y="2" width="916" height="366" rx="4" fill="url(#u3-s1-gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#u3-s1-gk-shadow-sm)"/>
   <rect x="6" y="6" width="908" height="358" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
-  <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
+  <rect x="10" y="10" width="900" height="10" fill="url(#u3-s1-gk-meander)"/>
 
   <!-- Header -->
   <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">
@@ -846,10 +847,10 @@
 
   <!-- Octagonal Wind Rose (Horologion) (Center=(460, 185)) -->
   <circle cx="460" cy="185" r="115" fill="none" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="2 4"/>
-  <circle cx="460" cy="185" r="80" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="1" opacity="0.6"/>
+  <circle cx="460" cy="185" r="80" fill="url(#u3-s1-gk-pediment)" stroke="var(--border)" stroke-width="1" opacity="0.6"/>
 
   <!-- Center Sacred Altar -->
-  <circle cx="460" cy="185" r="50" fill="url(#gk-card-stone)" stroke="#D4AF37" stroke-width="1.8" filter="url(#gk-shadow-sm)"/>
+  <circle cx="460" cy="185" r="50" fill="url(#u3-s1-gk-card-stone)" stroke="#D4AF37" stroke-width="1.8" filter="url(#u3-s1-gk-shadow-sm)"/>
   <text x="460" y="172" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="var(--pine)">¿De qué</text>
   <text x="460" y="186" text-anchor="middle" font-family="'Cormorant Garamond',Georgia,serif" font-size="13" font-style="italic" fill="var(--pine)">maneras soy</text>
   <text x="460" y="202" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="800" fill="var(--clay-deep)">INTELIGENTE?</text>
@@ -858,61 +859,61 @@
   <!-- 01 Lingüística (Top) -->
   <line x1="460" y1="135" x2="460" y2="92" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(460, 78)">
-    <rect x="-85" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="-85" y="-14" width="170" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">01 · LINGÜÍSTICA</text>
   </g>
 
   <!-- 02 Lógico-matemática (Top-Right) -->
   <line x1="495" y1="150" x2="540" y2="105" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(555, 96)">
-    <rect x="0" y="-14" width="190" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="-14" width="190" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="95" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">02 · LÓGICO-MATEMÁTICA</text>
   </g>
 
   <!-- 03 Espacial (Right) -->
   <line x1="510" y1="185" x2="565" y2="185" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(580, 185)">
-    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">03 · ESPACIAL</text>
   </g>
 
   <!-- 04 Musical (Bottom-Right) -->
   <line x1="495" y1="220" x2="540" y2="265" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(555, 274)">
-    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="0" y="-14" width="150" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="75" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">04 · MUSICAL</text>
   </g>
 
   <!-- 05 Corporal-cinestésica (Bottom) -->
   <line x1="460" y1="235" x2="460" y2="280" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(460, 294)">
-    <rect x="-115" y="-14" width="230" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="-115" y="-14" width="230" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="0" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">05 · CORPORAL-CINESTÉSICA</text>
   </g>
 
   <!-- 06 Interpersonal (Bottom-Left) -->
   <line x1="425" y1="220" x2="380" y2="265" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(365, 274)">
-    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">06 · INTERPERSONAL</text>
   </g>
 
   <!-- 07 Intrapersonal (Left) -->
   <line x1="410" y1="185" x2="355" y2="185" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(340, 185)">
-    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="-170" y="-14" width="170" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="-85" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">07 · INTRAPERSONAL</text>
   </g>
 
   <!-- 08 Naturalista (Top-Left) -->
   <line x1="425" y1="150" x2="380" y2="105" stroke="var(--pine)" stroke-width="1.5"/>
   <g transform="translate(365, 96)">
-    <rect x="-160" y="-14" width="160" height="28" rx="3" fill="url(#gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#gk-shadow-sm)"/>
+    <rect x="-160" y="-14" width="160" height="28" rx="3" fill="url(#u3-s1-gk-card-stone)" stroke="var(--pine)" stroke-width="1" filter="url(#u3-s1-gk-shadow-sm)"/>
     <text x="-80" y="4" text-anchor="middle" font-family="'Cinzel',serif" font-size="10.5" font-weight="700" fill="var(--pine)">08 · NATURALISTA</text>
   </g>
 
   <!-- Warning Banner -->
-  <rect x="20" y="328" width="880" height="26" rx="2" fill="url(#gk-clay-light)" stroke="var(--clay)" stroke-width="1"/>
+  <rect x="20" y="328" width="880" height="26" rx="2" fill="url(#u3-s1-gk-clay-light)" stroke="var(--clay)" stroke-width="1"/>
   <text x="460" y="345" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="700" fill="var(--clay-deep)">
     CUIDADO DE EVALUACIÓN: LA «INTELIGENCIA EMOCIONAL» NO ESTÁ EN ESTA LISTA · LO MÁS CERCANO SON INTERPERSONAL E INTRAPERSONAL
   </text>
@@ -957,70 +958,70 @@
     <figure class="diag"><div class="scroller"><svg style="min-width:720px; width:100%;" viewBox="0 0 920 270" role="img" aria-label="Lámina 10 — Conexión cuerpo–mente: ejercicio, sueño y alimentación">
 <defs>
   <!-- Adaptive Stone & Marble Gradients using CSS Variables -->
-  <linearGradient id="gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-bg-start, #FCFAF7)"/>
     <stop offset="50%" stop-color="var(--svg-bg-mid, #F5F0E6)"/>
     <stop offset="100%" stop-color="var(--svg-bg-end, #EAE1D0)"/>
   </linearGradient>
-  <linearGradient id="gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s2-gk-card-stone" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-card-start, #FFFFFF)"/>
     <stop offset="15%" stop-color="var(--svg-card-mid, #FBF8F2)"/>
     <stop offset="85%" stop-color="var(--svg-card-end, #EFE8DA)"/>
     <stop offset="100%" stop-color="var(--svg-card-edge, #E2D8C6)"/>
   </linearGradient>
-  <linearGradient id="gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s2-gk-pediment" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-ped-start, #EDE7DA)"/>
     <stop offset="45%" stop-color="var(--svg-ped-mid, #DCD2C0)"/>
     <stop offset="100%" stop-color="var(--svg-ped-end, #C2B59F)"/>
   </linearGradient>
 
   <!-- Clay & Terracotta Gradients -->
-  <linearGradient id="gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-clay" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#E07A5F"/>
     <stop offset="50%" stop-color="#AB4F33"/>
     <stop offset="100%" stop-color="#7A2D15"/>
   </linearGradient>
-  <linearGradient id="gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s2-gk-clay-light" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-clay-bg-start, #FAF1ED)"/>
     <stop offset="100%" stop-color="var(--svg-clay-bg-end, #EED8CF)"/>
   </linearGradient>
 
   <!-- Pine & Moss Gradients -->
-  <linearGradient id="gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-pine" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#347259"/>
     <stop offset="50%" stop-color="#1B4234"/>
     <stop offset="100%" stop-color="#0E231B"/>
   </linearGradient>
-  <linearGradient id="gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-moss" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#3B8F6D"/>
     <stop offset="100%" stop-color="#25694D"/>
   </linearGradient>
-  <linearGradient id="gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s2-gk-pine-light" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-pine-bg-start, #F0F6F3)"/>
     <stop offset="100%" stop-color="var(--svg-pine-bg-end, #D6E6DE)"/>
   </linearGradient>
 
   <!-- Gold & Electrum -->
-  <linearGradient id="gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-gold" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#FFEAA7"/>
     <stop offset="35%" stop-color="#DFC07A"/>
     <stop offset="75%" stop-color="#9E7B35"/>
     <stop offset="100%" stop-color="#644D1E"/>
   </linearGradient>
-  <linearGradient id="gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
+  <linearGradient id="u3-s2-gk-gold-card" x1="0%" y1="0%" x2="0%" y2="100%">
     <stop offset="0%" stop-color="var(--svg-gold-bg-start, #FFFDF7)"/>
     <stop offset="100%" stop-color="var(--svg-gold-bg-end, #F7EED8)"/>
   </linearGradient>
 
   <!-- Fluted Column Cylinder Lighting -->
-  <linearGradient id="gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
+  <linearGradient id="u3-s2-gk-shaft-light" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="var(--svg-shaft-edge, #C2B7A2)"/>
     <stop offset="18%" stop-color="var(--svg-shaft-light, #EAE3D4)"/>
     <stop offset="42%" stop-color="var(--svg-shaft-peak, #FAF7F2)"/>
     <stop offset="72%" stop-color="var(--svg-shaft-mid, #DDD3BF)"/>
     <stop offset="100%" stop-color="var(--svg-shaft-dark, #AEA18A)"/>
   </linearGradient>
-  <linearGradient id="gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
+  <linearGradient id="u3-s2-gk-shaft-pine" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#11291F"/>
     <stop offset="20%" stop-color="#21523F"/>
     <stop offset="42%" stop-color="#357D61"/>
@@ -1029,31 +1030,31 @@
   </linearGradient>
 
   <!-- Nocturnal Sky / Lapislazuli stone -->
-  <linearGradient id="gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
+  <linearGradient id="u3-s2-gk-nocturnal" x1="0%" y1="0%" x2="100%" y2="100%">
     <stop offset="0%" stop-color="#1B2228"/>
     <stop offset="50%" stop-color="#13191E"/>
     <stop offset="100%" stop-color="#0C1014"/>
   </linearGradient>
 
   <!-- Drop Shadow Filters -->
-  <filter id="gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
+  <filter id="u3-s2-gk-shadow" x="-8%" y="-8%" width="120%" height="120%">
     <feDropShadow dx="1" dy="2.5" stdDeviation="2" flood-color="#1A1510" flood-opacity="0.18"/>
   </filter>
-  <filter id="gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
+  <filter id="u3-s2-gk-shadow-sm" x="-5%" y="-5%" width="110%" height="110%">
     <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#1A1510" flood-opacity="0.14"/>
   </filter>
 
   <!-- Greca pattern strip -->
-  <pattern id="gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
+  <pattern id="u3-s2-gk-meander" width="24" height="12" patternUnits="userSpaceOnUse">
     <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="var(--svg-greca, #A84E32)" stroke-width="0.9" stroke-linecap="square" opacity="0.45"/>
   </pattern>
-  <pattern id="gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
+  <pattern id="u3-s2-gk-meander-gold" width="24" height="12" patternUnits="userSpaceOnUse">
     <path d="M0 11h17V3H7v4h5v2H5V1h14v10h5" fill="none" stroke="#DFC07A" stroke-width="0.9" stroke-linecap="square" opacity="0.55"/>
   </pattern>
 </defs>
-  <rect x="2" y="2" width="916" height="266" rx="4" fill="url(#gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#gk-shadow-sm)"/>
+  <rect x="2" y="2" width="916" height="266" rx="4" fill="url(#u3-s2-gk-bg-grad)" stroke="var(--border)" stroke-width="1.5" filter="url(#u3-s2-gk-shadow-sm)"/>
   <rect x="6" y="6" width="908" height="258" rx="2" fill="none" stroke="var(--border-soft)" stroke-width="1"/>
-  <rect x="10" y="10" width="900" height="10" fill="url(#gk-meander)"/>
+  <rect x="10" y="10" width="900" height="10" fill="url(#u3-s2-gk-meander)"/>
 
   <!-- Header -->
   <text x="460" y="38" text-anchor="middle" font-family="'Cinzel',serif" font-size="11.5" font-weight="700" fill="var(--clay-deep)" letter-spacing="0.08em">
@@ -1062,20 +1063,20 @@
 
   <!-- LEFT TEMPLE: PILAR FÍSICO (UNIDAD II) -->
   <g transform="translate(24, 52)">
-    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#u3-s2-gk-card-stone)" stroke="var(--border)" stroke-width="1.2" filter="url(#u3-s2-gk-shadow-sm)"/>
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#u3-s2-gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
     <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="var(--pine)">PILAR FÍSICO</text>
     <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="var(--clay)">UNIDAD II</text>
 
     <!-- 3 Core Levers -->
     <g transform="translate(15, 52)">
-      <rect x="0" y="0" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <rect x="0" y="0" width="190" height="30" rx="2" fill="url(#u3-s2-gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
       <text x="95" y="19" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">EJERCICIO</text>
 
-      <rect x="0" y="38" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <rect x="0" y="38" width="190" height="30" rx="2" fill="url(#u3-s2-gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
       <text x="95" y="57" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">SUEÑO</text>
 
-      <rect x="0" y="76" width="190" height="30" rx="2" fill="url(#gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
+      <rect x="0" y="76" width="190" height="30" rx="2" fill="url(#u3-s2-gk-pine-light)" stroke="var(--pine)" stroke-width="0.8"/>
       <text x="95" y="95" text-anchor="middle" font-family="'Cinzel',serif" font-size="11" font-weight="700" fill="var(--pine)">ALIMENTACIÓN</text>
     </g>
   </g>
@@ -1086,7 +1087,7 @@
     <g transform="translate(0, 0)">
       <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
       <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#u3-s2-gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
       <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         ↑ dopamina · serotonina · norepinefrina · oxigenación cerebral
       </text>
@@ -1096,7 +1097,7 @@
     <g transform="translate(0, 38)">
       <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
       <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#u3-s2-gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
       <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         consolidación de la memoria &amp; regeneración neuronal
       </text>
@@ -1106,7 +1107,7 @@
     <g transform="translate(0, 76)">
       <line x1="0" y1="18" x2="410" y2="18" stroke="var(--clay)" stroke-width="2.5"/>
       <polygon points="410,13 422,18 410,23" fill="var(--clay)"/>
-      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
+      <rect x="30" y="0" width="350" height="16" rx="2" fill="url(#u3-s2-gk-card-stone)" stroke="var(--border)" stroke-width="0.8"/>
       <text x="205" y="12" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" font-weight="600" fill="var(--clay-deep)">
         glucosa estable &amp; nutrientes para el funcionamiento cognitivo
       </text>
@@ -1115,8 +1116,8 @@
 
   <!-- RIGHT TEMPLE: PILAR INTELECTUAL (UNIDAD III) -->
   <g transform="translate(676, 52)">
-    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#gk-pine)" stroke="#0E231B" stroke-width="1.2" filter="url(#gk-shadow-sm)"/>
-    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
+    <rect x="0" y="0" width="220" height="175" rx="3" fill="url(#u3-s2-gk-pine)" stroke="#0E231B" stroke-width="1.2" filter="url(#u3-s2-gk-shadow-sm)"/>
+    <rect x="0" y="0" width="220" height="28" rx="2" fill="url(#u3-s2-gk-pediment)" stroke="var(--border)" stroke-width="0.8"/>
     <text x="110" y="18" text-anchor="middle" font-family="'Cinzel',serif" font-size="12" font-weight="800" fill="var(--pine)">PILAR INTELECTUAL</text>
     <text x="110" y="38" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8.5" fill="#FFEAA7">UNIDAD III</text>
 
@@ -1220,14 +1221,19 @@ var QUIZ = {"u3": [{"q": "¿Cuáles son las tres habilidades fundamentales del b
     function updateThemeUI(isDark) {
       var icon = document.getElementById('theme-icon');
       var text = document.getElementById('theme-text');
+      var btn = document.getElementById('theme-toggle');
       if(icon) icon.textContent = isDark ? '☀️' : '🌙';
       if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
+      if(btn) {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.setAttribute('aria-label', isDark ? 'Cambiar a modo día' : 'Cambiar a modo noche');
+      }
     }
     window.toggleTheme = function() {
       var current = document.documentElement.getAttribute('data-theme') || 'light';
       var next = current === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('pb_theme', next);
+      try { localStorage.setItem('pb_theme', next); } catch (_) {}
       updateThemeUI(next === 'dark');
     };
     var isDark = document.documentElement.getAttribute('data-theme') === 'dark';

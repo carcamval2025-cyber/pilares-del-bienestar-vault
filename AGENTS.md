@@ -108,17 +108,29 @@ RESTRICCIONES: [extensión, nivel, etc. — si aplica]
 
 ## Sistema de diseño HTML (solo para Guía / Resumen / Repaso — nunca para Foro, Control, Ikigai, Propósito de vida o Workbook)
 
-Ver `02 Curso/Sistema de Diseño HTML.md` para la paleta completa. Identidad
-intencionalmente distinta a los otros dos vaults del usuario (navy+rose en Contabilidad
-Financiera, índigo+coral en Modelos Macroeconómicos): aquí, **ámbar + terracota sobre
-fondo café oscuro** — cálido y humano, apropiado para un curso de introspección personal,
-sin caer en la estética genérica de apps de "wellness" (sin colores pastel de marca
-comercial, sin íconos de spa, sin gradientes).
+Ver `02 Curso/Sistema de Diseño HTML.md` para la especificación completa. Identidad
+visual basada en una **arquitectura clásica griega y orden jónico/dórico ("Acrópolis del Bienestar")**:
+- **Modo Claro (Día en la Acrópolis)**: Mármol pentélico claro, líneas en tinta pino y
+  acentos en terracota y oro ceremonial.
+- **Modo Oscuro (Noche en la Acrópolis)**: Basalto volcánico y pórfido oscuro (`#110F0D` /
+  `#191613`), bordes en bronce patinado (`#3A332A`) y acentos iluminados en oro (`#DFC07A`),
+  pino esmeralda (`#4E9B79`) y terracota (`#E07A5F`).
+- Se evita terminantemente la estética genérica de aplicaciones de "wellness" comercial (sin
+  pasteles deslavados, sin íconos de spa o flores de loto genéricas).
 
-Reglas técnicas heredadas del resto del sistema: sin `<form>` (usar eventos JS), sin
-gradientes/sombras decorativas, debe abrir directo en navegador sin servidor, responsive,
-todo diagrama o ilustración como SVG inline, nunca imágenes externas ni capturas de
-diapositivas de la profesora.
+Reglas técnicas del sistema:
+- Sin `<form>` — usar eventos JS nativos y accesibles para interactividad.
+- Estilo arquitectónico en bajorrelieve: se autoriza el uso controlado de sombras cinceladas
+  y gradientes vectoriales dentro de los SVG inline para conferir volumen pétreo y soportar la
+  transición dinámica entre luz diurna y modo nocturno mediante variables CSS.
+- **Identificadores únicos en SVGs**: cada lámina vectorial debe utilizar prefijos o identificadores
+  únicos en sus `<defs>` (gradientes, filtros, clips) para evitar colisiones al agregarse en páginas
+  de repaso general.
+- Cero dependencias externas: debe abrir directamente en navegador sin servidor ni build step.
+- Todo diagrama o ilustración debe ser SVG inline accesible y semántico; nunca imágenes externas
+  ni capturas de diapositivas de clase.
+- Modo oscuro con prevención de destello (*zero-flash*): detección temprana en `<head>` y tolerancia
+  a entornos sin `localStorage`.
 
 ## GitHub Pages (`docs/`) — activo
 
