@@ -75,6 +75,9 @@ numerales de contorno del portal son decorativos (`aria-hidden`).
   párrafos y listas en las columnas 1–7 (≈ 65 ch), `.note` y `blockquote` en 8–12 junto al párrafo
   que las precede, y láminas, `.two`, `.three`, glosarios, preguntas y tarjetas a todo el ancho.
   Las piezas con borde son los tiles; el texto no lleva caja.
+- Los párrafos y listas consecutivos de un `.block` se agrupan (JS) en un `.prose`; si el grupo es
+  largo se parte en **dos columnas** (menos hueco a la derecha, medida de lectura intacta); si es
+  corto queda a la izquierda y la `.note` siguiente se sienta a su lado.
 - Cabecera (`header.top`): fichas de datos en colores, `h1` como tile amarillo, `.lede` y `.aviso`.
 - Portal: hero asimétrico (título 8 / ficha + cita 4), banda de reglas en frase continua (no
   tarjetas de métricas), mosaico de 12 columnas con tiles de ancho distinto (7/5, 4/3/5, 5/3/4,
@@ -85,15 +88,27 @@ numerales de contorno del portal son decorativos (`aria-hidden`).
 
 ## Láminas SVG
 
-- Planas: los degradados heredados se aplanan por CSS (`stop-color` por sufijo de id: `-gk-clay`,
-  `-gk-pine`, `-gk-gold`…) conservando la luminosidad original, para que los textos claros u
-  oscuros de cada lámina sigan legibles.
-- Trazo `--ink` de 2.2–2.5 px, sin filtros de sombra suave; la sombra dura la pone el `figure`.
-- Las clases propias de las láminas del Repaso 2 (`.sv .h .d .m .fpine .fclay .fgold …`) viven
-  en `brutal.css`.
-- Identificadores únicos por lámina (prefijo exclusivo en `<defs>`) siguen siendo obligatorios.
-- Todo diagrama es SVG inline accesible (`role="img"` + `aria-label`); nunca imágenes ni
-  capturas de diapositivas.
+Dos familias conviven, ambas sin marco ni "pie de lámina" (el `figcaption` ya cita la fuente) y con
+el `viewBox` recortado al contenido para no dejar aire de sobra:
+
+- **Clay / 3D (la mayoría):** formas con volumen hechas solo con degradados radiales/lineales, brillo
+  y extrusión dura —esferas, cilindros, cuboides, tubos, pirámide escalonada, pastel 3D—, apoyadas en
+  una sombra de contacto desenfocada, más tarjetas blancas con borde y sombra dura. Se generan desde
+  `tools/design/figures.mjs` (un generador por lámina; los textos son los de los PDF/PPTX) y se
+  inyectan con `node tools/apply-figures.mjs`, que localiza cada figura por su número de lámina.
+  **No editar a mano el SVG de una lámina generada**: cambia el generador y vuelve a correr el script.
+  El smoke test falla si el HTML no coincide con el generador. Cada lámina recibe un prefijo de ids
+  (`u01-f2`, `rc1-f2`…) para que los `<defs>` no choquen.
+- **Planas (el resto del Repaso 2: cuadrante, mensaje YO, espectro):** tiles de color con trazo de
+  tinta; las clases `.sv .h .d .m .fpine .fclay .fgold …` viven en `brutal.css`.
+
+Reglas comunes:
+
+- El texto de un SVG se colorea con `style="fill:…"` (o las clases `.sv`); el atributo `fill` lo pisa
+  el CSS de `.sv`.
+- Trazo `--ink` de 2–2.5 px; la sombra dura la pone el `figure`.
+- Todo diagrama es SVG inline accesible (`role="img"` + `aria-label`); nunca imágenes ni capturas.
+- Una lámina estrecha se ensancha a relación ≥ 2.3:1 (o se rediseña apaisada) para llenar el ancho.
 
 ## Motion design
 

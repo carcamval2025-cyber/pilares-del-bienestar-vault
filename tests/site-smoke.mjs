@@ -15,6 +15,7 @@ const read = (file) => readFileSync(file, "utf8");
 const brutalCss = read("tools/design/brutal.css").trim();
 const portalCss = read("tools/design/portal.css").trim();
 const motionJs = read("tools/design/motion.js").trim();
+const { FIGURES, FIGURE_MAP, FIGURE_PREFIX } = await import("../tools/design/figures.mjs");
 const ids = (html) => [...html.matchAll(/\bid=(["'])([^"']+)\1/g)].map((match) => match[2]);
 const scripts = (html) => [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map((match) => match[1]);
 
@@ -25,6 +26,11 @@ for (const page of pages) {
   assert.ok(html.includes(motionJs), `${page}: motion.js desactualizado, corre node tools/apply-design.mjs`);
   if (page === "docs/index.html") assert.ok(html.includes(portalCss), `${page}: portal.css desactualizado`);
   assert.equal((html.match(/@import/g) || []).length, 1, `${page}: debe haber un solo @import`);
+  // las láminas clay deben coincidir con tools/design/figures.mjs (node tools/apply-figures.mjs)
+  const pageKey = page.split("/")[1];
+  for (const [num, gen] of FIGURE_MAP[pageKey] || []) {
+    assert.ok(html.includes(FIGURES[gen](`${FIGURE_PREFIX[pageKey]}-f${num}`)), `${page}: lámina ${num} (${gen}) desactualizada, corre node tools/apply-figures.mjs`);
+  }
   const pageIds = ids(html);
   assert.equal(new Set(pageIds).size, pageIds.length, `${page}: duplicate id`);
   for (const [, reference] of html.matchAll(/url\(#([^)]+)\)/g)) {

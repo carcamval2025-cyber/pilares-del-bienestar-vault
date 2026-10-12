@@ -132,8 +132,10 @@ y a `tests/site-smoke.mjs`.
 
 Reglas técnicas del sistema:
 - Sin `<form>` — usar eventos JS nativos y accesibles para interactividad.
-- **Láminas SVG planas**: sin degradados de volumen ni filtros de sombra suave; los colores
-  planos se controlan por CSS. Trazo de tinta, sombra dura en el `figure`.
+- **Láminas SVG en clay/3D** (esferas, cilindros, bloques, tubos con degradados y extrusión dura) o
+  planas de tiles. Las clay se generan desde `tools/design/figures.mjs` y se inyectan con
+  `node tools/apply-figures.mjs`; no se editan a mano (el smoke test falla si el HTML no coincide).
+  Sin marcos decorativos ni pie de lámina; `viewBox` recortado al contenido.
 - **Identificadores únicos en SVGs**: cada lámina vectorial debe utilizar prefijos o identificadores
   únicos en sus `<defs>` (gradientes, filtros, clips) para evitar colisiones al agregarse en páginas
   de repaso general.
@@ -189,4 +191,4 @@ Unidad** (Guía HTML / Resumen / Repaso):
 - `02 Curso/Fuentes y Bibliografía.md`
 - `02 Curso/Sistema de Diseño HTML.md`
 - `docs/index.html` — portal del sitio (publicado en GitHub Pages).
-- `tools/design/` y `tools/apply-design.mjs` — fuente única del sistema de diseño y su script de inyección.
+- `tools/design/` (CSS, motion y generador de láminas), `tools/apply-design.mjs` y `tools/apply-figures.mjs` — fuente única del diseño y sus scripts de inyección.
