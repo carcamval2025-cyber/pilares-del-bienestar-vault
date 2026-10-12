@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import vm from "node:vm";
 
 const pages = [
   "docs/index.html",
@@ -43,39 +42,9 @@ for (const page of pages) {
     if (fragment) assert.ok(ids(read(target)).includes(fragment), `${page}: missing fragment ${href}`);
   }
 
-  const [headTheme, , toggleTheme] = scripts(html);
-  const rootAttributes = new Map();
-  assert.doesNotThrow(() => vm.runInNewContext(headTheme, {
-    document: { documentElement: { setAttribute: (name, value) => rootAttributes.set(name, value) } },
-    localStorage: { getItem: () => { throw new Error("storage unavailable"); } },
-    window: { matchMedia: () => ({ matches: false }) },
-  }), `${page}: initial theme must tolerate unavailable storage`);
-
-  const buttonAttributes = new Map();
-  const elements = {
-    "theme-icon": { textContent: "" },
-    "theme-text": { textContent: "" },
-    "theme-toggle": {
-      onclick: null,
-      setAttribute: (name, value) => buttonAttributes.set(name, value),
-    },
-  };
-  const document = {
-    readyState: "complete",
-    documentElement: {
-      getAttribute: (name) => rootAttributes.get(name),
-      setAttribute: (name, value) => rootAttributes.set(name, value),
-    },
-    getElementById: (id) => elements[id] ?? null,
-  };
-  const context = {
-    document,
-    localStorage: { setItem: () => { throw new Error("storage unavailable"); } },
-    window: {},
-  };
-  vm.runInNewContext(toggleTheme, context);
-  assert.doesNotThrow(() => context.window.toggleTheme(), `${page}: toggle must tolerate unavailable storage`);
-  assert.equal(buttonAttributes.get("aria-pressed"), "true", `${page}: toggle state is not announced`);
+  // solo modo claro: no debe quedar rastro del selector de tema
+  assert.ok(!html.includes("pb_theme") && !html.includes('id="theme-toggle"'), `${page}: queda código del modo noche`);
+  assert.ok(!html.includes('data-theme="dark"'), `${page}: queda CSS del modo noche`);
 }
 
 const portal = read("docs/index.html");

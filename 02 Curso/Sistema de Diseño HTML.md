@@ -15,7 +15,7 @@ y motion design abundante pero nunca bloqueante.
 
 ## Fuente única y build
 
-- `tools/design/brutal.css` — tokens, componentes, láminas SVG, modo noche y keyframes.
+- `tools/design/brutal.css` — tokens, componentes, láminas SVG y keyframes.
 - `tools/design/portal.css` — estilos exclusivos del portal (`docs/index.html`).
 - `tools/design/motion.js` — motion design (vanilla, sin dependencias).
 - `node tools/apply-design.mjs` — inyecta esos archivos dentro de cada página de `docs/`
@@ -43,29 +43,30 @@ lo ignora el navegador; así fue como Cinzel nunca cargó en la versión griega)
 
 ## Paleta
 
-Estrategia de color: **paleta completa** (cinco acentos con rol propio). Superficie día en un neutro
-frío (no crema/arena); superficie noche casi negra con matiz azul.
+Estrategia de color: **paleta completa** (cinco acentos con rol propio) sobre un neutro frío
+(no crema/arena).
 
-| Token | Día | Noche | Uso |
-|---|---|---|---|
-| `--paper` | `#E8EAEF` | `#0A0B10` | Fondo (con cuadrícula de 48 px) |
-| `--card` | `#FFFFFF` | `#11131A` | Tiles neutros |
-| `--ink` | `#0A0B10` | `#EDEFF5` | Texto y bordes neutros |
-| `--c-yellow` | `#FFD60A` | igual | Énfasis, título principal |
-| `--c-coral` | `#FF5C3D` | igual | Avisos y alertas |
-| `--c-blue` | `#6C8BFF` | igual | Acción secundaria |
-| `--c-green` | `#2FD68F` | igual | Aciertos, disponible |
-| `--c-lilac` | `#B79DFF` | igual | Casos, acento neutro |
+**Solo modo claro.** Se probó un modo noche (primero invertido, luego "neón sobre tinta") y se
+descartó: los acentos saturados no se sostienen bien sobre fondo oscuro y duplicaba el trabajo de
+mantenimiento. El sitio declara `color-scheme: light` y no tiene selector de tema.
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--paper` | `#E8EAEF` | Fondo (con cuadrícula de 48 px) |
+| `--card` | `#FFFFFF` | Tiles neutros |
+| `--ink` | `#0A0B10` | Texto y bordes neutros |
+| `--c-yellow` | `#FFD60A` | Énfasis, título principal |
+| `--c-coral` | `#FF5C3D` | Avisos y alertas |
+| `--c-blue` | `#6C8BFF` | Acción secundaria |
+| `--c-green` | `#2FD68F` | Aciertos, disponible |
+| `--c-lilac` | `#B79DFF` | Casos, acento neutro |
 
 **Sistema de acento (`--a`).** Cada tile de color declara solo `--a`; la superficie se deriva sola:
-
-- **Día:** relleno `--a`, borde y sombra de tinta, texto negro (`--a-bg/--a-fg/--a-edge/--a-shd`).
-- **Noche:** relleno oscuro teñido (`color-mix` del acento al 14 % sobre `--paper`), borde y sombra
-  del propio color de acento, texto claro. No es una inversión: es "neón sobre tinta".
-- `--chip-bg/--chip-fg` dan la etiqueta con contraste garantizado en ambos modos.
+relleno `--a`, borde y sombra de tinta, texto negro (`--a-bg/--a-fg/--a-edge/--a-shd`), y
+`--chip-bg/--chip-fg` para etiquetas con contraste garantizado.
 
 Cada `section.unit` rota su acento (`--accent`) entre amarillo, verde, lila, coral y azul.
-Contraste verificado con un script (texto normal ≥ 4.5:1, grande ≥ 3:1) en ambos modos; los
+Contraste verificado con un script (texto normal ≥ 4.5:1, grande ≥ 3:1); los
 numerales de contorno del portal son decorativos (`aria-hidden`).
 
 ## Layout bento
@@ -111,17 +112,14 @@ observer (las animaciones se pausan en pestañas ocultas y en renderizadores sin
   botones que se levantan al hover y se hunden al pulsar, inclinación 3D de tiles del portal.
 - Autoevaluación: acierto = pulso + confeti; error = sacudida; la retroalimentación cae desde
   arriba; el marcador "rebota" al cambiar. Tarjetas de memoria: entran y giran en 3D.
-- Cambio de tema con círculo expansivo desde el botón (View Transitions; sin soporte, cambia directo).
 - `prefers-reduced-motion: reduce` apaga todo (animaciones y transiciones).
 - Escala de z-index: sticky 100 · progreso 200 · confeti 300.
 
 ## Reglas técnicas
 
 - **Sin `<form>`** — eventos JS para cualquier interacción.
-- **Tema**: el script del `<head>` lee `localStorage` dentro de `try/catch` (funciona en
-  `file://`); `#theme-toggle` comunica su estado con `aria-pressed`. Orden de scripts:
-  (1) tema inicial, (2) contenido de la página, (3) `toggleTheme`, (4) motion — el smoke test
-  depende de ese orden.
+- **Sin selector de tema**: nada de `localStorage` ni `data-theme`; el smoke test comprueba que no
+  quede código del modo noche. Orden de scripts: contenido de la página y, al final, motion.
 - **Cero dependencias externas** salvo las fuentes de Google; abre directo en el navegador,
   sin servidor.
 - **Responsive**: ≥ 390 px sin desbordamiento horizontal; objetivos táctiles ≥ 44 px.

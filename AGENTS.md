@@ -114,12 +114,11 @@ griega "Acrópolis del Bienestar"):
 - Tiles de color plano y saturado (amarillo, coral, azul, verde, lila), bordes de 3 px y
   sombras duras desplazadas, sin desenfoque. Sin tiles dentro de tiles: el texto va abierto y
   las piezas con borde son los tiles.
-- **Modo claro**: superficie neutra fría `#E8EAEF` (no crema) y tinta `#0A0B10`. **Modo noche**:
-  "neón sobre tinta": fondo `#0A0B10`, tiles de tinta oscura teñida con borde y sombra del color de
-  acento y texto claro (no es una inversión del modo día).
+- **Solo modo claro**: superficie neutra fría `#E8EAEF` (no crema) y tinta `#0A0B10`. El modo noche
+  se probó y se descartó; no hay selector de tema ni `localStorage` (el sitio declara `color-scheme: light`).
 - Tipografía: una sola familia, Archivo variable (contraste por ancho y peso), sin monoespaciada.
 - Motion design abundante (entradas por palabra, revelado al scroll, láminas que "saltan",
-  confeti en aciertos, tarjetas que giran, cinta de texto, cambio de tema circular), siempre
+  confeti en aciertos, tarjetas que giran, cinta de texto), siempre
   con el contenido visible por defecto y respetando `prefers-reduced-motion`.
 - Se evita la estética genérica de aplicaciones de "wellness" comercial y los tics de plantilla de
   IA: sin franjas laterales de color, sin rayados decorativos, sin numeración 01/02/03 de relleno.
@@ -143,8 +142,7 @@ Reglas técnicas del sistema:
   con **un solo `@import` al inicio del `<style>`**.
 - Todo diagrama o ilustración debe ser SVG inline accesible y semántico; nunca imágenes externas
   ni capturas de diapositivas de clase.
-- Modo oscuro con prevención de destello (*zero-flash*): detección temprana en `<head>` y tolerancia
-  a entornos sin `localStorage`. El orden de los `<script>` es: tema inicial, contenido, `toggleTheme`,
+- Sin modo oscuro ni selector de tema. Orden de los `<script>`: contenido de la página y, al final,
   motion.
 
 ## GitHub Pages (`docs/`) — activo

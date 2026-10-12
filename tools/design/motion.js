@@ -18,7 +18,6 @@
     countUps();
     tilt();
     quizFeel();
-    themeWipe();
   }
 
   /* ---------- Barra de progreso de lectura ---------- */
@@ -199,21 +198,6 @@
       });
     });
     $$('.score').forEach(function (s) { mo.observe(s, { childList: true, characterData: true, subtree: true }); });
-  }
-
-  /* ---------- Cambio de tema con círculo expansivo ---------- */
-  function themeWipe() {
-    var btn = $('#theme-toggle');
-    if (!btn || reduce || !doc.startViewTransition) return;
-    btn.addEventListener('click', function (e) {
-      if (typeof window.toggleTheme !== 'function') return;
-      e.stopImmediatePropagation(); e.preventDefault();
-      var r = btn.getBoundingClientRect();
-      root.style.setProperty('--tx', (r.left + r.width / 2) + 'px');
-      root.style.setProperty('--ty', (r.top + r.height / 2) + 'px');
-      try { doc.startViewTransition(function () { window.toggleTheme(); }); }
-      catch (err) { window.toggleTheme(); }
-    }, true);
   }
 
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();

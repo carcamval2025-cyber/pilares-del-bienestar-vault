@@ -1,16 +1,9 @@
 <!doctype html>
 <html lang="es">
 <head>
-<script>
-  (function(){
-    var saved = null;
-    try { saved = localStorage.getItem('pb_theme'); } catch (_) {}
-    var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
-  })();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
 <title>Repaso — Control 2 · Pilares del Bienestar</title>
 <style>
 /*DESIGN:START*/
@@ -25,7 +18,7 @@
      (titulares condensados y pesadísimos; texto en ancho normal).
    · Tiles planos de color con borde grueso y sombra dura (sin desenfoque).
    · Sin tiles dentro de tiles: el .block es texto abierto, los tiles son sus piezas.
-   · Modo noche por tokens (tinta oscura + borde y sombra del color de acento).
+   · Solo modo claro (se probó un modo noche y se descartó: los colores saturados no sobreviven bien).
    · El contenido SIEMPRE es visible: el motion solo mejora, nunca oculta.
    ===================================================================== */
 
@@ -39,6 +32,7 @@
   --on-a:#0A0B10;           /* texto sobre un tile de color (modo día) */
   --n-edge:var(--ink); --n-shd:var(--ink);   /* tile neutro */
   --foot-bg:#0A0B10; --foot-fg:#E8EAEF;
+  color-scheme:light;
   --a:var(--c-yellow);      /* acento del tile actual */
 
   --out:cubic-bezier(.16,1,.3,1);          /* ease-out expo */
@@ -67,38 +61,10 @@
   --svg-shaft-mid:#F4F5F9; --svg-shaft-dark:#F4F5F9;
   --svg-greca:#0A0B10;
 }
-[data-theme="dark"]{
-  --paper:#0A0B10; --paper-2:#171A23; --card:#11131A;
-  --ink:#EDEFF5; --ink-2:#C9CDDA; --faint:#9AA0B3; --line:#2A2D3A;
-  --grid:rgba(237,239,245,.035);
-  --on-a:#EDEFF5;
-  --n-edge:#BAC0D0; --n-shd:#262A38;
-  --foot-bg:#11131A; --foot-fg:#C9CDDA;
-  --pine:#3FE0A0; --moss:#3FE0A0; --clay:#FF8F76; --clay-deep:#FF8F76; --sage:#7FC4A0;
-  --gold:#FFD60A; --gold-doric:#FFD60A; --gold-deep:#FFD60A; --pine-light:#3FE0A0;
-  --success:#3FE0A0; --danger:#FF8F76;
-  --svg-bg-start:#171A23; --svg-bg-mid:#171A23; --svg-bg-end:#171A23;
-  --svg-card-start:#20232F; --svg-card-mid:#20232F; --svg-card-end:#20232F; --svg-card-edge:#20232F;
-  --svg-ped-start:#2A2E3C; --svg-ped-mid:#2A2E3C; --svg-ped-end:#2A2E3C;
-  --svg-clay-bg-start:#4A1F17; --svg-clay-bg-end:#4A1F17;
-  --svg-pine-bg-start:#12392A; --svg-pine-bg-end:#12392A;
-  --svg-gold-bg-start:#4A3D05; --svg-gold-bg-end:#4A3D05;
-  --svg-shaft-edge:#EDEFF5; --svg-shaft-light:#2A2E3C; --svg-shaft-peak:#2A2E3C;
-  --svg-shaft-mid:#2A2E3C; --svg-shaft-dark:#2A2E3C;
-  --svg-greca:#EDEFF5;
-}
-
-/* Superficie de un tile con acento (--a):
-   día  = relleno del color, borde y sombra de tinta, texto negro;
-   noche = relleno oscuro teñido, borde y sombra del color, texto claro. */
+/* Superficie de un tile con acento (--a): relleno del color, borde y sombra de tinta, texto negro. */
 *{
   --a-bg:var(--a); --a-fg:var(--on-a); --a-edge:var(--ink); --a-shd:var(--ink);
   --chip-bg:#0A0B10; --chip-fg:var(--a);
-}
-[data-theme="dark"] *{
-  --a-bg:color-mix(in oklab,var(--a) 14%,var(--paper));
-  --a-fg:var(--ink); --a-edge:var(--a); --a-shd:var(--a);
-  --chip-bg:var(--a); --chip-fg:#0A0B10;
 }
 
 /* ---------- Base ---------- */
@@ -134,7 +100,6 @@ nav.toc{ position:sticky; top:0; z-index:var(--z-sticky); background:var(--paper
 nav.toc ul{ list-style:none; display:flex; gap:6px; margin:0 auto; padding:8px 24px; overflow-x:auto; max-width:1180px; align-items:center; scrollbar-width:none; }
 nav.toc ul::-webkit-scrollbar{ display:none; }
 nav.toc li{ flex:0 0 auto; }
-nav.toc li:last-child{ margin-left:auto; }
 nav.toc a{ display:flex; align-items:center; min-height:44px; padding:0 14px; font-weight:700; font-size:.8rem; letter-spacing:.05em; text-transform:uppercase;
   text-decoration:none; color:var(--ink); border:3px solid transparent; white-space:nowrap; transition:transform .25s var(--out), background .15s; }
 nav.toc a:hover{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; transform:translateY(-3px) rotate(-1.2deg); }
@@ -142,13 +107,6 @@ nav.toc a.on{ background:var(--ink); color:var(--paper); border-color:var(--ink)
 nav.toc a.nav-temple{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 nav.toc a.nav-temple:hover{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; }
 nav.toc a.nav-highlight{ background:var(--c-coral); color:#0A0B10; border-color:#0A0B10; }
-.theme-toggle-btn{ font:inherit; font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.05em; cursor:pointer; background:var(--c-yellow); color:#0A0B10;
-  border:3px solid #0A0B10; min-height:44px; padding:0 14px; box-shadow:4px 4px 0 var(--ink); display:inline-flex; gap:8px; align-items:center;
-  transition:transform .2s var(--out), box-shadow .2s; }
-.theme-toggle-btn:hover{ transform:translate(-2px,-2px) rotate(-1.5deg); box-shadow:7px 7px 0 var(--ink); }
-.theme-toggle-btn:active{ transform:translate(4px,4px); box-shadow:0 0 0 var(--ink); transition-duration:.06s; }
-.theme-toggle-btn #theme-icon{ display:inline-block; transition:transform .5s var(--out); }
-.theme-toggle-btn:hover #theme-icon{ transform:rotate(180deg); }
 
 /* ---------- Franja de colores (antes: greca) ---------- */
 .stripe{ height:18px; border:3px solid var(--n-edge); margin:26px 0;
@@ -197,8 +155,6 @@ header.top > .aviso{ grid-column:span 7; margin:0; align-self:start; }
 .ticker-track span.dot{ color:var(--c-coral); padding:0; }
 .ticker.alt .ticker-track span.dot{ color:#0A0B10; }
 .ticker:hover .ticker-track{ animation-play-state:paused; }
-[data-theme="dark"] .ticker{ background:var(--paper); color:var(--c-yellow); border-color:var(--c-yellow); }
-[data-theme="dark"] .ticker.alt{ background:var(--c-yellow); color:#0A0B10; }
 
 /* ---------- Unidades ---------- */
 section.unit{ --accent:var(--c-yellow); padding:24px 0 8px; margin-top:34px; position:relative; }
@@ -402,7 +358,6 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
 @keyframes spin{ to{ rotate:360deg; } }
 @keyframes floaty{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-12px); } }
 @keyframes tick{ to{ transform:translateX(-50%); } }
-@keyframes vt-reveal{ from{ clip-path:circle(0 at var(--tx,50%) var(--ty,0)); } to{ clip-path:circle(150vmax at var(--tx,50%) var(--ty,0)); } }
 
 .w{ display:inline-block; overflow:hidden; vertical-align:bottom; padding-bottom:.06em; margin-bottom:-.06em; }
 .w > span{ display:inline-block; }
@@ -425,9 +380,6 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
     .ut, .ctl, .idea, .seal, .band, .ficha, .hero-quote, [data-reveal]{
       animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 38%; }
   }
-  ::view-transition-old(root), ::view-transition-new(root){ animation:none; mix-blend-mode:normal; }
-  ::view-transition-new(root){ animation:vt-reveal .8s var(--out) both; z-index:2; }
-  ::view-transition-old(root){ z-index:1; }
 }
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
@@ -439,7 +391,6 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
   .block > *, .block > :is(p,ul,ol), .block > :is(.note,blockquote){ grid-column:1/-1; }
   header.top > .lede, header.top > .aviso{ grid-column:1/-1; }
   .ticker{ margin-left:-24px; margin-right:-24px; }
-  nav.toc li:last-child{ margin-left:0; }
 }
 @media (max-width:520px){
   .wrap{ padding:0 16px; }
@@ -449,15 +400,11 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
   header.top > h1{ box-shadow:6px 6px 0 var(--a-shd); }
   .block{ margin:52px 0; }
 }
-
-/* ---------- Ajustes finos del modo noche ---------- */
-[data-theme="dark"] figure.diag figcaption{ background:#232634; color:var(--ink); border-top:3px solid var(--n-edge); }
-[data-theme="dark"] .score{ background:var(--c-yellow); color:#0A0B10; }
 /*DESIGN:END*/
 </style>
 </head>
 <body>
-<nav class="toc" aria-label="Secciones del repaso"><ul><li><a href="../" class="nav-temple">← PORTAL</a></li><li><a href="#u5">UNIDAD V · EMOCIONAL</a></li><li><a href="#u6">UNIDAD VI · RELACIONAL</a></li><li><a href="#mapa">MAPA</a></li><li><a href="#integrado">INTEGRADO</a></li><li><a href="#vacios">VACÍOS</a></li><li><a href="#quiz" class="nav-highlight">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar a modo noche" aria-pressed="false"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
+<nav class="toc" aria-label="Secciones del repaso"><ul><li><a href="../" class="nav-temple">← PORTAL</a></li><li><a href="#u5">UNIDAD V · EMOCIONAL</a></li><li><a href="#u6">UNIDAD VI · RELACIONAL</a></li><li><a href="#mapa">MAPA</a></li><li><a href="#integrado">INTEGRADO</a></li><li><a href="#vacios">VACÍOS</a></li><li><a href="#quiz" class="nav-highlight">AUTOEVALUACIÓN</a></li></ul></nav>
 <div class="wrap">
 <div class="stripe"></div>
 <header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Alcance</span><b>Unidades V – VI</b></div><div><span>Control 2</span>mar 20 oct</div></div>
@@ -1080,33 +1027,6 @@ var DECKS = {"d5": [["Inteligencia o gestión emocional", "Percibir, asimilar, c
   });
 })();
 </script>
-<script>
-  function initGreekTheme() {
-    function updateThemeUI(isDark) {
-      var icon = document.getElementById('theme-icon');
-      var text = document.getElementById('theme-text');
-      var btn = document.getElementById('theme-toggle');
-      if(icon) icon.textContent = isDark ? '☀️' : '🌙';
-      if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
-      if(btn) {
-        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-        btn.setAttribute('aria-label', isDark ? 'Cambiar a modo día' : 'Cambiar a modo noche');
-      }
-    }
-    window.toggleTheme = function() {
-      var current = document.documentElement.getAttribute('data-theme') || 'light';
-      var next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('pb_theme', next); } catch (_) {}
-      updateThemeUI(next === 'dark');
-    };
-    updateThemeUI(document.documentElement.getAttribute('data-theme') === 'dark');
-    var btn = document.getElementById('theme-toggle');
-    if(btn) btn.onclick = window.toggleTheme;
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGreekTheme);
-  else initGreekTheme();
-</script>
 <script id="motion">
 /*MOTION:START*/
 /* Pilares del Bienestar — motion design (vanilla, sin dependencias).
@@ -1129,7 +1049,6 @@ var DECKS = {"d5": [["Inteligencia o gestión emocional", "Percibir, asimilar, c
     countUps();
     tilt();
     quizFeel();
-    themeWipe();
   }
 
   /* ---------- Barra de progreso de lectura ---------- */
@@ -1310,21 +1229,6 @@ var DECKS = {"d5": [["Inteligencia o gestión emocional", "Percibir, asimilar, c
       });
     });
     $$('.score').forEach(function (s) { mo.observe(s, { childList: true, characterData: true, subtree: true }); });
-  }
-
-  /* ---------- Cambio de tema con círculo expansivo ---------- */
-  function themeWipe() {
-    var btn = $('#theme-toggle');
-    if (!btn || reduce || !doc.startViewTransition) return;
-    btn.addEventListener('click', function (e) {
-      if (typeof window.toggleTheme !== 'function') return;
-      e.stopImmediatePropagation(); e.preventDefault();
-      var r = btn.getBoundingClientRect();
-      root.style.setProperty('--tx', (r.left + r.width / 2) + 'px');
-      root.style.setProperty('--ty', (r.top + r.height / 2) + 'px');
-      try { doc.startViewTransition(function () { window.toggleTheme(); }); }
-      catch (err) { window.toggleTheme(); }
-    }, true);
   }
 
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
