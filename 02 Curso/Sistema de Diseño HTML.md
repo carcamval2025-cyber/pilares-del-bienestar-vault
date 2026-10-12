@@ -8,97 +8,116 @@ Aplica a Guías, Resúmenes y Repasos en HTML (nunca a Foro, Control, Ikigai, Pr
 vida o Workbook — esos son siempre trabajo personal de Navas, no un archivo que Claude
 entregue), y al sitio publicado en `docs/`.
 
-**Identidad intencionalmente distinta** a los otros dos vaults del usuario: navy + rose
-(claro) en Contabilidad Financiera, índigo + coral (oscuro) en Modelos Macroeconómicos.
-Aquí: **"piedra y musgo"** — tema claro, editorial, con motivo arquitectónico (plano
-técnico / lámina de arquitecto) en vez de tarjetas genéricas. Fondo neutro real (sin tinte
-cálido tipo crema/arena — ese es el default genérico de interfaces con IA), tinta verde
-pino como acento dominante y terracota como acento secundario cálido. Se evita a propósito
-la estética genérica de apps de bienestar comercial (nada de verde menta pastel, íconos de
-hoja/loto, gradientes, o grillas de tarjetas idénticas).
+**Identidad: "Bento Brutal"** (reemplaza la estética griega anterior, "Acrópolis del
+Bienestar"). Neo-brutalismo + bento grid: bloques de color plano y saturado, bordes de 3 px,
+sombras duras desplazadas sin desenfoque, tipografía grotesca pesada en mayúsculas y mucho
+movimiento. Cada pieza de contenido es un "tile" con su propio borde y sombra; el layout
+es una rejilla de tiles, no una columna de párrafos sueltos.
 
-**Motivo recurrente: la columna.** "Pilares del bienestar" se toma literal — el diagrama
-de referencia del sitio (`docs/index.html`) es una fachada de 10 columnas, una por unidad,
-con un panel de ficha técnica que se actualiza al pasar el cursor o tocar cada columna.
-Reutilizar este motivo (columna, fachada, plano técnico, cajetín de datos tipo lámina de
-arquitecto) en diagramas de Panel 1 cuando tenga sentido, en vez de recurrir a íconos de
-bienestar genéricos.
+## Fuente única y build
+
+- `tools/design/brutal.css` — tokens, componentes, láminas SVG y keyframes (compartido).
+- `tools/design/portal.css` — estilos exclusivos del portal (`docs/index.html`).
+- `tools/design/motion.js` — motion design (vanilla, sin dependencias).
+- `node tools/apply-design.mjs` — inyecta esos tres archivos dentro de cada página de `docs/`
+  entre los marcadores `/*DESIGN:START*/ … /*DESIGN:END*/` y `/*MOTION:START*/ … /*MOTION:END*/`.
+  Es idempotente. **Nunca editar el CSS dentro de una página de `docs/`**: edita
+  `tools/design/*` y vuelve a correr el script.
+- `tests/site-smoke.mjs` falla si alguna página quedó con el CSS o el JS desactualizado.
+- Cada página sigue siendo un solo archivo `.html` autocontenido (el CSS y el JS viajan
+  incrustados), así que se puede abrir suelto o copiar fuera del repo.
 
 ## Tipografía
 
-- **Instrument Serif** (Google Fonts) — títulos (`h1`–`h3`). Serif editorial con
-  itálicas expresivas; usar la itálica para dar énfasis puntual a una palabra clave
-  dentro de un título, no para cuerpos de texto completos.
-- **Work Sans** (400/500/600/700) — texto general, cuerpo, componentes de UI.
-- **IBM Plex Mono** (500/600) — metadatos (fechas, unidad, badges de estado), cajetines
-  tipo lámina técnica, citas de fuente al pie de cada material.
+- **Archivo** 700/800/900 — títulos (`h1`–`h4`), botones y etiquetas fuertes. `h1`/`h2` en
+  mayúsculas, interletrado negativo (`-.035em`).
+- **Space Grotesk** 400–700 — cuerpo y componentes de interfaz.
+- **JetBrains Mono** 400–700 — metadatos, etiquetas, fechas, citas de fuente.
+- **Archivo Narrow** — solo texto corrido dentro de láminas SVG antiguas (sustituye a la
+  serif condensada para no desbordar las cajas).
 
-*(Deliberadamente distinta a Fraunces+Inter+JetBrains Mono de Macro y a Playfair+DM Sans
-de Contabilidad — mismo principio de pareja tipográfica con contraste serif/sans, fuentes
-distintas. La tipografía no cambió en la revisión de color — solo la paleta y la
-composición.)*
+Un solo `@import` de Google Fonts, al inicio del `<style>` (un `@import` después de otras
+reglas lo ignora el navegador; así fue como Cinzel nunca cargó en la versión griega).
 
-## Paletas — Acrópolis del Bienestar (Modo Claro y Modo Oscuro)
+## Paleta
 
-### Modo Claro — Mármol Pentélico y Musgo
+| Token | Claro | Oscuro | Uso |
+|---|---|---|---|
+| `--paper` | `#F3EEE1` | `#0E0E0E` | Fondo (con cuadrícula de 44 px) |
+| `--card` | `#FFFFFF` | `#171716` | Tiles de contenido |
+| `--ink` | `#0B0B0B` | `#F3EEE1` | Texto, bordes y sombras duras (se invierte en modo noche) |
+| `--c-yellow` | `#FFD60A` | igual | Título principal, énfasis, botones |
+| `--c-coral` | `#FF6B4A` | igual | Avisos, acento de alerta |
+| `--c-blue` | `#7C9CFF` | igual | Preguntas, primario secundario |
+| `--c-green` | `#35D88F` | igual | Aciertos, disponible |
+| `--c-lilac` | `#C3A6FF` | igual | Casos, acento neutro |
 
-| Token | Hex | Uso |
-|---|---|---|
-| `--bg` | `#F5F5F3` | Fondo general — blanco roto neutro de mármol pulido |
-| `--bg-elev` | `#ECECE8` | Superficies elevadas: paneles, sillares de piedra, fichas |
-| `--bg-elev2` | `#E2E2DC` | Superficies aún más elevadas / hover de relieve |
-| `--border` | `#D3D3CC` | Bordes y junturas de cantería |
-| `--text` | `#15181A` | Texto principal — tinta de inscripción sobre piedra |
-| `--text-dim` | `#43494A` | Texto secundario, descripciones analíticas |
-| `--text-faint` | `#5F655F` | Metadatos y etiquetas técnicas en mono |
-| `--pine` | `#1F4B3F` | Acento dominante — verde pino: conceptos axiales, éxito |
-| `--moss` | `#2E7A5C` | Verde claro — enlaces, acentos de follaje |
-| `--clay` | `#A54A2A` | Acento secundario — terracota: ejemplos, hitos evaluativos |
-| `--gold` | `#B8934A` | Oro ceremonial — distinciones académicas, coronas de lámina |
-| `--danger` | `#B23347` | Errores, alertas críticas |
+Regla: **todo texto sobre un tile de color es `#0B0B0B`** (`--on-tile`), en ambos modos. Los
+colores de acento no cambian entre claro y oscuro; lo que cambia es `--ink`, `--paper` y
+`--card`. Cada `section.unit` rota su acento (`--accent`) entre amarillo, verde, lila, coral y
+azul.
 
-### Modo Oscuro — Basalto Volcánico y Bronce Patinado (`[data-theme="dark"]`)
+Los alias heredados (`--bg`, `--text`, `--pine`, `--clay`, `--gold-doric`, `--svg-*`…) siguen
+definidos para que los SVG antiguos y el HTML ya escrito rindan en la paleta nueva.
 
-| Token | Hex | Uso |
-|---|---|---|
-| `--bg` | `#110F0D` | Fondo general — basalto nocturno cálido |
-| `--bg-elev` | `#191613` | Superficies elevadas: losas de pórfido y piedra volcánica |
-| `--bg-elev2` | `#25201A` | Superficies destacadas / hover nocturno |
-| `--border` | `#3A332A` | Bordes en bronce envejecido y juntas sombreadas |
-| `--text` | `#F5EFE6` | Texto principal — papiro marfil iluminado |
-| `--text-dim` | `#C8C0B2` | Texto secundario de alta legibilidad nocturna |
-| `--text-faint` | `#8C8273` | Metadatos y citas en mono |
-| `--pine` | `#4E9B79` | Verde esmeralda luminoso |
-| `--clay` | `#E07A5F` | Terracota suave iluminado |
-| `--gold` | `#DFC07A` | Oro brillante ceremonial |
-| `--danger` | `#E57373` | Alertas nocturnas |
+## Layout bento
 
-## Reglas técnicas (Arquitectura visual y estándares web)
+- Cabecera (`header.top`): rejilla de 12 columnas — fichas de datos (`.plate`) en colores, `h1`
+  como tile amarillo, `.lede` y `.aviso` lado a lado.
+- `.block` = tile blanco con borde 3 px y sombra 9 px. Dentro: `.two`, `.three` y `dl.glos`
+  son sub-rejillas de tiles (franja de color arriba, hover que se levanta).
+- Portal: mosaico de 6 columnas; disponibles = tile de color (clicable entero), pendientes =
+  tile punteado con rayado, Pilar X = tile negro a todo el ancho.
 
-- **Sin `<form>`** — usar eventos JS para cualquier interacción (cuestionarios, repasos interactivos).
-- **Relieve arquitectónico y volumen pétreo**: en lugar de sombras difusas indiscriminadas,
-  se emplean bordes cincelados y gradientes vectoriales controlados en SVG inline para dar volumen
-  de cantería clásica, adaptables dinámicamente entre luz solar y luz de antorcha mediante variables CSS.
-- **Identificadores únicos por lámina**: todo elemento `<defs>` (filtros, gradientes, patrones,
-  máscaras) dentro de un SVG debe llevar un prefijo exclusivo de su lámina (ej. `l01-`, `l02-`) para
-  prevenir colisiones o referencias cruzadas cuando múltiples diagramas conviven en una misma página.
-- **Tolerancia y accesibilidad en el selector de tema**: el script de tema en el `<head>` debe
-  encapsular la lectura de `localStorage` en un bloque seguro (`try/catch`) para funcionar sin
-  excepciones al abrirse como archivo local `file://` o en contextos con almacenamiento restringido.
-  El botón de tema (`#theme-toggle`) debe comunicar su estado mediante `aria-pressed`.
-- **Cero dependencias externas**: debe abrir directo en el navegador sin servidor ni build step.
-- **Responsive**: diseño adaptado a pantallas de escritorio y dispositivos móviles (≥390px) sin
-  desbordamiento horizontal.
-- **Diagramas vectoriales**: cada figura conceptual es un SVG inline etiquetado y semántico; nunca
-  imágenes rasterizadas externas ni capturas de diapositivas.
-- **Cero estética de spa comercial**: sin flores de loto genéricas, sin degradados multicolores
-  pastel y sin clisés de marketing "wellness". Motivos basados en orden dórico/jónico, metopas,
-  grecas y cantería clásica.
+## Láminas SVG
 
-## Estructura de página sugerida (mientras no haya una razón para desviarse)
+- Planas: los degradados heredados se aplanan por CSS (`stop-color` por sufijo de id:
+  `-gk-clay`, `-gk-pine`, `-gk-gold`…) conservando la luminosidad original, para que los textos
+  claros u oscuros de cada lámina sigan legibles.
+- Trazo `--ink` de 2.2–2.5 px, sin filtros de sombra suave; la sombra dura la pone el `figure`.
+- Las clases propias de las láminas del Repaso 2 (`.sv .h .d .m .fpine .fclay .fgold …`) viven
+  en `brutal.css`.
+- Identificadores únicos por lámina (prefijo exclusivo en `<defs>`) siguen siendo obligatorios.
+- Todo diagrama es SVG inline accesible (`role="img"` + `aria-label`); nunca imágenes ni
+  capturas de diapositivas.
 
-Cabecera con el nombre de la Unidad + fecha(s) de clase + fuente citada, cuerpo dividido
-en secciones claras por subtema (una por cada PDF/PPTX de esa unidad), y — cuando el
-material sea un Repaso — preguntas de autoevaluación con retroalimentación inmediata,
-dejando explícito en el propio HTML que es material de estudio personal, no una
-simulación del Control real.
+## Motion design
+
+Todo en `motion.js` + keyframes de `brutal.css`; respeta `prefers-reduced-motion` y nunca deja
+contenido oculto si el JS falla.
+
+- Barra de progreso de lectura (coral) arriba del todo.
+- Títulos: entrada palabra por palabra (máscara + subida con rotación).
+- Cinta de texto en movimiento (`.ticker`) bajo cada cabecera; dos en el portal.
+- Revelado al hacer scroll (`data-rv` → `.in`) con escalonado y rebote; al terminar se devuelve
+  el control a los estilos normales para que el hover no herede la transición.
+- Láminas SVG: cada forma "salta" en cascada al entrar en pantalla (usa la propiedad CSS
+  `scale`, no `transform`, para no pisar el atributo `transform` de los SVG).
+- Cinta de advertencia animada (`.stripe`), TOC con sección activa, botones que se levantan al
+  hover y se hunden al pulsar.
+- Autoevaluación: acierto = rebote + confeti; error = sacudida; la retroalimentación cae desde
+  arriba; el marcador "rebota" al cambiar.
+- Tarjetas de memoria: entran con rebote y giran en 3D al voltearse.
+- Portal: contadores animados, inclinación 3D de los tiles con el puntero, stickers con
+  parallax y flotación.
+- Cambio de tema: círculo expansivo desde el botón (View Transitions; sin soporte, cambia
+  directo).
+
+## Reglas técnicas
+
+- **Sin `<form>`** — eventos JS para cualquier interacción.
+- **Tema**: el script del `<head>` lee `localStorage` dentro de `try/catch` (funciona en
+  `file://`); `#theme-toggle` comunica su estado con `aria-pressed`. Orden de scripts:
+  (1) tema inicial, (2) contenido de la página, (3) `toggleTheme`, (4) motion — el smoke test
+  depende de ese orden.
+- **Cero dependencias externas** salvo las fuentes de Google; abre directo en el navegador,
+  sin servidor.
+- **Responsive**: ≥390 px sin desbordamiento horizontal.
+- **Contraste**: texto negro sobre tiles de color; en modo noche los tiles conservan el color.
+
+## Estructura de página
+
+Cabecera con el nombre de la Unidad + fecha(s) de clase + fuente citada, cuerpo dividido en
+secciones por subtema (una por cada PDF/PPTX), y — en un Repaso — autoevaluación con
+retroalimentación inmediata, dejando explícito en el propio HTML que es material de estudio
+personal, no una simulación del Control real.

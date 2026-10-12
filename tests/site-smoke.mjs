@@ -13,11 +13,19 @@ const pages = [
 ];
 
 const read = (file) => readFileSync(file, "utf8");
+const brutalCss = read("tools/design/brutal.css").trim();
+const portalCss = read("tools/design/portal.css").trim();
+const motionJs = read("tools/design/motion.js").trim();
 const ids = (html) => [...html.matchAll(/\bid=(["'])([^"']+)\1/g)].map((match) => match[2]);
 const scripts = (html) => [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map((match) => match[1]);
 
 for (const page of pages) {
   const html = read(page);
+  // el sistema de diseño compartido debe estar inyectado (node tools/apply-design.mjs)
+  assert.ok(html.includes(brutalCss), `${page}: CSS desactualizado, corre node tools/apply-design.mjs`);
+  assert.ok(html.includes(motionJs), `${page}: motion.js desactualizado, corre node tools/apply-design.mjs`);
+  if (page === "docs/index.html") assert.ok(html.includes(portalCss), `${page}: portal.css desactualizado`);
+  assert.equal((html.match(/@import/g) || []).length, 1, `${page}: debe haber un solo @import`);
   const pageIds = ids(html);
   assert.equal(new Set(pageIds).size, pageIds.length, `${page}: duplicate id`);
   for (const [, reference] of html.matchAll(/url\(#([^)]+)\)/g)) {
