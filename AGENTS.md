@@ -112,15 +112,17 @@ Ver `02 Curso/Sistema de Diseño HTML.md` para la especificación completa. Iden
 visual **"Bento Brutal"** (neo-brutalismo + bento grid; reemplaza a la antigua estética
 griega "Acrópolis del Bienestar"):
 - Tiles de color plano y saturado (amarillo, coral, azul, verde, lila), bordes de 3 px y
-  sombras duras desplazadas, sin desenfoque. Texto negro sobre todo tile de color.
-- **Modo claro**: papel crema `#F3EEE1` con cuadrícula y tinta `#0B0B0B`. **Modo oscuro**:
-  fondo `#0E0E0E` donde la tinta (bordes y sombras) pasa a crema; los tiles de color no cambian.
-- Tipografía: Archivo (títulos, mayúsculas), Space Grotesk (cuerpo), JetBrains Mono (metadatos).
-- Mucho motion design (entradas por palabra, revelado al scroll, láminas que "saltan",
+  sombras duras desplazadas, sin desenfoque. Sin tiles dentro de tiles: el texto va abierto y
+  las piezas con borde son los tiles.
+- **Modo claro**: superficie neutra fría `#E8EAEF` (no crema) y tinta `#0A0B10`. **Modo noche**:
+  "neón sobre tinta": fondo `#0A0B10`, tiles de tinta oscura teñida con borde y sombra del color de
+  acento y texto claro (no es una inversión del modo día).
+- Tipografía: una sola familia, Archivo variable (contraste por ancho y peso), sin monoespaciada.
+- Motion design abundante (entradas por palabra, revelado al scroll, láminas que "saltan",
   confeti en aciertos, tarjetas que giran, cinta de texto, cambio de tema circular), siempre
-  respetando `prefers-reduced-motion`.
-- Se evita la estética genérica de aplicaciones de "wellness" comercial (sin pasteles
-  deslavados, sin íconos de spa o flores de loto genéricas).
+  con el contenido visible por defecto y respetando `prefers-reduced-motion`.
+- Se evita la estética genérica de aplicaciones de "wellness" comercial y los tics de plantilla de
+  IA: sin franjas laterales de color, sin rayados decorativos, sin numeración 01/02/03 de relleno.
 
 **Fuente única del diseño**: `tools/design/brutal.css`, `tools/design/portal.css` y
 `tools/design/motion.js`. Nunca editar el CSS/JS de diseño dentro de una página de `docs/`;

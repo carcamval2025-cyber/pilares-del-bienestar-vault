@@ -8,72 +8,85 @@ Aplica a Guías, Resúmenes y Repasos en HTML (nunca a Foro, Control, Ikigai, Pr
 vida o Workbook — esos son siempre trabajo personal de Navas, no un archivo que Claude
 entregue), y al sitio publicado en `docs/`.
 
-**Identidad: "Bento Brutal"** (reemplaza la estética griega anterior, "Acrópolis del
-Bienestar"). Neo-brutalismo + bento grid: bloques de color plano y saturado, bordes de 3 px,
-sombras duras desplazadas sin desenfoque, tipografía grotesca pesada en mayúsculas y mucho
-movimiento. Cada pieza de contenido es un "tile" con su propio borde y sombra; el layout
-es una rejilla de tiles, no una columna de párrafos sueltos.
+**Identidad: "Bento Brutal" v2** (reemplaza la estética griega anterior, "Acrópolis del
+Bienestar"). Neo-brutalismo + bento grid: tiles de color plano y saturado, bordes de 3 px,
+sombras duras desplazadas sin desenfoque, titulares condensados y pesadísimos en mayúsculas,
+y motion design abundante pero nunca bloqueante.
 
 ## Fuente única y build
 
-- `tools/design/brutal.css` — tokens, componentes, láminas SVG y keyframes (compartido).
+- `tools/design/brutal.css` — tokens, componentes, láminas SVG, modo noche y keyframes.
 - `tools/design/portal.css` — estilos exclusivos del portal (`docs/index.html`).
 - `tools/design/motion.js` — motion design (vanilla, sin dependencias).
-- `node tools/apply-design.mjs` — inyecta esos tres archivos dentro de cada página de `docs/`
+- `node tools/apply-design.mjs` — inyecta esos archivos dentro de cada página de `docs/`
   entre los marcadores `/*DESIGN:START*/ … /*DESIGN:END*/` y `/*MOTION:START*/ … /*MOTION:END*/`.
-  Es idempotente. **Nunca editar el CSS dentro de una página de `docs/`**: edita
+  Es idempotente. **Nunca editar el CSS/JS de diseño dentro de una página de `docs/`**: edita
   `tools/design/*` y vuelve a correr el script.
 - `tests/site-smoke.mjs` falla si alguna página quedó con el CSS o el JS desactualizado.
-- Cada página sigue siendo un solo archivo `.html` autocontenido (el CSS y el JS viajan
-  incrustados), así que se puede abrir suelto o copiar fuera del repo.
+- Cada página sigue siendo un solo `.html` autocontenido (CSS y JS incrustados): se puede abrir
+  suelto o copiar fuera del repo.
 
 ## Tipografía
 
-- **Archivo** 700/800/900 — títulos (`h1`–`h4`), botones y etiquetas fuertes. `h1`/`h2` en
-  mayúsculas, interletrado negativo (`-.035em`).
-- **Space Grotesk** 400–700 — cuerpo y componentes de interfaz.
-- **JetBrains Mono** 400–700 — metadatos, etiquetas, fechas, citas de fuente.
-- **Archivo Narrow** — solo texto corrido dentro de láminas SVG antiguas (sustituye a la
-  serif condensada para no desbordar las cajas).
+**Una sola familia: Archivo (variable, ejes de ancho y peso).** El contraste sale del ancho y del
+peso, no de emparejar dos fuentes parecidas:
 
-Un solo `@import` de Google Fonts, al inicio del `<style>` (un `@import` después de otras
-reglas lo ignora el navegador; así fue como Cinzel nunca cargó en la versión griega).
+- Titulares (`h1`–`h4`), botones y etiquetas fuertes: `font-stretch:78–84%`, peso 800–900, `h1`/`h2`
+  en mayúsculas, interletrado entre `-.01em` y `-.025em` (nunca más apretado que `-.04em`).
+- Cuerpo: ancho 100%, peso 420, 1.0625 rem, interlínea 1.62, medida ≤ 68 ch (`text-wrap: pretty`).
+- Etiquetas cortas: 700, mayúsculas, `letter-spacing:.05em`. Sin monoespaciada (no es un sitio técnico).
+- Dentro de las láminas SVG antiguas el texto se remapea por CSS al mismo Archivo, con
+  `font-stretch` más estrecho donde antes había una serif condensada.
+
+Un solo `@import` de Google Fonts, al inicio del `<style>` (un `@import` después de otras reglas
+lo ignora el navegador; así fue como Cinzel nunca cargó en la versión griega).
 
 ## Paleta
 
-| Token | Claro | Oscuro | Uso |
+Estrategia de color: **paleta completa** (cinco acentos con rol propio). Superficie día en un neutro
+frío (no crema/arena); superficie noche casi negra con matiz azul.
+
+| Token | Día | Noche | Uso |
 |---|---|---|---|
-| `--paper` | `#F3EEE1` | `#0E0E0E` | Fondo (con cuadrícula de 44 px) |
-| `--card` | `#FFFFFF` | `#171716` | Tiles de contenido |
-| `--ink` | `#0B0B0B` | `#F3EEE1` | Texto, bordes y sombras duras (se invierte en modo noche) |
-| `--c-yellow` | `#FFD60A` | igual | Título principal, énfasis, botones |
-| `--c-coral` | `#FF6B4A` | igual | Avisos, acento de alerta |
-| `--c-blue` | `#7C9CFF` | igual | Preguntas, primario secundario |
-| `--c-green` | `#35D88F` | igual | Aciertos, disponible |
-| `--c-lilac` | `#C3A6FF` | igual | Casos, acento neutro |
+| `--paper` | `#E8EAEF` | `#0A0B10` | Fondo (con cuadrícula de 48 px) |
+| `--card` | `#FFFFFF` | `#11131A` | Tiles neutros |
+| `--ink` | `#0A0B10` | `#EDEFF5` | Texto y bordes neutros |
+| `--c-yellow` | `#FFD60A` | igual | Énfasis, título principal |
+| `--c-coral` | `#FF5C3D` | igual | Avisos y alertas |
+| `--c-blue` | `#6C8BFF` | igual | Acción secundaria |
+| `--c-green` | `#2FD68F` | igual | Aciertos, disponible |
+| `--c-lilac` | `#B79DFF` | igual | Casos, acento neutro |
 
-Regla: **todo texto sobre un tile de color es `#0B0B0B`** (`--on-tile`), en ambos modos. Los
-colores de acento no cambian entre claro y oscuro; lo que cambia es `--ink`, `--paper` y
-`--card`. Cada `section.unit` rota su acento (`--accent`) entre amarillo, verde, lila, coral y
-azul.
+**Sistema de acento (`--a`).** Cada tile de color declara solo `--a`; la superficie se deriva sola:
 
-Los alias heredados (`--bg`, `--text`, `--pine`, `--clay`, `--gold-doric`, `--svg-*`…) siguen
-definidos para que los SVG antiguos y el HTML ya escrito rindan en la paleta nueva.
+- **Día:** relleno `--a`, borde y sombra de tinta, texto negro (`--a-bg/--a-fg/--a-edge/--a-shd`).
+- **Noche:** relleno oscuro teñido (`color-mix` del acento al 14 % sobre `--paper`), borde y sombra
+  del propio color de acento, texto claro. No es una inversión: es "neón sobre tinta".
+- `--chip-bg/--chip-fg` dan la etiqueta con contraste garantizado en ambos modos.
+
+Cada `section.unit` rota su acento (`--accent`) entre amarillo, verde, lila, coral y azul.
+Contraste verificado con un script (texto normal ≥ 4.5:1, grande ≥ 3:1) en ambos modos; los
+numerales de contorno del portal son decorativos (`aria-hidden`).
 
 ## Layout bento
 
-- Cabecera (`header.top`): rejilla de 12 columnas — fichas de datos (`.plate`) en colores, `h1`
-  como tile amarillo, `.lede` y `.aviso` lado a lado.
-- `.block` = tile blanco con borde 3 px y sombra 9 px. Dentro: `.two`, `.three` y `dl.glos`
-  son sub-rejillas de tiles (franja de color arriba, hover que se levanta).
-- Portal: mosaico de 6 columnas; disponibles = tile de color (clicable entero), pendientes =
-  tile punteado con rayado, Pilar X = tile negro a todo el ancho.
+- **Sin tiles dentro de tiles.** El `.block` es texto abierto sobre una rejilla de 12 columnas:
+  párrafos y listas en las columnas 1–7 (≈ 65 ch), `.note` y `blockquote` en 8–12 junto al párrafo
+  que las precede, y láminas, `.two`, `.three`, glosarios, preguntas y tarjetas a todo el ancho.
+  Las piezas con borde son los tiles; el texto no lleva caja.
+- Cabecera (`header.top`): fichas de datos en colores, `h1` como tile amarillo, `.lede` y `.aviso`.
+- Portal: hero asimétrico (título 8 / ficha + cita 4), banda de reglas en frase continua (no
+  tarjetas de métricas), mosaico de 12 columnas con tiles de ancho distinto (7/5, 4/3/5, 5/3/4,
+  3/9): disponibles en color, pendientes punteados, Pilar X en negro a todo el ancho.
+- Prohibido: franjas laterales de color (`border-left` > 1 px), `repeating-linear-gradient`
+  decorativos, numeración 01/02/03 como andamiaje, etiquetas diminutas en mayúsculas sobre cada
+  sección, `border-radius` grande, texto con degradado.
 
 ## Láminas SVG
 
-- Planas: los degradados heredados se aplanan por CSS (`stop-color` por sufijo de id:
-  `-gk-clay`, `-gk-pine`, `-gk-gold`…) conservando la luminosidad original, para que los textos
-  claros u oscuros de cada lámina sigan legibles.
+- Planas: los degradados heredados se aplanan por CSS (`stop-color` por sufijo de id: `-gk-clay`,
+  `-gk-pine`, `-gk-gold`…) conservando la luminosidad original, para que los textos claros u
+  oscuros de cada lámina sigan legibles.
 - Trazo `--ink` de 2.2–2.5 px, sin filtros de sombra suave; la sombra dura la pone el `figure`.
 - Las clases propias de las láminas del Repaso 2 (`.sv .h .d .m .fpine .fclay .fgold …`) viven
   en `brutal.css`.
@@ -83,25 +96,24 @@ definidos para que los SVG antiguos y el HTML ya escrito rindan en la paleta nue
 
 ## Motion design
 
-Todo en `motion.js` + keyframes de `brutal.css`; respeta `prefers-reduced-motion` y nunca deja
-contenido oculto si el JS falla.
+Todo en `motion.js` + keyframes de `brutal.css`. **Regla de oro: el contenido es visible por
+defecto; el motion solo mejora.** Nada se oculta esperando a que corra una animación o un
+observer (las animaciones se pausan en pestañas ocultas y en renderizadores sin cabeza).
 
-- Barra de progreso de lectura (coral) arriba del todo.
-- Títulos: entrada palabra por palabra (máscara + subida con rotación).
-- Cinta de texto en movimiento (`.ticker`) bajo cada cabecera; dos en el portal.
-- Revelado al hacer scroll (`data-rv` → `.in`) con escalonado y rebote; al terminar se devuelve
-  el control a los estilos normales para que el hover no herede la transición.
-- Láminas SVG: cada forma "salta" en cascada al entrar en pantalla (usa la propiedad CSS
-  `scale`, no `transform`, para no pisar el atributo `transform` de los SVG).
-- Cinta de advertencia animada (`.stripe`), TOC con sección activa, botones que se levantan al
-  hover y se hunden al pulsar.
-- Autoevaluación: acierto = rebote + confeti; error = sacudida; la retroalimentación cae desde
-  arriba; el marcador "rebota" al cambiar.
-- Tarjetas de memoria: entran con rebote y giran en 3D al voltearse.
-- Portal: contadores animados, inclinación 3D de los tiles con el puntero, stickers con
-  parallax y flotación.
-- Cambio de tema: círculo expansivo desde el botón (View Transitions; sin soporte, cambia
-  directo).
+- Easing: ease-out expo/quart, sin rebote ni elástico. Solo `transform`, `translate`, `scale`,
+  `opacity` y `clip-path`; no se animan propiedades de layout.
+- Entrada de la cabecera y de los títulos palabra por palabra (máscara + subida con `backwards`).
+- Revelado al hacer scroll con CSS `animation-timeline: view()` (solo desplazamiento, sin
+  opacidad); sin soporte del navegador, simplemente no se anima.
+- Láminas SVG: cada forma "salta" en cascada al entrar en pantalla (propiedad `scale`, no
+  `transform`, para no pisar el atributo `transform` de los SVG).
+- Cinta de texto en movimiento (`.ticker`), barra de progreso de lectura, TOC con sección activa,
+  botones que se levantan al hover y se hunden al pulsar, inclinación 3D de tiles del portal.
+- Autoevaluación: acierto = pulso + confeti; error = sacudida; la retroalimentación cae desde
+  arriba; el marcador "rebota" al cambiar. Tarjetas de memoria: entran y giran en 3D.
+- Cambio de tema con círculo expansivo desde el botón (View Transitions; sin soporte, cambia directo).
+- `prefers-reduced-motion: reduce` apaga todo (animaciones y transiciones).
+- Escala de z-index: sticky 100 · progreso 200 · confeti 300.
 
 ## Reglas técnicas
 
@@ -112,8 +124,7 @@ contenido oculto si el JS falla.
   depende de ese orden.
 - **Cero dependencias externas** salvo las fuentes de Google; abre directo en el navegador,
   sin servidor.
-- **Responsive**: ≥390 px sin desbordamiento horizontal.
-- **Contraste**: texto negro sobre tiles de color; en modo noche los tiles conservan el color.
+- **Responsive**: ≥ 390 px sin desbordamiento horizontal; objetivos táctiles ≥ 44 px.
 
 ## Estructura de página
 

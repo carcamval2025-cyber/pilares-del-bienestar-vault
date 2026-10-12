@@ -10,7 +10,6 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
 
   function init() {
-    if (!reduce) root.classList.add('mo');
     progressBar();
     slamTitles();
     injectTicker();
@@ -78,17 +77,10 @@
     head.parentNode.insertBefore(t, head.nextSibling);
   }
 
-  /* ---------- Revelado al hacer scroll ---------- */
-  var REVEAL = [
-    'header.top > .plate > div', 'header.top > .lede', 'header.top > .aviso',
-    '.unit-head', '.fuente', '.block', 'figure.diag', '.note', '.two > div', '.three > div',
-    'dl.glos > div', '.q', 'ol.steps li', '.chips li', 'blockquote', '.deck', '.notes',
-    '.caso', '.pager a', 'footer', '[data-reveal]'
-  ].join(',');
-
+  /* ---------- Láminas: las formas saltan en cascada al entrar en pantalla ----------
+     El contenido ya es visible por defecto; la clase .in solo dispara la animación.
+     (El revelado del resto de tiles lo hace CSS con animation-timeline: view().) */
   function setupReveal() {
-    var els = $$(REVEAL);
-    // índices de las láminas SVG (cascada de formas)
     $$('figure.diag svg').forEach(function (svg) {
       var k = 0;
       Array.prototype.slice.call(svg.children).forEach(function (c) {
@@ -96,35 +88,14 @@
         c.style.setProperty('--i', Math.min(k++, 40));
       });
     });
-    if (reduce || !('IntersectionObserver' in window)) {
-      $$('figure.diag').forEach(function (f) { f.classList.add('in'); });
-      return;
-    }
-    var rots = [-1.4, 1.1, -.8, 1.6, 0];
-    els.forEach(function (el, idx) {
-      var sibs = el.parentNode ? Array.prototype.indexOf.call(el.parentNode.children, el) : 0;
-      el.setAttribute('data-rv', '');
-      el.style.setProperty('--d', Math.min(sibs, 8) * 70 + 'ms');
-      el.style.setProperty('--rot', rots[idx % rots.length] + 'deg');
-    });
+    if (reduce || !('IntersectionObserver' in window)) return;
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
-        var el = en.target; io.unobserve(el);
-        el.classList.add('in');
-        var d = parseInt(el.style.getPropertyValue('--d'), 10) || 0;
-        // tras la entrada, devolvemos el control a los estilos normales (hover, etc.)
-        setTimeout(function () { el.removeAttribute('data-rv'); }, d + 1000);
+        io.unobserve(en.target); en.target.classList.add('in');
       });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
-    els.forEach(function (el) { io.observe(el); });
-    // red de seguridad: si algo no llegó a revelarse, se muestra
-    setTimeout(function () {
-      $$('[data-rv]:not(.in)').forEach(function (el) {
-        var r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight * 1.5) el.classList.add('in');
-      });
-    }, 2500);
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+    $$('figure.diag').forEach(function (f) { io.observe(f); });
   }
 
   /* ---------- Resaltado de la sección activa en el TOC ---------- */
@@ -196,7 +167,7 @@
   function burst(btn) {
     if (reduce || !btn.animate) return;
     var r = btn.getBoundingClientRect(), cx = r.left + 24, cy = r.top + r.height / 2;
-    var cols = ['#FFD60A', '#FF6B4A', '#7C9CFF', '#35D88F', '#C3A6FF'];
+    var cols = ['#FFD60A', '#FF5C3D', '#6C8BFF', '#2FD68F', '#B79DFF'];
     for (var i = 0; i < 16; i++) {
       var c = doc.createElement('i'); c.className = 'confetti';
       c.style.background = cols[i % cols.length]; c.style.left = cx + 'px'; c.style.top = cy + 'px';
