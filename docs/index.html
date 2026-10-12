@@ -110,7 +110,7 @@ nav.toc a.nav-temple:hover{ background:var(--c-yellow); color:#0A0B10; border-co
 nav.toc a.nav-highlight{ background:var(--c-coral); color:#0A0B10; border-color:#0A0B10; }
 
 /* ---------- Franja de colores (antes: greca) ---------- */
-.stripe{ height:18px; border:3px solid var(--n-edge); margin:26px 0;
+.stripe{ height:16px; border:3px solid var(--n-edge); margin:20px 0;
   background:linear-gradient(90deg,var(--c-yellow) 0 20%,var(--c-coral) 0 40%,var(--c-blue) 0 60%,var(--c-green) 0 80%,var(--c-lilac) 0); }
 .stripe.subtle{ height:10px; }
 
@@ -123,7 +123,7 @@ header.top > .lede{ background:var(--card); color:var(--ink-2); border:3px solid
 header.top > h1, .aviso, .note, .caso, .fcard{ box-shadow:8px 8px 0 var(--a-shd); }
 
 /* ---------- Cabecera bento ---------- */
-header.top{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; padding:28px 0 8px; }
+header.top{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:16px; padding:22px 0 0; }
 header.top > *{ min-width:0; }
 header.top > .plate{ grid-column:1/-1; }
 header.top > h1{ --a:var(--c-yellow); grid-column:1/-1; padding:clamp(20px,3.4vw,40px) clamp(20px,3.4vw,44px); box-shadow:10px 10px 0 var(--a-shd); color:var(--a-fg); }
@@ -148,7 +148,7 @@ header.top > .aviso{ grid-column:span 7; margin:0; align-self:start; }
 .aviso p + p{ margin-top:.7em; }
 
 /* ---------- Cinta de texto en movimiento ---------- */
-.ticker{ overflow:hidden; background:var(--ink); color:var(--paper); border:3px solid var(--ink); margin:40px -30px; transform:rotate(-1.2deg); padding:10px 0; position:relative; }
+.ticker{ overflow:hidden; background:var(--ink); color:var(--paper); border:3px solid var(--ink); margin:28px -30px; transform:rotate(-1.2deg); padding:10px 0; position:relative; }
 .ticker.alt{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; transform:rotate(1deg); }
 .ticker-track{ display:flex; width:max-content; animation:tick 30s linear infinite; }
 .ticker.alt .ticker-track{ animation-direction:reverse; animation-duration:38s; }
@@ -158,23 +158,29 @@ header.top > .aviso{ grid-column:span 7; margin:0; align-self:start; }
 .ticker:hover .ticker-track{ animation-play-state:paused; }
 
 /* ---------- Unidades ---------- */
-section.unit{ --accent:var(--c-yellow); padding:24px 0 8px; margin-top:34px; position:relative; }
+section.unit{ --accent:var(--c-yellow); padding:16px 0 0; margin-top:26px; position:relative; }
 section.unit:nth-of-type(5n+2){ --accent:var(--c-green); }
 section.unit:nth-of-type(5n+3){ --accent:var(--c-lilac); }
 section.unit:nth-of-type(5n+4){ --accent:var(--c-coral); }
 section.unit:nth-of-type(5n+5){ --accent:var(--c-blue); }
-.unit-head{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:4px; }
+.unit-head{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:0; }
 .unit-num{ font-weight:850; font-stretch:80%; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; background:var(--accent); color:#0A0B10;
   border:3px solid var(--n-edge); padding:6px 14px; transform:rotate(-2deg); display:inline-block; }
 .unit-dates{ font-weight:600; font-size:.95rem; color:var(--faint); margin:12px 0 4px; }
-.fuente{ font-size:.9rem; font-weight:500; color:var(--ink-2); background:var(--card); border:3px solid var(--n-edge); padding:12px 16px; margin:14px 0 8px; max-width:78ch; }
+.fuente{ font-size:.9rem; font-weight:500; color:var(--ink-2); background:var(--card); border:3px solid var(--n-edge); padding:10px 16px; margin:10px 0 0; max-width:78ch; }
 .fuente::before{ content:""; display:inline-block; width:.8em; height:.8em; background:var(--accent); border:2px solid var(--n-edge); margin-right:.6em; vertical-align:-.05em; }
 
 /* ---------- Bloques: texto abierto + tiles ---------- */
-.block{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:28px; row-gap:18px; margin:68px 0; align-items:start; }
+.block{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:28px; row-gap:14px; margin:44px 0; align-items:start; }
 .block > *{ grid-column:1/-1; min-width:0; margin-top:0; margin-bottom:0; }
-.block > :is(p,ul,ol){ grid-column:1/8; }
-.block > :is(.note,blockquote){ grid-column:8/-1; }
+.block > :is(p,ul,ol){ grid-column:1/8; }                 /* sin JS: columna de lectura a la izquierda */
+.block > .prose{ grid-column:1/-1; }                       /* con JS: párrafos y listas consecutivos van en .prose */
+.block > .prose:not(.cols){ grid-column:1/8; }
+.block > .prose.cols{ columns:2; column-gap:44px; }
+.block > .prose:not(.cols) + .note{ grid-column:8/-1; }   /* la nota se sienta junto al texto corto que la precede */
+.prose > :is(p,ul,ol){ margin-bottom:.9em; orphans:3; widows:3; }
+.prose > :last-child{ margin-bottom:0; }
+.prose ul.clean li{ break-inside:avoid; }
 .block > h3{ display:block; padding-bottom:12px; border-bottom:6px solid var(--n-edge); margin-bottom:2px; position:relative; }
 .block > h3::after{ content:""; position:absolute; left:0; bottom:-6px; width:84px; height:6px; background:var(--accent); }
 .block > .sub{ display:block; font-weight:600; font-size:1rem; color:var(--ink-2); margin:0; text-transform:none; letter-spacing:0; padding-top:4px; }
@@ -222,10 +228,10 @@ blockquote::before{ content:"“"; display:block; font-size:4.2rem; line-height:
 blockquote cite{ display:block; font-stretch:100%; font-weight:600; font-size:.85rem; font-style:normal; color:var(--faint); margin-top:12px; }
 
 /* ---------- Láminas ---------- */
-figure.diag{ margin:0; border:3px solid var(--n-edge); background:var(--paper-2); padding:14px 14px 0; overflow:hidden; box-shadow:8px 8px 0 var(--n-shd); }
-figure.diag .scroller{ overflow-x:auto; padding-bottom:12px; }
+figure.diag{ margin:0 0 6px; border:3px solid var(--n-edge); background:var(--paper-2); padding:10px 10px 0; overflow:hidden; box-shadow:8px 8px 0 var(--n-shd); }
+figure.diag .scroller{ overflow-x:auto; padding-bottom:8px; }
 figure.diag svg{ display:block; width:100%; height:auto; }
-figure.diag figcaption{ font-weight:600; font-size:.9rem; background:var(--ink); color:var(--paper); margin:0 -14px; padding:10px 16px; }
+figure.diag figcaption{ font-weight:600; font-size:.9rem; background:var(--ink); color:var(--paper); margin:0 -10px; padding:9px 16px; }
 figure.diag svg text[font-family*="Cinzel"]{ font-family:var(--font); font-stretch:86%; font-weight:800; letter-spacing:.01em; }
 figure.diag svg text[font-family*="Cormorant"]{ font-family:var(--font); font-stretch:72%; font-style:normal; font-weight:560; }
 figure.diag svg text[font-family*="Plex"]{ font-family:var(--font); font-stretch:78%; font-weight:600; letter-spacing:.02em; }
@@ -377,7 +383,7 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
   /* revelado al scroll (solo desplazamiento: el contenido nunca queda invisible);
      requiere scroll-driven animations, sin soporte simplemente no se anima */
   @supports (animation-timeline: view()){
-    .note, .two > div, .three > div, dl.glos > div, .q, figure.diag, .deck, .notes, blockquote, .block > :is(p,ul,ol), .block > h3,
+    .note, .two > div, .three > div, dl.glos > div, .q, figure.diag, .deck, .notes, blockquote, .block > .prose, .block > :is(p,ul,ol), .block > h3,
     .ut, .ctl, .idea, .seal, .band, .ficha, .hero-quote, [data-reveal]{
       animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 38%; }
   }
@@ -389,7 +395,8 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
 
 /* ---------- Responsive ---------- */
 @media (max-width:900px){
-  .block > *, .block > :is(p,ul,ol), .block > :is(.note,blockquote){ grid-column:1/-1; }
+  .block > *, .block > :is(p,ul,ol), .block > .prose:not(.cols), .block > .prose:not(.cols) + .note{ grid-column:1/-1; }
+  .block > .prose.cols{ columns:1; }
   header.top > .lede, header.top > .aviso{ grid-column:1/-1; }
   .ticker{ margin-left:-24px; margin-right:-24px; }
 }
@@ -444,7 +451,7 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
 .band mark{ background:var(--c-lilac); color:#0A0B10; padding:0 .16em; }
 
 /* ---------- Secciones ---------- */
-.sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin:92px 0 30px; padding-bottom:14px; border-bottom:6px solid var(--n-edge); position:relative; }
+.sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin:64px 0 24px; padding-bottom:12px; border-bottom:6px solid var(--n-edge); position:relative; }
 .sec-head::after{ content:""; position:absolute; left:0; bottom:-6px; width:120px; height:6px; background:var(--c-coral); }
 .sec-head h2{ font-size:clamp(2.1rem,5.6vw,4.2rem); }
 .legend{ display:flex; gap:10px; flex-wrap:wrap; font-weight:700; font-size:.85rem; }
@@ -772,6 +779,7 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
 
   function init() {
+    groupProse();
     progressBar();
     slamTitles();
     injectTicker();
@@ -780,6 +788,26 @@ footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-we
     countUps();
     tilt();
     quizFeel();
+  }
+
+  /* ---------- Texto en dos columnas ----------
+     Agrupa los párrafos y listas consecutivos de cada .block en un .prose; si el grupo es largo
+     se parte en dos columnas (menos hueco a la derecha, medida de lectura intacta). */
+  function groupProse() {
+    $$('.block').forEach(function (b) {
+      var kids = Array.prototype.slice.call(b.children), run = [];
+      function flush() {
+        if (!run.length) return;
+        var w = doc.createElement('div'); w.className = 'prose';
+        b.insertBefore(w, run[0]);
+        var chars = 0;
+        run.forEach(function (e) { chars += e.textContent.length; w.appendChild(e); });
+        if (chars > 560) w.classList.add('cols');
+        run = [];
+      }
+      kids.forEach(function (k) { if (/^(P|UL|OL)$/.test(k.tagName)) run.push(k); else flush(); });
+      flush();
+    });
   }
 
   /* ---------- Barra de progreso de lectura ---------- */

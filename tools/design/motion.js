@@ -10,6 +10,7 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
 
   function init() {
+    groupProse();
     progressBar();
     slamTitles();
     injectTicker();
@@ -18,6 +19,26 @@
     countUps();
     tilt();
     quizFeel();
+  }
+
+  /* ---------- Texto en dos columnas ----------
+     Agrupa los párrafos y listas consecutivos de cada .block en un .prose; si el grupo es largo
+     se parte en dos columnas (menos hueco a la derecha, medida de lectura intacta). */
+  function groupProse() {
+    $$('.block').forEach(function (b) {
+      var kids = Array.prototype.slice.call(b.children), run = [];
+      function flush() {
+        if (!run.length) return;
+        var w = doc.createElement('div'); w.className = 'prose';
+        b.insertBefore(w, run[0]);
+        var chars = 0;
+        run.forEach(function (e) { chars += e.textContent.length; w.appendChild(e); });
+        if (chars > 560) w.classList.add('cols');
+        run = [];
+      }
+      kids.forEach(function (k) { if (/^(P|UL|OL)$/.test(k.tagName)) run.push(k); else flush(); });
+      flush();
+    });
   }
 
   /* ---------- Barra de progreso de lectura ---------- */
