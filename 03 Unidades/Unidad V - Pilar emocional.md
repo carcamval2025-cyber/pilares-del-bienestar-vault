@@ -11,7 +11,7 @@ fechas: "22, 24 y 25 sep"
 
 ## Subtemas cubiertos (según el material ya cargado)
 
-- [ ] 22 sep — Pilar emocional (material aún no cargado).
+- [x] 22 sep — Pilar emocional (cargado: «7. Dimensión Emocional.pdf»).
 - [ ] 24 sep — Taller de autorregulación (aún no cargado).
 - [ ] 25 sep — **Foro de discusión sobre la película "Wonder" (5%)**: guía de preguntas
   aplicando la teoría de clase. Recordar la regla crítica — Claude no redacta las

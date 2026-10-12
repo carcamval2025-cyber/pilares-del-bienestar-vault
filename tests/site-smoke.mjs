@@ -6,6 +6,7 @@ import vm from "node:vm";
 const pages = [
   "docs/index.html",
   "docs/repaso-control-1/index.html",
+  "docs/repaso-control-2/index.html",
   "docs/unidad-01/index.html",
   "docs/unidad-02/index.html",
   "docs/unidad-03/index.html",
@@ -75,11 +76,18 @@ assert.match(portal, /7–8 términos por unidad/);
 
 for (const page of pages.slice(1)) {
   const html = read(page);
-  const match = html.match(/var QUIZ = (\{.*\});\s*\n\s*\(function/s);
+  const match = html.match(/var QUIZ = (\{.*?\});\s*\n\s*(?:var DECKS|\(function)/s);
   assert.ok(match, `${page}: quiz data not found`);
   const quiz = JSON.parse(match[1]);
   const total = Object.values(quiz).reduce((sum, questions) => sum + questions.length, 0);
-  assert.equal(total, page.includes("repaso-control-1") ? 25 : 5, `${page}: incorrect quiz total`);
+  const expected = page.includes("repaso-control-1") ? 25 : page.includes("repaso-control-2") ? 28 : 5;
+  assert.equal(total, expected, `${page}: incorrect quiz total`);
+  if (page.includes("repaso-control-2")) {
+    const dm = html.match(/var DECKS = (\{.*?\});\s*\n\s*\(function/s);
+    assert.ok(dm, `${page}: deck data not found`);
+    const decks = JSON.parse(dm[1]);
+    assert.equal(Object.values(decks).reduce((s, d) => s + d.length, 0), 36, `${page}: incorrect deck total`);
+  }
 }
 
 console.log(`site smoke: ${pages.length} pages OK`);

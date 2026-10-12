@@ -1301,6 +1301,32 @@
       </div>
     </div>
 
+    <!-- Grand Feature Card for Control 2 -->
+    <div class="control-grand-card">
+      <div class="control-header">
+        <div>
+          <span class="control-badge">CONTROL 2 · UNIDADES V Y VI · EMOCIONAL + RELACIONAL</span>
+          <h3 class="control-title">Repaso para el Control 2</h3>
+        </div>
+        <span class="stamp-greek disponible">Mar 20 Oct · Presencial</span>
+      </div>
+      <p class="control-sub">
+        Repaso de estudio personal de Carlos Navas centrado en el pilar emocional y el pilar relacional: los tres cerebros, las cinco habilidades, el secuestro de la amígdala, la evidencia del bienestar relacional, el apoyo social, la comunicación asertiva y empática, los límites y las relaciones sanas. Solo cubre las Unidades V y VI.
+      </p>
+
+      <div class="control-features">
+        <div class="feature-item"><b>11 Láminas</b> · Fachadas, ciclos y mapa comparativo</div>
+        <div class="feature-item"><b>Autoevaluación</b> · 28 reactivos entre preguntas y casos</div>
+        <div class="feature-item"><b>Tarjetas de memoria</b> · 36 conceptos</div>
+        <div class="feature-item"><b>Mapa de vacíos</b> · Identificación precisa de ausencias</div>
+      </div>
+
+      <div class="control-actions">
+        <a href="repaso-control-2/" class="btn-greek-gold">Abrir Repaso (Control 2) &rarr;</a>
+        <a href="repaso-control-2/#quiz" class="btn-greek-outline">Autoevaluación &rarr;</a>
+      </div>
+    </div>
+
     <!-- 3 Unit Study Cards -->
     <div class="triad-grid">
       <!-- Unidad I -->
@@ -1481,8 +1507,8 @@
     {n:2, romano:"II", greek:"Β", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:true, slug:"unidad-02"},
     {n:3, romano:"III", greek:"Γ", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:true, slug:"unidad-03"},
     {n:4, romano:"IV", greek:"Δ", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
-    {n:5, romano:"V", greek:"Ε", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:false},
-    {n:6, romano:"VI", greek:"Ϛ", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:false},
+    {n:5, romano:"V", greek:"Ε", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:true, repasoUrl:"repaso-control-2/#u5"},
+    {n:6, romano:"VI", greek:"Ϛ", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:true, repasoUrl:"repaso-control-2/#u6"},
     {n:7, romano:"VII", greek:"Ζ", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
     {n:8, romano:"VIII", greek:"Η", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
     {n:9, romano:"IX", greek:"Θ", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
@@ -1711,6 +1737,11 @@
       } else {
         specLinkRepaso.style.display = "none";
       }
+      specActions.hidden = false;
+    } else if(u.repasoUrl){
+      specLinkUnit.href = u.repasoUrl;
+      specLinkUnit.textContent = "Abrir repaso Unidad " + u.romano + " →";
+      specLinkRepaso.style.display = "none";
       specActions.hidden = false;
     } else {
       specActions.hidden = true;
