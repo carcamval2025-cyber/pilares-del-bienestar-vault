@@ -11,9 +11,8 @@ fechas: "6, 8 y 10 oct"
 
 ## Subtemas cubiertos (según el material ya cargado)
 
-- [ ] 6 oct — Pilar relacional + indicaciones de la dinámica vivencial (aún no
-  cargado).
-- [ ] 8 oct — Confianza y límites (aún no cargado).
+- [x] 6 oct — Pilar relacional, Parte I (cargado: «8. Pilar relacional V2.pdf»). Las indicaciones de la dinámica no vienen en el PDF.
+- [x] 8 oct — Confianza y límites, Parte II (cargado: «9. Pilar relacional parte II V3.pdf»). El PDF desarrolla límites, no define «confianza».
 - [ ] 10 oct (sábado) — **Dinámica vivencial de año (10%)**: actividad presencial en
   equipos, evaluada por desempeño práctico y reflexión — no es un material que Claude
   genere; como mucho, puede ayudar a repasar los conceptos de trabajo en equipo y

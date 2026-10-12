@@ -1,0 +1,1422 @@
+<!doctype html>
+<html lang="es">
+<head>
+<script>
+  (function(){
+    var saved = null;
+    try { saved = localStorage.getItem('pb_theme'); } catch (_) {}
+    var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  })();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repaso — Control 2 · Pilares del Bienestar</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+  :root{
+    --bg:#F5F5F3; --bg-elev:#ECECE8; --bg-elev2:#E2E2DC; --border:#D3D3CC; --border-soft:#DEDED8;
+    --text:#15181A; --text-dim:#43494A; --text-faint:#5F655F;
+    --pine:#1F4B3F; --moss:#2E7A5C; --clay:#A54A2A; --sage:#6E8B78;
+    --success:#1F4B3F; --danger:#B23347;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Work Sans',system-ui,sans-serif; line-height:1.62;
+    background-image: radial-gradient(var(--border-soft) 1.2px, transparent 1.2px);
+    background-size:26px 26px; background-position:-13px -13px;
+  }
+  ::selection{ background:var(--pine); color:#F5F5F3; }
+  a{ color:var(--moss); }
+  .wrap{ max-width:940px; margin:0 auto; padding:0 20px; }
+  .mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  h1,h2,h3{ font-family:'Instrument Serif',Georgia,serif; font-weight:400; line-height:1.15; margin:0; }
+  h1{ font-size:clamp(2rem,5.6vw,3.2rem); letter-spacing:-.01em; }
+  h2{ font-size:clamp(1.55rem,4vw,2.25rem); }
+  h3{ font-size:clamp(1.12rem,2.6vw,1.42rem); }
+  h4.sec{ font-family:'Work Sans',sans-serif; font-size:.95rem; color:var(--clay);
+    margin:24px 0 8px; font-weight:600; }
+  p{ margin:0 0 .9em; color:var(--text-dim); }
+  b,strong{ color:var(--text); font-weight:600; }
+
+  header.top{ padding:40px 0 28px; border-bottom:1px solid var(--border); }
+  .plate{ border:1px solid var(--border); background:var(--bg-elev);
+    font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-dim);
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(146px,1fr)); margin-bottom:24px; }
+  .plate div{ padding:8px 12px; border-right:1px solid var(--border); }
+  .plate div:last-child{ border-right:none; }
+  .plate span{ display:block; color:var(--text-faint); font-size:.59rem; letter-spacing:.08em; text-transform:uppercase; }
+  .plate b{ color:var(--pine); font-weight:600; }
+  header.top h1 em{ color:var(--pine); font-style:italic; }
+  .lede{ font-size:1.04rem; max-width:64ch; margin-top:14px; }
+
+  .aviso{ border:1px solid var(--danger); border-left-width:4px; background:var(--bg-elev);
+    padding:15px 18px; margin:24px 0 0; }
+  .aviso .tag{ font-family:'IBM Plex Mono',monospace; font-size:.61rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--danger); display:block; margin-bottom:6px; }
+  .aviso p{ margin:0; font-size:.91rem; }
+  .aviso p + p{ margin-top:.6em; }
+
+  nav.toc{ position:sticky; top:0; z-index:9; background:var(--bg); border-bottom:1px solid var(--border); }
+  nav.toc ul{ list-style:none; display:flex; gap:2px; margin:0 auto; padding:0 20px; overflow-x:auto; max-width:940px; }
+  nav.toc a{ display:block; padding:11px 12px; font-family:'IBM Plex Mono',monospace; font-size:.67rem;
+    letter-spacing:.05em; text-transform:uppercase; color:var(--text-faint); text-decoration:none;
+    white-space:nowrap; border-bottom:2px solid transparent; }
+  nav.toc a:hover{ color:var(--pine); border-bottom-color:var(--border); }
+
+  section.unit{ padding:48px 0 8px; border-top:1px solid var(--border); margin-top:34px; }
+  section.unit:first-of-type{ border-top:none; margin-top:0; }
+  .unit-head{ display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; }
+  .unit-num{ font-family:'IBM Plex Mono',monospace; font-size:.71rem; letter-spacing:.14em; color:var(--clay);
+    border:1px solid var(--border); background:var(--bg-elev); padding:4px 9px; }
+  .unit-dates{ font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--text-faint); margin-top:8px; }
+  .fuente{ font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint);
+    border-left:2px solid var(--border); padding-left:10px; margin:12px 0 24px; }
+
+  .block{ margin:32px 0; }
+  .block > h3{ color:var(--pine); margin-bottom:4px; }
+  .block .sub{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-faint); margin-bottom:12px; }
+
+  ul.clean{ margin:0 0 1em; padding-left:0; list-style:none; }
+  ul.clean li{ position:relative; padding-left:20px; margin-bottom:.5em; color:var(--text-dim); }
+  ul.clean li::before{ content:""; position:absolute; left:2px; top:.62em; width:7px; height:7px; background:var(--pine); }
+  ul.clean li.clay::before{ background:var(--clay); }
+
+  .two{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--border); background:var(--bg-elev); }
+  .two > div{ padding:16px 18px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .two > div:nth-child(2n){ border-right:none; }
+  .two > div:nth-last-child(-n+2){ border-bottom:none; }
+  .two h4{ margin:0 0 8px; font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--clay); font-weight:600; }
+  .two ul{ margin:0; padding-left:16px; }
+  .two li{ color:var(--text-dim); font-size:.92rem; margin-bottom:.35em; }
+  .two .resp{ margin:10px 0 0; color:var(--pine); font-weight:600; font-size:.92rem; }
+  @media (max-width:640px){
+    .two{ grid-template-columns:1fr; }
+    .two > div{ border-right:none; }
+    .two > div:last-child{ border-bottom:none; }
+    .two > div:nth-last-child(2){ border-bottom:1px solid var(--border); }
+  }
+
+  .note{ border:1px solid var(--border); border-left:3px solid var(--clay); background:var(--bg-elev);
+    padding:13px 16px; margin:18px 0; font-size:.91rem; }
+  .note .tag{ font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--clay); display:block; margin-bottom:5px; }
+  .note p{ margin:0; }
+  .note.gap{ border-left-color:var(--danger); }
+  .note.gap .tag{ color:var(--danger); }
+  .tagline{ font-family:'IBM Plex Mono',monospace; font-size:.61rem; color:var(--clay); }
+
+  blockquote{ margin:22px 0; padding:0 0 0 20px; border-left:3px solid var(--pine);
+    font-family:'Instrument Serif',Georgia,serif; font-size:1.28rem; line-height:1.35;
+    color:var(--text); font-style:italic; }
+  blockquote cite{ display:block; font-family:'IBM Plex Mono',monospace; font-size:.63rem;
+    font-style:normal; color:var(--text-faint); margin-top:9px; letter-spacing:.06em; }
+
+  figure.diag{ margin:26px 0; border:1px solid var(--border); background:var(--bg-elev); padding:16px 14px 10px; }
+  figure.diag .scroller{ overflow-x:auto; }
+  figure.diag svg{ display:block; width:100%; height:auto; }
+  figure.diag figcaption{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; color:var(--text-faint);
+    letter-spacing:.06em; margin-top:10px; text-transform:uppercase; border-top:1px solid var(--border);
+    padding-top:8px; }
+
+  dl.glos{ margin:0; border-top:1px solid var(--border); }
+  dl.glos > div{ display:grid; grid-template-columns:196px 1fr; border-bottom:1px solid var(--border); }
+  dl.glos dt{ padding:13px 14px 13px 0; font-weight:600; color:var(--pine); font-size:.94rem; }
+  dl.glos dd{ margin:0; padding:13px 0 13px 14px; border-left:1px solid var(--border);
+    color:var(--text-dim); font-size:.92rem; }
+  @media (max-width:640px){
+    dl.glos > div{ grid-template-columns:1fr; }
+    dl.glos dt{ padding-bottom:2px; }
+    dl.glos dd{ border-left:none; padding:0 0 13px; }
+  }
+
+  .quizhead{ display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+    border-bottom:1px solid var(--border); padding-bottom:8px; margin-bottom:4px; }
+  .score{ font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint); }
+  .q{ border-bottom:1px solid var(--border); padding:22px 0; }
+  .q .qn{ font-family:'IBM Plex Mono',monospace; font-size:.63rem; letter-spacing:.1em; color:var(--clay);
+    display:block; margin-bottom:6px; }
+  .q .qt{ font-weight:600; color:var(--text); margin:0 0 14px; font-size:1.01rem; }
+  .opts{ display:flex; flex-direction:column; gap:7px; }
+  .opt{ text-align:left; font:inherit; font-size:.93rem; color:var(--text-dim); cursor:pointer;
+    background:var(--bg-elev); border:1px solid var(--border); padding:11px 14px; display:flex; gap:11px;
+    align-items:flex-start; line-height:1.45; }
+  .opt:hover:not(:disabled){ background:var(--bg-elev2); border-color:var(--text-faint); }
+  .opt:disabled{ cursor:default; }
+  .opt .k{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--text-faint); padding-top:2px; }
+  .opt.good{ border-color:var(--success); border-left-width:4px; background:#E6EDE9; color:var(--text); }
+  .opt.good .k{ color:var(--success); }
+  .opt.bad{ border-color:var(--danger); border-left-width:4px; background:#F2E4E6; color:var(--text); }
+  .opt.bad .k{ color:var(--danger); }
+  .fb{ margin-top:13px; border-left:3px solid var(--pine); background:var(--bg-elev); padding:12px 15px; font-size:.91rem; }
+  .fb .verdict{ font-family:'IBM Plex Mono',monospace; font-size:.65rem; letter-spacing:.1em;
+    text-transform:uppercase; display:block; margin-bottom:6px; color:var(--success); }
+  .fb.no{ border-left-color:var(--danger); }
+  .fb.no .verdict{ color:var(--danger); }
+  .fb p{ margin:0 0 .55em; }
+  .fb p:last-child{ margin-bottom:0; }
+  .fb .src{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; color:var(--text-faint); letter-spacing:.04em; }
+
+  .pager{ display:flex; gap:10px; flex-wrap:wrap; margin:34px 0 0; }
+  .pager a{ font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.06em; text-decoration:none;
+    color:var(--pine); border:1px solid var(--border); background:var(--bg-elev); padding:9px 13px; }
+  .pager a:hover{ background:var(--bg-elev2); }
+
+  footer{ border-top:1px solid var(--border); margin-top:48px; padding:26px 0 56px;
+    font-family:'IBM Plex Mono',monospace; font-size:.67rem; color:var(--text-faint); }
+  footer p{ color:var(--text-faint); font-size:.67rem; margin:0 0 .5em; }
+
+  /* Classical Greek Design System additions */
+
+  :root{
+    --marble:#FAF8F5; --marble-elev:#F2EDE4; --marble-elev2:#E8DFC8;
+    --border:#D8CEBA; --border-soft:#EAE2D2;
+    --text:#1B1713; --text-dim:#3D4244; --text-faint:#5F655F;
+    --pine:#1B4234; --pine-deep:#0F281E; --pine-light:#2D5E4A;
+    --moss:#2E7A5C; --clay:#A84E32; --clay-deep:#7A2D15;
+    --gold-doric:#9E7B35; --gold-light:#D4AF37;
+    --success:#1B4234; --danger:#B23347;
+  }
+
+  h1,h2,h3{ font-family:'Cinzel',serif; font-weight:700; letter-spacing:0.02em; }
+  .cinzel{ font-family:'Cinzel',serif; }
+  .cormorant{ font-family:'Cormorant Garamond',Georgia,serif; }
+
+  /* Greek Key Meander Ribbon */
+  .greek-frieze{
+    height: 14px; width: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23A84E32' stroke-width='1.2' stroke-linecap='square'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    opacity: 0.85;
+    margin: 22px 0;
+  }
+  .greek-frieze.subtle{
+    opacity: 0.45;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%235F655F' stroke-width='1' stroke-linecap='square'/%3E%3C/svg%3E");
+  }
+
+  /* Classical Stele Plaque & Badges */
+  .plate{
+    border: 1.5px solid var(--border);
+    background: var(--marble-elev);
+    box-shadow: 0 3px 12px rgba(27,23,19,0.06);
+  }
+  .plate b{ color: var(--pine); font-family:'Cinzel',serif; }
+  .aviso{
+    border: 1.5px solid var(--clay);
+    border-left: 5px solid var(--clay);
+    background: var(--marble-elev);
+    box-shadow: 0 3px 10px rgba(168,78,50,0.08);
+  }
+  .aviso .tag{ color: var(--clay-deep); font-family:'Cinzel',serif; font-weight:700; }
+
+  /* Enhanced Monumental Figure Diag Container */
+  figure.diag{
+    margin: 32px 0;
+    border: 1.5px solid var(--border);
+    background: var(--marble-elev);
+    padding: 18px 16px 14px;
+    box-shadow: 0 4px 18px rgba(27,23,19,0.07);
+    border-radius: 4px;
+  }
+  figure.diag figcaption{
+    font-family:'Cinzel',serif; font-size:0.75rem; font-weight:700;
+    letter-spacing:0.06em; color:var(--clay-deep); margin-top:14px;
+    border-top:1.5px solid var(--border); padding-top:10px;
+  }
+
+  /* Navigation Bar Upgrades */
+  nav.toc{
+    background: var(--marble);
+    border-bottom: 2px solid var(--border);
+    box-shadow: 0 2px 8px rgba(27,23,19,0.05);
+  }
+  nav.toc a{
+    font-family:'Cinzel',serif; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.06em; color:var(--text-dim);
+  }
+  nav.toc a:hover{
+    color: var(--clay-deep);
+    border-bottom-color: var(--clay);
+  }
+  nav.toc a.nav-temple{
+    color: var(--pine);
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+    margin-right: 6px;
+  }
+  nav.toc a.nav-highlight{
+    color: var(--clay-deep);
+    font-weight: 800;
+  }
+
+
+  /* ==================== COMPLETE CLASSICAL GREEK DARK MODE ==================== */
+  :root {
+    --svg-bg-start: #FCFAF7;
+    --svg-bg-mid: #F5F0E6;
+    --svg-bg-end: #EAE1D0;
+    --svg-card-start: #FFFFFF;
+    --svg-card-mid: #FBF8F2;
+    --svg-card-end: #EFE8DA;
+    --svg-card-edge: #E2D8C6;
+    --svg-ped-start: #EDE7DA;
+    --svg-ped-mid: #DCD2C0;
+    --svg-ped-end: #C2B59F;
+    --svg-clay-bg-start: #FAF1ED;
+    --svg-clay-bg-end: #EED8CF;
+    --svg-pine-bg-start: #F0F6F3;
+    --svg-pine-bg-end: #D6E6DE;
+    --svg-gold-bg-start: #FFFDF7;
+    --svg-gold-bg-end: #F7EED8;
+    --svg-shaft-edge: #C2B7A2;
+    --svg-shaft-light: #EAE3D4;
+    --svg-shaft-peak: #FAF7F2;
+    --svg-shaft-mid: #DDD3BF;
+    --svg-shaft-dark: #AEA18A;
+    --svg-greca: #A84E32;
+  }
+
+  [data-theme="dark"] {
+    --bg: #110F0D;
+    --bg-elev: #1A1714;
+    --bg-elev2: #24201B;
+    --border: #3D352B;
+    --border-soft: #2B251E;
+    --text: #F5EFE6;
+    --text-dim: #C9BFB0;
+    --text-faint: #948A7A;
+    --pine: #4E9B79;
+    --pine-deep: #163628;
+    --pine-light: #64B28E;
+    --moss: #4E9B79;
+    --clay: #E07A5F;
+    --clay-deep: #F2957B;
+    --clay-pale: #2C1812;
+    --gold: #DFC07A;
+    --gold-doric: #DFC07A;
+    --gold-light: #FFEAA7;
+    --gold-deep: #C5A059;
+    --marble: #191613;
+    --marble-elev: #211D18;
+    --marble-elev2: #2A2520;
+    --success: #4E9B79;
+    --danger: #E26D7D;
+
+    --svg-bg-start: #161310;
+    --svg-bg-mid: #1C1814;
+    --svg-bg-end: #221D18;
+    --svg-card-start: #241F1A;
+    --svg-card-mid: #201B16;
+    --svg-card-end: #1B1713;
+    --svg-card-edge: #332B22;
+    --svg-ped-start: #2D261F;
+    --svg-ped-mid: #383027;
+    --svg-ped-end: #443B30;
+    --svg-clay-bg-start: #2C1812;
+    --svg-clay-bg-end: #3A2018;
+    --svg-pine-bg-start: #13241C;
+    --svg-pine-bg-end: #1A3328;
+    --svg-gold-bg-start: #2C2516;
+    --svg-gold-bg-end: #38301C;
+    --svg-shaft-edge: #1C1814;
+    --svg-shaft-light: #332C24;
+    --svg-shaft-peak: #473E34;
+    --svg-shaft-mid: #2A241E;
+    --svg-shaft-dark: #161310;
+    --svg-greca: #E07A5F;
+  }
+
+  [data-theme="dark"] body {
+    background-color: var(--bg);
+    color: var(--text);
+    background-image: 
+      radial-gradient(var(--border) 1.2px, transparent 1.2px),
+      linear-gradient(to right, rgba(224, 122, 95, 0.03) 1px, transparent 1px);
+  }
+
+  [data-theme="dark"] ::selection {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] a {
+    color: var(--gold);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .plate {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+  }
+  [data-theme="dark"] .plate div {
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] .plate span {
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .plate b {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .aviso {
+    background: rgba(224, 122, 95, 0.09);
+    border-color: var(--clay);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .aviso .tag {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] nav.toc {
+    background: var(--marble);
+    border-bottom-color: var(--border);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] nav.toc a {
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] nav.toc a:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] nav.toc a.nav-temple {
+    color: var(--gold);
+    border-right-color: var(--border);
+  }
+  [data-theme="dark"] nav.toc a.nav-highlight {
+    color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] section.unit {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] .unit-num {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .fuente {
+    border-left-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  [data-theme="dark"] .two {
+    background: var(--marble-elev);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two > div {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .two h4 {
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .two .resp {
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .note {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    border-left-color: var(--clay);
+  }
+  [data-theme="dark"] .note.gap {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .note.gap .tag {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] blockquote {
+    border-left-color: var(--gold);
+    color: var(--text);
+  }
+
+  [data-theme="dark"] figure.diag {
+    background: #171411;
+    border-color: var(--border);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
+  }
+  [data-theme="dark"] figure.diag figcaption {
+    color: var(--gold);
+    border-top-color: var(--border);
+  }
+
+  [data-theme="dark"] dl.glos {
+    border-top-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos > div {
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] dl.glos dt {
+    color: var(--gold-light);
+  }
+
+  [data-theme="dark"] .q-card {
+    background: var(--marble-elev);
+    border-color: var(--border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  [data-theme="dark"] .opt {
+    background: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+  }
+  [data-theme="dark"] .opt:hover {
+    background: var(--marble-elev2);
+    border-color: var(--gold);
+  }
+  [data-theme="dark"] .opt.selected {
+    background: rgba(223, 192, 122, 0.12);
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-chk {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    font-weight: 800;
+  }
+  [data-theme="dark"] .fb {
+    background: var(--bg-elev2);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .fb.ok {
+    border-left-color: var(--pine);
+  }
+  [data-theme="dark"] .fb.ok .verdict {
+    color: var(--pine);
+  }
+  [data-theme="dark"] .fb.no {
+    border-left-color: var(--danger);
+  }
+  [data-theme="dark"] .fb.no .verdict {
+    color: var(--danger);
+  }
+
+  [data-theme="dark"] .p-track {
+    background: var(--border);
+  }
+  [data-theme="dark"] .p-bar {
+    background: var(--gold);
+  }
+
+  [data-theme="dark"] table.vacios {
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios th {
+    background: var(--marble-elev2);
+    color: var(--gold-light);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] table.vacios td {
+    border-color: var(--border);
+    color: var(--text-dim);
+  }
+  [data-theme="dark"] table.vacios tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  [data-theme="dark"] footer {
+    border-top-color: var(--border);
+    color: var(--text-faint);
+  }
+
+  /* Portal Index Specific Dark Mode */
+  [data-theme="dark"] .titleblock-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .stele-pediment {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele-cornice {
+    background: var(--marble-elev);
+    border-bottom-color: var(--border);
+  }
+  [data-theme="dark"] .spec-stele .status-col {
+    background: var(--marble-elev);
+    border-left-color: var(--border);
+  }
+  [data-theme="dark"] .stamp-greek {
+    background: var(--marble);
+    border-color: var(--border);
+    color: var(--text-faint);
+  }
+  [data-theme="dark"] .stamp-greek.disponible {
+    background: rgba(78, 155, 121, 0.18);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+
+  [data-theme="dark"] .spec-link {
+    background: var(--marble-elev);
+    border-color: var(--pine);
+    color: var(--pine);
+  }
+  [data-theme="dark"] .spec-link:hover {
+    background: var(--pine);
+    color: #110F0D;
+  }
+  [data-theme="dark"] .spec-link.repaso {
+    border-color: var(--clay);
+    color: var(--clay-deep);
+  }
+  [data-theme="dark"] .spec-link.repaso:hover {
+    background: var(--clay);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .control-grand-card {
+    background: linear-gradient(135deg, #1C1814 0%, #15120F 100%);
+    border-color: var(--gold-deep);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.55);
+  }
+  [data-theme="dark"] .control-title {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .control-features {
+    background: rgba(22, 19, 16, 0.85);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .btn-greek-gold {
+    background: linear-gradient(135deg, #DFC07A, #B59345);
+    color: #110F0D;
+    border-color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .btn-greek-outline:hover {
+    background: var(--gold);
+    color: #110F0D;
+  }
+
+  [data-theme="dark"] .study-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .study-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+  [data-theme="dark"] .study-card h3 {
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .study-btn {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+  [data-theme="dark"] .study-btn:hover {
+    color: var(--clay-deep);
+    border-bottom-color: var(--clay-deep);
+  }
+
+  [data-theme="dark"] .triad-card {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+  [data-theme="dark"] .sello-wrap {
+    background: var(--marble);
+    border-color: var(--border);
+  }
+
+  /* Theme Toggle Button Styling */
+  .theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--marble-elev);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold-deep);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+  [data-theme="dark"] .theme-toggle-btn {
+    background: var(--marble-elev2);
+    border-color: var(--border);
+    color: var(--gold-light);
+  }
+  [data-theme="dark"] .theme-toggle-btn:hover {
+    border-color: var(--gold-light);
+    color: #FFEAA7;
+  }
+
+
+  /* ==================== REPASO CONTROL 2 — ADICIONES ==================== */
+  .sv text{ font-family:'Work Sans',sans-serif; }
+  .sv .h{ font-family:'Cinzel',serif; font-weight:700; fill:var(--text); }
+  .sv .t{ fill:var(--text); }
+  .sv .d{ fill:var(--text-dim); }
+  .sv .m{ font-family:'IBM Plex Mono',monospace; fill:var(--text-faint); letter-spacing:.04em; }
+  .sv .cl{ fill:var(--clay-deep); }
+  .sv .pn{ fill:var(--pine); }
+  .sv .fpine{ fill:var(--svg-pine-bg-end); stroke:var(--pine); stroke-width:1.5; }
+  .sv .fclay{ fill:var(--svg-clay-bg-end); stroke:var(--clay); stroke-width:1.5; }
+  .sv .fclay2{ fill:var(--clay); fill-opacity:.30; stroke:var(--clay); stroke-width:1.5; }
+  .sv .fgold{ fill:var(--svg-gold-bg-end); stroke:var(--gold-doric); stroke-width:1.5; }
+  .sv .fdash{ fill:var(--svg-card-mid); stroke:var(--text-faint); stroke-width:1.5; stroke-dasharray:6 4; }
+  .sv .badge{ fill:var(--svg-card-start); stroke:var(--border); stroke-width:1.5; }
+  .sv .ln{ stroke:var(--text-faint); stroke-width:1.5; fill:none; }
+  .sv .ln.dashed{ stroke-dasharray:6 5; }
+  .sv .brk{ stroke:var(--text-faint); stroke-width:1.5; fill:none; }
+
+  button:focus-visible, textarea:focus-visible, a:focus-visible, .fcard:focus-visible{
+    outline:2px solid var(--clay); outline-offset:2px; }
+
+  .opt.good{ border-color:var(--success); }
+  [data-theme="dark"] .opt.good{ background:rgba(78,155,121,.18); border-color:var(--pine); color:var(--text); }
+  [data-theme="dark"] .opt.bad{ background:rgba(226,109,125,.16); border-color:var(--danger); color:var(--text); }
+  [data-theme="dark"] .opt.good .k{ color:var(--pine); }
+  [data-theme="dark"] .opt.bad .k{ color:var(--danger); }
+  .fb.ok{ border-left-color:var(--pine); }
+  [data-theme="dark"] .score{ color:var(--text-dim); }
+
+  .caso{ border:1px solid var(--border); background:var(--marble-elev); padding:13px 16px; margin:0 0 14px;
+    font-size:.95rem; color:var(--text); }
+  .caso .tagline{ display:block; margin-bottom:5px; letter-spacing:.08em; text-transform:uppercase; }
+
+  .split{ display:flex; min-height:48px; border:1.5px solid var(--border); margin:14px 0 6px; font-family:'Cinzel',serif; font-weight:700; }
+  .split span{ display:flex; align-items:center; justify-content:center; padding:6px 10px; font-size:.86rem; text-align:center; line-height:1.2; }
+  .split .a{ width:20%; background:var(--clay); color:#fff; }
+  .split .b{ width:80%; background:var(--svg-pine-bg-end); color:var(--text); }
+  [data-theme="dark"] .split .a{ color:#110F0D; }
+  .split-cap{ font-family:'IBM Plex Mono',monospace; font-size:.64rem; color:var(--text-faint); letter-spacing:.04em; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 1em; padding:0; list-style:none; }
+  .chips li{ border:1px solid var(--border); background:var(--marble-elev); padding:5px 13px; font-size:.9rem; color:var(--text); }
+
+  ol.steps{ list-style:none; counter-reset:st; padding:0; margin:0 0 1.1em; border-top:1px solid var(--border); }
+  ol.steps li{ counter-increment:st; position:relative; padding:11px 0 11px 50px; border-bottom:1px solid var(--border); color:var(--text-dim); }
+  ol.steps li::before{ content:counter(st); position:absolute; left:0; top:9px; width:32px; height:32px;
+    border:1.5px solid var(--clay); display:grid; place-items:center; font-family:'Cinzel',serif; font-weight:700; color:var(--clay-deep); }
+  ol.steps li b{ display:block; }
+
+  .three{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); border:1px solid var(--border); background:var(--marble-elev); margin:0 0 1.1em; }
+  .three > div{ padding:15px 18px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .three h4{ margin:0 0 8px; font-family:'Cinzel',serif; font-size:.92rem; color:var(--clay-deep); }
+  .three p{ margin:0 0 .5em; font-size:.92rem; }
+  .three p:last-child{ margin-bottom:0; }
+  .three .lab{ font-family:'IBM Plex Mono',monospace; font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-faint); display:block; }
+
+  .btn{ font:inherit; font-family:'Cinzel',serif; font-weight:700; font-size:.78rem; letter-spacing:.04em; padding:9px 16px;
+    border:1.5px solid var(--border); background:var(--marble); color:var(--text); cursor:pointer; }
+  .btn:hover{ border-color:var(--pine); }
+  .btn.primary{ background:var(--pine); color:#F5F5F3; border-color:var(--pine); }
+  [data-theme="dark"] .btn{ background:var(--marble-elev2); color:var(--text); }
+  [data-theme="dark"] .btn.primary{ background:var(--gold); color:#110F0D; border-color:var(--gold); }
+
+  .deck{ border:1.5px solid var(--border); background:var(--marble-elev); padding:18px; margin:14px 0; }
+  .deck-top{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace;
+    font-size:.68rem; color:var(--text-dim); margin-bottom:12px; }
+  .fcard{ display:block; width:100%; min-height:180px; text-align:left; font:inherit; cursor:pointer;
+    background:var(--svg-card-mid); border:1.5px solid var(--border); padding:22px 24px; color:var(--text); }
+  .fcard .side{ font-family:'IBM Plex Mono',monospace; font-size:.62rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--clay-deep); display:block; margin-bottom:10px; }
+  .fcard .txt{ font-size:1.08rem; line-height:1.5; white-space:pre-line; display:block; }
+  .fcard.back{ border-color:var(--pine); }
+  .fcard.back .side{ color:var(--pine); }
+  .deck-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .deck-done{ padding:26px 6px; text-align:center; color:var(--text-dim); font-family:'Cinzel',serif; font-size:1.05rem; }
+
+  .notes{ border:1px solid var(--border); background:var(--marble-elev); padding:6px 18px 18px; }
+  .notes label{ display:block; font-weight:600; color:var(--text); margin:16px 0 6px; font-size:.93rem; }
+  .notes label small{ display:block; font-weight:400; color:var(--text-faint); font-size:.82rem; }
+  .notes textarea{ width:100%; min-height:86px; resize:vertical; font:inherit; font-size:.95rem; color:var(--text);
+    background:var(--marble); border:1px solid var(--border); padding:10px 12px; line-height:1.5; }
+  [data-theme="dark"] .notes textarea{ background:var(--bg); }
+  .notes .hint{ font-family:'IBM Plex Mono',monospace; font-size:.64rem; color:var(--text-faint); margin:14px 0 0; }
+
+  .hl{ color:var(--clay-deep); font-weight:600; }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .theme-toggle-btn:hover{ transform:none; }
+  }
+  @media (max-width:520px){
+    .deck{ padding:12px; } .fcard{ padding:16px 16px; }
+    .split span{ font-size:.7rem; padding:6px 4px; }
+  }
+
+</style>
+</head>
+<body>
+<nav class="toc" aria-label="Secciones del repaso"><ul><li><a href="../" class="nav-temple">🏛 TEMPLO PRINCIPAL</a></li><li><a href="#u5">UNIDAD V · EMOCIONAL</a></li><li><a href="#u6">UNIDAD VI · RELACIONAL</a></li><li><a href="#mapa">MAPA</a></li><li><a href="#integrado">INTEGRADO</a></li><li><a href="#vacios">VACÍOS</a></li><li><a href="#quiz" class="nav-highlight">AUTOEVALUACIÓN</a></li><li><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar a modo noche" aria-pressed="false"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></li></ul></nav>
+<div class="wrap">
+<div class="greek-frieze"></div>
+<header class="top"><div class="plate"><div><span>Curso</span><b>Pilares del Bienestar</b></div><div><span>Ciclo</span>III / 2026 · ESEN</div><div><span>Docente</span>Ing. Gabriela Carranza</div><div><span>Alcance</span><b>Unidades V – VI</b></div><div><span>Control 2</span>mar 20 oct</div></div>
+<h1>Repaso<br><em>Control 2</em></h1>
+<p class="lede">Material de estudio personal de Carlos Navas. Cubre el <b>pilar emocional</b> (sesión del 22 sep) y el <b>pilar relacional</b> (Parte I y Parte II), con diagramas, mapa comparativo, casos de aplicación, tarjetas de memoria y autoevaluación.</p>
+<div class="aviso"><span class="tag">Esto no es el Control</span><p>Este documento es <b>estudio previo</b>, no una evaluación ni un intento de replicar el Control pregunta por pregunta. El Programa del curso permite usar IA <b>solo como herramienta de revisión y formato</b> para las evaluaciones, nunca para generar su contenido; el Control 2 es <b>físico y presencial</b>, y sus respuestas son y serán 100% de autoría propia.</p><p>Todo lo que aparece aquí sale <b>únicamente</b> de los tres PDF de clase. Donde el material no dice algo, esta guía lo señala como vacío en vez de rellenarlo. Los espacios «Tus palabras» están en blanco a propósito: son para que pienses con tu propia voz.</p><p><b>Alcance:</b> solo las Unidades V y VI. Si el Control 2 incluye otras unidades, no están en este repaso.</p></div></header>
+<section class="unit" id="u5">
+<div class="unit-head"><span class="unit-num">UNIDAD V</span><h2>Pilar emocional</h2></div>
+<p class="unit-dates">22 sep · <span style="color:var(--clay);">el taller del 24 sep y el foro «Wonder» del 25 sep no tienen material en este repaso (ver «Vacíos»)</span></p>
+<p class="fuente">Fuente: «7. Dimensión Emocional.pdf» (19 pp., diapositivas sin notas del orador). Las páginas que se citan son las del PDF, no el número impreso en la esquina de cada diapositiva.</p>
+
+<div class="block">
+  <h3>Punto de partida: lo emocional y los «tres cerebros»</h3>
+  <p class="sub">PDF Unidad V, pp. 2–4</p>
+  <p>La clase abre ubicando el <b>pilar emocional</b> sobre la pirámide de Maslow que ya viste en la Unidad I
+  (una diapositiva con la etiqueta «Pilar emocional» y un corchete junto a la pirámide) y enseguida plantea
+  la pregunta de fondo: <b>¿cuántos cerebros tenemos?</b> La respuesta de la diapositiva son tres estructuras
+  agrupadas en dos «cerebros».</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 315" role="img" aria-label="Lámina 1 — Los tres cerebros: reptiliano y sistema límbico forman el cerebro emocional; el neocórtex es el cerebro racional"><defs><linearGradient id="rc2-s1-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s1-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s1-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s1-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><ellipse cx="190" cy="150" rx="165" ry="125" class="fpine"/><ellipse cx="190" cy="150" rx="108" ry="78" class="fclay"/><ellipse cx="190" cy="150" rx="46" ry="32" class="fclay2"/><circle cx="190" cy="48" r="13" class="badge"/><text x="190" y="53" class="h" font-size="14" text-anchor="middle" >3</text><circle cx="190" cy="95" r="13" class="badge"/><text x="190" y="100" class="h" font-size="14" text-anchor="middle" >2</text><circle cx="190" cy="150" r="13" class="badge"/><text x="190" y="155" class="h" font-size="14" text-anchor="middle" >1</text><line x1="206" y1="48" x2="410" y2="48" class="ln"/><text x="420" y="53" class="h" font-size="14" text-anchor="start" >3 · NEOCÓRTEX</text><line x1="206" y1="95" x2="410" y2="95" class="ln"/><text x="420" y="100" class="h" font-size="14" text-anchor="start" >2 · SISTEMA LÍMBICO</text><line x1="206" y1="150" x2="410" y2="150" class="ln"/><text x="420" y="155" class="h" font-size="14" text-anchor="start" >1 · REPTILIANO</text><path d="M672,84 H684 V164 H672" class="brk"/><text x="698" y="118" class="h cl" font-size="14" text-anchor="start" >CEREBRO EMOCIONAL</text><text x="698" y="138" class="d" font-size="13" text-anchor="start" >reptiliano + sistema límbico</text><path d="M672,34 H684 V62 H672" class="brk"/><text x="698" y="53" class="h pn" font-size="14" text-anchor="start" >CEREBRO RACIONAL</text><text x="698" y="73" class="d" font-size="13" text-anchor="start" >neocórtex</text><text x="20" y="300" class="m" font-size="11" text-anchor="start" >Esquema simplificado de la lámina de clase: no es una representación anatómica exacta.</text></svg></div><figcaption>Lámina 1 · ¿Cuántos cerebros tenemos? (PDF Unidad V, p. 3)</figcaption></figure>
+  <p>Después viene el argumento de por qué importa: el <b>coeficiente intelectual</b> apenas representa un
+  <b>20%</b> de los factores determinantes del éxito. El <b>80%</b> restante depende de otras variables:
+  la clase social, la suerte y, «en gran medida», la <b>inteligencia emocional</b>.</p>
+  <div class="split" role="img" aria-label="Barra: 20% coeficiente intelectual, 80% otras variables"><span class="a">20% · CI</span><span class="b">80% · clase social, suerte e inteligencia emocional</span></div>
+  <p class="split-cap">PDF Unidad V, p. 4 — la diapositiva no cita la fuente de esta cifra</p>
+  <p>Entre las capacidades de la inteligencia emocional que, según la diapositiva, pesan más para una vida plena
+  que las medidas del desempeño cognitivo están:</p>
+  <ul class="clean">
+    <li>Motivarse a sí mismo y perseverar en un empeño a pesar de las frustraciones.</li>
+    <li>Controlar los impulsos y diferir las gratificaciones.</li>
+    <li>Regular los propios estados de ánimo y controlar la angustia.</li>
+    <li>Empatizar y confiar en los demás.</li>
+  </ul>
+</div>
+
+<div class="block">
+  <h3>Tipos de inteligencia (Gardner)</h3>
+  <p class="sub">PDF Unidad V, p. 5</p>
+  <p>Según Howard Gardner, la inteligencia no es una sola, sino un abanico de habilidades diferenciadas, de las
+  que identifica <b>ocho</b> (los nombres aparecen en la rueda de la diapositiva y en el PDF de la Unidad III:
+  lingüística, lógico-matemática, espacial, musical, corporal-cinestésica, interpersonal, intrapersonal y naturalista).
+  De las ocho, la clase destaca dos porque son las que sostienen este pilar:</p>
+  <div class="two">
+    <div><h4>Interpersonal</h4><p class="resp">Permite comprender a los demás.</p></div>
+    <div><h4>Intrapersonal</h4><p class="resp">Permite configurar una imagen fiel y verdadera de uno mismo.</p></div>
+  </div>
+  <div class="note"><span class="tag">Conexión con la Unidad III</span><p>En el repaso del Control 1, «inteligencia emocional» <b>no</b> estaba entre las ocho de Gardner del PDF: lo más cercano eran justamente la interpersonal y la intrapersonal. Aquí la clase las retoma como la base de la inteligencia emocional.</p></div>
+</div>
+
+<div class="block">
+  <h3>Emoción e inteligencia emocional</h3>
+  <p class="sub">PDF Unidad V, pp. 6–8</p>
+  <p>Para <b>Daniel Goleman (1995)</b>, toda emoción es un impulso para actuar: un plan instantáneo para enfrentar
+  la vida, que la evolución dejó arraigado en nosotros. De ahí la definición que adopta la clase:</p>
+  <blockquote>Inteligencia o gestión emocional: percibir, asimilar, comprender y regular las propias emociones y las de los demás, promoviendo un crecimiento emocional e intelectual.<cite>PDF UNIDAD V, P. 7</cite></blockquote>
+  <p>La actividad «Clasifiquemos emociones» proyecta esta lista de quince; la diapositiva no trae la clasificación
+  (se hacía en clase):</p>
+  <ul class="chips">
+    <li>Miedo</li><li>Alegría</li><li>Tristeza</li><li>Ira</li><li>Asco</li><li>Sorpresa</li><li>Admiración</li><li>Gratitud</li>
+    <li>Ternura</li><li>Envidia</li><li>Vergüenza</li><li>Melancolía</li><li>Culpa</li><li>Orgullo</li><li>Estrés</li>
+  </ul>
+</div>
+
+<div class="block">
+  <h3>Las cinco habilidades</h3>
+  <p class="sub">PDF Unidad V, pp. 10–15</p>
+  <p>La clase dedica una diapositiva a cada una de estas cinco habilidades. El PDF no las numera ni nombra el marco
+  que las agrupa: se presentan en este orden.</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 483" role="img" aria-label="Lámina 2 — Fachada de cinco columnas: autoconciencia, autorregulación, automotivación, empatía y habilidades sociales"><defs><linearGradient id="rc2-s2-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s2-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s2-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s2-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><polygon points="20,74 460,14 900,74" fill="url(#rc2-s2-ped)" stroke="var(--border)" stroke-width="1.5"/><circle cx="460" cy="52" r="9" class="fgold"/><rect x="20" y="74" width="880" height="30" fill="url(#rc2-s2-ped)" stroke="var(--border)" stroke-width="1.5"/><text x="460" y="94" class="h" font-size="14" text-anchor="middle" >PILAR EMOCIONAL · CINCO HABILIDADES DE LA CLASE</text><rect x="78.0" y="104" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="88.0" y="116" width="40" height="114" fill="url(#rc2-s2-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="99.0" y1="120" x2="99.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="108.0" y1="120" x2="108.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="117.0" y1="120" x2="117.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="78.0" y="230" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="26.0" y="266" width="164.0" height="195" rx="3" fill="url(#rc2-s2-card)" stroke="var(--border)" stroke-width="1.5"/><text x="108.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >AUTOCONCIENCIA</text><text x="108.0" y="316" class="d" font-size="13" text-anchor="middle" >Reconocer y entender</text><text x="108.0" y="335" class="d" font-size="13" text-anchor="middle" >mis emociones, estado</text><text x="108.0" y="354" class="d" font-size="13" text-anchor="middle" >de ánimo e impulsos,</text><text x="108.0" y="373" class="d" font-size="13" text-anchor="middle" >y su efecto en las</text><text x="108.0" y="392" class="d" font-size="13" text-anchor="middle" >demás personas</text><rect x="254.0" y="104" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="264.0" y="116" width="40" height="114" fill="url(#rc2-s2-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="275.0" y1="120" x2="275.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="284.0" y1="120" x2="284.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="293.0" y1="120" x2="293.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="254.0" y="230" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="202.0" y="266" width="164.0" height="195" rx="3" fill="url(#rc2-s2-card)" stroke="var(--border)" stroke-width="1.5"/><text x="284.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >AUTORREGULACIÓN</text><text x="284.0" y="316" class="d" font-size="13" text-anchor="middle" >Conducir o redirigir</text><text x="284.0" y="335" class="d" font-size="13" text-anchor="middle" >impulsos emocionales</text><text x="284.0" y="354" class="d" font-size="13" text-anchor="middle" >y estados de ánimo.</text><text x="284.0" y="373" class="d" font-size="13" text-anchor="middle" >Pensar antes de</text><text x="284.0" y="392" class="d" font-size="13" text-anchor="middle" >actuar</text><rect x="430.0" y="104" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="440.0" y="116" width="40" height="114" fill="url(#rc2-s2-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="451.0" y1="120" x2="451.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="460.0" y1="120" x2="460.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="469.0" y1="120" x2="469.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="430.0" y="230" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="378.0" y="266" width="164.0" height="195" rx="3" fill="url(#rc2-s2-card)" stroke="var(--border)" stroke-width="1.5"/><text x="460.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >AUTOMOTIVACIÓN</text><text x="460.0" y="316" class="d" font-size="13" text-anchor="middle" >Pasión que va más</text><text x="460.0" y="335" class="d" font-size="13" text-anchor="middle" >allá del dinero y el</text><text x="460.0" y="354" class="d" font-size="13" text-anchor="middle" >status. Metas con</text><text x="460.0" y="373" class="d" font-size="13" text-anchor="middle" >energía y</text><text x="460.0" y="392" class="d" font-size="13" text-anchor="middle" >persistencia;</text><text x="460.0" y="411" class="d" font-size="13" text-anchor="middle" >posponer la</text><text x="460.0" y="430" class="d" font-size="13" text-anchor="middle" >gratificación</text><rect x="606.0" y="104" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="616.0" y="116" width="40" height="114" fill="url(#rc2-s2-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="627.0" y1="120" x2="627.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="636.0" y1="120" x2="636.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="645.0" y1="120" x2="645.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="606.0" y="230" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="554.0" y="266" width="164.0" height="195" rx="3" fill="url(#rc2-s2-card)" stroke="var(--border)" stroke-width="1.5"/><text x="636.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >EMPATÍA</text><text x="636.0" y="316" class="d" font-size="13" text-anchor="middle" >Entender la</text><text x="636.0" y="335" class="d" font-size="13" text-anchor="middle" >apariencia emocional</text><text x="636.0" y="354" class="d" font-size="13" text-anchor="middle" >de los demás. Tres</text><text x="636.0" y="373" class="d" font-size="13" text-anchor="middle" >componentes:</text><text x="636.0" y="392" class="d" font-size="13" text-anchor="middle" >cognitiva, afectiva y</text><text x="636.0" y="411" class="d" font-size="13" text-anchor="middle" >somática</text><rect x="782.0" y="104" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="792.0" y="116" width="40" height="114" fill="url(#rc2-s2-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="803.0" y1="120" x2="803.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="812.0" y1="120" x2="812.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="821.0" y1="120" x2="821.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="782.0" y="230" width="60" height="12" fill="url(#rc2-s2-ped)" stroke="var(--border)"/><rect x="730.0" y="266" width="164.0" height="195" rx="3" fill="url(#rc2-s2-card)" stroke="var(--border)" stroke-width="1.5"/><text x="812.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" textLength="146" lengthAdjust="spacingAndGlyphs">HABILIDADES SOCIALES</text><text x="812.0" y="316" class="d" font-size="13" text-anchor="middle" >Interactuar con éxito</text><text x="812.0" y="335" class="d" font-size="13" text-anchor="middle" >en la comunidad y</text><text x="812.0" y="354" class="d" font-size="13" text-anchor="middle" >manejar redes de</text><text x="812.0" y="373" class="d" font-size="13" text-anchor="middle" >relaciones; hallar un</text><text x="812.0" y="392" class="d" font-size="13" text-anchor="middle" >espacio común</text><rect x="20" y="242" width="880" height="10" fill="url(#rc2-s2-ped)" stroke="var(--border)"/></svg></div><figcaption>Lámina 2 · Las cinco habilidades del pilar emocional (PDF Unidad V, pp. 10–15)</figcaption></figure>
+  <div class="two">
+    <div><h4>Empatía · tres componentes</h4><ul><li>Empatía cognitiva</li><li>Empatía afectiva o emocional</li><li>Empatía somática</li></ul><p class="tagline">El PDF los nombra pero no define cada uno</p></div>
+    <div><h4>Habilidades sociales · implicaciones</h4><ul><li>Aprender a comunicarnos efectivamente</li><li>Intimar: desarrollar conexión emocional con otros</li><li>Crear una red de apoyo de amigos y familiares</li><li>Involucrarse con la comunidad</li></ul></div>
+  </div>
+  <p>Una diapositiva intermedia (p. 9) presenta un día y una noche con el título «Let's review some concepts»: es la
+  transición hacia las definiciones, sin texto propio.</p>
+</div>
+
+<div class="block">
+  <h3>¿Dónde están nuestros pensamientos y emociones?</h3>
+  <p class="sub">PDF Unidad V, p. 11</p>
+  <p>Un cuadrante para auto-observarse: la mayor parte de lo que pensamos y sentimos cae en una de cuatro zonas.</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 312" role="img" aria-label="Lámina 3 — Cuadrante de pensamientos y emociones: necesario, poco útil, poco constructivo y constructivo"><defs><linearGradient id="rc2-s3-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s3-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s3-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s3-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><rect x="65" y="20" width="390" height="125" rx="3" class="fgold"/><text x="87" y="56" class="h" font-size="16" text-anchor="start" >NECESARIO</text><text x="87" y="86" class="d" font-size="15" text-anchor="start" >Vida diaria, la rutina, agendas,</text><text x="87" y="107" class="d" font-size="15" text-anchor="start" >vestimenta.</text><rect x="465" y="20" width="390" height="125" rx="3" class="fdash"/><text x="487" y="56" class="h" font-size="16" text-anchor="start" >POCO ÚTIL</text><text x="487" y="86" class="d" font-size="15" text-anchor="start" >Pasado, «si hubiese», especulaciones.</text><rect x="65" y="155" width="390" height="125" rx="3" class="fclay"/><text x="87" y="191" class="h" font-size="16" text-anchor="start" >POCO CONSTRUCTIVO</text><text x="87" y="221" class="d" font-size="15" text-anchor="start" >Resentimientos, chismes, quejas.</text><rect x="465" y="155" width="390" height="125" rx="3" class="fpine"/><text x="487" y="191" class="h" font-size="16" text-anchor="start" >CONSTRUCTIVO</text><text x="487" y="221" class="d" font-size="15" text-anchor="start" >Fuerza interior, motivación, tolerancia,</text><text x="487" y="242" class="d" font-size="15" text-anchor="start" >mejora continua.</text><text x="460" y="296" class="m" font-size="11" text-anchor="middle" >¿Adónde está la mayor parte de nuestros pensamientos y emociones?</text></svg></div><figcaption>Lámina 3 · Cuadrante de pensamientos y emociones (PDF Unidad V, p. 11)</figcaption></figure>
+  <p>La idea que cierra la diapositiva es la del recuadro inferior derecho: la fuerza interior, la motivación, la
+  tolerancia y la mejora continua son lo <b>constructivo</b>; resentimientos, chismes y quejas son lo
+  <b>poco constructivo</b>.</p>
+</div>
+
+<div class="block">
+  <h3>El secuestro de la amígdala</h3>
+  <p class="sub">PDF Unidad V, pp. 16–17</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 372" role="img" aria-label="Lámina 4 — Secuestro de la amígdala: estímulo, amígdala, hormonas y reacción impulsiva; y cómo evitarlo con el semáforo rojo, amarillo, verde"><defs><linearGradient id="rc2-s4-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s4-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s4-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s4-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><rect x="20" y="28" width="190" height="124" rx="3" class="" fill="url(#rc2-s4-card)" stroke="var(--border)" stroke-width="1.5"/><text x="115" y="54" class="h cl" font-size="12.5" text-anchor="middle" >ESTÍMULO</text><text x="115" y="78" class="d" font-size="13" text-anchor="middle" >Una amenaza percibida</text><text x="115" y="96" class="d" font-size="13" text-anchor="middle" >u otro estímulo</text><text x="115" y="114" class="d" font-size="13" text-anchor="middle" >emocional</text><line x1="216" y1="90" x2="266" y2="90" class="ln" marker-end="url(#rc2-s4-arr)"/><rect x="250" y="28" width="190" height="124" rx="3" class="fclay"  stroke="var(--border)" stroke-width="1.5"/><text x="345" y="54" class="h cl" font-size="12.5" text-anchor="middle" >AMÍGDALA</text><text x="345" y="78" class="d" font-size="13" text-anchor="middle" >Responde primero:</text><text x="345" y="96" class="d" font-size="13" text-anchor="middle" >recibe las señales</text><text x="345" y="114" class="d" font-size="13" text-anchor="middle" >sensoriales antes que</text><text x="345" y="132" class="d" font-size="13" text-anchor="middle" >el neocórtex</text><line x1="446" y1="90" x2="496" y2="90" class="ln" marker-end="url(#rc2-s4-arr)"/><rect x="480" y="28" width="190" height="124" rx="3" class="fclay"  stroke="var(--border)" stroke-width="1.5"/><text x="575" y="54" class="h cl" font-size="12.5" text-anchor="middle" >HORMONAS</text><text x="575" y="78" class="d" font-size="13" text-anchor="middle" >Se liberan hormonas</text><text x="575" y="96" class="d" font-size="13" text-anchor="middle" >del estrés</text><text x="575" y="114" class="d" font-size="13" text-anchor="middle" >(adrenalina): «lucha o</text><text x="575" y="132" class="d" font-size="13" text-anchor="middle" >huida»</text><line x1="676" y1="90" x2="726" y2="90" class="ln" marker-end="url(#rc2-s4-arr)"/><rect x="710" y="28" width="190" height="124" rx="3" class="fclay2"  stroke="var(--border)" stroke-width="1.5"/><text x="805" y="54" class="h cl" font-size="12.5" text-anchor="middle" textLength="166" lengthAdjust="spacingAndGlyphs">NEOCÓRTEX BLOQUEADO</text><text x="805" y="78" class="d" font-size="13" text-anchor="middle" >Reacción impulsiva y,</text><text x="805" y="96" class="d" font-size="13" text-anchor="middle" >a menudo, irracional</text><text x="900" y="172" class="m" font-size="11" text-anchor="end" >Ira explosiva · miedo intenso · pánico</text><text x="20" y="205" class="h pn" font-size="14" text-anchor="start" >CÓMO EVITARLO</text><rect x="20" y="216" width="280" height="38" rx="3" class="fpine"/><text x="160" y="240" class="t" font-size="14" text-anchor="middle" >1 · Observar detonantes</text><rect x="320" y="216" width="280" height="38" rx="3" class="fpine"/><text x="460" y="240" class="t" font-size="14" text-anchor="middle" >2 · Encontrar un modelo</text><rect x="620" y="216" width="280" height="38" rx="3" class="fpine"/><text x="760" y="240" class="t" font-size="14" text-anchor="middle" >3 · Notar señales del cuerpo</text><text x="20" y="290" class="h" font-size="14" text-anchor="start" >4 · Hacer cortocircuito: «Lo pensaré»</text><circle cx="60" cy="326" r="20" fill="var(--danger)" stroke="var(--text-faint)" stroke-width="1.5"/><text x="92" y="322" class="h" font-size="14" text-anchor="start" >Rojo</text><text x="92" y="342" class="d" font-size="13" text-anchor="start" >Cálmate</text><circle cx="330" cy="326" r="20" fill="#D9A441" stroke="var(--text-faint)" stroke-width="1.5"/><text x="362" y="322" class="h" font-size="14" text-anchor="start" >Amarillo</text><text x="362" y="342" class="d" font-size="13" text-anchor="start" >Evaluar opciones</text><circle cx="600" cy="326" r="20" fill="var(--pine)" stroke="var(--text-faint)" stroke-width="1.5"/><text x="632" y="322" class="h" font-size="14" text-anchor="start" >Verde</text><text x="632" y="342" class="d" font-size="13" text-anchor="start" >Probar opciones</text><text x="840" y="322" class="h cl" font-size="14" text-anchor="middle" >5 · Repetir</text><path d="M800,336 C800,356 880,356 880,336" class="ln" marker-end="url(#rc2-s4-arr)"/></svg></div><figcaption>Lámina 4 · Secuestro de la amígdala y cortocircuito (PDF Unidad V, pp. 16–17)</figcaption></figure>
+  <div class="two">
+    <div><h4>Qué es</h4><p>La amígdala responde de manera desproporcionada a un estímulo emocional (por ejemplo, una amenaza percibida). La respuesta es tan fuerte que bloquea o «secuestra» la capacidad del neocórtex de procesar la situación racionalmente.</p></div>
+    <div><h4>Por qué es rápido</h4><p>La amígdala puede activar una respuesta antes de que el neocórtex procese completamente la información, porque recibe las señales sensoriales antes que él.</p></div>
+    <div><h4>Qué se libera</h4><p>Hormonas del estrés (como la adrenalina), lo que genera una respuesta de «lucha o huida».</p></div>
+    <div><h4>Respuestas típicas</h4><p>Ira explosiva, miedo intenso, ataques de pánico o cualquier reacción emocional extrema; reacciones impulsivas y, a menudo, irracionales.</p></div>
+  </div>
+  <div class="note"><span class="tag">Detalle que se confunde</span><p>El <b>semáforo</b> es solo el cuarto paso de cinco. Los pasos son: observar detonantes · encontrar un modelo · notar señales del cuerpo · hacer cortocircuito («lo pensaré»: rojo cálmate, amarillo evaluar opciones, verde probar opciones) · repetir.</p></div>
+</div>
+
+<div class="block">
+  <h3>Cómo desarrollar esta dimensión</h3>
+  <p class="sub">PDF Unidad V, pp. 18–19</p>
+  <div class="two">
+    <div><h4>I · Internas</h4><ul>
+      <li>Amplía tu vocabulario emocional</li><li>Considera la intensidad de la emoción</li><li>Escribe sobre tus emociones</li>
+      <li>Tómate el tiempo para «calmar» los pensamientos y reflexionar</li><li>Cuida de tu cuerpo</li>
+      <li>Procura no tomarte demasiado «en serio»</li><li>Sé amable contigo mismo</li><li>Mantén rutinas de autocuidado</li></ul></div>
+    <div><h4>II · Relacionales</h4><ul>
+      <li>Involúcrate en actividades extracurriculares o hobbies</li>
+      <li>Comparte tus pensamientos y sentimientos con alguien de confianza que escuche con intención de comprender</li>
+      <li>Únete a una organización compatible con tus intereses y valores</li>
+      <li>Haz el esfuerzo de mantenerte cerca de tus seres queridos y mentores</li>
+      <li>Haz voluntariado</li><li>Expresa palabras de afirmación</li></ul></div>
+  </div>
+</div>
+
+<div class="block">
+  <h3>Glosario de la unidad</h3>
+  <p class="sub">Definiciones tal como las da el PDF</p>
+  <dl class="glos">
+    <div><dt>Inteligencia emocional</dt><dd>Percibir, asimilar, comprender y regular las propias emociones y las de los demás, promoviendo un crecimiento emocional e intelectual.</dd></div>
+    <div><dt>Cerebro emocional</dt><dd>Reptiliano + sistema límbico.</dd></div>
+    <div><dt>Cerebro racional</dt><dd>Neocórtex.</dd></div>
+    <div><dt>Autoconciencia</dt><dd>Habilidad de reconocer y entender mis emociones, estado de ánimo e impulsos, así como su efecto en las demás personas.</dd></div>
+    <div><dt>Autorregulación</dt><dd>Habilidad para conducir o redirigir impulsos emocionales y estados de ánimo. Pensar antes de actuar.</dd></div>
+    <div><dt>Automotivación</dt><dd>Pasión para trabajar por razones que van más allá del dinero y el status; propensión a lograr metas con energía y persistencia; habilidad para posponer la gratificación.</dd></div>
+    <div><dt>Empatía</dt><dd>Habilidad para entender la apariencia emocional de los demás y tratar a las personas de acuerdo con sus reacciones emocionales. Componentes: cognitiva, afectiva o emocional y somática.</dd></div>
+    <div><dt>Habilidades sociales</dt><dd>Habilidad para interactuar exitosamente en nuestra comunidad y vivir a la altura de nuestras expectativas y roles personales; pericia en el manejo y construcción de redes de relaciones; habilidad para encontrar un espacio común y constituir simpatía.</dd></div>
+    <div><dt>Secuestro de la amígdala</dt><dd>Respuesta desproporcionada de la amígdala ante un estímulo emocional, tan fuerte que bloquea la capacidad del neocórtex de procesar la situación racionalmente.</dd></div>
+    <div><dt>Semáforo (cortocircuito)</dt><dd>Tras «lo pensaré»: rojo = cálmate; amarillo = evaluar opciones; verde = probar opciones.</dd></div>
+  </dl>
+</div>
+
+<div class="block" id="casos5">
+  <div class="quizhead"><h3 style="margin:0;">Casos de aplicación — Unidad V</h3><span class="score mono" data-score="c5">0 / 4 respondidos</span></div>
+  <p class="sub">Escenarios inventados para este repaso: practican qué concepto aplica, no replican el Control</p>
+  <div data-quiz="c5"></div>
+</div>
+
+<div class="block" id="notas5">
+  <h3>Tus palabras · Unidad V</h3>
+  <p class="sub">Espacio para pensar con tu propia voz — nada de esto lo escribo yo</p>
+  <div class="notes">
+    <label for="n5a">¿Qué detonantes reconozco en mí?<small>Primer paso para evitar un secuestro: observarlos.</small></label>
+    <textarea id="n5a" data-note="n5a"></textarea>
+    <label for="n5b">¿Qué señales manda mi cuerpo antes de reaccionar?</label>
+    <textarea id="n5b" data-note="n5b"></textarea>
+    <label for="n5c">Una situación reciente, repasada con el semáforo<small>¿Qué habría sido rojo, qué amarillo y qué verde?</small></label>
+    <textarea id="n5c" data-note="n5c"></textarea>
+    <p class="hint">Se guardan solo en este navegador. No se envían ni se publican.</p>
+  </div>
+</div>
+
+<div class="block" id="cards5">
+  <h3>Tarjetas de memoria · Unidad V</h3>
+  <p class="sub">Voltea con clic, barra espaciadora o Enter</p>
+  <div class="deck" data-deck="d5"></div>
+</div>
+
+<div class="block" id="quiz">
+  <div class="quizhead"><h3 style="margin:0;">Autoevaluación — Unidad V</h3><span class="score mono" data-score="u5">0 / 5 respondidas</span></div>
+  <div data-quiz="u5"></div>
+</div>
+</section>
+<section class="unit" id="u6">
+<div class="unit-head"><span class="unit-num">UNIDAD VI</span><h2>Pilar relacional / social</h2></div>
+<p class="unit-dates">Parte I (6 oct, según el cronograma) · Parte II «Confianza y límites» (8 oct) · <span style="color:var(--clay);">la dinámica vivencial del 10 oct se evalúa aparte y no está en este repaso</span></p>
+<p class="fuente">Fuentes: «8. Pilar relacional V2.pdf» (24 pp., Parte I · Conexión, apoyo y comunicación) · «9. Pilar relacional parte II V3.pdf» (30 pp., Parte II · Relaciones sanas, límites y vínculos hoy). Las páginas citadas son las del PDF.</p>
+
+<!-- ============== PARTE I ============== -->
+<div class="block">
+  <h3>Parte I · Qué dice la evidencia</h3>
+  <p class="sub">PDF Parte I, pp. 2–6, 9–10</p>
+  <p>La clase se propone cuatro cosas: explicar qué es el bienestar relacional y qué evidencia lo respalda, distinguir el
+  pilar relacional del emocional, mapear tu red de apoyo y practicar la comunicación asertiva y empática. Arranca con
+  el <b>Harvard Study of Adult Development</b> (desde 1938): siguió a las mismas personas durante décadas y encontró
+  que la satisfacción con las relaciones a los 50 años predijo la salud a los 80 mejor que el colesterol.
+  Su director, Robert Waldinger, lo resume diciendo que las buenas relaciones nos mantienen más felices y más sanos.</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 318" role="img" aria-label="Lámina 5 — Cuatro cifras de la evidencia: Harvard 1938, +50% de supervivencia, 47% más peso en bebés y efecto doble en la pareja"><defs><linearGradient id="rc2-s5-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s5-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s5-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s5-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><polygon points="20,50 120,14 220,50" fill="url(#rc2-s5-ped)" stroke="var(--border)" stroke-width="1.5"/><rect x="20" y="50" width="200" height="250" fill="url(#rc2-s5-card)" stroke="var(--border)" stroke-width="1.5"/><text x="120" y="100" class="h cl" font-size="38" text-anchor="middle" >1938</text><text x="120" y="126" class="h" font-size="11.5" text-anchor="middle" textLength="176" lengthAdjust="spacingAndGlyphs">Harvard Study of Adult Development</text><text x="120" y="152" class="d" font-size="13" text-anchor="middle" >La satisfacción con las</text><text x="120" y="170" class="d" font-size="13" text-anchor="middle" >relaciones a los 50 años</text><text x="120" y="188" class="d" font-size="13" text-anchor="middle" >predijo la salud a los 80</text><text x="120" y="206" class="d" font-size="13" text-anchor="middle" >mejor que el colesterol</text><text x="120" y="280" class="m" font-size="10" text-anchor="middle" >Waldinger &amp; Schulz (2023)</text><polygon points="248,50 348,14 448,50" fill="url(#rc2-s5-ped)" stroke="var(--border)" stroke-width="1.5"/><rect x="248" y="50" width="200" height="250" fill="url(#rc2-s5-card)" stroke="var(--border)" stroke-width="1.5"/><text x="348" y="100" class="h cl" font-size="38" text-anchor="middle" >+50%</text><text x="348" y="126" class="h" font-size="11.5" text-anchor="middle" textLength="176" lengthAdjust="spacingAndGlyphs">Probabilidad de supervivencia</text><text x="348" y="152" class="d" font-size="13" text-anchor="middle" >Más probabilidad de</text><text x="348" y="170" class="d" font-size="13" text-anchor="middle" >supervivencia con</text><text x="348" y="188" class="d" font-size="13" text-anchor="middle" >relaciones sociales</text><text x="348" y="206" class="d" font-size="13" text-anchor="middle" >fuertes: 148 estudios,</text><text x="348" y="224" class="d" font-size="13" text-anchor="middle" >308 849 personas</text><text x="348" y="280" class="m" font-size="10" text-anchor="middle" >Holt-Lunstad, Smith &amp; Layton</text><text x="348" y="293" class="m" font-size="10" text-anchor="middle" >(2010)</text><polygon points="476,50 576,14 676,50" fill="url(#rc2-s5-ped)" stroke="var(--border)" stroke-width="1.5"/><rect x="476" y="50" width="200" height="250" fill="url(#rc2-s5-card)" stroke="var(--border)" stroke-width="1.5"/><text x="576" y="100" class="h cl" font-size="38" text-anchor="middle" >47 %</text><text x="576" y="126" class="h" font-size="11.5" text-anchor="middle" >Bebés prematuros</text><text x="576" y="152" class="d" font-size="13" text-anchor="middle" >Más peso con tres</text><text x="576" y="170" class="d" font-size="13" text-anchor="middle" >sesiones diarias de 15</text><text x="576" y="188" class="d" font-size="13" text-anchor="middle" >min de terapia de</text><text x="576" y="206" class="d" font-size="13" text-anchor="middle" >contacto durante 5–10</text><text x="576" y="224" class="d" font-size="13" text-anchor="middle" >días</text><text x="576" y="280" class="m" font-size="10" text-anchor="middle" >Field et al. (1986) · Keltner</text><text x="576" y="293" class="m" font-size="10" text-anchor="middle" >(2010)</text><polygon points="704,50 804,14 904,50" fill="url(#rc2-s5-ped)" stroke="var(--border)" stroke-width="1.5"/><rect x="704" y="50" width="200" height="250" fill="url(#rc2-s5-card)" stroke="var(--border)" stroke-width="1.5"/><text x="804" y="100" class="h cl" font-size="38" text-anchor="middle" >×2</text><text x="804" y="126" class="h" font-size="11.5" text-anchor="middle" textLength="176" lengthAdjust="spacingAndGlyphs">Pareja y mejor amigo/a</text><text x="804" y="152" class="d" font-size="13" text-anchor="middle" >El efecto sobre la</text><text x="804" y="170" class="d" font-size="13" text-anchor="middle" >satisfacción vital se</text><text x="804" y="188" class="d" font-size="13" text-anchor="middle" >duplica cuando la pareja</text><text x="804" y="206" class="d" font-size="13" text-anchor="middle" >es también tu mejor</text><text x="804" y="224" class="d" font-size="13" text-anchor="middle" >amigo/a</text><text x="804" y="280" class="m" font-size="10" text-anchor="middle" >Helliwell &amp; Grover (2014)</text></svg></div><figcaption>Lámina 5 · Evidencia del bienestar relacional (PDF Parte I, pp. 3, 5, 9, 10)</figcaption></figure>
+  <div class="two">
+    <div><h4>Qué es el bienestar relacional</h4><p>La calidad de nuestros vínculos y nuestra capacidad de construirlos, sostenerlos y cuidarnos dentro de ellos.</p></div>
+    <div><h4>Tres autores que lo respaldan</h4><ul><li><b>Seligman · PERMA:</b> las relaciones son la R, uno de los cinco elementos del florecimiento.</li><li><b>Lyubomirsky (2007):</b> las relaciones cercanas figuran entre los factores más consistentes de la felicidad.</li><li><b>Cohen &amp; Wills (1985):</b> el apoyo social amortigua el efecto del estrés sobre la salud, y percibir que cuentas con él ya protege.</li></ul></div>
+  </div>
+  <h4 class="sec">Beneficios en la salud</h4>
+  <ul class="clean">
+    <li>Mayor longevidad.</li>
+    <li>Mejor respuesta inmune: menos resfriados en personas con redes sociales más diversas (Cohen et al., 1997).</li>
+    <li>Menos ansiedad y depresión; más autoestima y empatía.</li>
+    <li class="clay"><b>Círculo virtuoso:</b> el bienestar emocional, social y físico se retroalimentan.</li>
+  </ul>
+  <div class="note"><span class="tag">Maslow, otra vez</span><p>En la diapositiva de la pirámide (p. 6), la etiqueta «Pilar relacional» señala con una flecha el nivel <b>Love and belonging</b>.</p></div>
+</div>
+
+<div class="block">
+  <h3>Los cinco componentes del bienestar relacional</h3>
+  <p class="sub">PDF Parte I, p. 7 · PDF Parte II, p. 4</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 464" role="img" aria-label="Lámina 6 — Fachada de cinco columnas: calidad, apoyo social, comunicación, hábitos y límites"><defs><linearGradient id="rc2-s6-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s6-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s6-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s6-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><polygon points="20,74 460,14 900,74" fill="url(#rc2-s6-ped)" stroke="var(--border)" stroke-width="1.5"/><circle cx="460" cy="52" r="9" class="fgold"/><rect x="20" y="74" width="880" height="30" fill="url(#rc2-s6-ped)" stroke="var(--border)" stroke-width="1.5"/><text x="460" y="94" class="h" font-size="14" text-anchor="middle" >BIENESTAR RELACIONAL · CINCO COMPONENTES</text><rect x="78.0" y="104" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="88.0" y="116" width="40" height="114" fill="url(#rc2-s6-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="99.0" y1="120" x2="99.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="108.0" y1="120" x2="108.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="117.0" y1="120" x2="117.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="78.0" y="230" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="26.0" y="266" width="164.0" height="176" rx="3" fill="url(#rc2-s6-card)" stroke="var(--border)" stroke-width="1.5"/><text x="108.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >1 · CALIDAD</text><text x="108.0" y="316" class="d" font-size="13" text-anchor="middle" >Profundidad y</text><text x="108.0" y="335" class="d" font-size="13" text-anchor="middle" >autenticidad:</text><text x="108.0" y="354" class="d" font-size="13" text-anchor="middle" >sentirse comprendido</text><text x="108.0" y="373" class="d" font-size="13" text-anchor="middle" >y valorado. Importa</text><text x="108.0" y="392" class="d" font-size="13" text-anchor="middle" >la calidad, no solo</text><text x="108.0" y="411" class="d" font-size="13" text-anchor="middle" >la cantidad</text><rect x="254.0" y="104" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="264.0" y="116" width="40" height="114" fill="url(#rc2-s6-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="275.0" y1="120" x2="275.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="284.0" y1="120" x2="284.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="293.0" y1="120" x2="293.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="254.0" y="230" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="202.0" y="266" width="164.0" height="176" rx="3" fill="url(#rc2-s6-card)" stroke="var(--border)" stroke-width="1.5"/><text x="284.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >2 · APOYO SOCIAL</text><text x="284.0" y="316" class="d" font-size="13" text-anchor="middle" >Personas que ofrecen</text><text x="284.0" y="335" class="d" font-size="13" text-anchor="middle" >apoyo emocional,</text><text x="284.0" y="354" class="d" font-size="13" text-anchor="middle" >consejo y ayuda;</text><text x="284.0" y="373" class="d" font-size="13" text-anchor="middle" >amortigua el estrés</text><rect x="430.0" y="104" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="440.0" y="116" width="40" height="114" fill="url(#rc2-s6-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="451.0" y1="120" x2="451.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="460.0" y1="120" x2="460.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="469.0" y1="120" x2="469.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="430.0" y="230" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="378.0" y="266" width="164.0" height="176" rx="3" fill="url(#rc2-s6-card)" stroke="var(--border)" stroke-width="1.5"/><text x="460.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >3 · COMUNICACIÓN</text><text x="460.0" y="316" class="d" font-size="13" text-anchor="middle" >Asertiva y empática:</text><text x="460.0" y="335" class="d" font-size="13" text-anchor="middle" >expresar con claridad</text><text x="460.0" y="354" class="d" font-size="13" text-anchor="middle" >y respeto, y escuchar</text><text x="460.0" y="373" class="d" font-size="13" text-anchor="middle" >para comprender</text><rect x="606.0" y="104" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="616.0" y="116" width="40" height="114" fill="url(#rc2-s6-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="627.0" y1="120" x2="627.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="636.0" y1="120" x2="636.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="645.0" y1="120" x2="645.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="606.0" y="230" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="554.0" y="266" width="164.0" height="176" rx="3" fill="url(#rc2-s6-card)" stroke="var(--border)" stroke-width="1.5"/><text x="636.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >4 · HÁBITOS</text><text x="636.0" y="316" class="d" font-size="13" text-anchor="middle" >Influencia en</text><text x="636.0" y="335" class="d" font-size="13" text-anchor="middle" >comportamientos</text><text x="636.0" y="354" class="d" font-size="13" text-anchor="middle" >saludables: hábitos y</text><text x="636.0" y="373" class="d" font-size="13" text-anchor="middle" >estados de ánimo se</text><text x="636.0" y="392" class="d" font-size="13" text-anchor="middle" >«contagian»</text><rect x="782.0" y="104" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="792.0" y="116" width="40" height="114" fill="url(#rc2-s6-shaft)" stroke="var(--svg-shaft-edge)" stroke-width="1"/><line x1="803.0" y1="120" x2="803.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="812.0" y1="120" x2="812.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><line x1="821.0" y1="120" x2="821.0" y2="226" stroke="var(--svg-shaft-edge)" stroke-opacity=".45"/><rect x="782.0" y="230" width="60" height="12" fill="url(#rc2-s6-ped)" stroke="var(--border)"/><rect x="730.0" y="266" width="164.0" height="176" rx="3" fill="url(#rc2-s6-card)" stroke="var(--border)" stroke-width="1.5"/><text x="812.0" y="292" class="h cl" font-size="12.5" text-anchor="middle" >5 · LÍMITES</text><text x="812.0" y="316" class="d" font-size="13" text-anchor="middle" >Establecer y respetar</text><text x="812.0" y="335" class="d" font-size="13" text-anchor="middle" >límites personales:</text><text x="812.0" y="354" class="d" font-size="13" text-anchor="middle" >vital para relaciones</text><text x="812.0" y="373" class="d" font-size="13" text-anchor="middle" >equilibradas (Parte</text><text x="812.0" y="392" class="d" font-size="13" text-anchor="middle" >II)</text><rect x="20" y="242" width="880" height="10" fill="url(#rc2-s6-ped)" stroke="var(--border)"/></svg></div><figcaption>Lámina 6 · ¿Qué incluye el bienestar relacional? (PDF Parte I, p. 7)</figcaption></figure>
+  <div class="note gap"><span class="tag">Ojo con la numeración</span><p>En la lista de Parte I los límites son el componente 5 («próxima clase»), pero la diapositiva de Parte II que los desarrolla (p. 16) los titula «4. Establecimiento de límites». Es una errata del archivo: son cinco componentes.</p></div>
+</div>
+
+<div class="block">
+  <h3>1 · Calidad de las relaciones</h3>
+  <p class="sub">PDF Parte I, pp. 8–11</p>
+  <p>Se refiere a la <b>profundidad y autenticidad</b> de las conexiones humanas: no importa solo cuántas relaciones
+  tengamos, sino su calidad, es decir, la capacidad de ofrecer apoyo emocional y de sentirse comprendido y valorado.
+  Estamos diseñados para conectar: <b>pertenecer es una necesidad humana básica</b> (Baumeister &amp; Leary, 1995).</p>
+  <ul class="clean">
+    <li><b>Implicaciones:</b> ser reales y vulnerables; intimar, es decir, desarrollar conexión emocional con otros.</li>
+    <li><b>Desde el nacimiento:</b> bebés prematuros con tres sesiones diarias de 15 min de terapia de contacto durante 5–10 días ganaron 47 % más peso que quienes recibieron solo el cuidado médico estándar (Field et al., 1986).</li>
+    <li><b>La calidad pesa más que el estado civil:</b> estar casado/a se asocia con más satisfacción vital incluso años después, y el efecto se duplica cuando la pareja es también tu mejor amigo/a. Lo que protege no es el estatus, sino la calidad del vínculo; vale también para amistades y familia (Helliwell &amp; Grover, 2014).</li>
+  </ul>
+  <p>Dos preguntas guían la sección: <i>¿cuándo me siento realmente conectado?</i> y <i>¿por qué necesitamos conectar con otros seres humanos?</i> Y un dicho popular que la clase cita para pensar en la vulnerabilidad: amar es darle a alguien el poder de hacerte daño y confiar en que no lo usará.</p>
+</div>
+
+<div class="block">
+  <h3>2 · Apoyo social</h3>
+  <p class="sub">PDF Parte I, pp. 12–14</p>
+  <p>Contar con personas que ofrecen <b>apoyo emocional, consejo y ayuda</b> en momentos difíciles. Amortigua el impacto del estrés y mejora la salud mental y física; percibir que cuentas con él ya protege
+  (Cohen &amp; Wills, 1985). Implicación: construir y cuidar una <b>red diversa</b> de amigos, familia y comunidad, porque
+  una misma persona rara vez da los cuatro tipos de apoyo (basado en House, 1981).</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 345" role="img" aria-label="Lámina 7 — Mapa de la red de apoyo en tres anillos (núcleo, cercanos, comunidad) y los cuatro tipos de apoyo social"><defs><linearGradient id="rc2-s7-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s7-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s7-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s7-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><circle cx="170" cy="178" r="150" class="fdash"/><circle cx="170" cy="178" r="100" class="fpine"/><circle cx="170" cy="178" r="52" class="fgold"/><text x="170" y="52" class="h" font-size="13" text-anchor="middle" >COMUNIDAD</text><text x="170" y="100" class="h" font-size="13" text-anchor="middle" >CERCANOS</text><text x="170" y="166" class="h cl" font-size="13" text-anchor="middle" >NÚCLEO</text><text x="170" y="184" class="d" font-size="10.5" text-anchor="middle" >a quien llamarías</text><text x="170" y="197" class="d" font-size="10.5" text-anchor="middle" >a las 3 a.m.</text><rect x="370" y="15" width="260" height="154" rx="3" fill="url(#rc2-s7-card)" stroke="var(--border)" stroke-width="1.5"/><text x="386" y="45" class="h cl" font-size="13" text-anchor="start" >E · EMOCIONAL</text><text x="386" y="73" class="d" font-size="13" text-anchor="start" >Te escucha, te cuida, te hace</text><text x="386" y="91" class="d" font-size="13" text-anchor="start" >sentir querido/a.</text><text x="386" y="127" class="m" font-size="10" text-anchor="start" >Ejemplo</text><text x="386" y="143" class="t" font-size="13" text-anchor="start" >Se quedó conmigo cuando lloré</text><rect x="640" y="15" width="260" height="154" rx="3" fill="url(#rc2-s7-card)" stroke="var(--border)" stroke-width="1.5"/><text x="656" y="45" class="h cl" font-size="13" text-anchor="start" >I · INSTRUMENTAL</text><text x="656" y="73" class="d" font-size="13" text-anchor="start" >Ayuda concreta: tiempo, dinero,</text><text x="656" y="91" class="d" font-size="13" text-anchor="start" >tareas.</text><text x="656" y="127" class="m" font-size="10" text-anchor="start" >Ejemplo</text><text x="656" y="143" class="t" font-size="13" text-anchor="start" >Me prestó sus apuntes y me llevó</text><text x="656" y="160" class="t" font-size="13" text-anchor="start" >al médico</text><rect x="370" y="185" width="260" height="154" rx="3" fill="url(#rc2-s7-card)" stroke="var(--border)" stroke-width="1.5"/><text x="386" y="215" class="h cl" font-size="13" text-anchor="start" >Inf · INFORMATIVO</text><text x="386" y="243" class="d" font-size="13" text-anchor="start" >Consejo, orientación, otra</text><text x="386" y="261" class="d" font-size="13" text-anchor="start" >perspectiva.</text><text x="386" y="297" class="m" font-size="10" text-anchor="start" >Ejemplo</text><text x="386" y="313" class="t" font-size="13" text-anchor="start" >Me recomendó a un especialista</text><rect x="640" y="185" width="260" height="154" rx="3" fill="url(#rc2-s7-card)" stroke="var(--border)" stroke-width="1.5"/><text x="656" y="215" class="h cl" font-size="13" text-anchor="start" >V · VALORACIÓN</text><text x="656" y="243" class="d" font-size="13" text-anchor="start" >Te devuelve quién eres: reconoce</text><text x="656" y="261" class="d" font-size="13" text-anchor="start" >y afirma.</text><text x="656" y="297" class="m" font-size="10" text-anchor="start" >Ejemplo</text><text x="656" y="313" class="t" font-size="13" text-anchor="start" >Me dijo «tú puedes con esto»</text></svg></div><figcaption>Lámina 7 · Red de apoyo y cuatro tipos de apoyo social, basado en House (1981) (PDF Parte I, pp. 13–14)</figcaption></figure>
+  <p><b>Actividad 1 · mapa de mi red de apoyo</b> (marco de la actividad; tus respuestas son tuyas): ubicar iniciales en tres
+  anillos (núcleo = a quién llamarías a las 3 a.m.; cercanos; comunidad) · marcar junto a cada persona qué apoyo da (E, I, Inf, V) ·
+  mirar el mapa: ¿qué tipo de apoyo te falta? ¿para quién eres tú ese apoyo? · compartir un hallazgo en parejas y elegir a quién
+  le escribirás esta semana.</p>
+</div>
+
+<div class="block">
+  <h3>3 · Comunicación asertiva y empática</h3>
+  <p class="sub">PDF Parte I, pp. 15–23</p>
+  <p><b>Empatía:</b> comprender lo que siente el otro. <b>Asertividad:</b> expresar con claridad y respeto lo que pienso, siento y necesito.
+  Juntas son la base para resolver conflictos y mantener relaciones sanas. Implicación: expresarnos con claridad y
+  <b>escuchar para comprender, no solo para responder</b>.</p>
+  <h4 class="sec">Más que palabras: tres canales</h4>
+  <div class="three">
+    <div><span class="lab">Palabras</span><h4>Lo que digo</h4><p>«Estoy bien.»</p></div>
+    <div><span class="lab">Tono e inflexión</span><h4>Cómo lo digo</h4><p>Dicho entre dientes, no suena a «bien».</p></div>
+    <div><span class="lab">Cuerpo</span><h4>Gestos, mirada, postura</h4><p>Brazos cruzados y sin mirarte.</p></div>
+  </div>
+  <p>En un chat perdemos el tono y el cuerpo: por eso los mensajes escritos se malinterpretan más.</p>
+  <h4 class="sec">Tres estilos de comunicar</h4>
+  <div class="three">
+    <div><span class="lab">Pasiva</span><p><b>Qué hago:</b> callo, cedo, evito el conflicto.</p><p><b>Cómo suena:</b> «No pasa nada, como tú quieras…»</p><p><b>Qué pasa:</b> me pierdo yo; acumulo resentimiento.</p></div>
+    <div><span class="lab">Agresiva</span><p><b>Qué hago:</b> impongo, culpo, ataco.</p><p><b>Cómo suena:</b> «Siempre haces lo mismo, eres un…»</p><p><b>Qué pasa:</b> pierdo al otro; miedo, defensa, distancia.</p></div>
+    <div><span class="lab">Asertiva</span><p><b>Qué hago:</b> expreso con claridad y respeto, y escucho.</p><p><b>Cómo suena:</b> «Cuando…, me siento…, necesito…»</p><p><b>Qué pasa:</b> cuido a ambos; se puede negociar.</p></div>
+  </div>
+  <p class="tagline">Las tres diapositivas de chats (pp. 17–19) son capturas de conversaciones; la clase las comenta en voz alta.</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 372" role="img" aria-label="Lámina 8 — Mensaje YO en cuatro pasos y empatía en tres pasos"><defs><linearGradient id="rc2-s8-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s8-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s8-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s8-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><text x="20" y="22" class="h pn" font-size="13" text-anchor="start" >MENSAJE YO · 4 PASOS (ADAPTADO DE DESC, BOWER &amp; BOWER, 1976)</text><rect x="20" y="36" width="205" height="112" rx="3" fill="url(#rc2-s8-card)" stroke="var(--border)" stroke-width="1.5"/><text x="122" y="66" class="h cl" font-size="14" text-anchor="middle" >1 · DESCRIBE</text><text x="122" y="92" class="d" font-size="13" text-anchor="middle" >el hecho, sin juzgar ni</text><text x="122" y="110" class="d" font-size="13" text-anchor="middle" >exagerar</text><line x1="227" y1="92" x2="243" y2="92" class="ln" marker-end="url(#rc2-s8-arr)"/><rect x="245" y="36" width="205" height="112" rx="3" fill="url(#rc2-s8-card)" stroke="var(--border)" stroke-width="1.5"/><text x="347" y="66" class="h cl" font-size="14" text-anchor="middle" >2 · EXPRESA</text><text x="347" y="92" class="d" font-size="13" text-anchor="middle" >cómo te afecta: una</text><text x="347" y="110" class="d" font-size="13" text-anchor="middle" >emoción, en primera</text><text x="347" y="128" class="d" font-size="13" text-anchor="middle" >persona</text><line x1="452" y1="92" x2="468" y2="92" class="ln" marker-end="url(#rc2-s8-arr)"/><rect x="470" y="36" width="205" height="112" rx="3" fill="url(#rc2-s8-card)" stroke="var(--border)" stroke-width="1.5"/><text x="572" y="66" class="h cl" font-size="14" text-anchor="middle" >3 · PIDE</text><text x="572" y="92" class="d" font-size="13" text-anchor="middle" >algo concreto: qué</text><text x="572" y="110" class="d" font-size="13" text-anchor="middle" >necesitas que cambie o</text><text x="572" y="128" class="d" font-size="13" text-anchor="middle" >pase</text><line x1="677" y1="92" x2="693" y2="92" class="ln" marker-end="url(#rc2-s8-arr)"/><rect x="695" y="36" width="205" height="112" rx="3" fill="url(#rc2-s8-card)" stroke="var(--border)" stroke-width="1.5"/><text x="797" y="66" class="h cl" font-size="14" text-anchor="middle" >4 · CIERRA</text><text x="797" y="92" class="d" font-size="13" text-anchor="middle" >con un acuerdo:</text><text x="797" y="110" class="d" font-size="13" text-anchor="middle" >beneficio mutuo y</text><text x="797" y="128" class="d" font-size="13" text-anchor="middle" >pregunta abierta</text><text x="20" y="174" class="m" font-size="11" text-anchor="start" >Plantilla: «Cuando…, me siento…, necesito…». Evita: «siempre», «nunca», «eres…».</text><text x="20" y="214" class="h pn" font-size="13" text-anchor="start" >EMPATÍA · 3 PASOS</text><rect x="20" y="228" width="280" height="104" rx="3" class="fpine"/><text x="160" y="256" class="h" font-size="14" text-anchor="middle" >1 · ESCUCHA</text><text x="160" y="280" class="d" font-size="13" text-anchor="middle" >Sin interrumpir y sin preparar tu</text><text x="160" y="298" class="d" font-size="13" text-anchor="middle" >respuesta mientras el otro habla</text><line x1="303" y1="280" x2="318" y2="280" class="ln" marker-end="url(#rc2-s8-arr)"/><rect x="321" y="228" width="280" height="104" rx="3" class="fpine"/><text x="461" y="256" class="h" font-size="14" text-anchor="middle" >2 · NOMBRA</text><text x="461" y="280" class="d" font-size="13" text-anchor="middle" >Parafrasea lo que entendiste y lo</text><text x="461" y="298" class="d" font-size="13" text-anchor="middle" >que parece sentir: «Entiendo que te</text><text x="461" y="316" class="d" font-size="13" text-anchor="middle" >sentiste…»</text><line x1="604" y1="280" x2="619" y2="280" class="ln" marker-end="url(#rc2-s8-arr)"/><rect x="622" y="228" width="280" height="104" rx="3" class="fpine"/><text x="762" y="256" class="h" font-size="14" text-anchor="middle" >3 · VALIDA</text><text x="762" y="280" class="d" font-size="13" text-anchor="middle" >Reconoce que su emoción tiene</text><text x="762" y="298" class="d" font-size="13" text-anchor="middle" >sentido, aunque pienses distinto</text><text x="460" y="354" class="m" font-size="11" text-anchor="middle" >Validar no es estar de acuerdo: es reconocer que la emoción del otro tiene sentido.</text></svg></div><figcaption>Lámina 8 · Herramientas de comunicación (PDF Parte I, pp. 21–22)</figcaption></figure>
+  <p><b>Actividad 2 · practica en tríos</b> (marco): roles que rotan cada 3 min — A dice un mensaje YO, B escucha, valida y responde, C observa con la
+  lista. Lista del observador: describió el hecho sin juzgar · nombró cómo le afecta · pidió algo concreto · tono y cuerpo coherentes ·
+  B validó antes de responder.</p>
+</div>
+
+<!-- ============== PARTE II ============== -->
+<div class="greek-frieze subtle"></div>
+<div class="block">
+  <h3>Parte II · Hábitos que se contagian</h3>
+  <p class="sub">PDF Parte II, pp. 3–5</p>
+  <p>La Parte II abre con una pregunta para responder de pie (sí · no · depende): <i>¿es más difícil amar hoy que en la época de nuestros
+  abuelos?</i> Recuerda el mapa («Lo que ya vimos») y retoma el componente 4, la <b>influencia en comportamientos saludables</b>:
+  nuestros hábitos y estados de ánimo se «contagian». La evidencia: <b>la felicidad se propaga hasta tres grados de separación</b> en una
+  red social (Fowler &amp; Christakis, 2008).</p>
+  <ul class="clean">
+    <li>Sueño, ejercicio, alimentación y estudio: las personas cercanas empujan en una u otra dirección. Es la conexión con los pilares <b>físico</b> e <b>intelectual</b>: los vínculos sostienen (o sabotean) tus rutinas.</li>
+    <li class="clay"><b>Para preguntarte:</b> ¿qué hábito mío viene de mi círculo? ¿Cuál influye en otros?</li>
+  </ul>
+</div>
+
+<div class="block">
+  <h3>Emocional y relacional: se complementan</h3>
+  <p class="sub">PDF Parte II, p. 6 — desarrollado en la sección «Mapa»</p>
+  <p>El <b>emocional</b> es mi relación conmigo (reconocer, nombrar y regular lo que siento); el <b>relacional</b> es mi relación con los demás
+  (conectar, apoyar, comunicar y cuidar los vínculos). Sin autorregulación no hay comunicación asertiva; sin vínculos, las emociones no tienen
+  dónde sostenerse. El puente: <span class="hl">empatía, asertividad y apoyo</span>.</p>
+</div>
+
+<div class="block">
+  <h3>De la relación sana a la abusiva</h3>
+  <p class="sub">PDF Parte II, pp. 7–11</p>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 282" role="img" aria-label="Lámina 9 — Espectro de relaciones: sana, conflictiva, tóxica y abusiva"><defs><linearGradient id="rc2-s9-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s9-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s9-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s9-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><text x="20" y="24" class="h pn" font-size="14" text-anchor="start" >DE LA RELACIÓN SANA A LA ABUSIVA</text><line x1="20" y1="38" x2="898" y2="38" class="ln" marker-end="url(#rc2-s9-arr)"/><rect x="20" y="54" width="205" height="180" rx="3" class="fpine"/><text x="122" y="86" class="h" font-size="15" text-anchor="middle" >SANA</text><text x="122" y="112" class="d" font-size="13" text-anchor="middle" >Hay respeto, apoyo y</text><text x="122" y="130" class="d" font-size="13" text-anchor="middle" >autonomía. Los</text><text x="122" y="148" class="d" font-size="13" text-anchor="middle" >desacuerdos se hablan y</text><text x="122" y="166" class="d" font-size="13" text-anchor="middle" >se reparan.</text><rect x="245" y="54" width="205" height="180" rx="3" class="fgold"/><text x="347" y="86" class="h" font-size="15" text-anchor="middle" >CONFLICTIVA</text><text x="347" y="112" class="d" font-size="13" text-anchor="middle" >Choques fuertes o</text><text x="347" y="130" class="d" font-size="13" text-anchor="middle" >puntuales, pero hay</text><text x="347" y="148" class="d" font-size="13" text-anchor="middle" >voluntad de reparar y</text><text x="347" y="166" class="d" font-size="13" text-anchor="middle" >nadie teme al otro.</text><rect x="470" y="54" width="205" height="180" rx="3" class="fclay"/><text x="572" y="86" class="h" font-size="15" text-anchor="middle" >TÓXICA</text><text x="572" y="112" class="d" font-size="13" text-anchor="middle" >Término popular. Patrón</text><text x="572" y="130" class="d" font-size="13" text-anchor="middle" >repetido que te</text><text x="572" y="148" class="d" font-size="13" text-anchor="middle" >desgasta: control,</text><text x="572" y="166" class="d" font-size="13" text-anchor="middle" >desvalorización, ciclos</text><text x="572" y="184" class="d" font-size="13" text-anchor="middle" >de conflicto y</text><text x="572" y="202" class="d" font-size="13" text-anchor="middle" >reconciliación.</text><rect x="695" y="54" width="205" height="180" rx="3" class="fclay2"/><text x="797" y="86" class="h" font-size="15" text-anchor="middle" >ABUSIVA</text><text x="797" y="112" class="t" font-size="13" text-anchor="middle" >Control, humillación,</text><text x="797" y="130" class="t" font-size="13" text-anchor="middle" >amenazas o violencia</text><text x="797" y="148" class="t" font-size="13" text-anchor="middle" >(psicológica, física,</text><text x="797" y="166" class="t" font-size="13" text-anchor="middle" >sexual, económica,</text><text x="797" y="184" class="t" font-size="13" text-anchor="middle" >digital). Requiere</text><text x="797" y="202" class="t" font-size="13" text-anchor="middle" >protección y ayuda.</text><text x="460" y="264" class="m" font-size="11" text-anchor="middle" >«Tóxico» no es un término clínico: hablamos de dinámicas y comportamientos, no de personas.</text></svg></div><figcaption>Lámina 9 · De la relación sana a la abusiva (PDF Parte II, p. 7)</figcaption></figure>
+  <h4 class="sec">Patrones detrás de dinámicas dañinas</h4>
+  <div class="three">
+    <div><h4>Dependencia emocional</h4><p>Centrada en mi inseguridad y en el miedo a la soledad: lo que necesito del otro para sentirme seguro/a o querido/a.</p></div>
+    <div><h4>Codependencia</h4><p>Centrada en el otro: lo que hago por la otra persona para mantener la relación, incluso a costa de mi bienestar.</p></div>
+    <div><h4>Personalidad dependiente</h4><p>Rasgo estable: miedo al abandono, búsqueda constante de apoyo, sumisión excesiva y evasión de decisiones propias.</p></div>
+  </div>
+  <p class="tagline">Son conceptos para comprender patrones, no etiquetas para diagnosticarte ni para diagnosticar a otros.</p>
+  <h4 class="sec">Ocho señales de alerta</h4>
+  <ol class="steps">
+    <li>Todo gira en torno a ellos.</li>
+    <li>Son celosos y controladores.</li>
+    <li>Te sientes drenado/a después de compartir tiempo.</li>
+    <li>No respetan tus límites.</li>
+    <li>Te aíslan de amigos e incluso de la familia.</li>
+    <li>Manipulan para que hagas lo que quieren.</li>
+    <li>Te sientes atrapado/a en la relación.</li>
+    <li>La relación es un ciclo de conflictos y reconciliaciones.</li>
+  </ol>
+  <p>Si varias son frecuentes, no es «drama»: es una señal.</p>
+  <h4 class="sec">Fases del amor romántico</h4>
+  <ol class="steps">
+    <li>Atracción</li><li>Enamoramiento / luna de miel</li><li>Decepción / desencantamiento</li><li>Amor maduro / estable</li>
+  </ol>
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 312" role="img" aria-label="Lámina 10 — Ciclo de la violencia de género de Leonor Walker: luna de miel, tensión, agresión"><defs><linearGradient id="rc2-s10-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s10-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s10-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s10-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><rect x="20" y="30" width="280" height="140" rx="3" class="fgold"/><text x="160" y="64" class="h" font-size="16" text-anchor="middle" >LUNA DE MIEL</text><text x="160" y="92" class="d" font-size="14" text-anchor="middle" >Inicio de estrategias de</text><text x="160" y="112" class="d" font-size="14" text-anchor="middle" >manipulación y falso</text><text x="160" y="132" class="d" font-size="14" text-anchor="middle" >arrepentimiento.</text><line x1="304" y1="100" x2="318" y2="100" class="ln" marker-end="url(#rc2-s10-arr)"/><rect x="321" y="30" width="280" height="140" rx="3" class="fclay"/><text x="461" y="64" class="h" font-size="16" text-anchor="middle" >TENSIÓN</text><text x="461" y="92" class="d" font-size="14" text-anchor="middle" >Escalada gradual de irritabilidad.</text><text x="461" y="112" class="d" font-size="14" text-anchor="middle" >Discusiones donde aparece la</text><text x="461" y="132" class="d" font-size="14" text-anchor="middle" >violencia verbal.</text><line x1="605" y1="100" x2="619" y2="100" class="ln" marker-end="url(#rc2-s10-arr)"/><rect x="622" y="30" width="280" height="140" rx="3" class="fclay2"/><text x="762" y="64" class="h" font-size="16" text-anchor="middle" >AGRESIÓN</text><text x="762" y="92" class="t" font-size="14" text-anchor="middle" >Estalla la violencia. Suele ser la</text><text x="762" y="112" class="t" font-size="14" text-anchor="middle" >fase donde se pide ayuda.</text><path d="M770,178 C770,248 150,248 150,178" class="ln dashed" marker-end="url(#rc2-s10-arr)"/><text x="460" y="262" class="m" font-size="11" text-anchor="middle" >el ciclo vuelve a empezar</text><text x="460" y="296" class="m" font-size="11" text-anchor="middle" >Ciclo de la violencia de género (Leonor Walker), tal como lo presenta la diapositiva.</text></svg></div><figcaption>Lámina 10 · Ciclo de una relación tóxica (PDF Parte II, p. 10)</figcaption></figure>
+  <div class="note"><span class="tag">Cuando es más que tóxico</span>
+    <p><b>Señales de abuso:</b> miedo a cómo reaccionará la otra persona · control de tu teléfono, dinero, ropa o amistades · amenazas, humillaciones o violencia · presión sexual o sexo sin consentimiento.</p>
+    <p><b>Dónde pedir ayuda:</b> una persona de confianza · apoyo psicológico de ESEN · Línea 126 (ISDEMU), violencia contra las mujeres · emergencias: 911. <b>No es tu culpa. Pedir ayuda no es traicionar a nadie.</b></p></div>
+</div>
+
+<div class="block">
+  <h3>Actividades 3 y «Tu turno»: analizar y reescribir una escena</h3>
+  <p class="sub">PDF Parte II, pp. 12–15 — marco de trabajo</p>
+  <p>La clase proyecta una escena de <i>Blue Valentine</i>. Se observa: ¿qué hace cada uno cuando el otro está mal? ¿hay validación o hay culpa? ¿quién pide algo que el otro no puede dar en ese momento? ¿cuándo escala la discusión y por qué? Luego, en grupos de 4, se reescribe con las herramientas de la Parte I.</p>
+  <ol class="steps">
+    <li><b>Identifiquen 3 conductas que escalan el conflicto</b> (2 min)</li>
+    <li><b>Reescriban la respuesta de Dean:</b> validación + mensaje YO (3 min). Plantilla: «Cuando ____, me siento ____. Necesito ____. ¿Qué necesitas tú ahora?»</li>
+    <li><b>¿Qué límite podría poner Cindy y cómo lo diría?</b> (1 min). Plenaria: dos grupos leen su versión.</li>
+  </ol>
+  <p class="tagline">El contenido de la escena no está en el PDF: solo la proyección y las preguntas.</p>
+</div>
+
+<div class="block">
+  <h3>Establecimiento de límites</h3>
+  <p class="sub">PDF Parte II, pp. 16–19</p>
+  <p>La capacidad de establecer y respetar límites personales es vital para relaciones equilibradas. <b>Sin límites</b>, la relación se traduce en auto-abandono y complacencia hacia los demás;
+  <b>con límites</b>, se acercan las personas adecuadas y se alejan las incorrectas. La clase lo resume así: los límites no ahuyentan el amor, lo filtran; no crean distancia, te revelan quién está dispuesto a conocerte con respeto.</p>
+  <div class="two">
+    <div><h4>Emocionales</h4><p>No aceptar gritos, insultos ni manipulación.</p></div>
+    <div><h4>Físicos</h4><p>Respetar el espacio personal y la intimidad.</p></div>
+    <div><h4>Temporales</h4><p>Reservar tiempo para uno mismo, amigos y familia.</p></div>
+    <div><h4>Digitales</h4><p>Redes, mensajes, contraseñas y privacidad en línea.</p></div>
+  </div>
+  <h4 class="sec">¿Cómo establezco y comunico un límite?</h4>
+  <ol class="steps">
+    <li><b>Reflexiona</b>¿Qué valoro (respeto, tiempo, independencia)? ¿Qué no estoy dispuesto/a a tolerar?</li>
+    <li><b>Nómbralo</b>Define qué límite es y qué haré yo si se cruza.</li>
+    <li><b>Comunícalo y sostenlo</b>Con claridad, respeto y consistencia: solo funciona si se mantiene.</li>
+  </ol>
+  <p>Frase modelo de la clase: «No me hables así; seguimos cuando estemos más tranquilos.» Fórmula de la Actividad 4: <span class="hl">«Necesito ____. Si ____, yo ____.»</span></p>
+  <p><b>Actividad 4 · manos a la obra</b> (marco): tus 3 no negociables emocionales (individual) · redactar un límite · practicarlo en parejas (A lo dice; B presiona suave con «no es para tanto»; A sostiene con calma) · plenaria: ¿qué fue lo más difícil de sostener?</p>
+</div>
+
+<div class="block">
+  <h3>Responsabilidad afectiva</h3>
+  <p class="sub">PDF Parte II, pp. 20–21</p>
+  <p>Ser consciente del impacto de lo que sentimos, decimos y hacemos (o dejamos de decir y hacer) en los demás; cuidar mis necesidades y emociones, y también las del otro. Aplica cada vez que buscamos crear conexión, aunque no sea una relación de pareja.</p>
+  <blockquote>Soy responsable del impacto de mis actos, no de las emociones del otro.<cite>PDF PARTE II, P. 20</cite></blockquote>
+  <div class="two">
+    <div><h4>Sí es</h4><ul><li>Decir con claridad lo que siento y espero</li><li>Hablar de lo que molesta y validar lo del otro</li><li>Negociar límites y revisar los acuerdos cuando la relación cambia</li><li>Cuidar el impacto de mis actos y pedir consentimiento</li></ul></div>
+    <div><h4>No es</h4><ul><li>Justificarme para no hacerme cargo del impacto de mis actos</li><li>Ocultar lo que siento o quiero</li><li>Invalidar las emociones del otro</li><li>Ilusionar sin intención de involucrarme, o desaparecer (<i>ghosting</i>)</li><li>Asumir lo que el otro piensa o siente en vez de preguntar</li></ul></div>
+  </div>
+</div>
+
+<div class="block">
+  <h3>Redes sociales y mitos del amor romántico</h3>
+  <p class="sub">PDF Parte II, pp. 22–26</p>
+  <div class="two">
+    <div><h4>Pros</h4><ul><li>Facilidad para conectar</li><li>Información en tiempo real</li><li>Entretenimiento</li></ul></div>
+    <div><h4>Cons</h4><ul><li>Abrumantes</li><li>Presión social</li><li>No cuentan la historia completa</li><li>Distracción permanente: reduce la capacidad de atención</li></ul></div>
+  </div>
+  <p><b>Take away:</b> no son sustitutos de la interacción humana; evitemos volvernos adictos a la superficialidad de la interacción.
+  <b>Evidencia:</b> limitar las redes a 30 minutos diarios durante 3 semanas redujo la soledad y los síntomas depresivos en estudiantes universitarios (Hunt et al., 2018).
+  <b>Mini-reto</b> (elige uno): silenciar notificaciones no esenciales · una franja del día sin pantalla con otros · revisar quién ve tus datos y tu ubicación.</p>
+  <h4 class="sec">Los ocho mitos del amor romántico (Yela, 2003)</h4>
+  <ol class="steps">
+    <li>Si mi pareja me quiere, me aceptará tal y como soy.</li>
+    <li>Mi pareja debería saber lo que pienso, siento y necesito.</li>
+    <li>Si mi pareja me quiere, nunca se enfadará conmigo.</li>
+    <li>Estar enamorados significa estar juntos todo el tiempo.</li>
+    <li>Si me atrae otra persona, es que el amor se ha acabado.</li>
+    <li>Todos necesitamos encontrar a nuestra media naranja; si no, no estoy completo.</li>
+    <li>El amor puede con todo.</li>
+    <li>Una vez que estoy en una relación, «soy» de mi pareja.</li>
+  </ol>
+  <p><b>Círculo de discusión:</b> cada grupo toma 2 mitos y responde qué creencia hay detrás, qué consecuencias tiene en una relación y qué creencia sana la reemplaza. Ejemplo de la clase: mito «si me quiere, sabrá lo que necesito» → creencia sana: lo pido con claridad y escucho lo que el otro necesita.</p>
+</div>
+
+<div class="block">
+  <h3>¿Cómo alcanzamos el bienestar relacional?</h3>
+  <p class="sub">PDF Parte II, pp. 27–29</p>
+  <div class="three">
+    <div><h4>Mejoremos nuestra forma de comunicarnos</h4><p>De forma abierta, creando espacios para nuestra vulnerabilidad, pero cuidando nuestro bienestar emocional.</p></div>
+    <div><h4>Aprendamos a resolver conflictos de manera constructiva</h4><p>Una disculpa sincera y la búsqueda de soluciones más que de culpables fortalece una relación.</p></div>
+    <div><h4>Trascendamos diferencias</h4><p>Madurez emocional para dejar de lado el ego: no se trata de buscar ganadores y perdedores.</p></div>
+    <div><h4>Compartamos nuestros talentos</h4><p>Conectar con los demás manteniendo nuestra autenticidad.</p></div>
+    <div><h4>Participemos en la comunidad</h4><p>Clubes, grupos de universidad, iglesia, asociaciones.</p></div>
+    <div><h4>Cultivemos relaciones sanas</h4><p>Reflexionar sobre las relaciones que tenemos, alejarse de relaciones tóxicas y buscar las que permitan florecer.</p></div>
+  </div>
+  <h4 class="sec">Lo que nos llevamos</h4>
+  <ol class="steps">
+    <li>La calidad de los vínculos protege tu salud y tu bienestar.</li>
+    <li>Una red diversa te da distintos tipos de apoyo.</li>
+    <li>Comunicar con asertividad y empatía se entrena.</li>
+  </ol>
+  <p><b>Mi plan relacional:</b> <span class="hl">cultivar</span> (¿a quién voy a nutrir y cómo en los próximos 7 días?), <span class="hl">comunicar</span> (¿qué conversación o mensaje YO tengo pendiente?) y <span class="hl">cuidarme</span> (¿qué límite voy a sostener?). Reto de la semana (elige uno): 10 min sin celular con alguien de tu núcleo · enviar un mensaje YO real · escribirle a alguien que tenías olvidado.</p>
+</div>
+
+<div class="block">
+  <h3>Glosario de la unidad</h3>
+  <p class="sub">Definiciones tal como las da el PDF</p>
+  <dl class="glos">
+    <div><dt>Bienestar relacional</dt><dd>La calidad de nuestros vínculos y nuestra capacidad de construirlos, sostenerlos y cuidarnos dentro de ellos.</dd></div>
+    <div><dt>Apoyo social</dt><dd>Contar con personas que ofrecen apoyo emocional, consejo y ayuda en momentos difíciles.</dd></div>
+    <div><dt>Apoyo emocional · instrumental · informativo · valoración</dt><dd>Te escucha y te cuida · ayuda concreta (tiempo, dinero, tareas) · consejo, orientación, otra perspectiva · te devuelve quién eres: reconoce y afirma.</dd></div>
+    <div><dt>Empatía (Parte I)</dt><dd>Comprender lo que siente el otro.</dd></div>
+    <div><dt>Asertividad</dt><dd>Expresar con claridad y respeto lo que pienso, siento y necesito.</dd></div>
+    <div><dt>Mensaje YO</dt><dd>Describe el hecho · expresa cómo te afecta · pide algo concreto · cierra con un acuerdo. Adaptado de DESC (Bower &amp; Bower, 1976).</dd></div>
+    <div><dt>Validar</dt><dd>Reconocer que la emoción del otro tiene sentido, aunque pienses distinto. No es estar de acuerdo.</dd></div>
+    <div><dt>Relación tóxica</dt><dd>Término popular (no clínico): patrón repetido que te desgasta, con control, desvalorización y ciclos de conflicto y reconciliación.</dd></div>
+    <div><dt>Dependencia emocional · codependencia · personalidad dependiente</dt><dd>Centrada en mi inseguridad y miedo a la soledad · centrada en el otro, a costa de mi bienestar · rasgo estable de miedo al abandono y sumisión excesiva.</dd></div>
+    <div><dt>Límite</dt><dd>Capacidad de establecer y respetar límites personales; emocionales, físicos, temporales o digitales.</dd></div>
+    <div><dt>Responsabilidad afectiva</dt><dd>Ser consciente del impacto de lo que sentimos, decimos y hacemos en los demás, y cuidar mis necesidades y emociones y también las del otro.</dd></div>
+  </dl>
+</div>
+
+<div class="block" id="casos6">
+  <div class="quizhead"><h3 style="margin:0;">Casos de aplicación — Unidad VI</h3><span class="score mono" data-score="c6">0 / 4 respondidos</span></div>
+  <p class="sub">Escenarios inventados para este repaso: practican qué concepto aplica, no replican el Control</p>
+  <div data-quiz="c6"></div>
+</div>
+
+<div class="block" id="notas6">
+  <h3>Tus palabras · Unidad VI</h3>
+  <p class="sub">Los marcos de las actividades de clase, para que los llenes tú</p>
+  <div class="notes">
+    <label for="n6a">Actividad 1 · Mi red de apoyo<small>¿Qué tipo de apoyo me falta? ¿Para quién soy yo ese apoyo?</small></label>
+    <textarea id="n6a" data-note="n6a"></textarea>
+    <label for="n6b">Un mensaje YO que tengo pendiente<small>Cuando…, me siento…, necesito… ¿Te parece?</small></label>
+    <textarea id="n6b" data-note="n6b"></textarea>
+    <label for="n6c">Actividad 4 · Mis 3 no negociables emocionales</label>
+    <textarea id="n6c" data-note="n6c"></textarea>
+    <label for="n6d">Un límite redactado<small>Necesito ____. Si ____, yo ____.</small></label>
+    <textarea id="n6d" data-note="n6d"></textarea>
+    <label for="n6e">Dos mitos del amor romántico y su creencia sana</label>
+    <textarea id="n6e" data-note="n6e"></textarea>
+    <label for="n6f">Mi plan relacional<small>Cultivar · comunicar · cuidarme</small></label>
+    <textarea id="n6f" data-note="n6f"></textarea>
+    <p class="hint">Se guardan solo en este navegador. No se envían ni se publican.</p>
+  </div>
+</div>
+
+<div class="block" id="cards6">
+  <h3>Tarjetas de memoria · Unidad VI</h3>
+  <p class="sub">Voltea con clic, barra espaciadora o Enter</p>
+  <div class="deck" data-deck="d6"></div>
+</div>
+
+<div class="block">
+  <div class="quizhead"><h3 style="margin:0;">Autoevaluación — Unidad VI</h3><span class="score mono" data-score="u6">0 / 5 respondidas</span></div>
+  <div data-quiz="u6"></div>
+</div>
+</section>
+<section class="unit" id="mapa">
+<div class="unit-head"><span class="unit-num">MAPA</span><h2>Emocional ↔ Relacional</h2></div>
+<p class="unit-dates">Cómo se conectan las Unidades V y VI</p>
+<p class="fuente">La conexión central la dice la clase (Parte II, p. 6). Las demás están marcadas: «lo dice la clase» o «conexión de este repaso».</p>
+<div class="block">
+  <figure class="diag"><div class="scroller"><svg class="sv" style="min-width:720px;width:100%;" viewBox="0 0 920 372" role="img" aria-label="Lámina 11 — Mapa comparativo: pilar emocional (relación conmigo) y pilar relacional (relación con los demás), unidos por el puente empatía, asertividad y apoyo"><defs><linearGradient id="rc2-s11-shaft" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--svg-shaft-edge)"/><stop offset="22%" stop-color="var(--svg-shaft-light)"/><stop offset="48%" stop-color="var(--svg-shaft-peak)"/><stop offset="78%" stop-color="var(--svg-shaft-mid)"/><stop offset="100%" stop-color="var(--svg-shaft-dark)"/></linearGradient><linearGradient id="rc2-s11-ped" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-ped-start)"/><stop offset="55%" stop-color="var(--svg-ped-mid)"/><stop offset="100%" stop-color="var(--svg-ped-end)"/></linearGradient><linearGradient id="rc2-s11-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--svg-card-start)"/><stop offset="100%" stop-color="var(--svg-card-end)"/></linearGradient><marker id="rc2-s11-arr" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9z" fill="var(--text-faint)"/></marker></defs><rect x="20" y="20" width="310" height="300" rx="3" class="fpine"/><text x="175" y="52" class="h pn" font-size="15" text-anchor="middle" >PILAR EMOCIONAL</text><text x="175" y="74" class="t" font-size="14" text-anchor="middle" >Mi relación conmigo</text><text x="175" y="98" class="d" font-size="13" text-anchor="middle" >Reconocer, nombrar y regular lo que</text><text x="175" y="116" class="d" font-size="13" text-anchor="middle" >siento</text><text x="48" y="156" class="t" font-size="14" text-anchor="start" >▪ Autoconciencia</text><text x="48" y="186" class="t" font-size="14" text-anchor="start" >▪ Autorregulación</text><text x="48" y="216" class="t" font-size="14" text-anchor="start" >▪ Automotivación</text><text x="48" y="246" class="t" font-size="14" text-anchor="start" >▪ Empatía</text><text x="48" y="276" class="t" font-size="14" text-anchor="start" >▪ Habilidades sociales</text><rect x="590" y="20" width="310" height="300" rx="3" class="fclay"/><text x="745" y="52" class="h cl" font-size="15" text-anchor="middle" >PILAR RELACIONAL</text><text x="745" y="74" class="t" font-size="14" text-anchor="middle" >Mi relación con los demás</text><text x="745" y="98" class="d" font-size="13" text-anchor="middle" >Conectar, apoyar, comunicar y cuidar</text><text x="745" y="116" class="d" font-size="13" text-anchor="middle" >los vínculos</text><text x="618" y="156" class="t" font-size="13.5" text-anchor="start" >▪ Calidad de las relaciones</text><text x="618" y="186" class="t" font-size="13.5" text-anchor="start" >▪ Apoyo social</text><text x="618" y="216" class="t" font-size="13.5" text-anchor="start" >▪ Comunicación asertiva y empática</text><text x="618" y="246" class="t" font-size="13.5" text-anchor="start" >▪ Influencia en hábitos saludables</text><text x="618" y="276" class="t" font-size="13.5" text-anchor="start" >▪ Establecimiento de límites</text><text x="460" y="40" class="h" font-size="14" text-anchor="middle" >PUENTE</text><path d="M335,150 Q460,60 585,150" fill="none" stroke="var(--gold-doric)" stroke-width="3"/><rect x="356" y="130" width="28" height="100" fill="url(#rc2-s11-shaft)" stroke="var(--svg-shaft-edge)"/><text x="370" y="252" class="h" font-size="10" text-anchor="middle" >EMPATÍA</text><rect x="446" y="130" width="28" height="100" fill="url(#rc2-s11-shaft)" stroke="var(--svg-shaft-edge)"/><text x="460" y="252" class="h" font-size="10" text-anchor="middle" >ASERTIVIDAD</text><rect x="536" y="130" width="28" height="100" fill="url(#rc2-s11-shaft)" stroke="var(--svg-shaft-edge)"/><text x="550" y="252" class="h" font-size="10" text-anchor="middle" >APOYO</text><line x1="335" y1="238" x2="585" y2="238" stroke="var(--border)" stroke-width="3"/><line x1="335" y1="146" x2="335" y2="238" class="ln"/><line x1="585" y1="146" x2="585" y2="238" class="ln"/><text x="460" y="352" class="m" font-size="11" text-anchor="middle" >Sin autorregulación no hay comunicación asertiva; sin vínculos, las emociones no tienen dónde sostenerse.</text></svg></div><figcaption>Lámina 11 · Mapa comparativo Emocional ↔ Relacional (PDF Parte II, p. 6; componentes: PDF Unidad V y Parte I)</figcaption></figure>
+  <dl class="glos">
+    <div><dt>El puente <span class="tagline">LO DICE LA CLASE</span></dt><dd>Emocional = mi relación conmigo; relacional = mi relación con los demás. Se complementan: sin autorregulación no hay comunicación asertiva; sin vínculos, las emociones no tienen dónde sostenerse. Puente: empatía, asertividad y apoyo (Parte II, p. 6).</dd></div>
+    <div><dt>Maslow <span class="tagline">LO DICE LA CLASE</span></dt><dd>La diapositiva del pilar emocional marca la pirámide con un corchete; la del relacional apunta con una flecha a «Love and belonging».</dd></div>
+    <div><dt>Empatía: componentes y pasos <span class="tagline">LO DICE LA CLASE</span></dt><dd>En la Unidad V la empatía tiene tres <i>componentes</i> (cognitiva, afectiva, somática). En la Unidad VI se practica con tres <i>pasos</i> (escucha, nombra, valida). Son dos tríos distintos: uno describe qué es, el otro cómo se hace.</dd></div>
+    <div><dt>Habilidades sociales → pilar relacional <span class="tagline">CONEXIÓN DE ESTE REPASO</span></dt><dd>Las implicaciones de «habilidades sociales» (comunicarnos efectivamente, intimar, red de apoyo, comunidad) reaparecen como componentes del relacional: comunicación asertiva y empática, calidad (intimar), apoyo social y participación en la comunidad.</dd></div>
+    <div><dt>Cómo desarrollar la dimensión (II): relacionales <span class="tagline">CONEXIÓN DE ESTE REPASO</span></dt><dd>La lista de la Unidad V (compartir con alguien de confianza, mantenerte cerca de tus seres queridos, voluntariado, organizaciones) es el adelanto práctico de lo que la Unidad VI desarrolla como calidad, apoyo y comunidad.</dd></div>
+    <div><dt>Semáforo + Mensaje YO <span class="tagline">CONEXIÓN DE ESTE REPASO</span></dt><dd>Aplicar «lo pensaré» (autorregulación) antes de formular un mensaje YO (comunicación asertiva) es el cruce más claro entre las dos unidades: primero regulas, luego comunicas.</dd></div>
+  </dl>
+</div>
+</section>
+
+<section class="unit" id="integrado">
+<div class="unit-head"><span class="unit-num">RONDA FINAL</span><h2>Repaso integrado</h2></div>
+<p class="unit-dates">Unidades V + VI · 10 preguntas</p>
+<p class="fuente">Cruza las dos unidades, como pide un control acumulativo. Incluye dos preguntas trampa sobre lo que el material NO dice.</p>
+<div class="block">
+  <div class="quizhead"><h3 style="margin:0;">Cobertura acumulada</h3><span class="score mono" data-score="mix">0 / 10 respondidas</span></div>
+  <div data-quiz="mix"></div>
+</div>
+</section>
+
+<section class="unit" id="vacios">
+<div class="unit-head"><span class="unit-num">CONTROL DE FUENTES</span><h2>Vacíos del material</h2></div>
+<p class="fuente">Lo que los materiales de clase NO contienen. Si algo de esto cae en el Control, no salió de estos archivos.</p>
+<div class="block">
+  <ul class="clean">
+    <li class="clay"><b>Taller de autorregulación (24 sep).</b> No hay PDF ni PPTX de esa sesión. Lo que sabes del semáforo y del secuestro de la amígdala sale solo de las diapositivas del 22 sep.</li>
+    <li class="clay"><b>Foro «Wonder» (25 sep) y foro «Soul» (16 oct).</b> Son trabajo personal evaluado (5% c/u): el contenido de tus respuestas es de tu autoría y no forma parte de este repaso.</li>
+    <li class="clay"><b>Dinámica vivencial (10 oct) e «indicaciones de la dinámica» (6 oct).</b> La dinámica es una evaluación aparte; el PDF de Parte I no trae esas indicaciones.</li>
+    <li class="clay"><b>Marco de las «cinco habilidades».</b> El PDF Unidad V dedica una diapositiva a cada una, pero no las numera, no nombra un autor y no dice «cinco componentes». La cifra 20%/80% tampoco cita fuente.</li>
+    <li class="clay"><b>Maslow en la Unidad V.</b> El corchete «Pilar emocional» es una imagen sin texto: no precisa qué niveles abarca.</li>
+    <li class="clay"><b>Clasificación de las quince emociones.</b> La lista está, la clasificación (la actividad) no.</li>
+    <li class="clay"><b>Componentes de la empatía.</b> Cognitiva, afectiva y somática se nombran; ninguna se define en el PDF.</li>
+    <li class="clay"><b>«Confianza».</b> El cronograma titula el 8 oct «Confianza y límites», pero el PDF de Parte II desarrolla límites, responsabilidad afectiva, redes y mitos; <b>no hay una sección que defina «confianza»</b>. Aparece solo como idea suelta (el dicho popular sobre amar, «persona de confianza»).</li>
+    <li class="clay"><b>Chats de comunicación pasiva, agresiva y asertiva (pp. 17–19 de Parte I)</b> y <b>la escena de <i>Blue Valentine</i></b>: son capturas o proyecciones; el análisis lo hace la clase en voz alta.</li>
+    <li class="clay"><b>Cifras que no están.</b> Ni número de amistades cercanas recomendado, ni frecuencia ideal de contacto, ni duración de una relación «sana». La única cifra de pantallas es la de Hunt et al. (30 min/día por 3 semanas).</li>
+    <li class="clay"><b>Numeración de los componentes.</b> «Límites» es el 5 en la lista de Parte I y se titula «4.» en la p. 16 de Parte II (errata del archivo).</li>
+    <li class="clay"><b>Fechas de cada PDF.</b> Los archivos no traen fecha de sesión; la correspondencia (Emocional = 22 sep; Parte I = 6 oct; Parte II = 8 oct) sale del cronograma del Programa.</li>
+  </ul>
+</div>
+<div class="pager"><a href="#u5">Unidad V →</a><a href="#u6">Unidad VI →</a><a href="../">Índice del sitio →</a></div>
+</section>
+<div class="greek-frieze subtle"></div>
+<footer><p>Repaso personal · Pilares del Bienestar, ESEN, Ciclo III/2026 · Ing. Gabriela Carranza · generado el 12 oct 2026.</p><p>Elaborado únicamente a partir de: «7. Dimensión Emocional.pdf» · «8. Pilar relacional V2.pdf» · «9. Pilar relacional parte II V3.pdf».</p><p>No es una evaluación ni una simulación del Control. Las respuestas del Control 2 son de autoría propia de Carlos Navas.</p></footer>
+</div>
+<script>
+var QUIZ = {"u5": [{"q": "Según la clase, el coeficiente intelectual representa apenas alrededor de…", "o": ["50% de los factores determinantes del éxito", "20% de los factores determinantes del éxito", "80% de los factores determinantes del éxito", "5% de los factores determinantes del éxito"], "ok": 1, "why": "La diapositiva dice que el CI apenas representa un 20%. El 80% restante depende de otras variables: clase social, suerte y, en gran medida, inteligencia emocional. La trampa es invertir las cifras. Nota: la diapositiva no cita la fuente de este dato.", "src": "PDF Unidad V, p. 4"}, {"q": "En el esquema «¿Cuántos cerebros tenemos?», ¿qué estructuras forman el «cerebro emocional»?", "o": ["Solo la amígdala", "Solo el neocórtex", "Reptiliano y sistema límbico", "Sistema límbico y neocórtex"], "ok": 2, "why": "El recuadro de la lámina es literal: reptiliano + sistema límbico = cerebro emocional; neocórtex = cerebro racional. La amígdala no aparece como estructura del esquema; se menciona más adelante, en el secuestro de la amígdala.", "src": "PDF Unidad V, p. 3"}, {"q": "De las ocho inteligencias de Gardner, la clase destaca dos. ¿Qué permite la inteligencia intrapersonal?", "o": ["Configurar una imagen fiel y verdadera de uno mismo", "Resolver problemas conectando puntos de áreas distintas", "Comprender a los demás", "Expresar ideas con claridad y respeto"], "ok": 0, "why": "Intrapersonal = configurar una imagen fiel y verdadera de uno mismo. La opción «comprender a los demás» es la interpersonal. Es el par de definiciones que más se intercambia.", "src": "PDF Unidad V, p. 5"}, {"q": "Una persona reconoce qué emoción está sintiendo y entiende cómo su malestar está afectando a las personas de su equipo. ¿Qué habilidad está ejerciendo?", "o": ["Habilidades sociales", "Automotivación", "Autorregulación", "Autoconciencia"], "ok": 3, "why": "Autoconciencia es reconocer y entender mis emociones, estado de ánimo e impulsos, así como su efecto en las demás personas. La autorregulación sería conducir o redirigir ese impulso; aquí solo hay reconocimiento y comprensión.", "src": "PDF Unidad V, p. 10"}, {"q": "En la técnica de «hacer cortocircuito» al secuestro de la amígdala, ¿qué indica el color amarillo?", "o": ["Probar opciones", "Evaluar opciones", "Cálmate", "Repetir"], "ok": 1, "why": "Rojo: cálmate. Amarillo: evaluar opciones. Verde: probar opciones. «Repetir» es el quinto y último paso de la técnica, aparte del semáforo, que es el cuarto.", "src": "PDF Unidad V, p. 17"}], "u6": [{"q": "Según el Harvard Study of Adult Development tal como lo resume la clase, ¿qué predijo mejor la salud a los 80 años?", "o": ["El nivel de colesterol a los 50 años", "El nivel de ingresos a los 50 años", "La satisfacción con las relaciones a los 50 años", "El estado civil a los 50 años"], "ok": 2, "why": "La satisfacción con las relaciones a los 50 años predijo la salud a los 80 mejor que el colesterol. El estudio comenzó en 1938 y siguió a las mismas personas durante décadas. La clase no menciona los ingresos ni el estado civil como predictores en este estudio.", "src": "PDF Parte I, p. 3"}, {"q": "¿Cuáles son los cuatro tipos de apoyo social que presenta la clase (basado en House, 1981)?", "o": ["Emocional, físico, temporal y digital", "Emocional, económico, familiar y social", "Cognitivo, afectivo, somático y social", "Emocional, instrumental, informativo y valoración"], "ok": 3, "why": "Emocional (te escucha, te cuida), instrumental (ayuda concreta), informativo (consejo, orientación) y valoración (te devuelve quién eres). «Físico, temporal y digital» son tipos de límites; «cognitivo, afectivo, somático» son los componentes de la empatía de la Unidad V.", "src": "PDF Parte I, p. 13"}, {"q": "¿Cuál es el orden de los cuatro pasos del Mensaje YO?", "o": ["Describir el hecho · expresar cómo te afecta · pedir algo concreto · cerrar con un acuerdo", "Expresar cómo te afecta · señalar al culpable · pedir algo concreto · cerrar con un acuerdo", "Describir el hecho · exigir un cambio · advertir consecuencias · cerrar con un acuerdo", "Pedir algo concreto · describir el hecho · expresar cómo te afecta · cerrar con un acuerdo"], "ok": 0, "why": "1 Describe el hecho sin juzgar ni exagerar; 2 expresa cómo te afecta (una emoción, en primera persona); 3 pide algo concreto; 4 cierra con un acuerdo (beneficio mutuo y pregunta abierta). Evita «siempre», «nunca» y «eres…».", "src": "PDF Parte I, p. 21"}, {"q": "En la «empatía en tres pasos», ¿qué significa validar?", "o": ["Resolverle el problema con un consejo", "Estar de acuerdo con lo que el otro piensa", "Reconocer que la emoción del otro tiene sentido, aunque pienses distinto", "Ceder para evitar el conflicto"], "ok": 2, "why": "La diapositiva lo dice expresamente: validar no es estar de acuerdo, es reconocer que la emoción del otro tiene sentido. Los tres pasos son escucha, nombra y valida. Ceder para evitar el conflicto describe la comunicación pasiva.", "src": "PDF Parte I, p. 22"}, {"q": "En los dos primeros pasos para comunicar un límite («reflexiona» y «nómbralo»), ¿qué debe quedar definido al nombrarlo?", "o": ["Qué límite es y qué haré yo si se cruza", "A quién le contaré que me lo cruzaron", "Qué debe cambiar la otra persona para merecerme", "Por qué la otra persona es responsable del problema"], "ok": 0, "why": "Nombrarlo es definir qué límite es y qué haré yo si se cruza; el foco está en mi acción, no en controlar al otro. El tercer paso es comunicarlo y sostenerlo con claridad, respeto y consistencia: solo funciona si se mantiene.", "src": "PDF Parte II, p. 18"}], "c5": [{"s": "Durante una exposición, a un compañero le hacen una crítica fuerte. En segundos responde gritando y, después, casi no recuerda lo que dijo; antes de poder formular una idea ya tenía el corazón acelerado.", "q": "¿Qué concepto de la unidad explica mejor esos primeros segundos?", "o": ["Automotivación", "Cuadrante «necesario»", "Empatía cognitiva", "Secuestro de la amígdala"], "ok": 3, "why": "Respuesta desproporcionada ante un estímulo emocional, antes de que el neocórtex procese la información; hay liberación de hormonas del estrés y reacción impulsiva. Es el patrón de «reacción rápida» y «respuestas típicas» de la diapositiva.", "src": "PDF Unidad V, p. 16"}, {"s": "Sofía siente que el pulso se le acelera en plena discusión. Piensa «lo pensaré» y sale a tomar aire. Más tarde enumera tres formas posibles de responder y elige una para intentarla.", "q": "¿Qué momentos del cortocircuito recorrió?", "o": ["Amarillo → rojo → verde", "Rojo (calmarse) → amarillo (evaluar opciones) → verde (probar una opción)", "Solo verde, porque actuó al final", "Ninguno: el semáforo no incluye «lo pensaré»"], "ok": 1, "why": "Salir a calmarse es el rojo; enumerar opciones es el amarillo; elegir una e intentarla es el verde. «Lo pensaré» es justamente la frase que abre el cortocircuito. Además notó una señal del cuerpo (pulso acelerado), otro de los pasos de la técnica.", "src": "PDF Unidad V, p. 17"}, {"s": "Luis pasa la tarde repasando, una y otra vez, lo que «habría podido» decir en una reunión del mes pasado.", "q": "¿En qué zona del cuadrante de pensamientos y emociones cae esto?", "o": ["Poco constructivo: resentimientos, chismes y quejas", "Constructivo: fuerza interior y mejora continua", "Necesario: vida diaria y rutina", "Poco útil: pasado, «si hubiese», especulaciones"], "ok": 3, "why": "«Pasado, “si hubiese”, especulaciones» está en el recuadro «poco útil». Sería «poco constructivo» si el contenido fueran resentimientos, chismes o quejas.", "src": "PDF Unidad V, p. 11"}, {"s": "Marta termina un trabajo largo aunque nadie la está vigilando ni le pagarán más por ello, y decide no salir esa noche para entregarlo a tiempo.", "q": "¿Qué habilidad de la unidad describe mejor esta conducta?", "o": ["Empatía somática", "Habilidades sociales", "Automotivación", "Autoconciencia"], "ok": 2, "why": "Automotivación: pasión para trabajar por razones que van más allá del dinero y el status, con energía y persistencia, y habilidad para posponer la gratificación (aquí, la salida de esa noche).", "src": "PDF Unidad V, p. 13"}], "c6": [{"s": "Tras un examen difícil, Karla le pide a un amigo que se quede un rato con ella. Él se queda, la escucha y no le da consejos.", "q": "¿Qué tipo de apoyo social le dio su amigo?", "o": ["Emocional", "Valoración", "Informativo", "Instrumental"], "ok": 0, "why": "Emocional: te escucha, te cuida, te hace sentir querido/a. Instrumental sería ayuda concreta (apuntes, dinero, traslado); informativo, un consejo u otra perspectiva; valoración, afirmar quién eres («tú puedes con esto»).", "src": "PDF Parte I, p. 13"}, {"s": "Ante un compañero que no entregó su parte, Diego dice: «Siempre haces lo mismo, eres un irresponsable.»", "q": "¿Qué estilo de comunicación es y qué suele pasar según la clase?", "o": ["Empático: valida antes de responder", "Agresivo: impone, culpa, ataca; se pierde al otro (miedo, defensa, distancia)", "Pasivo: calla y cede; se pierde uno mismo", "Asertivo: cuida a ambos y se puede negociar"], "ok": 1, "why": "Imponer, culpar y atacar, con frases como «siempre haces lo mismo, eres un…», es el estilo agresivo; lo que pasa es que pierdo al otro. Una versión asertiva usaría «Cuando…, me siento…, necesito…» sin «siempre» ni «eres…».", "src": "PDF Parte I, p. 20"}, {"s": "A Mateo le piden la contraseña de su celular. Responde con calma: «Prefiero no compartirla.»", "q": "¿Qué tipo de límite está sosteniendo?", "o": ["Emocional", "Temporal", "Físico", "Digital"], "ok": 3, "why": "Digitales: redes, mensajes, contraseñas y privacidad en línea. La frase «prefiero no compartir mi contraseña» es una de las frases modelo de la clase. Emocional sería no aceptar gritos, insultos ni manipulación.", "src": "PDF Parte II, pp. 17–18"}, {"s": "Después de tres citas, Pablo deja de responder los mensajes de la otra persona, sin dar explicación.", "q": "¿Dónde ubica la clase este comportamiento en «responsabilidad afectiva: sí y no»?", "o": ["No aparece en la clase", "En el «No es»: ilusionar sin involucrarse o desaparecer (ghosting)", "En «negociar límites»", "En el «Sí es»: cuidar el impacto de mis actos"], "ok": 1, "why": "El «No es» incluye explícitamente ilusionar sin intención de involucrarme, o desaparecer (ghosting). Responsabilidad afectiva es ser consciente del impacto de lo que hago y dejo de hacer en los demás: «soy responsable del impacto de mis actos, no de las emociones del otro».", "src": "PDF Parte II, p. 21"}], "mix": [{"q": "La clase llama «puente» entre el pilar emocional y el relacional a…", "o": ["Reptiliano, límbico y neocórtex", "Autoconciencia, autorregulación y automotivación", "Empatía, asertividad y apoyo", "Calidad, límites y hábitos"], "ok": 2, "why": "Parte II, p. 6: «Puente: empatía, asertividad y apoyo». Las tres primeras opciones son listas que sí existen en las unidades, pero no son el puente: autoconciencia, autorregulación y automotivación son tres de las cinco habilidades emocionales; calidad, límites y hábitos son tres de los cinco componentes relacionales.", "src": "PDF Parte II, p. 6"}, {"q": "¿Cuál de estas frases aparece en la clase como razón por la que ambos pilares se complementan?", "o": ["Sin autorregulación no hay comunicación asertiva; sin vínculos, las emociones no tienen dónde sostenerse", "Sin comunicación asertiva no hay autoconciencia; sin emociones, no hay vínculos", "El pilar relacional reemplaza al emocional cuando hay una red de apoyo fuerte", "El emocional es individual y el relacional es opcional"], "ok": 0, "why": "Es literal de la diapositiva. Ojo a la dirección: la autorregulación (emocional) hace posible la comunicación asertiva (relacional), y los vínculos (relacional) sostienen las emociones. Ninguna es opcional ni reemplaza a la otra.", "src": "PDF Parte II, p. 6"}, {"q": "La Unidad V habla de «tres componentes de la empatía»; la Unidad VI, de «empatía en tres pasos». ¿Cuál es la diferencia?", "o": ["Los pasos son los tipos de apoyo social", "Los componentes (cognitiva, afectiva, somática) describen qué es; los pasos (escucha, nombra, valida) describen cómo se practica", "Son lo mismo con otros nombres", "Los componentes son pasos que se hacen en orden"], "ok": 1, "why": "Son dos tríos distintos. Componentes: empatía cognitiva, afectiva o emocional y somática (PDF Unidad V, p. 14; el PDF no los define). Pasos: escucha sin interrumpir, nombra parafraseando y valida reconociendo que la emoción tiene sentido (Parte I, p. 22).", "src": "PDF Unidad V, p. 14 · PDF Parte I, p. 22"}, {"q": "¿Qué implicación de «habilidades sociales» (Unidad V) coincide con una implicación de «calidad de las relaciones» (Unidad VI)?", "o": ["Hacer cortocircuito al secuestro", "Posponer la gratificación", "Intimar: desarrollar conexión emocional con otros", "Observar detonantes"], "ok": 2, "why": "«Intimar — desarrollar conexión emocional con otros» está en ambas: en las implicaciones de las habilidades sociales y en las de la calidad de las relaciones (junto con «ser reales y vulnerables»). Las otras tres opciones son herramientas de autorregulación y automotivación.", "src": "PDF Unidad V, p. 15 · PDF Parte I, p. 8"}, {"q": "En la diapositiva de la pirámide de Maslow de la Parte I, la etiqueta «Pilar relacional» señala con una flecha el nivel…", "o": ["Love and belonging", "Physiological needs", "Safety needs", "Esteem"], "ok": 0, "why": "La flecha apunta a «Love and belonging» (friendship, intimacy, family, sense of connection), coherente con la idea de que pertenecer es una necesidad humana básica (Baumeister & Leary, 1995).", "src": "PDF Parte I, p. 6 y p. 8"}, {"q": "La cifra «+50%» de la clase corresponde a…", "o": ["El efecto de que tu pareja sea también tu mejor amigo/a", "El aumento de peso de bebés prematuros con terapia de contacto", "La reducción de soledad al limitar las redes sociales", "Más probabilidad de supervivencia con relaciones sociales fuertes (148 estudios, 308 849 personas)"], "ok": 3, "why": "+50% = Holt-Lunstad, Smith & Layton (2010). El 47 % es de los bebés (Field et al., 1986); el ×2 es de la pareja que es también mejor amigo/a (Helliwell & Grover, 2014); lo de las redes es la cifra de 30 minutos al día durante 3 semanas (Hunt et al., 2018).", "src": "PDF Parte I, pp. 5, 9, 10 · PDF Parte II, p. 24"}, {"q": "Una persona nota que su cuerpo se tensa, se dice «lo pensaré», se calma y luego formula un mensaje YO. ¿Qué pilares combina?", "o": ["Físico e intelectual", "Solo el relacional", "Solo el emocional", "Emocional (autorregulación) y relacional (comunicación asertiva)"], "ok": 3, "why": "Notar señales del cuerpo y hacer cortocircuito son herramientas del pilar emocional; el mensaje YO es comunicación asertiva, del relacional. Es la aplicación del puente: primero regulas, luego comunicas.", "src": "PDF Unidad V, p. 17 · PDF Parte I, p. 21 · PDF Parte II, p. 6"}, {"q": "Verdadero o falso: según los materiales de clase, para tener bienestar relacional se necesita un número mínimo de amistades cercanas.", "o": ["Verdadero — Harvard lo estableció en cinco relaciones", "Falso — el material dice que cuantas más relaciones, mejor", "Falso — el material insiste en la calidad, no en la cantidad, y no da ninguna cifra", "Verdadero — el PDF recomienda tres amistades cercanas"], "ok": 2, "why": "Pregunta trampa sobre un vacío. La Parte I dice que importa la calidad, no solo la cantidad, y que conviene una red diversa; no hay un número recomendado en ninguna diapositiva. Si en el Control aparece una cifra, salió de la clase hablada.", "src": "PDF Parte I, pp. 8, 12 — ver «Vacíos del material»"}, {"q": "Según la clase, ¿qué significa que «tóxico» no sea un término clínico?", "o": ["Que describe un diagnóstico de personalidad", "Que hablamos de dinámicas y comportamientos, no de personas", "Que equivale a «abusivo»", "Que solo un psicólogo puede usarlo"], "ok": 1, "why": "«Tóxico» es un término popular: un patrón repetido que te desgasta. La clase insiste en hablar de dinámicas y comportamientos, no de «personas tóxicas». Lo abusivo es otro nivel (control, humillación, amenazas o violencia) y requiere protección y ayuda. Y dependencia emocional, codependencia y personalidad dependiente tampoco son etiquetas para diagnosticar.", "src": "PDF Parte II, pp. 7–8"}, {"q": "¿Cuál de estos recursos NO figura entre los lugares donde pedir ayuda que menciona la clase?", "o": ["Una línea de ayuda de la OMS", "Apoyo psicológico de ESEN", "Emergencias: 911", "Línea 126 (ISDEMU)"], "ok": 0, "why": "La clase lista: una persona de confianza, apoyo psicológico de ESEN, línea 126 (ISDEMU, violencia contra las mujeres) y emergencias 911. La OMS no aparece entre ellos. Y el mensaje de cierre: no es tu culpa; pedir ayuda no es traicionar a nadie.", "src": "PDF Parte II, p. 11"}]};
+var DECKS = {"d5": [["Inteligencia o gestión emocional", "Percibir, asimilar, comprender y regular las propias emociones y las de los demás, promoviendo un crecimiento emocional e intelectual."], ["Cerebro emocional vs. cerebro racional", "Emocional = reptiliano + sistema límbico.\nRacional = neocórtex."], ["CI vs. el resto de factores", "El CI es apenas un 20% de los factores del éxito. El 80% restante: clase social, suerte y, en gran medida, inteligencia emocional."], ["Interpersonal vs. intrapersonal (Gardner)", "Interpersonal: permite comprender a los demás.\nIntrapersonal: permite configurar una imagen fiel y verdadera de uno mismo."], ["Autoconciencia", "Reconocer y entender mis emociones, estado de ánimo e impulsos, así como su efecto en las demás personas."], ["Autorregulación", "Conducir o redirigir impulsos emocionales y estados de ánimo. Pensar antes de actuar."], ["Automotivación", "Pasión para trabajar por razones más allá del dinero y el status; metas con energía y persistencia; posponer la gratificación."], ["Empatía: ¿qué tres componentes?", "Empatía cognitiva, empatía afectiva o emocional y empatía somática."], ["Habilidades sociales: implicaciones", "Comunicarnos efectivamente · intimar (conexión emocional) · red de apoyo de amigos y familiares · involucramiento con la comunidad."], ["Cuadrante de pensamientos y emociones", "Necesario: vida diaria, rutina.\nPoco útil: pasado, «si hubiese».\nPoco constructivo: resentimientos, chismes, quejas.\nConstructivo: fuerza interior, motivación, tolerancia, mejora continua."], ["Secuestro de la amígdala", "La amígdala responde de forma desproporcionada y bloquea la capacidad del neocórtex de procesar racionalmente. Rápido porque recibe las señales sensoriales antes. Libera hormonas del estrés: lucha o huida."], ["¿Cómo evitar un secuestro? (5 pasos)", "1 Observar detonantes · 2 Encontrar un modelo · 3 Notar señales del cuerpo · 4 Cortocircuito «Lo pensaré» · 5 Repetir."], ["El semáforo del cortocircuito", "Rojo: cálmate.\nAmarillo: evaluar opciones.\nVerde: probar opciones."], ["Desarrollar la dimensión: internas (8)", "Vocabulario emocional · intensidad de la emoción · escribir sobre tus emociones · calmar los pensamientos · cuidar el cuerpo · no tomarte tan en serio · ser amable contigo · rutinas de autocuidado."], ["Desarrollar la dimensión: relacionales (6)", "Actividades o hobbies · compartir con alguien de confianza · organización compatible con tus valores · mantenerte cerca de seres queridos y mentores · voluntariado · palabras de afirmación."]], "d6": [["Harvard Study of Adult Development", "Desde 1938. La satisfacción con las relaciones a los 50 años predijo la salud a los 80 mejor que el colesterol."], ["Bienestar relacional", "La calidad de nuestros vínculos y nuestra capacidad de construirlos, sostenerlos y cuidarnos dentro de ellos."], ["Tres autores del bienestar relacional", "Seligman (PERMA: la R de relaciones) · Lyubomirsky 2007 (relaciones cercanas y felicidad) · Cohen & Wills 1985 (el apoyo social amortigua el estrés)."], ["+50% · 47 % · ×2", "+50%: más probabilidad de supervivencia (Holt-Lunstad 2010; 148 estudios, 308 849 personas).\n47 %: más peso en bebés prematuros con terapia de contacto (Field 1986).\n×2: efecto cuando la pareja es también mejor amigo/a (Helliwell & Grover 2014)."], ["Los cinco componentes", "1 Calidad de las relaciones · 2 Apoyo social · 3 Comunicación asertiva y empática · 4 Influencia en comportamientos saludables · 5 Establecimiento de límites."], ["Cuatro tipos de apoyo social", "Emocional (te escucha) · Instrumental (ayuda concreta) · Informativo (consejo) · Valoración (te devuelve quién eres). Basado en House (1981)."], ["Mapa de la red de apoyo", "Tres anillos: núcleo (a quién llamarías a las 3 a.m.), cercanos y comunidad. Se marca E, I, Inf o V junto a cada persona."], ["Tres canales de la comunicación", "Palabras (lo que digo) · tono e inflexión (cómo lo digo) · cuerpo (gestos, mirada, postura). En un chat perdemos tono y cuerpo."], ["Pasiva · agresiva · asertiva", "Pasiva: callo y cedo; me pierdo yo.\nAgresiva: impongo y culpo; pierdo al otro.\nAsertiva: expreso con claridad y respeto, y escucho; cuido a ambos."], ["Mensaje YO (4 pasos)", "1 Describe el hecho sin juzgar · 2 Expresa cómo te afecta · 3 Pide algo concreto · 4 Cierra con un acuerdo. Evita «siempre», «nunca», «eres…»."], ["Empatía en tres pasos", "Escucha (sin interrumpir) · Nombra (parafrasea lo que entendiste y lo que parece sentir) · Valida (su emoción tiene sentido, aunque pienses distinto)."], ["De la relación sana a la abusiva", "Sana → conflictiva → tóxica → abusiva. «Tóxico» es un término popular, no clínico: hablamos de dinámicas y comportamientos, no de personas."], ["Dependencia emocional · codependencia · personalidad dependiente", "Dependencia emocional: centrada en mi inseguridad y miedo a la soledad.\nCodependencia: centrada en el otro, a costa de mi bienestar.\nPersonalidad dependiente: rasgo estable de miedo al abandono y sumisión."], ["Ciclo de la violencia de género (Walker)", "Luna de miel (manipulación y falso arrepentimiento) → tensión (irritabilidad, violencia verbal) → agresión (estalla la violencia; suele ser cuando se pide ayuda) → vuelve a empezar."], ["Dónde pedir ayuda", "Una persona de confianza · apoyo psicológico de ESEN · Línea 126 (ISDEMU) · emergencias 911. No es tu culpa; pedir ayuda no es traicionar a nadie."], ["Tipos de límites", "Emocionales · físicos · temporales · digitales."], ["Cómo comunicar un límite", "1 Reflexiona (¿qué valoro?) · 2 Nómbralo (qué límite es y qué haré yo si se cruza) · 3 Comunícalo y sostenlo con claridad, respeto y consistencia."], ["Responsabilidad afectiva", "Ser consciente del impacto de lo que sentimos, decimos y hacemos en los demás, y cuidar mis necesidades y también las del otro. Soy responsable del impacto de mis actos, no de las emociones del otro."], ["Redes sociales: la evidencia", "Limitar las redes a 30 min diarios durante 3 semanas redujo la soledad y los síntomas depresivos en universitarios (Hunt et al., 2018)."], ["Mitos del amor romántico (Yela, 2003)", "Ocho mitos, entre ellos: «me aceptará tal como soy», «debería saber lo que necesito», «nunca se enfadará», «media naranja», «el amor puede con todo», «soy de mi pareja»."], ["Mi plan relacional", "Cultivar (¿a quién nutro en 7 días?) · Comunicar (¿qué mensaje YO tengo pendiente?) · Cuidarme (¿qué límite sostengo?)."]]};
+
+(function(){
+  var LETTERS = ["A","B","C","D"];
+  Object.keys(QUIZ).forEach(function(key){
+    var host = document.querySelector('[data-quiz="'+key+'"]');
+    if(!host) return;
+    var badge = document.querySelector('[data-score="'+key+'"]');
+    var isCase = key.charAt(0) === 'c' && key !== 'mix';
+    var total = QUIZ[key].length, answered = 0, right = 0;
+    QUIZ[key].forEach(function(item, idx){
+      var wrap = document.createElement("div"); wrap.className = "q";
+      var n = document.createElement("span"); n.className = "qn";
+      n.textContent = (isCase ? "CASO " : "PREGUNTA ") + (idx+1) + " / " + total; wrap.appendChild(n);
+      if(item.s){
+        var sc = document.createElement("p"); sc.className = "caso"; sc.textContent = item.s; wrap.appendChild(sc);
+      }
+      var t = document.createElement("p"); t.className = "qt"; t.textContent = item.q; wrap.appendChild(t);
+      var opts = document.createElement("div"); opts.className = "opts";
+      var buttons = [];
+      item.o.forEach(function(text, i){
+        var b = document.createElement("button"); b.type = "button"; b.className = "opt";
+        var k = document.createElement("span"); k.className = "k"; k.textContent = LETTERS[i];
+        var s = document.createElement("span"); s.textContent = text;
+        b.appendChild(k); b.appendChild(s);
+        b.addEventListener("click", function(){
+          if(wrap.dataset.done) return;
+          wrap.dataset.done = "1"; answered++;
+          var acierto = (i === item.ok); if(acierto) right++;
+          buttons.forEach(function(bb, bi){
+            bb.disabled = true;
+            if(bi === item.ok) bb.classList.add("good");
+            else if(bi === i) bb.classList.add("bad");
+          });
+          var fb = document.createElement("div"); fb.className = "fb" + (acierto ? " ok" : " no");
+          fb.setAttribute("role", "status");
+          var v = document.createElement("span"); v.className = "verdict";
+          v.textContent = acierto ? "Correcto" : ("Incorrecto — la respuesta es " + LETTERS[item.ok]);
+          fb.appendChild(v);
+          var p = document.createElement("p"); p.textContent = item.why; fb.appendChild(p);
+          var sr = document.createElement("p"); sr.className = "src"; sr.textContent = "FUENTE: " + item.src;
+          fb.appendChild(sr);
+          wrap.appendChild(fb);
+          if(badge) badge.textContent = right + " / " + answered + " correctas · " + answered + " de " + total + (isCase ? " respondidos" : " respondidas");
+        });
+        buttons.push(b); opts.appendChild(b);
+      });
+      wrap.appendChild(opts); host.appendChild(wrap);
+    });
+  });
+})();
+
+(function(){
+  Object.keys(DECKS).forEach(function(key){
+    var host = document.querySelector('[data-deck="'+key+'"]');
+    if(!host) return;
+    var all = DECKS[key], pile = [], flipped = false, known = 0;
+    function mk(tag, cls, txt){ var e = document.createElement(tag); if(cls) e.className = cls; if(txt != null) e.textContent = txt; return e; }
+    function reset(){ pile = all.map(function(_, i){ return i; }); flipped = false; known = 0; render(); }
+    function shuffle(){
+      for(var i = pile.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = pile[i]; pile[i] = pile[j]; pile[j] = t; }
+      flipped = false; render();
+    }
+    function render(){
+      host.textContent = "";
+      var top = mk("div", "deck-top");
+      var cnt = mk("span", null, pile.length ? ("Tarjeta " + (all.length - pile.length + 1) + " de " + all.length) : "Mazo terminado");
+      cnt.setAttribute("aria-live", "polite");
+      top.appendChild(cnt);
+      top.appendChild(mk("span", null, "Sabidas: " + known + " · Por repasar: " + pile.length));
+      host.appendChild(top);
+      if(!pile.length){
+        host.appendChild(mk("div", "deck-done", "Repasaste todo el mazo."));
+        var a0 = mk("div", "deck-actions"); var r = mk("button", "btn primary", "Reiniciar mazo"); r.type = "button"; r.onclick = reset;
+        a0.appendChild(r); host.appendChild(a0); return;
+      }
+      var card = all[pile[0]];
+      var c = mk("button", "fcard" + (flipped ? " back" : "")); c.type = "button";
+      c.setAttribute("aria-label", (flipped ? "Respuesta. " : "Pregunta. ") + "Pulsa para voltear");
+      c.appendChild(mk("span", "side", flipped ? "Respuesta" : "Concepto"));
+      c.appendChild(mk("span", "txt", flipped ? card[1] : card[0]));
+      c.onclick = function(){ flipped = !flipped; render(); var nc = host.querySelector(".fcard"); if(nc) nc.focus(); };
+      host.appendChild(c);
+      var act = mk("div", "deck-actions");
+      var know = mk("button", "btn primary", "La sabía"); know.type = "button";
+      know.onclick = function(){ pile.shift(); known++; flipped = false; render(); };
+      var again = mk("button", "btn", "Repasar de nuevo"); again.type = "button";
+      again.onclick = function(){ pile.push(pile.shift()); flipped = false; render(); };
+      var sh = mk("button", "btn", "Barajar"); sh.type = "button"; sh.onclick = shuffle;
+      var rs = mk("button", "btn", "Reiniciar"); rs.type = "button"; rs.onclick = reset;
+      [know, again, sh, rs].forEach(function(b){ act.appendChild(b); });
+      host.appendChild(act);
+    }
+    reset();
+  });
+})();
+
+(function(){
+  var KEY = 'pb_c2_notes', data = {};
+  try { data = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (_) { data = {}; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (_) {} }
+  document.querySelectorAll('textarea[data-note]').forEach(function(t){
+    var k = t.getAttribute('data-note');
+    if(data[k]) t.value = data[k];
+    t.addEventListener('input', function(){ data[k] = t.value; save(); });
+  });
+  document.querySelectorAll('.notes').forEach(function(box){
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = 'Borrar mis notas de esta unidad';
+    b.style.marginTop = '12px';
+    b.addEventListener('click', function(){
+      box.querySelectorAll('textarea[data-note]').forEach(function(t){ t.value = ''; delete data[t.getAttribute('data-note')]; });
+      save();
+    });
+    box.appendChild(b);
+  });
+})();
+</script>
+<script>
+  function initGreekTheme() {
+    function updateThemeUI(isDark) {
+      var icon = document.getElementById('theme-icon');
+      var text = document.getElementById('theme-text');
+      var btn = document.getElementById('theme-toggle');
+      if(icon) icon.textContent = isDark ? '☀️' : '🌙';
+      if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
+      if(btn) {
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+        btn.setAttribute('aria-label', isDark ? 'Cambiar a modo día' : 'Cambiar a modo noche');
+      }
+    }
+    window.toggleTheme = function() {
+      var current = document.documentElement.getAttribute('data-theme') || 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem('pb_theme', next); } catch (_) {}
+      updateThemeUI(next === 'dark');
+    };
+    updateThemeUI(document.documentElement.getAttribute('data-theme') === 'dark');
+    var btn = document.getElementById('theme-toggle');
+    if(btn) btn.onclick = window.toggleTheme;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGreekTheme);
+  else initGreekTheme();
+</script>
+</body>
+</html>
