@@ -104,33 +104,46 @@ RESTRICCIONES: [extensión, nivel, etc. — si aplica]
 - `04 Materiales Generados/` — índice de material de estudio ya producido (actualmente
   vacío) y `_Plantilla de Material.md` para registrar uno nuevo.
 - `README.md` — una línea, identificación del repositorio.
-- `docs/` — sitio estático publicado en GitHub Pages: `https://carcamval2025-cyber.github.io/pilares-del-bienestar-vault/`. `docs/index.html` contiene el scaffold interactivo de la fachada de diez columnas del bienestar.
+- `docs/` — sitio estático publicado en GitHub Pages: `https://carcamval2025-cyber.github.io/pilares-del-bienestar-vault/`. `docs/index.html` es el portal: un mosaico bento con las diez unidades, los repasos y los controles.
 
 ## Sistema de diseño HTML (solo para Guía / Resumen / Repaso — nunca para Foro, Control, Ikigai, Propósito de vida o Workbook)
 
 Ver `02 Curso/Sistema de Diseño HTML.md` para la especificación completa. Identidad
-visual basada en una **arquitectura clásica griega y orden jónico/dórico ("Acrópolis del Bienestar")**:
-- **Modo Claro (Día en la Acrópolis)**: Mármol pentélico claro, líneas en tinta pino y
-  acentos en terracota y oro ceremonial.
-- **Modo Oscuro (Noche en la Acrópolis)**: Basalto volcánico y pórfido oscuro (`#110F0D` /
-  `#191613`), bordes en bronce patinado (`#3A332A`) y acentos iluminados en oro (`#DFC07A`),
-  pino esmeralda (`#4E9B79`) y terracota (`#E07A5F`).
-- Se evita terminantemente la estética genérica de aplicaciones de "wellness" comercial (sin
-  pasteles deslavados, sin íconos de spa o flores de loto genéricas).
+visual **"Bento Brutal"** (neo-brutalismo + bento grid; reemplaza a la antigua estética
+griega "Acrópolis del Bienestar"):
+- Tiles de color plano y saturado (amarillo, coral, azul, verde, lila), bordes de 3 px y
+  sombras duras desplazadas, sin desenfoque. Sin tiles dentro de tiles: el texto va abierto y
+  las piezas con borde son los tiles.
+- **Solo modo claro**: superficie neutra fría `#E8EAEF` (no crema) y tinta `#0A0B10`. El modo noche
+  se probó y se descartó; no hay selector de tema ni `localStorage` (el sitio declara `color-scheme: light`).
+- Tipografía: una sola familia, Archivo variable (contraste por ancho y peso), sin monoespaciada.
+- Motion design abundante (entradas por palabra, revelado al scroll, láminas que "saltan",
+  confeti en aciertos, tarjetas que giran, cinta de texto), siempre
+  con el contenido visible por defecto y respetando `prefers-reduced-motion`.
+- Se evita la estética genérica de aplicaciones de "wellness" comercial y los tics de plantilla de
+  IA: sin franjas laterales de color, sin rayados decorativos, sin numeración 01/02/03 de relleno.
+
+**Fuente única del diseño**: `tools/design/brutal.css`, `tools/design/portal.css` y
+`tools/design/motion.js`. Nunca editar el CSS/JS de diseño dentro de una página de `docs/`;
+edita esos archivos y corre `node tools/apply-design.mjs`. `node tests/site-smoke.mjs` falla si
+alguna página quedó desactualizada. Una página nueva debe llevar los marcadores
+`/*DESIGN:START*/ … /*DESIGN:END*/` dentro de su `<style>` y agregarse a `tools/apply-design.mjs`
+y a `tests/site-smoke.mjs`.
 
 Reglas técnicas del sistema:
 - Sin `<form>` — usar eventos JS nativos y accesibles para interactividad.
-- Estilo arquitectónico en bajorrelieve: se autoriza el uso controlado de sombras cinceladas
-  y gradientes vectoriales dentro de los SVG inline para conferir volumen pétreo y soportar la
-  transición dinámica entre luz diurna y modo nocturno mediante variables CSS.
+- **Láminas SVG planas**: sin degradados de volumen ni filtros de sombra suave; los colores
+  planos se controlan por CSS. Trazo de tinta, sombra dura en el `figure`.
 - **Identificadores únicos en SVGs**: cada lámina vectorial debe utilizar prefijos o identificadores
   únicos en sus `<defs>` (gradientes, filtros, clips) para evitar colisiones al agregarse en páginas
   de repaso general.
-- Cero dependencias externas: debe abrir directamente en navegador sin servidor ni build step.
+- Cada página es un solo `.html` autocontenido: abre directamente en navegador sin servidor ni
+  build step (el CSS y el JS compartidos viajan incrustados). Única dependencia externa: Google Fonts,
+  con **un solo `@import` al inicio del `<style>`**.
 - Todo diagrama o ilustración debe ser SVG inline accesible y semántico; nunca imágenes externas
   ni capturas de diapositivas de clase.
-- Modo oscuro con prevención de destello (*zero-flash*): detección temprana en `<head>` y tolerancia
-  a entornos sin `localStorage`.
+- Sin modo oscuro ni selector de tema. Orden de los `<script>`: contenido de la página y, al final,
+  motion.
 
 ## GitHub Pages (`docs/`) — activo
 
@@ -175,4 +188,5 @@ Unidad** (Guía HTML / Resumen / Repaso):
 - `02 Curso/Sistema de Evaluación.md`
 - `02 Curso/Fuentes y Bibliografía.md`
 - `02 Curso/Sistema de Diseño HTML.md`
-- `docs/index.html` — scaffold del sitio, aún no publicado.
+- `docs/index.html` — portal del sitio (publicado en GitHub Pages).
+- `tools/design/` y `tools/apply-design.mjs` — fuente única del sistema de diseño y su script de inyección.

@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import vm from "node:vm";
 
 const pages = [
   "docs/index.html",
@@ -13,11 +12,19 @@ const pages = [
 ];
 
 const read = (file) => readFileSync(file, "utf8");
+const brutalCss = read("tools/design/brutal.css").trim();
+const portalCss = read("tools/design/portal.css").trim();
+const motionJs = read("tools/design/motion.js").trim();
 const ids = (html) => [...html.matchAll(/\bid=(["'])([^"']+)\1/g)].map((match) => match[2]);
 const scripts = (html) => [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map((match) => match[1]);
 
 for (const page of pages) {
   const html = read(page);
+  // el sistema de diseño compartido debe estar inyectado (node tools/apply-design.mjs)
+  assert.ok(html.includes(brutalCss), `${page}: CSS desactualizado, corre node tools/apply-design.mjs`);
+  assert.ok(html.includes(motionJs), `${page}: motion.js desactualizado, corre node tools/apply-design.mjs`);
+  if (page === "docs/index.html") assert.ok(html.includes(portalCss), `${page}: portal.css desactualizado`);
+  assert.equal((html.match(/@import/g) || []).length, 1, `${page}: debe haber un solo @import`);
   const pageIds = ids(html);
   assert.equal(new Set(pageIds).size, pageIds.length, `${page}: duplicate id`);
   for (const [, reference] of html.matchAll(/url\(#([^)]+)\)/g)) {
@@ -35,39 +42,9 @@ for (const page of pages) {
     if (fragment) assert.ok(ids(read(target)).includes(fragment), `${page}: missing fragment ${href}`);
   }
 
-  const [headTheme, , toggleTheme] = scripts(html);
-  const rootAttributes = new Map();
-  assert.doesNotThrow(() => vm.runInNewContext(headTheme, {
-    document: { documentElement: { setAttribute: (name, value) => rootAttributes.set(name, value) } },
-    localStorage: { getItem: () => { throw new Error("storage unavailable"); } },
-    window: { matchMedia: () => ({ matches: false }) },
-  }), `${page}: initial theme must tolerate unavailable storage`);
-
-  const buttonAttributes = new Map();
-  const elements = {
-    "theme-icon": { textContent: "" },
-    "theme-text": { textContent: "" },
-    "theme-toggle": {
-      onclick: null,
-      setAttribute: (name, value) => buttonAttributes.set(name, value),
-    },
-  };
-  const document = {
-    readyState: "complete",
-    documentElement: {
-      getAttribute: (name) => rootAttributes.get(name),
-      setAttribute: (name, value) => rootAttributes.set(name, value),
-    },
-    getElementById: (id) => elements[id] ?? null,
-  };
-  const context = {
-    document,
-    localStorage: { setItem: () => { throw new Error("storage unavailable"); } },
-    window: {},
-  };
-  vm.runInNewContext(toggleTheme, context);
-  assert.doesNotThrow(() => context.window.toggleTheme(), `${page}: toggle must tolerate unavailable storage`);
-  assert.equal(buttonAttributes.get("aria-pressed"), "true", `${page}: toggle state is not announced`);
+  // solo modo claro: no debe quedar rastro del selector de tema
+  assert.ok(!html.includes("pb_theme") && !html.includes('id="theme-toggle"'), `${page}: queda código del modo noche`);
+  assert.ok(!html.includes('data-theme="dark"'), `${page}: queda CSS del modo noche`);
 }
 
 const portal = read("docs/index.html");

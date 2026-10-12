@@ -1,1801 +1,970 @@
 <!doctype html>
 <html lang="es">
 <head>
-<script>
-  (function(){
-    var saved = null;
-    try { saved = localStorage.getItem('pb_theme'); } catch (_) {}
-    var dark = saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    if(dark) document.documentElement.setAttribute('data-theme', 'dark');
-    else document.documentElement.setAttribute('data-theme', 'light');
-  })();
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pilares del Bienestar — Ateneo de Estudio</title>
+<meta name="color-scheme" content="light">
+<title>Pilares del Bienestar · Portal de estudio · ESEN Ciclo III/2026</title>
+<meta name="description" content="Portal de estudio personal de Carlos Navas para Pilares del Bienestar (ESEN, Ciclo III/2026): diez unidades, repasos y autoevaluaciones.">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+/*DESIGN:START*/
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap');
 
-  :root{
-    --bg:#F6F5F0; --bg-elev:#ECEAE2; --bg-elev2:#E2DFD4; --border:#D2CFC2; --border-soft:#DEDBD0;
-    --text:#181A19; --text-dim:#424643; --text-faint:#616662;
-    --pine:#1D473B; --moss:#2A7558; --clay:#A34626; --sage:#6B8A75;
-    --gold:#C28536; --gold-light:#F5DCAC; --gold-deep:#8C5B1C;
-    --marble:#FAF9F5; --terracotta:#9E3E1F;
-    --success:#1D473B; --danger:#B23347;
-    --ease: cubic-bezier(.22,1,.36,1);
-  }
-  *{box-sizing:border-box;}
-  html{-webkit-text-size-adjust:100%;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--bg); color:var(--text);
-    font-family:'Work Sans',sans-serif;
-    line-height:1.6;
-    background-image: 
-      radial-gradient(var(--border-soft) 1.2px, transparent 1.2px),
-      linear-gradient(to right, rgba(163, 70, 38, 0.02) 1px, transparent 1px);
-    background-size:26px 26px, 130px 130px;
-    background-position:-13px -13px, 0 0;
-  }
-  ::selection{ background:var(--pine); color:#F6F5F0; }
-  a{color:var(--moss); text-decoration:none; border-bottom:1px solid var(--border);}
-  a:hover{border-color:var(--pine); color:var(--pine);}
-  .wrap{max-width:1200px; margin:0 auto; padding:0 24px; position:relative;}
-  .mono{ font-family:'IBM Plex Mono',monospace; }
-  .cinzel{ font-family:'Cinzel',serif; letter-spacing:0.04em; }
+/* =====================================================================
+   PILARES DEL BIENESTAR — Sistema de diseño "Bento Brutal" v2
+   Fuente única: tools/design/brutal.css (se inyecta con tools/apply-design.mjs)
 
-  /* ---------- Classical Greek Meander Ribbon (Greca clásica) ---------- */
-  .greek-frieze{
-    height: 14px; width: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23A34626' stroke-width='1.25' stroke-linecap='square'/%3E%3C/svg%3E");
-    background-repeat: repeat-x;
-    opacity: 0.82;
-    margin: 28px 0;
-  }
-  .greek-frieze.subtle{
-    opacity: 0.45;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='14' viewBox='0 0 28 14'%3E%3Cpath d='M0 13h20V3H8v5h6v2H6V1h16v12h6' fill='none' stroke='%23616662' stroke-width='1' stroke-linecap='square'/%3E%3C/svg%3E");
-  }
+   Principios
+   · Una sola familia (Archivo variable): el contraste viene del ANCHO y del PESO
+     (titulares condensados y pesadísimos; texto en ancho normal).
+   · Tiles planos de color con borde grueso y sombra dura (sin desenfoque).
+   · Sin tiles dentro de tiles: el .block es texto abierto, los tiles son sus piezas.
+   · Solo modo claro (se probó un modo noche y se descartó: los colores saturados no sobreviven bien).
+   · El contenido SIEMPRE es visible: el motion solo mejora, nunca oculta.
+   ===================================================================== */
 
-  /* ---------- Title block (Classical Greek Stele / Tabula Ansata) ---------- */
-  .titleblock-stele{
-    position:absolute; top:32px; right:24px;
-    border:1.5px solid var(--border); background:var(--marble);
-    box-shadow:0 6px 18px rgba(24, 26, 25, 0.05);
-    width:230px; z-index:3;
-  }
-  .stele-pediment{
-    background:var(--bg-elev); border-bottom:1.5px solid var(--border);
-    padding:8px 10px 6px; text-align:center;
-  }
-  .stele-pediment svg{ display:block; margin:0 auto 4px; }
-  .stele-pediment span{
-    font-family:'Cinzel',serif; font-size:.65rem; font-weight:700;
-    color:var(--clay); letter-spacing:.12em; text-transform:uppercase;
-  }
-  .stele-body{ padding:4px 0; }
-  .stele-row{
-    display:flex; justify-content:space-between; padding:5px 12px;
-    border-bottom:1px solid var(--border-soft); font-family:'IBM Plex Mono',monospace;
-    font-size:.64rem; color:var(--text-dim); gap:6px;
-  }
-  .stele-row:last-child{ border-bottom:none; }
-  .stele-row b{ color:var(--pine); font-weight:600; text-align:right; font-family:'Cinzel',serif; font-size:.7rem; }
-  @media (max-width:768px){ .titleblock-stele{ position:static; width:100%; margin:0 0 32px; } }
+/* ---------- Tokens ---------- */
+:root{
+  --paper:#E8EAEF; --paper-2:#D8DCE5; --card:#FFFFFF;
+  --ink:#0A0B10; --ink-2:#2A2D38; --faint:#4F5566; --line:#B4B9C7;
+  --grid:rgba(10,11,16,.045);
+  --c-yellow:#FFD60A; --c-coral:#FF5C3D; --c-blue:#6C8BFF; --c-green:#2FD68F; --c-lilac:#B79DFF;
+  --tile-y:#2B2508; --tile-c:#391810; --tile-b:#161F44; --tile-g:#0C2D1F; --tile-l:#271E46;
+  --on-a:#0A0B10;           /* texto sobre un tile de color (modo día) */
+  --n-edge:var(--ink); --n-shd:var(--ink);   /* tile neutro */
+  --foot-bg:#0A0B10; --foot-fg:#E8EAEF;
+  color-scheme:light;
+  --a:var(--c-yellow);      /* acento del tile actual */
 
-  /* ---------- Hero Section ---------- */
-  header.hero{ padding:110px 0 0; position:relative; }
-  @media (max-width:768px){ header.hero{ padding-top:24px; } }
-  .hero-head{ max-width:680px; }
-  
-  .delphic-motto{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:'Cinzel',serif; font-size:.76rem; font-weight:700; letter-spacing:.14em;
-    color:var(--clay); text-transform:uppercase; margin:0 0 16px;
-    border-left: 2px solid var(--clay); padding-left: 10px;
-  }
-  .delphic-motto .greek{ color:var(--pine); font-weight:800; }
+  --out:cubic-bezier(.16,1,.3,1);          /* ease-out expo */
+  --out-q:cubic-bezier(.25,1,.5,1);        /* ease-out quart */
+  --font:'Archivo',system-ui,sans-serif;
 
-  h1{
-    font-family:'Instrument Serif', serif; font-weight:400; font-size:clamp(2.7rem, 6.8vw, 4.8rem);
-    line-height:1.02; margin:0 0 18px; letter-spacing:-.015em;
-  }
-  h1 em{ color:var(--pine); font-style:italic; }
+  --z-sticky:100; --z-progress:200; --z-confetti:300;
 
-  .hero-epigraph{
-    font-family:'Cinzel',serif; font-size:.82rem; color:var(--text-dim);
-    letter-spacing:.05em; font-style:italic; margin:0 0 18px;
-    border-left:2px solid var(--gold); padding-left:14px; max-width:60ch;
-  }
-  .hero p.lede{ font-size:1.05rem; color:var(--text-dim); max-width:54ch; margin:0 0 32px; line-height:1.65; }
+  /* alias heredados (los SVG y el HTML ya escrito los usan) */
+  --bg:var(--paper); --bg-elev:var(--card); --bg-elev2:var(--paper-2);
+  --border:var(--ink); --border-soft:var(--line);
+  --text:var(--ink); --text-dim:var(--ink-2); --text-faint:var(--faint);
+  --pine:#0A7A4B; --moss:#0A7A4B; --clay:#B8300F; --clay-deep:#A32A12; --sage:#4F7A63;
+  --gold:#7A5300; --gold-doric:#7A5300; --gold-deep:#7A5300; --pine-light:#0A7A4B;
+  --success:#0A7A4B; --danger:#B8300F;
+  --marble:var(--card); --marble-elev:var(--card); --marble-elev2:var(--paper-2);
 
-  /* ---------- Classical Stylobate Stat Line ---------- */
-  .stat-line-greek{
-    display:flex; flex-wrap:wrap; gap:0;
-    border-top:2px solid var(--border); border-bottom:2px solid var(--border);
-    background:var(--marble); margin-bottom:44px;
-    box-shadow:0 4px 14px rgba(24, 26, 25, 0.03);
-  }
-  .stat-card{
-    flex:1 1 150px; padding:16px 20px; border-right:1px solid var(--border);
-    position:relative;
-  }
-  .stat-card::before{
-    content:""; position:absolute; top:0; left:0; right:0; height:3px;
-    background:linear-gradient(90deg, var(--gold) 0%, transparent 100%);
-    opacity:0.6;
-  }
-  .stat-card:last-child{ border-right:none; }
-  .stat-card .n{
-    font-family:'Cinzel',serif; font-size:1.85rem; font-weight:700;
-    color:var(--pine); line-height:1; letter-spacing:0.02em;
-  }
-  .stat-card .l{
-    font-family:'IBM Plex Mono',monospace; font-size:.66rem; color:var(--text-faint);
-    text-transform:uppercase; letter-spacing:.06em; margin-top:8px; font-weight:500;
-  }
+  /* rellenos planos de las láminas SVG */
+  --svg-bg-start:#FFFFFF; --svg-bg-mid:#F6F7FA; --svg-bg-end:#ECEEF3;
+  --svg-card-start:#FFFFFF; --svg-card-mid:#FFFFFF; --svg-card-end:#FFFFFF; --svg-card-edge:#FFFFFF;
+  --svg-ped-start:#E6E9F0; --svg-ped-mid:#E6E9F0; --svg-ped-end:#E6E9F0;
+  --svg-clay-bg-start:#FFD6CC; --svg-clay-bg-end:#FFD6CC;
+  --svg-pine-bg-start:#C6F3DF; --svg-pine-bg-end:#C6F3DF;
+  --svg-gold-bg-start:#FFF0A0; --svg-gold-bg-end:#FFF0A0;
+  --svg-shaft-edge:#0A0B10; --svg-shaft-light:#F4F5F9; --svg-shaft-peak:#F4F5F9;
+  --svg-shaft-mid:#F4F5F9; --svg-shaft-dark:#F4F5F9;
+  --svg-greca:#0A0B10;
+}
+/* Superficie de un tile con acento (--a): relleno del color, borde y sombra de tinta, texto negro. */
+*{
+  --a-bg:var(--a); --a-fg:var(--on-a); --a-edge:var(--ink); --a-shd:var(--ink);
+  --chip-bg:#0A0B10; --chip-fg:var(--a);
+}
 
-  /* ---------- Temple Architecture Diagram ---------- */
-  .temple-wrap{ position:relative; margin:0 0 12px; }
-  .temple-scroll{
-    overflow-x:auto; overflow-y:visible; padding-bottom:10px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-  }
-  .temple-scroll::-webkit-scrollbar{ height: 6px; }
-  .temple-scroll::-webkit-scrollbar-thumb{ background: var(--border); border-radius: 3px; }
-  .temple-caption{
-    font-family:'Cinzel',serif; font-size:.72rem; letter-spacing:.12em; font-weight:600;
-    color:var(--text-faint); text-align:center; margin:16px 0 34px; text-transform:uppercase;
-  }
-  
-  svg#temple{
-    width:100%; min-width:840px; height:auto; display:block; overflow:visible;
-    filter: drop-shadow(0 14px 28px rgba(24, 26, 25, 0.07));
-  }
+/* ---------- Base ---------- */
+*{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; scroll-behavior:smooth; scroll-padding-top:84px; overflow-x:clip; }
+html,body{ margin:0; padding:0; }
+body{
+  background-color:var(--paper); color:var(--ink);
+  font-family:var(--font); font-weight:420; line-height:1.62; font-size:1.0625rem;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:48px 48px; overflow-x:clip;
+}
+::selection{ background:var(--c-yellow); color:#0A0B10; }
+a{ color:var(--ink); text-decoration-thickness:3px; text-underline-offset:3px; text-decoration-color:var(--c-coral); }
+a:hover{ background:var(--c-yellow); color:#0A0B10; text-decoration-color:#0A0B10; }
+.wrap{ max-width:1180px; margin:0 auto; padding:0 24px; }
 
-  /* Pillar Interactivity */
-  .col-group{
-    cursor:pointer; outline:none;
-    transform-origin: center bottom;
-    transition: transform .32s var(--ease);
-  }
-  .col-group .column-body{
-    transition: transform .32s var(--ease), filter .32s var(--ease);
-  }
-  .col-group .num-plaque{
-    transition: fill .25s var(--ease), stroke .25s var(--ease), filter .25s var(--ease);
-  }
-  .col-group .col-numeral{
-    font-family:'Cinzel', serif; font-size: 13.5px; font-weight: 700;
-    fill: var(--text-dim);
-    transition: fill .25s var(--ease);
-    pointer-events: none;
-  }
-  .col-group .shaft-glow{
-    transition: opacity .32s var(--ease);
-    mix-blend-mode: soft-light;
-    pointer-events: none;
-  }
-  .col-group .col-base-shadow{
-    transition: opacity .32s var(--ease), transform .32s var(--ease);
-    transform-origin: center center;
-  }
+h1,h2,h3,h4{ font-family:var(--font); font-stretch:78%; font-weight:850; line-height:1; margin:0; letter-spacing:-.01em; color:var(--ink); text-wrap:balance; }
+h1{ font-size:clamp(2.6rem,7.2vw,5.6rem); text-transform:uppercase; letter-spacing:-.025em; line-height:.92; }
+h2{ font-size:clamp(2rem,4.8vw,3.5rem); text-transform:uppercase; letter-spacing:-.02em; }
+h3{ font-size:clamp(1.5rem,2.8vw,2.1rem); line-height:1.04; }
+h4{ font-size:1.15rem; line-height:1.15; }
+p{ margin:0 0 1em; color:var(--ink-2); text-wrap:pretty; }
+b,strong{ color:var(--ink); font-weight:700; }
+.mono{ font-weight:600; font-variant-numeric:tabular-nums; }
+:focus-visible{ outline:4px solid var(--c-blue); outline-offset:3px; }
+.label{ font-weight:700; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; }
 
-  .col-group:hover, .col-group:focus, .col-group.active{ outline: none; }
-  .col-group:hover .column-body, .col-group:focus .column-body, .col-group.active .column-body{
-    transform: translateY(-6px);
-    filter: drop-shadow(0 10px 20px rgba(29, 71, 59, 0.26));
-  }
-  .col-group:hover .shaft-glow, .col-group:focus .shaft-glow, .col-group.active .shaft-glow{
-    opacity: 0.95;
-  }
-  .col-group:hover .col-base-shadow, .col-group:focus .col-base-shadow, .col-group.active .col-base-shadow{
-    opacity: 0.95;
-    transform: scaleX(1.22);
-  }
-  .col-group:hover .num-plaque, .col-group:focus .num-plaque, .col-group.active .num-plaque{
-    fill: var(--pine);
-    stroke: var(--gold);
-    stroke-width: 1.3;
-    filter: drop-shadow(0 2px 6px rgba(29,71,59,0.4));
-  }
-  .col-group:hover .col-numeral, .col-group:focus .col-numeral, .col-group.active .col-numeral{
-    fill: #FAF9F5;
-  }
+/* ---------- Barra superior ---------- */
+.progress{ position:fixed; top:0; left:0; right:0; height:7px; z-index:var(--z-progress); pointer-events:none; }
+.progress i{ display:block; height:100%; background:var(--c-coral); transform-origin:0 50%; transform:scaleX(var(--p,0)); }
+nav.toc{ position:sticky; top:0; z-index:var(--z-sticky); background:var(--paper); border-bottom:3px solid var(--n-edge); padding-top:7px; }
+nav.toc ul{ list-style:none; display:flex; gap:6px; margin:0 auto; padding:8px 24px; overflow-x:auto; max-width:1180px; align-items:center; scrollbar-width:none; }
+nav.toc ul::-webkit-scrollbar{ display:none; }
+nav.toc li{ flex:0 0 auto; }
+nav.toc a{ display:flex; align-items:center; min-height:44px; padding:0 14px; font-weight:700; font-size:.8rem; letter-spacing:.05em; text-transform:uppercase;
+  text-decoration:none; color:var(--ink); border:3px solid transparent; white-space:nowrap; transition:transform .25s var(--out), background .15s; }
+nav.toc a:hover{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; transform:translateY(-3px) rotate(-1.2deg); }
+nav.toc a.on{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+nav.toc a.nav-temple{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+nav.toc a.nav-temple:hover{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; }
+nav.toc a.nav-highlight{ background:var(--c-coral); color:#0A0B10; border-color:#0A0B10; }
 
-  .col-group.reveal{ opacity:0; transform:translateY(18px); }
-  .col-group.shown{ opacity:1; transform:translateY(0); transition:opacity .55s var(--ease), transform .55s var(--ease); }
+/* ---------- Franja de colores (antes: greca) ---------- */
+.stripe{ height:18px; border:3px solid var(--n-edge); margin:26px 0;
+  background:linear-gradient(90deg,var(--c-yellow) 0 20%,var(--c-coral) 0 40%,var(--c-blue) 0 60%,var(--c-green) 0 80%,var(--c-lilac) 0); }
+.stripe.subtle{ height:10px; }
 
-  /* ---------- Spec Panel (Estela Epigráfica Griega) ---------- */
-  .spec-stele{
-    border:2px solid var(--border); background:var(--marble); margin:0 0 80px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.05); position:relative;
-  }
-  .spec-stele-cornice{
-    background:var(--bg-elev); border-bottom:1.5px solid var(--border);
-    padding:8px 20px; display:flex; justify-content:space-between; align-items:center;
-  }
-  .spec-stele-cornice .tag{
-    font-family:'Cinzel',serif; font-size:.7rem; font-weight:700;
-    letter-spacing:.12em; color:var(--clay); text-transform:uppercase;
-  }
-  .spec-stele-cornice .coord{
-    font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--text-faint);
-  }
+/* ---------- Tiles con acento (cabecera, notas, etc.) ---------- */
+header.top > h1, .plate > div, .aviso, .note, .caso, .fb, .fcard, .chips li, .pager a,
+.opt.good, .opt.bad, .split span, .btn.primary{
+  background:var(--a-bg); color:var(--a-fg); border:3px solid var(--a-edge);
+}
+header.top > .lede{ background:var(--card); color:var(--ink-2); border:3px solid var(--n-edge); }
+header.top > h1, .aviso, .note, .caso, .fcard{ box-shadow:8px 8px 0 var(--a-shd); }
 
-  .spec-grid{
-    display:grid; grid-template-columns:140px 1fr auto; gap:0;
-  }
-  @media (max-width:680px){ .spec-grid{ grid-template-columns:1fr; } }
-  
-  .spec-stele .num-col{
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:var(--bg-elev2); border-right:2px solid var(--border); padding:24px 16px;
-    text-align:center;
-  }
-  @media (max-width:680px){ .spec-stele .num-col{ border-right:none; border-bottom:2px solid var(--border); padding:16px; } }
-  .spec-stele .num-col .large-roman{
-    font-family:'Cinzel',serif; font-size:3.2rem; font-weight:800;
-    color:var(--pine); line-height:1;
-  }
-  .spec-stele .num-col .greek-sub{
-    font-family:'Cinzel',serif; font-size:.7rem; font-weight:700;
-    color:var(--clay); letter-spacing:.1em; margin-top:4px; text-transform:uppercase;
-  }
+/* ---------- Cabecera bento ---------- */
+header.top{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:18px; padding:28px 0 8px; }
+header.top > *{ min-width:0; }
+header.top > .plate{ grid-column:1/-1; }
+header.top > h1{ --a:var(--c-yellow); grid-column:1/-1; padding:clamp(20px,3.4vw,40px) clamp(20px,3.4vw,44px); box-shadow:10px 10px 0 var(--a-shd); color:var(--a-fg); }
+header.top > h1 em{ font-style:normal; background:var(--chip-bg); color:var(--chip-fg); padding:.02em .14em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+header.top > .lede{ grid-column:span 5; margin:0; box-shadow:6px 6px 0 var(--n-shd); padding:20px 24px; font-size:1.1rem; align-self:start; }
+header.top > .aviso{ grid-column:span 7; margin:0; align-self:start; }
+.lede{ max-width:64ch; }
+.lede b{ background:var(--c-yellow); color:#0A0B10; padding:0 .2em; }
 
-  .spec-stele .body{ padding:26px 28px; min-width:0; }
-  .spec-stele .body h3{
-    font-family:'Instrument Serif',serif; font-weight:400; font-size:1.65rem;
-    margin:0 0 10px; color:var(--text); line-height:1.15;
-  }
-  .spec-stele .body p{ margin:0 0 6px; color:var(--text-dim); font-size:.95rem; }
-  .spec-stele .body .hito{
-    color:var(--clay); font-family:'IBM Plex Mono',monospace; font-size:.78rem;
-    margin-top:12px; display:inline-block; font-weight:600;
-    border-left:2px solid var(--clay); padding-left:8px;
-  }
+.plate{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; margin:0 0 4px; font-size:.82rem; }
+.plate > div{ box-shadow:5px 5px 0 var(--a-shd); padding:10px 14px; font-weight:600; transition:transform .25s var(--out), box-shadow .25s; }
+.plate > div:nth-child(5n+1){ --a:var(--c-green); } .plate > div:nth-child(5n+2){ --a:var(--c-lilac); }
+.plate > div:nth-child(5n+3){ --a:var(--c-blue); }  .plate > div:nth-child(5n+4){ --a:var(--c-coral); }
+.plate > div:nth-child(5n+5){ --a:var(--c-yellow); }
+.plate > div:hover{ transform:translate(-3px,-3px) rotate(-1deg); box-shadow:9px 9px 0 var(--a-shd); }
+.plate span{ display:block; font-size:.72rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; opacity:.85; }
+.plate b{ color:var(--a-fg); font-stretch:80%; font-weight:850; font-size:1.12rem; }
 
-  .spec-stele .status-col{
-    display:flex; align-items:center; padding:24px 28px; border-left:2px solid var(--border);
-    background:var(--bg-elev);
-  }
-  @media (max-width:680px){ .spec-stele .status-col{ border-left:none; border-top:2px solid var(--border); padding:16px 24px; } }
-  .stamp-greek{
-    font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase;
-    border:2px solid var(--text-faint); color:var(--text-faint); padding:8px 16px;
-    font-weight:700; border-radius:2px; white-space:nowrap; background:var(--marble);
-  }
-  .stamp-greek.disponible{ border-color:var(--success); color:var(--success); background:#EBF2ED; }
+.aviso{ --a:var(--c-coral); padding:20px 24px; }
+.aviso .tag{ display:block; font-stretch:80%; font-weight:850; font-size:1.2rem; text-transform:none; letter-spacing:0; margin-bottom:8px; color:var(--a-fg); }
+.aviso p, .aviso b{ color:var(--a-fg); font-size:.97rem; margin:0; }
+.aviso p + p{ margin-top:.7em; }
 
-  /* ---------- Greek Philosophy & Pillars Section (Eudaimonía & Areté) ---------- */
-  .agora-section{ margin:0 0 85px; }
-  .agora-head{
-    display:flex; align-items:baseline; gap:16px; margin-bottom:28px;
-    border-bottom:2px solid var(--border); padding-bottom:12px;
-  }
-  .agora-num{
-    font-family:'Cinzel',serif; font-size:.9rem; font-weight:800;
-    color:var(--clay); border:1.5px solid var(--clay); padding:3px 10px;
-  }
-  .agora-section h2{
-    font-family:'Cinzel', serif; font-weight:700; font-size:1.65rem; margin:0;
-    letter-spacing:0.02em; color:var(--pine);
-  }
+/* ---------- Cinta de texto en movimiento ---------- */
+.ticker{ overflow:hidden; background:var(--ink); color:var(--paper); border:3px solid var(--ink); margin:40px -30px; transform:rotate(-1.2deg); padding:10px 0; position:relative; }
+.ticker.alt{ background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; transform:rotate(1deg); }
+.ticker-track{ display:flex; width:max-content; animation:tick 30s linear infinite; }
+.ticker.alt .ticker-track{ animation-direction:reverse; animation-duration:38s; }
+.ticker-track span{ font-stretch:78%; font-weight:850; font-size:clamp(1.15rem,2.4vw,1.65rem); text-transform:uppercase; white-space:nowrap; padding:0 .9rem; }
+.ticker-track span.dot{ color:var(--c-coral); padding:0; }
+.ticker.alt .ticker-track span.dot{ color:#0A0B10; }
+.ticker:hover .ticker-track{ animation-play-state:paused; }
 
-  .triad-grid{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:22px; margin-bottom:44px;
-  }
-  .triad-card{
-    background:var(--marble); border:1.5px solid var(--border); padding:24px 22px;
-    position:relative; box-shadow:0 4px 14px rgba(0,0,0,0.02);
-  }
-  .triad-card::after{
-    content:""; position:absolute; bottom:0; left:0; width:100%; height:3px;
-    background:var(--border); transition:background .25s var(--ease);
-  }
-  .triad-card:hover::after{ background:var(--clay); }
-  .triad-greek{
-    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:800;
-    color:var(--clay); margin:0 0 4px; letter-spacing:.04em;
-  }
-  .triad-trans{
-    font-family:'Instrument Serif',serif; font-size:1.25rem; font-style:italic;
-    color:var(--pine); margin:0 0 10px;
-  }
-  .triad-card p{ font-size:.92rem; color:var(--text-dim); margin:0; line-height:1.55; }
+/* ---------- Unidades ---------- */
+section.unit{ --accent:var(--c-yellow); padding:24px 0 8px; margin-top:34px; position:relative; }
+section.unit:nth-of-type(5n+2){ --accent:var(--c-green); }
+section.unit:nth-of-type(5n+3){ --accent:var(--c-lilac); }
+section.unit:nth-of-type(5n+4){ --accent:var(--c-coral); }
+section.unit:nth-of-type(5n+5){ --accent:var(--c-blue); }
+.unit-head{ display:flex; gap:18px; align-items:center; flex-wrap:wrap; margin-bottom:4px; }
+.unit-num{ font-weight:850; font-stretch:80%; font-size:1.05rem; letter-spacing:.03em; text-transform:uppercase; background:var(--accent); color:#0A0B10;
+  border:3px solid var(--n-edge); padding:6px 14px; transform:rotate(-2deg); display:inline-block; }
+.unit-dates{ font-weight:600; font-size:.95rem; color:var(--faint); margin:12px 0 4px; }
+.fuente{ font-size:.9rem; font-weight:500; color:var(--ink-2); background:var(--card); border:3px solid var(--n-edge); padding:12px 16px; margin:14px 0 8px; max-width:78ch; }
+.fuente::before{ content:""; display:inline-block; width:.8em; height:.8em; background:var(--accent); border:2px solid var(--n-edge); margin-right:.6em; vertical-align:-.05em; }
 
-  /* ---------- Sello Moneda Griega (Medallón de Atenas) ---------- */
-  .sello-wrap{
-    display:flex; flex-wrap:wrap; gap:40px; align-items:center;
-    background:var(--marble); border:2px solid var(--border); padding:34px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.03);
-  }
-  .coin-stamp{
-    flex:0 0 auto; width:154px; height:154px;
-    display:flex; align-items:center; justify-content:center;
-    filter: drop-shadow(0 6px 14px rgba(163,70,38,0.22));
-  }
-  .sello-content{ flex:1 1 380px; }
-  .sello-content h4{
-    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:800;
-    color:var(--terracotta); margin:0 0 10px; letter-spacing:.03em;
-  }
-  .sello-content p{ color:var(--text-dim); font-size:.96rem; margin:0 0 14px; max-width:62ch; line-height:1.6; }
-  .sello-content p b{ color:var(--text); font-weight:600; }
+/* ---------- Bloques: texto abierto + tiles ---------- */
+.block{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); column-gap:28px; row-gap:18px; margin:68px 0; align-items:start; }
+.block > *{ grid-column:1/-1; min-width:0; margin-top:0; margin-bottom:0; }
+.block > :is(p,ul,ol){ grid-column:1/8; }
+.block > :is(.note,blockquote){ grid-column:8/-1; }
+.block > h3{ display:block; padding-bottom:12px; border-bottom:6px solid var(--n-edge); margin-bottom:2px; position:relative; }
+.block > h3::after{ content:""; position:absolute; left:0; bottom:-6px; width:84px; height:6px; background:var(--accent); }
+.block > .sub{ display:block; font-weight:600; font-size:1rem; color:var(--ink-2); margin:0; text-transform:none; letter-spacing:0; padding-top:4px; }
+.tagline{ font-weight:700; font-size:.82rem; color:var(--clay); letter-spacing:.04em; text-transform:uppercase; }
+:is(.note,.caso,.fb,.aviso,.fcard,.opt) .tagline{ color:var(--a-fg); }
+dl.glos dt .tagline{ color:#0A0B10; font-size:.72rem; margin-left:6px; }
+h4.sec .mono{ color:inherit !important; opacity:.8; font-size:.8rem !important; letter-spacing:.04em !important; }
+.hl{ background:var(--c-yellow); color:#0A0B10; font-weight:700; padding:0 .25em; }
+h4.sec{ display:inline-block; font-size:1rem; text-transform:uppercase; letter-spacing:.02em; margin:28px 0 10px; background:var(--ink); color:var(--paper); padding:5px 12px; }
 
-  /* ---------- Footer (Basamento Monumental) ---------- */
-  footer.temple-footer{
-    padding:40px 0 70px; border-top:2px solid var(--border);
-    display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; align-items:center;
-  }
-  footer .txt{ color:var(--text-faint); font-size:.84rem; max-width:48ch; line-height:1.6; }
-  footer .txt b{ color:var(--text-dim); font-family:'Cinzel',serif; }
-  footer .txt code{ color:var(--pine); font-weight:600; }
-  .scalebar-greek{ display:flex; align-items:center; gap:10px; }
-  .scalebar-greek .bar{ display:flex; height:8px; width:130px; border:1.5px solid var(--text-faint); }
-  .scalebar-greek .bar span{ flex:1; }
-  .scalebar-greek .bar span:nth-child(odd){ background:var(--clay); }
-  .scalebar-greek .bar span:nth-child(even){ background:var(--marble); }
-  .scalebar-greek .lab{ font-family:'Cinzel',serif; font-size:.68rem; font-weight:700; color:var(--text-faint); letter-spacing:.08em; }
+ul.clean{ margin:0; padding:0; list-style:none; }
+ul.clean li{ position:relative; padding-left:28px; margin-bottom:.6em; color:var(--ink-2); }
+ul.clean li::before{ content:""; position:absolute; left:2px; top:.5em; width:12px; height:12px; background:var(--accent); border:2.5px solid var(--n-edge); transform:rotate(45deg); }
+ul.clean li.clay::before{ background:var(--c-coral); }
 
-  @media (prefers-reduced-motion: reduce){
-    .col-group.reveal{ opacity:1; transform:none; }
-    .col-group.shown{ transition:none; }
-    .col-group:hover .column-body{ transform:none; }
-  }
-  .spec-link{ display:inline-block; margin-top:12px; font-family:'Cinzel',serif; font-size:.8rem;
-    font-weight:700; letter-spacing:.06em; text-decoration:none; color:var(--pine);
-    border:2px solid var(--pine); padding:8px 14px; }
-  .spec-link:hover{ background:var(--pine); color:#F5F5F3; }
-  .spec-link[hidden]{ display:none; }
+/* tiles neutros: 2 y 3 columnas */
+.two, .three{ display:grid; gap:18px; }
+.two{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.three{ grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+.two > div, .three > div{ border:3px solid var(--n-edge); background:var(--card); padding:20px 22px 18px; border-top-width:14px; box-shadow:6px 6px 0 var(--n-shd);
+  transition:transform .3s var(--out), box-shadow .3s; }
+.two > div:nth-child(5n+1), .three > div:nth-child(5n+1){ border-top-color:var(--c-green); }
+.two > div:nth-child(5n+2), .three > div:nth-child(5n+2){ border-top-color:var(--c-coral); }
+.two > div:nth-child(5n+3), .three > div:nth-child(5n+3){ border-top-color:var(--c-blue); }
+.two > div:nth-child(5n+4), .three > div:nth-child(5n+4){ border-top-color:var(--c-yellow); }
+.two > div:nth-child(5n+5), .three > div:nth-child(5n+5){ border-top-color:var(--c-lilac); }
+.two > div:hover, .three > div:hover{ transform:translate(-4px,-4px); box-shadow:11px 11px 0 var(--n-shd); }
+.two h4, .three h4{ text-transform:uppercase; letter-spacing:.01em; margin:0 0 10px; }
+.two ul{ margin:0; padding-left:18px; }
+.two li{ color:var(--ink-2); font-size:.97rem; margin-bottom:.4em; }
+.two .resp{ margin:12px 0 0; color:var(--ink); font-weight:700; font-size:.97rem; }
+.three p{ margin:0 0 .5em; font-size:.97rem; }
+.three p:last-child{ margin-bottom:0; }
+.three .lab{ display:inline-block; font-weight:700; font-size:.74rem; letter-spacing:.06em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:2px 9px; margin-bottom:8px; }
+@media (max-width:700px){ .two{ grid-template-columns:1fr; } }
 
-  .spec-actions{ display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
-  .spec-link{
-    display:inline-flex; align-items:center; gap:6px; font-family:'Cinzel',serif; font-size:.76rem;
-    font-weight:700; letter-spacing:.06em; text-decoration:none; color:var(--pine);
-    border:2px solid var(--pine); padding:8px 16px; background:var(--marble);
-    transition:all .2s var(--ease);
-  }
-  .spec-link:hover{ background:var(--pine); color:#F5F5F3; }
-  .spec-link.repaso{
-    border-color:var(--clay); color:var(--clay);
-  }
-  .spec-link.repaso:hover{ background:var(--clay); color:#F5F5F3; }
-  .spec-actions[hidden]{ display:none; }
+/* notas y citas (a la derecha del texto) */
+.note{ --a:var(--c-yellow); padding:18px 22px; font-size:.97rem; }
+.note p, .note b{ color:var(--a-fg); margin:0; }
+.note .tag{ display:block; font-stretch:80%; font-weight:850; font-size:1.1rem; text-transform:none; letter-spacing:0; margin-bottom:6px; color:var(--a-fg); }
+.note.gap{ --a:var(--c-coral); }
+blockquote{ margin:0; padding:22px 24px; border:3px solid var(--n-edge); background:var(--card); box-shadow:6px 6px 0 var(--n-shd);
+  font-stretch:82%; font-weight:800; font-size:clamp(1.2rem,2.3vw,1.6rem); line-height:1.2; color:var(--ink); }
+blockquote::before{ content:"“"; display:block; font-size:4.2rem; line-height:.7; color:var(--c-coral); margin-bottom:6px; }
+blockquote cite{ display:block; font-stretch:100%; font-weight:600; font-size:.85rem; font-style:normal; color:var(--faint); margin-top:12px; }
 
-  /* Study Agora Section Styles */
-  .control-grand-card{
-    background: linear-gradient(135deg, #FFFDF9 0%, #F5EFE4 100%);
-    border: 2px solid var(--gold-doric);
-    padding: 30px; margin-bottom: 28px;
-    position: relative; box-shadow: 0 8px 24px rgba(158,123,53,0.12);
-  }
-  .control-grand-card::before{
-    content:""; position:absolute; top:0; left:0; right:0; height:5px;
-    background: linear-gradient(90deg, var(--clay) 0%, var(--gold-light) 50%, var(--pine) 100%);
-  }
-  .control-header{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:14px; }
-  .control-badge{
-    font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700;
-    color:var(--clay); background:var(--clay-pale); border:1px solid var(--clay);
-    padding:4px 10px; border-radius:2px; letter-spacing:.06em;
-  }
-  .control-title{
-    font-family:'Cinzel',serif; font-size:1.45rem; font-weight:800; color:var(--pine);
-    margin:0 0 6px; letter-spacing:.02em;
-  }
-  .control-sub{
-    font-family:'Cormorant Garamond',Georgia,serif; font-size:1.15rem; font-style:italic;
-    color:var(--text-dim); margin:0 0 16px; line-height:1.45;
-  }
-  .control-features{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
-    gap:14px; margin-bottom:22px; padding:16px; background:rgba(255,255,255,0.7);
-    border:1px solid var(--border);
-  }
-  .feature-item{ font-family:'IBM Plex Mono',monospace; font-size:.78rem; color:var(--text-dim); }
-  .feature-item b{ color:var(--pine); font-weight:700; font-family:'Cinzel',serif; }
-  .control-actions{ display:flex; gap:12px; flex-wrap:wrap; }
-  .btn-greek-gold{
-    font-family:'Cinzel',serif; font-size:.82rem; font-weight:800; letter-spacing:.06em;
-    text-decoration:none; color:#1B1713; background:linear-gradient(135deg, #FFEAA7, #DFC07A);
-    border:1.5px solid var(--gold-doric); padding:10px 20px; box-shadow:0 3px 8px rgba(158,123,53,0.2);
-    transition:transform .15s ease, box-shadow .15s ease;
-  }
-  .btn-greek-gold:hover{ transform:translateY(-1px); box-shadow:0 5px 14px rgba(158,123,53,0.3); }
-  .btn-greek-outline{
-    font-family:'Cinzel',serif; font-size:.82rem; font-weight:700; letter-spacing:.06em;
-    text-decoration:none; color:var(--pine); background:transparent;
-    border:1.5px solid var(--pine); padding:10px 18px;
-    transition:background .2s ease, color .2s ease;
-  }
-  .btn-greek-outline:hover{ background:var(--pine); color:#F5F5F3; }
+/* ---------- Láminas ---------- */
+figure.diag{ margin:0; border:3px solid var(--n-edge); background:var(--paper-2); padding:14px 14px 0; overflow:hidden; box-shadow:8px 8px 0 var(--n-shd); }
+figure.diag .scroller{ overflow-x:auto; padding-bottom:12px; }
+figure.diag svg{ display:block; width:100%; height:auto; }
+figure.diag figcaption{ font-weight:600; font-size:.9rem; background:var(--ink); color:var(--paper); margin:0 -14px; padding:10px 16px; }
+figure.diag svg text[font-family*="Cinzel"]{ font-family:var(--font); font-stretch:86%; font-weight:800; letter-spacing:.01em; }
+figure.diag svg text[font-family*="Cormorant"]{ font-family:var(--font); font-stretch:72%; font-style:normal; font-weight:560; }
+figure.diag svg text[font-family*="Plex"]{ font-family:var(--font); font-stretch:78%; font-weight:600; letter-spacing:.02em; }
+figure.diag svg text[font-family*="Work Sans"]{ font-family:var(--font); }
+figure.diag svg [filter]{ filter:none; }
+figure.diag svg [fill*="meander"]{ display:none; }
+figure.diag svg :is(rect,polygon,circle,ellipse)[stroke]{ stroke:var(--ink); stroke-width:2.2px; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-clay"] stop{ stop-color:#E5472C; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-pine"] stop,
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-shaft-pine"] stop{ stop-color:#0B6B44; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-moss"] stop{ stop-color:#14925F; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-gold"] stop{ stop-color:#F5B800; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-gk-nocturnal"] stop{ stop-color:#16191D; }
+figure.diag svg :is(linearGradient,radialGradient)[id$="-shaft"] stop,
+figure.diag svg :is(linearGradient,radialGradient)[id$="-shaft-light"] stop{ stop-color:var(--svg-shaft-mid); }
 
-  .study-card{
-    background:var(--marble); border:1.5px solid var(--border); padding:22px 20px;
-    display:flex; flex-direction:column; justify-content:space-between;
-    transition:border-color .2s ease, box-shadow .2s ease;
-  }
-  .study-card:hover{ border-color:var(--pine); box-shadow:0 6px 18px rgba(27,23,19,0.06); }
-  .study-card-top{ margin-bottom:16px; }
-  .study-num{
-    font-family:'Cinzel',serif; font-size:.82rem; font-weight:800; color:var(--clay);
-    border:1px solid var(--clay); padding:2px 8px; display:inline-block; margin-bottom:10px;
-  }
-  .study-card h3{
-    font-family:'Cinzel',serif; font-size:1.15rem; font-weight:700; color:var(--pine);
-    margin:0 0 6px;
-  }
-  .study-dates{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; color:var(--text-faint); margin-bottom:8px; }
-  .study-desc{ font-size:.9rem; color:var(--text-dim); line-height:1.5; margin:0; }
-  .study-btn{
-    margin-top:16px; display:inline-block; font-family:'Cinzel',serif; font-size:.76rem;
-    font-weight:700; color:var(--pine); text-decoration:none; border-bottom:1.5px solid var(--pine);
-    padding-bottom:2px;
-  }
-  .study-btn:hover{ color:var(--clay); border-bottom-color:var(--clay); }
+.sv text{ font-family:var(--font); }
+.sv .h{ font-stretch:84%; font-weight:850; fill:var(--ink); }
+.sv .t{ fill:var(--ink); }
+.sv .d{ fill:var(--ink-2); font-stretch:92%; font-weight:480; }
+.sv .m{ fill:var(--faint); font-stretch:88%; font-weight:560; }
+.sv .cl{ fill:var(--clay-deep); }
+.sv .pn{ fill:var(--pine); }
+.sv .fpine{ fill:var(--svg-pine-bg-end); stroke:var(--ink); stroke-width:2.5; }
+.sv .fclay{ fill:var(--svg-clay-bg-end); stroke:var(--ink); stroke-width:2.5; }
+.sv .fclay2{ fill:var(--c-coral); fill-opacity:.55; stroke:var(--ink); stroke-width:2.5; }
+.sv .fgold{ fill:var(--svg-gold-bg-end); stroke:var(--ink); stroke-width:2.5; }
+.sv .fdash{ fill:var(--svg-card-mid); stroke:var(--ink); stroke-width:2.5; stroke-dasharray:8 5; }
+.sv .badge{ fill:var(--c-yellow); stroke:var(--ink); stroke-width:2.5; }
+.sv .ln{ stroke:var(--ink); stroke-width:2.5; fill:none; }
+.sv .ln.dashed{ stroke-dasharray:8 6; }
+.sv .brk{ stroke:var(--ink); stroke-width:2.5; fill:none; }
+.sv .badge + text.h{ fill:#0A0B10; }
 
+/* ---------- Glosario ---------- */
+dl.glos{ margin:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:18px; }
+dl.glos > div{ border:3px solid var(--n-edge); background:var(--card); padding:16px 18px 14px; box-shadow:5px 5px 0 var(--n-shd); transition:transform .3s var(--out), box-shadow .3s; }
+dl.glos > div:hover{ transform:translate(-4px,-4px) rotate(-.5deg); box-shadow:10px 10px 0 var(--n-shd); }
+dl.glos dt{ display:inline-block; font-stretch:80%; font-weight:850; font-size:1rem; text-transform:uppercase; background:var(--a-bg2,var(--c-yellow)); color:#0A0B10; padding:2px 10px; margin-bottom:10px; }
+dl.glos > div:nth-child(5n+2) dt{ --a-bg2:var(--c-green); } dl.glos > div:nth-child(5n+3) dt{ --a-bg2:var(--c-lilac); }
+dl.glos > div:nth-child(5n+4) dt{ --a-bg2:var(--c-coral); } dl.glos > div:nth-child(5n+5) dt{ --a-bg2:var(--c-blue); }
+dl.glos dd{ margin:0; color:var(--ink-2); font-size:.97rem; }
 
-  /* ==================== COMPLETE CLASSICAL GREEK DARK MODE ==================== */
-  :root {
-    --svg-bg-start: #FCFAF7;
-    --svg-bg-mid: #F5F0E6;
-    --svg-bg-end: #EAE1D0;
-    --svg-card-start: #FFFFFF;
-    --svg-card-mid: #FBF8F2;
-    --svg-card-end: #EFE8DA;
-    --svg-card-edge: #E2D8C6;
-    --svg-ped-start: #EDE7DA;
-    --svg-ped-mid: #DCD2C0;
-    --svg-ped-end: #C2B59F;
-    --svg-clay-bg-start: #FAF1ED;
-    --svg-clay-bg-end: #EED8CF;
-    --svg-pine-bg-start: #F0F6F3;
-    --svg-pine-bg-end: #D6E6DE;
-    --svg-gold-bg-start: #FFFDF7;
-    --svg-gold-bg-end: #F7EED8;
-    --svg-shaft-edge: #C2B7A2;
-    --svg-shaft-light: #EAE3D4;
-    --svg-shaft-peak: #FAF7F2;
-    --svg-shaft-mid: #DDD3BF;
-    --svg-shaft-dark: #AEA18A;
-    --svg-greca: #A84E32;
-  }
+/* ---------- Autoevaluación ---------- */
+.quizhead{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; }
+.quizhead h3{ margin:0; }
+.score{ display:inline-block; font-weight:700; font-size:.9rem; font-variant-numeric:tabular-nums; background:var(--ink); color:var(--paper); padding:7px 14px; }
+.score.bump{ animation:bump .5s var(--out); }
+.q{ border:3px solid var(--n-edge); background:var(--card); padding:22px 24px 22px; margin:20px 0 0; box-shadow:6px 6px 0 var(--n-shd); }
+.q .qn{ display:block; font-weight:700; font-size:.9rem; color:var(--faint); margin-bottom:8px; font-variant-numeric:tabular-nums; }
+.q .qt{ font-stretch:84%; font-weight:800; color:var(--ink); margin:0 0 16px; font-size:1.2rem; line-height:1.22; }
+.caso{ --a:var(--c-lilac); padding:13px 16px; margin:0 0 14px; font-size:.97rem; box-shadow:none; }
+.caso .tagline{ display:block; margin-bottom:5px; color:var(--a-fg); }
+.opts{ display:flex; flex-direction:column; gap:10px; }
+.opt{ text-align:left; font:inherit; font-size:1rem; font-weight:500; color:var(--ink); cursor:pointer; background:var(--paper); border:3px solid var(--n-edge);
+  padding:12px 14px; min-height:48px; display:flex; gap:12px; align-items:flex-start; line-height:1.4; transition:transform .2s var(--out), box-shadow .2s, background .15s; }
+.opt:hover:not(:disabled){ transform:translate(-3px,-3px); box-shadow:6px 6px 0 var(--n-shd); background:var(--c-yellow); color:#0A0B10; }
+.opt:active:not(:disabled){ transform:translate(3px,3px); box-shadow:none; transition-duration:.06s; }
+.opt:disabled{ cursor:default; }
+.opt .k{ flex:0 0 auto; font-weight:800; font-size:.85rem; background:var(--ink); color:var(--paper); width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; }
+.opt.good{ --a:var(--c-green); animation:pop .5s var(--out); }
+.opt.bad{ --a:var(--c-coral); animation:shake .5s; }
+.opt.good .k, .opt.bad .k{ background:var(--chip-bg); color:var(--chip-fg); }
+.fb{ --a:var(--c-green); margin-top:16px; padding:14px 18px; font-size:.97rem; animation:drop .45s var(--out); }
+.fb.no{ --a:var(--c-coral); }
+.fb p, .fb b{ color:var(--a-fg); }
+.fb .verdict{ display:inline-block; font-weight:800; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:2px 10px; margin-bottom:8px; }
+.fb p{ margin:0 0 .55em; } .fb p:last-child{ margin-bottom:0; }
+.fb .src{ font-size:.82rem; font-weight:500; opacity:.85; }
 
-  [data-theme="dark"] {
-    --bg: #110F0D;
-    --bg-elev: #1A1714;
-    --bg-elev2: #24201B;
-    --border: #3D352B;
-    --border-soft: #2B251E;
-    --text: #F5EFE6;
-    --text-dim: #C9BFB0;
-    --text-faint: #948A7A;
-    --pine: #4E9B79;
-    --pine-deep: #163628;
-    --pine-light: #64B28E;
-    --moss: #4E9B79;
-    --clay: #E07A5F;
-    --clay-deep: #F2957B;
-    --clay-pale: #2C1812;
-    --gold: #DFC07A;
-    --gold-doric: #DFC07A;
-    --gold-light: #FFEAA7;
-    --gold-deep: #C5A059;
-    --marble: #191613;
-    --marble-elev: #211D18;
-    --marble-elev2: #2A2520;
-    --success: #4E9B79;
-    --danger: #E26D7D;
+/* ---------- Componentes del repaso 2 ---------- */
+.split{ display:flex; min-height:56px; border:3px solid var(--n-edge); font-stretch:80%; font-weight:850; }
+.split span{ display:flex; align-items:center; justify-content:center; padding:6px 10px; font-size:1rem; text-align:center; border:0; }
+.split .a{ --a:var(--c-coral); width:20%; border-right:3px solid var(--n-edge); }
+.split .b{ --a:var(--c-green); width:80%; }
+.split-cap{ font-size:.85rem; font-weight:500; color:var(--faint); }
+.chips{ display:flex; flex-wrap:wrap; gap:10px; margin:0; padding:0; list-style:none; }
+.chips li{ --a:var(--c-yellow); padding:6px 14px; font-stretch:80%; font-weight:850; font-size:1rem; box-shadow:3px 3px 0 var(--a-shd); transition:transform .25s var(--out); }
+.chips li:nth-child(4n+2){ --a:var(--c-green); } .chips li:nth-child(4n+3){ --a:var(--c-lilac); } .chips li:nth-child(4n+4){ --a:var(--c-coral); }
+.chips li:hover{ transform:translateY(-4px) rotate(-2.5deg); }
+ol.steps{ list-style:none; counter-reset:st; padding:0; margin:0; }
+ol.steps li{ counter-increment:st; position:relative; padding:12px 0 12px 60px; border-bottom:3px dashed var(--line); color:var(--ink-2); }
+ol.steps li::before{ content:counter(st); position:absolute; left:0; top:10px; width:42px; height:42px; display:flex; align-items:center; justify-content:center; background:var(--accent);
+  color:#0A0B10; border:3px solid var(--n-edge); font-stretch:80%; font-weight:900; font-size:1.2rem; transform:rotate(-4deg); }
+ol.steps li b{ display:block; }
+.btn{ font:inherit; font-stretch:82%; font-weight:850; font-size:.95rem; letter-spacing:.02em; text-transform:uppercase; min-height:46px; padding:0 20px; cursor:pointer;
+  background:var(--card); color:var(--ink); border:3px solid var(--n-edge); box-shadow:4px 4px 0 var(--n-shd); transition:transform .2s var(--out), box-shadow .2s, background .15s; }
+.btn:hover{ transform:translate(-3px,-3px) rotate(-1deg); box-shadow:8px 8px 0 var(--n-shd); background:var(--c-yellow); color:#0A0B10; border-color:#0A0B10; }
+.btn:active{ transform:translate(4px,4px); box-shadow:none; transition-duration:.06s; }
+.btn.primary{ --a:var(--c-blue); box-shadow:4px 4px 0 var(--a-shd); }
+.btn.primary:hover{ background:var(--c-coral); color:#0A0B10; }
+.deck{ border:3px solid var(--n-edge); background:var(--paper-2); padding:20px; box-shadow:6px 6px 0 var(--n-shd); }
+.deck-top{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; font-weight:700; font-size:.85rem; color:var(--ink-2); margin-bottom:12px; font-variant-numeric:tabular-nums; }
+.fcard{ --a:var(--c-yellow); display:block; width:100%; min-height:210px; text-align:left; font:inherit; cursor:pointer; padding:22px 24px; box-shadow:7px 7px 0 var(--a-shd);
+  animation:cardin .55s var(--out); transition:transform .2s var(--out), box-shadow .2s; transform-origin:50% 100%; }
+.fcard:hover{ transform:translate(-3px,-3px) rotate(-.5deg); box-shadow:11px 11px 0 var(--a-shd); }
+.fcard .side{ display:inline-block; font-weight:800; font-size:.78rem; letter-spacing:.08em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:2px 10px; margin-bottom:12px; }
+.fcard .txt{ font-stretch:84%; font-weight:800; font-size:clamp(1.15rem,2.4vw,1.5rem); line-height:1.25; white-space:pre-line; display:block; color:var(--a-fg); }
+.fcard.back{ --a:var(--c-green); animation:flip .6s var(--out); }
+.deck-actions{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.deck-done{ padding:30px 6px; text-align:center; color:var(--ink); font-stretch:80%; font-weight:850; font-size:1.5rem; text-transform:uppercase; }
+.notes{ border:3px solid var(--n-edge); background:var(--paper-2); padding:6px 22px 20px; box-shadow:6px 6px 0 var(--n-shd); }
+.notes label{ display:block; font-stretch:84%; font-weight:850; color:var(--ink); margin:18px 0 8px; font-size:1.05rem; }
+.notes label small{ display:block; font-stretch:100%; font-weight:420; color:var(--faint); font-size:.88rem; }
+.notes textarea{ width:100%; min-height:96px; resize:vertical; font:inherit; font-size:1rem; color:var(--ink); background:var(--card); border:3px solid var(--n-edge); padding:12px 14px; transition:box-shadow .2s, transform .2s; }
+.notes textarea:focus{ outline:none; border-color:var(--c-blue); box-shadow:6px 6px 0 var(--c-blue); transform:translate(-3px,-3px); }
+.notes .hint{ font-size:.85rem; color:var(--faint); margin:16px 0 0; }
 
-    --svg-bg-start: #161310;
-    --svg-bg-mid: #1C1814;
-    --svg-bg-end: #221D18;
-    --svg-card-start: #241F1A;
-    --svg-card-mid: #201B16;
-    --svg-card-end: #1B1713;
-    --svg-card-edge: #332B22;
-    --svg-ped-start: #2D261F;
-    --svg-ped-mid: #383027;
-    --svg-ped-end: #443B30;
-    --svg-clay-bg-start: #2C1812;
-    --svg-clay-bg-end: #3A2018;
-    --svg-pine-bg-start: #13241C;
-    --svg-pine-bg-end: #1A3328;
-    --svg-gold-bg-start: #2C2516;
-    --svg-gold-bg-end: #38301C;
-    --svg-shaft-edge: #1C1814;
-    --svg-shaft-light: #332C24;
-    --svg-shaft-peak: #473E34;
-    --svg-shaft-mid: #2A241E;
-    --svg-shaft-dark: #161310;
-    --svg-greca: #E07A5F;
-  }
+/* ---------- Pager y pie ---------- */
+.pager{ display:flex; gap:14px; flex-wrap:wrap; margin:44px 0 0; }
+.pager a{ --a:var(--c-yellow); display:inline-flex; align-items:center; min-height:48px; padding:0 20px; font-stretch:82%; font-weight:850; font-size:.95rem; text-transform:uppercase; text-decoration:none;
+  box-shadow:5px 5px 0 var(--a-shd); transition:transform .2s var(--out), box-shadow .2s; }
+.pager a:hover{ transform:translate(-3px,-3px) rotate(-1deg); box-shadow:9px 9px 0 var(--a-shd); background:var(--c-green); color:#0A0B10; }
+.pager a:active{ transform:translate(4px,4px); box-shadow:none; transition-duration:.06s; }
+footer{ background:var(--foot-bg); color:var(--foot-fg); border:3px solid var(--n-edge); margin:68px 0 52px; padding:26px 30px; font-size:.9rem; box-shadow:10px 10px 0 var(--c-coral); }
+footer p, footer b, footer a{ color:var(--foot-fg); font-size:.9rem; margin:0 0 .5em; }
+footer code{ background:var(--c-yellow); color:#0A0B10; padding:1px 6px; font-weight:700; }
 
-  [data-theme="dark"] body {
-    background-color: var(--bg);
-    color: var(--text);
-    background-image: 
-      radial-gradient(var(--border) 1.2px, transparent 1.2px),
-      linear-gradient(to right, rgba(224, 122, 95, 0.03) 1px, transparent 1px);
-  }
+/* ---------- Motion ---------- */
+@keyframes pop{ 0%{ scale:.94; } 100%{ scale:1; } }
+@keyframes shake{ 0%,100%{ translate:0 0; } 20%{ translate:-9px 0; } 40%{ translate:8px 0; } 60%{ translate:-5px 0; } 80%{ translate:3px 0; } }
+@keyframes drop{ from{ opacity:0; translate:0 -14px; } to{ opacity:1; translate:0 0; } }
+@keyframes bump{ 0%{ scale:1; } 35%{ scale:1.18; rotate:-2deg; } 100%{ scale:1; } }
+@keyframes cardin{ from{ opacity:0; translate:0 26px; rotate:-2.5deg; } to{ opacity:1; translate:0 0; rotate:0deg; } }
+@keyframes flip{ from{ transform:perspective(900px) rotateY(-90deg); opacity:.2; } to{ transform:perspective(900px) rotateY(0); opacity:1; } }
+@keyframes wordup{ from{ transform:translateY(112%) rotate(6deg); } to{ transform:none; } }
+@keyframes shape-pop{ from{ opacity:0; scale:.6; } to{ opacity:1; scale:1; } }
+@keyframes rise{ from{ translate:0 48px; rotate:var(--rise-r,0deg); } to{ translate:0 0; rotate:0deg; } }
+@keyframes slide-in{ from{ opacity:0; translate:0 28px; } to{ opacity:1; translate:0 0; } }
+@keyframes bar-in{ from{ clip-path:inset(0 100% 0 0); } to{ clip-path:inset(0 0 0 0); } }
+@keyframes spin{ to{ rotate:360deg; } }
+@keyframes floaty{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-12px); } }
+@keyframes tick{ to{ transform:translateX(-50%); } }
 
-  [data-theme="dark"] ::selection {
-    background: var(--gold);
-    color: #110F0D;
-  }
+.w{ display:inline-block; overflow:hidden; vertical-align:bottom; padding-bottom:.06em; margin-bottom:-.06em; }
+.w > span{ display:inline-block; }
+.confetti{ position:fixed; z-index:var(--z-confetti); width:10px; height:10px; pointer-events:none; border:2px solid #0A0B10; }
 
-  [data-theme="dark"] a {
-    color: var(--gold);
-    border-bottom-color: var(--border);
+@media (prefers-reduced-motion:no-preference){
+  /* entrada de la cabecera (el contenido ya es visible; esto solo lo anima) */
+  header.top > *, .hero > *{ animation:slide-in .8s var(--out) backwards; }
+  header.top > :nth-child(2), .hero > :nth-child(2){ animation-delay:.08s; }
+  header.top > :nth-child(3), .hero > :nth-child(3){ animation-delay:.16s; }
+  header.top > :nth-child(4), .hero > :nth-child(4){ animation-delay:.24s; }
+  .stripe{ animation:bar-in 1s var(--out) backwards; }
+  .w > span{ animation:wordup .9s var(--out) backwards; animation-delay:calc(var(--i,0) * 70ms + 120ms); }
+  /* láminas: las formas saltan en cascada al entrar en pantalla */
+  figure.diag.in svg > :not(defs){ transform-box:fill-box; transform-origin:center; animation:shape-pop .6s var(--out) backwards; animation-delay:calc(var(--i,0) * 24ms); }
+  /* revelado al scroll (solo desplazamiento: el contenido nunca queda invisible);
+     requiere scroll-driven animations, sin soporte simplemente no se anima */
+  @supports (animation-timeline: view()){
+    .note, .two > div, .three > div, dl.glos > div, .q, figure.diag, .deck, .notes, blockquote, .block > :is(p,ul,ol), .block > h3,
+    .ut, .ctl, .idea, .seal, .band, .ficha, .hero-quote, [data-reveal]{
+      animation:rise linear both; animation-timeline:view(); animation-range:entry 0% entry 38%; }
   }
-  [data-theme="dark"] a:hover {
-    color: var(--gold-light);
-    border-bottom-color: var(--gold-light);
-  }
+}
+@media (prefers-reduced-motion:reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+}
 
-  [data-theme="dark"] .plate {
-    background: var(--marble-elev);
-    border-color: var(--border);
-    box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-  }
-  [data-theme="dark"] .plate div {
-    border-right-color: var(--border);
-  }
-  [data-theme="dark"] .plate span {
-    color: var(--text-faint);
-  }
-  [data-theme="dark"] .plate b {
-    color: var(--gold-light);
-  }
+/* ---------- Responsive ---------- */
+@media (max-width:900px){
+  .block > *, .block > :is(p,ul,ol), .block > :is(.note,blockquote){ grid-column:1/-1; }
+  header.top > .lede, header.top > .aviso{ grid-column:1/-1; }
+  .ticker{ margin-left:-24px; margin-right:-24px; }
+}
+@media (max-width:520px){
+  .wrap{ padding:0 16px; }
+  .ticker{ margin-left:-16px; margin-right:-16px; }
+  .deck{ padding:12px; } .fcard{ padding:16px; }
+  .split span{ font-size:.78rem; padding:6px 4px; }
+  header.top > h1{ box-shadow:6px 6px 0 var(--a-shd); }
+  .block{ margin:52px 0; }
+}
+/* ===================== PORTAL (docs/index.html) v2 ===================== */
+.portal-wrap{ max-width:1240px; margin:0 auto; padding:0 24px; }
 
-  [data-theme="dark"] .aviso {
-    background: rgba(224, 122, 95, 0.09);
-    border-color: var(--clay);
-    border-left-color: var(--clay);
-  }
-  [data-theme="dark"] .aviso .tag {
-    color: var(--clay-deep);
-  }
+/* ---------- Hero ---------- */
+.hero{ position:relative; display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:20px; padding:34px 0 10px; }
+.hero > *{ min-width:0; }
+.hero-main{ --a:var(--c-yellow); grid-column:span 8; background:var(--a-bg); color:var(--a-fg); border:3px solid var(--a-edge); box-shadow:12px 12px 0 var(--a-shd);
+  padding:clamp(24px,4vw,52px); position:relative; overflow:hidden; }
+.hero-main .kicker{ display:inline-block; font-weight:800; font-size:.85rem; letter-spacing:.05em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:6px 12px; margin-bottom:24px; }
+.hero-main h1{ font-size:clamp(2.6rem,6.6vw,5.6rem); color:var(--a-fg); }
+.hero-main h1 em{ font-style:normal; background:var(--chip-bg); color:var(--chip-fg); padding:.02em .12em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.hero-main .epigraph{ margin:28px 0 0; font-stretch:82%; font-weight:800; font-size:clamp(1.15rem,2.2vw,1.5rem); border-top:4px solid var(--a-fg); padding-top:14px; color:var(--a-fg); max-width:34ch; line-height:1.15; }
+.hero-main .lede{ color:var(--a-fg); max-width:54ch; margin:18px 0 0; font-size:1.1rem; }
+.hero-main .lede b{ background:var(--chip-bg); color:var(--chip-fg); }
+.hero-side{ grid-column:span 4; display:flex; flex-direction:column; gap:20px; }
+.ficha{ background:var(--card); border:3px solid var(--n-edge); box-shadow:8px 8px 0 var(--n-shd); }
+.ficha h2{ font-size:1.25rem; background:var(--ink); color:var(--paper); padding:12px 18px; }
+.ficha dl{ margin:0; }
+.ficha dl > div{ display:flex; justify-content:space-between; gap:14px; padding:12px 18px; border-bottom:3px dashed var(--line); }
+.ficha dl > div:last-child{ border-bottom:0; }
+.ficha dt{ font-weight:600; font-size:.9rem; color:var(--faint); padding-top:2px; }
+.ficha dd{ margin:0; font-stretch:84%; font-weight:850; font-size:1.1rem; text-align:right; color:var(--ink); }
+.hero-quote{ --a:var(--c-lilac); flex:1; background:var(--a-bg); color:var(--a-fg); border:3px solid var(--a-edge); box-shadow:8px 8px 0 var(--a-shd); padding:22px;
+  display:flex; flex-direction:column; justify-content:space-between; gap:16px; }
+.hero-quote p{ margin:0; font-stretch:78%; font-weight:850; font-size:clamp(1.7rem,3vw,2.5rem); line-height:1.02; text-transform:uppercase; color:var(--a-fg); }
+.hero-quote span{ font-weight:600; font-size:.92rem; color:var(--a-fg); }
 
-  [data-theme="dark"] nav.toc {
-    background: var(--marble);
-    border-bottom-color: var(--border);
-    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  }
-  [data-theme="dark"] nav.toc a {
-    color: var(--text-dim);
-  }
-  [data-theme="dark"] nav.toc a:hover {
-    color: var(--gold-light);
-    border-bottom-color: var(--gold);
-  }
-  [data-theme="dark"] nav.toc a.nav-temple {
-    color: var(--gold);
-    border-right-color: var(--border);
-  }
-  [data-theme="dark"] nav.toc a.nav-highlight {
-    color: var(--clay-deep);
-  }
+.sticker.star-wrap{ position:absolute; z-index:5; right:calc(33% - 30px); top:-24px; width:116px; height:116px; display:grid; place-items:center; pointer-events:none;
+  translate:var(--px,0) var(--py,0); transition:translate .3s var(--out); }
+.star{ position:absolute; inset:0; background:var(--ink); animation:spin 16s linear infinite;
+  clip-path:polygon(50.0% 0.0%,59.8% 13.3%,75.0% 6.7%,76.9% 23.1%,93.3% 25.0%,86.7% 40.2%,100.0% 50.0%,86.7% 59.8%,93.3% 75.0%,76.9% 76.9%,75.0% 93.3%,59.8% 86.7%,50.0% 100.0%,40.2% 86.7%,25.0% 93.3%,23.1% 76.9%,6.7% 75.0%,13.3% 59.8%,0.0% 50.0%,13.3% 40.2%,6.7% 25.0%,23.1% 23.1%,25.0% 6.7%,40.2% 13.3%); }
+.star::before{ content:""; position:absolute; inset:6px; background:var(--c-coral);
+  clip-path:polygon(50.0% 0.0%,59.8% 13.3%,75.0% 6.7%,76.9% 23.1%,93.3% 25.0%,86.7% 40.2%,100.0% 50.0%,86.7% 59.8%,93.3% 75.0%,76.9% 76.9%,75.0% 93.3%,59.8% 86.7%,50.0% 100.0%,40.2% 86.7%,25.0% 93.3%,23.1% 76.9%,6.7% 75.0%,13.3% 59.8%,0.0% 50.0%,13.3% 40.2%,6.7% 25.0%,23.1% 23.1%,25.0% 6.7%,40.2% 13.3%); }
+.star-wrap b{ position:relative; font-stretch:78%; font-weight:900; font-size:2.2rem; color:#0A0B10; animation:floaty 5s ease-in-out infinite; }
 
-  [data-theme="dark"] section.unit {
-    border-top-color: var(--border);
-  }
-  [data-theme="dark"] .unit-num {
-    background: var(--marble-elev);
-    border-color: var(--border);
-    color: var(--clay-deep);
-  }
-  [data-theme="dark"] .fuente {
-    border-left-color: var(--border);
-    color: var(--text-faint);
-  }
+/* ---------- Banda de reglas (en vez de tarjetas de métricas) ---------- */
+.band{ grid-column:1/-1; background:var(--foot-bg); color:var(--foot-fg); border:3px solid var(--n-edge); box-shadow:10px 10px 0 var(--c-coral); padding:clamp(22px,3.4vw,40px) clamp(22px,3.4vw,48px); margin-top:10px; }
+.band p{ margin:0; font-stretch:80%; font-weight:800; font-size:clamp(1.55rem,3.6vw,2.7rem); line-height:1.08; color:var(--foot-fg); max-width:30em; text-wrap:balance; }
+.band .num{ display:inline-block; background:var(--c-yellow); color:#0A0B10; padding:0 .16em; font-variant-numeric:tabular-nums; }
+.band .num.c{ background:var(--c-coral); } .band .num.b{ background:var(--c-blue); } .band .num.g{ background:var(--c-green); }
+.band mark{ background:var(--c-lilac); color:#0A0B10; padding:0 .16em; }
 
-  [data-theme="dark"] .two {
-    background: var(--marble-elev);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .two > div {
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .two h4 {
-    color: var(--clay-deep);
-  }
-  [data-theme="dark"] .two .resp {
-    color: var(--pine);
-  }
+/* ---------- Secciones ---------- */
+.sec-head{ display:flex; align-items:flex-end; justify-content:space-between; gap:18px; flex-wrap:wrap; margin:92px 0 30px; padding-bottom:14px; border-bottom:6px solid var(--n-edge); position:relative; }
+.sec-head::after{ content:""; position:absolute; left:0; bottom:-6px; width:120px; height:6px; background:var(--c-coral); }
+.sec-head h2{ font-size:clamp(2.1rem,5.6vw,4.2rem); }
+.legend{ display:flex; gap:10px; flex-wrap:wrap; font-weight:700; font-size:.85rem; }
+.legend span{ display:inline-flex; align-items:center; gap:8px; border:3px solid var(--n-edge); padding:5px 12px; background:var(--card); }
+.legend i{ width:14px; height:14px; border:2.5px solid var(--n-edge); background:var(--c-green); display:inline-block; }
+.legend span:last-child i{ background:transparent; border-style:dashed; }
 
-  [data-theme="dark"] .note {
-    background: var(--marble-elev);
-    border-color: var(--border);
-    border-left-color: var(--clay);
-  }
-  [data-theme="dark"] .note.gap {
-    border-left-color: var(--danger);
-  }
-  [data-theme="dark"] .note.gap .tag {
-    color: var(--danger);
-  }
+/* ---------- Mosaico de unidades (asimétrico) ---------- */
+.mosaic{ display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:22px; perspective:1400px; }
+.ut{ --a:var(--c-yellow); grid-column:span 4; position:relative; background:var(--a-bg); color:var(--a-fg); border:3px solid var(--a-edge); box-shadow:9px 9px 0 var(--a-shd);
+  padding:22px 22px 20px; min-height:280px; display:flex; flex-direction:column; overflow:hidden;
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)); transition:transform .25s var(--out-q), box-shadow .25s; }
+.ut.c1{ --a:var(--c-yellow); } .ut.c2{ --a:var(--c-green); } .ut.c3{ --a:var(--c-lilac); } .ut.c4{ --a:var(--c-coral); } .ut.c5{ --a:var(--c-blue); }
+.ut.u1{ grid-column:span 7; } .ut.u2{ grid-column:span 5; }
+.ut.u3{ grid-column:span 4; } .ut.u4{ grid-column:span 3; } .ut.u5{ grid-column:span 5; }
+.ut.u6{ grid-column:span 5; } .ut.u7{ grid-column:span 3; } .ut.u8{ grid-column:span 4; }
+.ut.u9{ grid-column:span 3; } .ut.u10{ grid-column:span 9; }
+.ut:hover{ box-shadow:14px 14px 0 var(--a-shd); }
+.ut .ut-n{ position:absolute; right:-2px; bottom:-46px; font-stretch:70%; font-weight:900; font-size:9rem; line-height:1; letter-spacing:-.04em;
+  color:transparent; -webkit-text-stroke:3px var(--a-fg); opacity:.28; pointer-events:none; transition:transform .5s var(--out); }
+.ut:hover .ut-n{ transform:translate(-8px,-10px) rotate(-5deg); opacity:.4; }
+.ut-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:14px; position:relative; z-index:2; }
+.ut-tag{ font-weight:800; font-size:.82rem; letter-spacing:.05em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:3px 10px; }
+.ut-stamp{ font-weight:700; font-size:.78rem; border:2.5px solid var(--a-fg); padding:2px 9px; color:var(--a-fg); transform:rotate(3deg); }
+.ut h3{ font-size:clamp(1.55rem,2.5vw,2.1rem); color:var(--a-fg); text-transform:uppercase; position:relative; z-index:2; max-width:14ch; }
+.ut-dates{ font-weight:700; font-size:.95rem; margin:10px 0 0; color:var(--a-fg); position:relative; z-index:2; }
+.ut-desc{ font-size:.97rem; margin:10px 0 0; color:var(--a-fg); max-width:38ch; position:relative; z-index:2; line-height:1.45; }
+.ut-hito{ margin:12px 0 0; font-weight:700; font-size:.88rem; background:var(--chip-bg); color:var(--chip-fg); padding:5px 10px; align-self:flex-start; position:relative; z-index:2; max-width:30ch; }
+.ut-links{ margin-top:auto; padding-top:16px; display:flex; gap:10px; flex-wrap:wrap; position:relative; z-index:3; }
+.ut-links a{ display:inline-flex; align-items:center; min-height:44px; padding:0 14px; font-stretch:82%; font-weight:850; font-size:.92rem; text-transform:uppercase; text-decoration:none;
+  background:var(--chip-bg); color:var(--chip-fg); border:3px solid var(--chip-bg); transition:transform .2s var(--out), background .15s, color .15s; }
+.ut-links a:hover{ background:transparent; color:var(--a-fg); border-color:var(--a-fg); transform:translate(-2px,-2px) rotate(-1.2deg); }
+.ut-links a.sec{ position:relative; z-index:4; background:transparent; color:var(--a-fg); border-color:var(--a-fg); }
+.ut-links a.sec:hover{ background:var(--chip-bg); color:var(--chip-fg); border-color:var(--chip-bg); }
+.ut-links a.primary::after{ content:""; position:absolute; inset:-400px; }  /* el tile entero es clicable */
+.ut.avail{ cursor:pointer; }
+/* pendientes */
+.ut.pend{ background:var(--card); color:var(--ink-2); border:3px dashed var(--faint); box-shadow:none; min-height:230px; }
+.ut.pend h3, .ut.pend .ut-dates, .ut.pend .ut-desc{ color:var(--ink-2); }
+.ut.pend .ut-n{ -webkit-text-stroke:3px var(--faint); opacity:.3; }
+.ut.pend .ut-tag{ background:var(--paper-2); color:var(--ink); }
+.ut.pend .ut-stamp{ color:var(--faint); border-color:var(--faint); }
+.ut.pend .ut-hito{ background:var(--paper-2); color:var(--ink); }
+.ut.pend:hover{ box-shadow:none; }
+/* pilar X */
+.ut.crown{ background:var(--foot-bg); color:var(--foot-fg); border:3px solid var(--n-edge); box-shadow:12px 12px 0 var(--c-coral); min-height:260px; }
+.ut.crown h3{ color:var(--c-yellow); max-width:none; font-size:clamp(2.2rem,5.6vw,4.6rem); }
+.ut.crown .ut-dates, .ut.crown .ut-desc{ color:var(--foot-fg); }
+.ut.crown .ut-n{ -webkit-text-stroke:3px var(--c-yellow); opacity:.4; font-size:15rem; bottom:-70px; }
+.ut.crown .ut-tag{ background:var(--c-yellow); color:#0A0B10; }
+.ut.crown .ut-stamp{ color:var(--c-coral); border-color:var(--c-coral); }
+.ut.crown .ut-hito{ background:var(--c-yellow); color:#0A0B10; max-width:none; }
 
-  [data-theme="dark"] blockquote {
-    border-left-color: var(--gold);
-    color: var(--text);
-  }
+/* ---------- Controles ---------- */
+.controls{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.ctl{ --a:var(--c-yellow); background:var(--a-bg); color:var(--a-fg); border:3px solid var(--a-edge); box-shadow:10px 10px 0 var(--a-shd); padding:clamp(22px,3vw,34px);
+  display:flex; flex-direction:column; gap:16px; transition:transform .3s var(--out), box-shadow .3s; }
+.ctl.c-b{ --a:var(--c-green); }
+.ctl:hover{ transform:translate(-4px,-4px); box-shadow:16px 16px 0 var(--a-shd); }
+.ctl .badge-line{ display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.ctl .control-badge{ font-weight:800; font-size:.8rem; letter-spacing:.04em; text-transform:uppercase; background:var(--chip-bg); color:var(--chip-fg); padding:4px 10px; }
+.ctl .when{ font-weight:800; font-size:.85rem; border:3px solid var(--a-fg); padding:3px 10px; transform:rotate(2deg); color:var(--a-fg); }
+.ctl h3{ font-size:clamp(1.9rem,3.6vw,2.8rem); text-transform:uppercase; color:var(--a-fg); }
+.ctl p{ color:var(--a-fg); margin:0; font-size:1rem; }
+.ctl ul{ list-style:none; margin:0; padding:0; }
+.ctl li{ padding:9px 0; border-top:2px solid color-mix(in srgb,var(--a-fg) 35%,transparent); font-size:.97rem; color:var(--a-fg); transition:transform .25s var(--out); }
+.ctl li:hover{ transform:translateX(8px); }
+.ctl li b{ color:var(--a-fg); font-stretch:84%; font-weight:850; }
+.ctl .acts{ display:flex; gap:12px; flex-wrap:wrap; margin-top:auto; padding-top:6px; }
+.ctl .acts a{ display:inline-flex; align-items:center; min-height:48px; padding:0 18px; font-stretch:82%; font-weight:850; font-size:.95rem; text-transform:uppercase; text-decoration:none;
+  background:var(--chip-bg); color:var(--chip-fg); border:3px solid var(--chip-bg); transition:transform .2s var(--out), background .15s, color .15s; }
+.ctl .acts a:hover{ background:transparent; color:var(--a-fg); border-color:var(--a-fg); transform:translate(-3px,-3px) rotate(-1deg); }
+.ctl .acts a.out{ background:transparent; color:var(--a-fg); border-color:var(--a-fg); }
+.ctl .acts a.out:hover{ background:var(--chip-bg); color:var(--chip-fg); border-color:var(--chip-bg); }
 
-  [data-theme="dark"] figure.diag {
-    background: #171411;
-    border-color: var(--border);
-    box-shadow: 0 6px 24px rgba(0,0,0,0.5);
-  }
-  [data-theme="dark"] figure.diag figcaption {
-    color: var(--gold);
-    border-top-color: var(--border);
-  }
+/* ---------- Ideas de fondo ---------- */
+.ideas{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; }
+.idea{ --a:var(--c-yellow); background:var(--card); border:3px solid var(--n-edge); box-shadow:7px 7px 0 var(--a-shd); padding:24px; transition:transform .3s var(--out), box-shadow .3s; }
+.idea:nth-child(2){ --a:var(--c-green); } .idea:nth-child(3){ --a:var(--c-coral); }
+.idea:hover{ transform:translate(-4px,-4px) rotate(-.6deg); box-shadow:12px 12px 0 var(--a-shd); }
+.idea .gk{ display:inline-block; font-weight:850; font-size:1.2rem; background:var(--a); color:#0A0B10; border:3px solid var(--n-edge); padding:2px 12px; transform:rotate(-2deg); }
+.idea h3{ font-size:1.5rem; margin:18px 0 10px; text-transform:uppercase; }
+.idea p{ margin:0; font-size:1rem; }
 
-  [data-theme="dark"] dl.glos {
-    border-top-color: var(--border);
-  }
-  [data-theme="dark"] dl.glos > div {
-    border-bottom-color: var(--border);
-  }
-  [data-theme="dark"] dl.glos dt {
-    color: var(--gold-light);
-  }
+/* ---------- Integridad ---------- */
+.seal{ display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); border:3px solid var(--n-edge); box-shadow:12px 12px 0 var(--c-coral); background:var(--foot-bg); color:var(--foot-fg); }
+.seal-big{ --a:var(--c-coral); padding:clamp(24px,4vw,48px); border-right:3px solid var(--n-edge); display:flex; flex-direction:column; justify-content:center; gap:12px; background:var(--a-bg); color:var(--a-fg); }
+.seal-big strong{ font-stretch:76%; font-weight:900; font-size:clamp(2.4rem,6vw,4.6rem); line-height:.9; text-transform:uppercase; color:var(--a-fg); }
+.seal-big span{ font-weight:700; font-size:.95rem; color:var(--a-fg); }
+.seal-txt{ padding:clamp(24px,4vw,44px); }
+.seal-txt h3{ color:var(--c-yellow); text-transform:uppercase; margin-bottom:14px; font-size:1.7rem; }
+.seal-txt p{ color:var(--foot-fg); font-size:1.02rem; }
+.seal-txt b{ background:var(--c-yellow); color:#0A0B10; padding:0 .25em; }
 
-  [data-theme="dark"] .q-card {
-    background: var(--marble-elev);
-    border-color: var(--border);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-  }
-  [data-theme="dark"] .opt {
-    background: var(--bg);
-    border-color: var(--border);
-    color: var(--text);
-  }
-  [data-theme="dark"] .opt:hover {
-    background: var(--marble-elev2);
-    border-color: var(--gold);
-  }
-  [data-theme="dark"] .opt.selected {
-    background: rgba(223, 192, 122, 0.12);
-    border-color: var(--gold);
-    color: var(--gold-light);
-  }
-  [data-theme="dark"] .btn-chk {
-    background: linear-gradient(135deg, #DFC07A, #B59345);
-    color: #110F0D;
-    font-weight: 800;
-  }
-  [data-theme="dark"] .fb {
-    background: var(--bg-elev2);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .fb.ok {
-    border-left-color: var(--pine);
-  }
-  [data-theme="dark"] .fb.ok .verdict {
-    color: var(--pine);
-  }
-  [data-theme="dark"] .fb.no {
-    border-left-color: var(--danger);
-  }
-  [data-theme="dark"] .fb.no .verdict {
-    color: var(--danger);
-  }
-
-  [data-theme="dark"] .p-track {
-    background: var(--border);
-  }
-  [data-theme="dark"] .p-bar {
-    background: var(--gold);
-  }
-
-  [data-theme="dark"] table.vacios {
-    border-color: var(--border);
-  }
-  [data-theme="dark"] table.vacios th {
-    background: var(--marble-elev2);
-    color: var(--gold-light);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] table.vacios td {
-    border-color: var(--border);
-    color: var(--text-dim);
-  }
-  [data-theme="dark"] table.vacios tr:nth-child(even) td {
-    background: rgba(255,255,255,0.02);
-  }
-
-  [data-theme="dark"] footer {
-    border-top-color: var(--border);
-    color: var(--text-faint);
-  }
-
-  /* Portal Index Specific Dark Mode */
-  [data-theme="dark"] .titleblock-stele {
-    background: var(--marble);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .stele-pediment {
-    background: var(--marble-elev);
-    border-bottom-color: var(--border);
-  }
-  [data-theme="dark"] .spec-stele {
-    background: var(--marble);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .spec-stele-cornice {
-    background: var(--marble-elev);
-    border-bottom-color: var(--border);
-  }
-  [data-theme="dark"] .spec-stele .status-col {
-    background: var(--marble-elev);
-    border-left-color: var(--border);
-  }
-  [data-theme="dark"] .stamp-greek {
-    background: var(--marble);
-    border-color: var(--border);
-    color: var(--text-faint);
-  }
-  [data-theme="dark"] .stamp-greek.disponible {
-    background: rgba(78, 155, 121, 0.18);
-    border-color: var(--pine);
-    color: var(--pine);
-  }
-
-  [data-theme="dark"] .spec-link {
-    background: var(--marble-elev);
-    border-color: var(--pine);
-    color: var(--pine);
-  }
-  [data-theme="dark"] .spec-link:hover {
-    background: var(--pine);
-    color: #110F0D;
-  }
-  [data-theme="dark"] .spec-link.repaso {
-    border-color: var(--clay);
-    color: var(--clay-deep);
-  }
-  [data-theme="dark"] .spec-link.repaso:hover {
-    background: var(--clay);
-    color: #110F0D;
-  }
-
-  [data-theme="dark"] .control-grand-card {
-    background: linear-gradient(135deg, #1C1814 0%, #15120F 100%);
-    border-color: var(--gold-deep);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.55);
-  }
-  [data-theme="dark"] .control-title {
-    color: var(--gold-light);
-  }
-  [data-theme="dark"] .control-features {
-    background: rgba(22, 19, 16, 0.85);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .btn-greek-gold {
-    background: linear-gradient(135deg, #DFC07A, #B59345);
-    color: #110F0D;
-    border-color: var(--gold-light);
-  }
-  [data-theme="dark"] .btn-greek-outline {
-    border-color: var(--gold);
-    color: var(--gold-light);
-  }
-  [data-theme="dark"] .btn-greek-outline:hover {
-    background: var(--gold);
-    color: #110F0D;
-  }
-
-  [data-theme="dark"] .study-card {
-    background: var(--marble);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .study-card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  }
-  [data-theme="dark"] .study-card h3 {
-    color: var(--gold-light);
-  }
-  [data-theme="dark"] .study-btn {
-    color: var(--gold);
-    border-bottom-color: var(--gold);
-  }
-  [data-theme="dark"] .study-btn:hover {
-    color: var(--clay-deep);
-    border-bottom-color: var(--clay-deep);
-  }
-
-  [data-theme="dark"] .triad-card {
-    background: var(--marble);
-    border-color: var(--border);
-  }
-  [data-theme="dark"] .sello-wrap {
-    background: var(--marble);
-    border-color: var(--border);
-  }
-
-  /* Theme Toggle Button Styling */
-  .theme-toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    background: var(--marble-elev);
-    border: 1.5px solid var(--border);
-    color: var(--text);
-    font-family: 'Cinzel', serif;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  }
-  .theme-toggle-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold-deep);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-  }
-  [data-theme="dark"] .theme-toggle-btn {
-    background: var(--marble-elev2);
-    border-color: var(--border);
-    color: var(--gold-light);
-  }
-  [data-theme="dark"] .theme-toggle-btn:hover {
-    border-color: var(--gold-light);
-    color: #FFEAA7;
-  }
-
+/* ---------- Responsive ---------- */
+@media (max-width:1000px){
+  .hero-main, .hero-side{ grid-column:1/-1; }
+  .mosaic{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .ut, .ut.u1, .ut.u2, .ut.u3, .ut.u4, .ut.u5, .ut.u6, .ut.u7, .ut.u8, .ut.u9{ grid-column:span 1; }
+  .ut.u10{ grid-column:1/-1; }
+  .controls, .ideas{ grid-template-columns:1fr; }
+  .seal{ grid-template-columns:1fr; } .seal-big{ border-right:0; border-bottom:3px solid var(--n-edge); }
+  .sticker.star-wrap{ right:12px; top:-20px; width:92px; height:92px; }
+}
+@media (max-width:620px){
+  .portal-wrap{ padding:0 16px; }
+  .mosaic{ grid-template-columns:1fr; }
+  .ut{ min-height:230px; }
+  .ut .ut-n{ font-size:7rem; }
+}
+/*DESIGN:END*/
 </style>
 </head>
 <body>
 
-<div class="wrap">
-<div style="display:flex; justify-content:flex-end; margin-bottom:12px;"><button id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar a modo noche" aria-pressed="false"><span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span></button></div>
+<nav class="toc" aria-label="Secciones del portal"><ul>
+  <li><a href="#inicio" class="nav-temple">Pilares ✱ Bienestar</a></li>
+  <li><a href="#pilares">Los 10 pilares</a></li>
+  <li><a href="#controles">Controles</a></li>
+  <li><a href="#ideas">Ideas de fondo</a></li>
+  <li><a href="#integridad" class="nav-highlight">Integridad</a></li>
+  
+</ul></nav>
 
-  <!-- Top Meander Border -->
-  <div class="greek-frieze"></div>
+<div class="portal-wrap">
 
-  <!-- Stele Titleblock / Tabula Ansata -->
-  <div class="titleblock-stele">
-    <div class="stele-pediment">
-      <svg width="180" height="14" viewBox="0 0 180 14">
-        <polygon points="10,12 90,2 170,12" fill="#DFDCD2" stroke="#B0ADA0" stroke-width="0.75"/>
-        <circle cx="90" cy="8" r="2.5" fill="#1D473B"/>
-      </svg>
-      <span>ΕΛΛΑΣ · ATENEO ESEN</span>
-    </div>
-    <div class="stele-body">
-      <div class="stele-row"><span>PROYECTO</span><b>Pilares del Bienestar</b></div>
-      <div class="stele-row"><span>CICLO</span><b>III / MMXXVI</b></div>
-      <div class="stele-row"><span>CÁTEDRA</span><b>G. Carranza</b></div>
-      <div class="stele-row"><span>ESTUDIANTE</span><b>Carlos Navas</b></div>
-      <div class="stele-row"><span>ORDEN</span><b>Dórico Decástilo</b></div>
-    </div>
-  </div>
+  <!-- ==================== HERO ==================== -->
+  <header class="hero" id="inicio">
+    <div class="sticker star-wrap" data-depth="22" aria-hidden="true"><i class="star"></i><b>X</b></div>
 
-  <header class="hero">
-    <div class="hero-head">
-      <div class="delphic-motto">
-        <span class="greek">ΕΥΔΑΙΜΟΝΙΑ</span> · CÁTEDRA DE BIENESTAR INTEGRAL
-      </div>
-      <h1>Diez columnas <em>sostienen</em> el bienestar.</h1>
-      <div class="hero-epigraph">
-        «Γνῶθι σεαυτόν · Conócete a ti mismo · Meden Agan: Nada en exceso, la clave está en el balance.»
-        <span style="display:block; font-size:.72rem; color:var(--text-faint); margin-top:4px; font-family:'IBM Plex Mono',monospace; font-style:normal;">
-          — Máxima délfica, frontón del Templo de Apolo en Delfos
-        </span>
-      </div>
-      <p class="lede">Cada unidad del curso de la Ing. Gabriela Carranza es una columna de esta
-      fachada monumental — física, intelectual, vocacional, emocional, relacional, espiritual,
-      financiera, ambiental, y el balance supremo que las corona. Pasa el cursor sobre un pilar
-      para consultar su sabiduría, fechas y ponderación.</p>
+    <div class="hero-main" data-tilt>
+      <span class="kicker">Cátedra de bienestar integral · ESEN · Ciclo III / 2026</span>
+      <h1 data-slam>Diez pilares <em>sostienen</em> el bienestar.</h1>
+      <p class="epigraph">Nada en exceso: la clave está en el balance.</p>
+      <p class="lede">Cada unidad del curso de la Ing. Gabriela Carranza es un pilar: física, intelectual, vocacional, emocional, relacional, espiritual, financiera, ambiental, y el balance que los une. Elige un pilar para abrir su material de estudio.</p>
     </div>
 
-    <!-- Classical Stylobate Stat Line -->
-    <div class="stat-line-greek">
-      <div class="stat-card">
-        <div class="n">X</div>
-        <div class="l">Columnas · Unidades</div>
+    <aside class="hero-side">
+      <div class="ficha" data-reveal>
+        <h2>Ficha del curso</h2>
+        <dl>
+          <div><dt>Proyecto</dt><dd>Pilares del Bienestar</dd></div>
+          <div><dt>Ciclo</dt><dd>III / 2026</dd></div>
+          <div><dt>Cátedra</dt><dd>G. Carranza</dd></div>
+          <div><dt>Estudiante</dt><dd>Carlos Navas</dd></div>
+        </dl>
       </div>
-      <div class="stat-card">
-        <div class="n">III</div>
-        <div class="l">Controles Presenciales</div>
+      <div class="hero-quote" data-reveal>
+        <p>Los controles son presenciales. El contenido es mío.</p>
+        <span>IA solo para revisión y formato</span>
       </div>
-      <div class="stat-card">
-        <div class="n">XX%</div>
-        <div class="l">Peso del Workbook</div>
-      </div>
-      <div class="stat-card">
-        <div class="n">ΙΣΟΤΗΤΑ</div>
-        <div class="l">IA Solo Formato · Autoría 100%</div>
-      </div>
-    </div>
+    </aside>
 
-    <!-- ==================== THE SACRED TEMPLE FACADE ==================== -->
-    <div class="temple-wrap">
-     <div class="temple-scroll">
-      <svg id="temple" viewBox="0 0 1180 396" preserveAspectRatio="xMidYMax meet" role="img" aria-label="Fachada monumental griega de diez columnas dóricas, una por unidad del curso">
-        <defs>
-          <!-- Dentils pattern for horizontal cornice -->
-          <pattern id="dentil-pattern" width="8" height="6" patternUnits="userSpaceOnUse">
-            <rect x="0" y="0" width="8" height="6" fill="#C7C8BE"/>
-            <rect x="1.5" y="0.5" width="4.5" height="5" fill="#EAEBE3" stroke="#8E9087" stroke-width="0.5"/>
-            <line x1="6" y1="0.5" x2="6" y2="5.5" stroke="#686A62" stroke-width="0.8"/>
-          </pattern>
-
-          <!-- Shadow beneath the architrave onto capitals -->
-          <linearGradient id="architrave-cast-shadow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#1E2320" stop-opacity="0.48"/>
-            <stop offset="60%" stop-color="#1E2320" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="#1E2320" stop-opacity="0"/>
-          </linearGradient>
-
-          <!-- Pediment tympanum deep recessed stone -->
-          <linearGradient id="tympanum-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#B8BAAF"/>
-            <stop offset="25%" stop-color="#C9CAC0"/>
-            <stop offset="70%" stop-color="#DCDDD4"/>
-            <stop offset="100%" stop-color="#ECECE4"/>
-          </linearGradient>
-
-          <!-- Raking cornice (cornisa inclinada) -->
-          <linearGradient id="raking-cornice-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="35%" stop-color="#E7E8E0"/>
-            <stop offset="85%" stop-color="#C5C6BC"/>
-            <stop offset="100%" stop-color="#9A9C92"/>
-          </linearGradient>
-
-          <!-- Corona overhang -->
-          <linearGradient id="corona-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="30%" stop-color="#EDEEE6"/>
-            <stop offset="75%" stop-color="#D2D3CA"/>
-            <stop offset="100%" stop-color="#A5A79E"/>
-          </linearGradient>
-
-          <!-- Frieze stone background -->
-          <linearGradient id="frieze-stone-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#DCDDD5"/>
-            <stop offset="50%" stop-color="#D2D3CA"/>
-            <stop offset="100%" stop-color="#C5C6BC"/>
-          </linearGradient>
-
-          <!-- Architrave stone beam -->
-          <linearGradient id="architrave-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#EBECE4"/>
-            <stop offset="35%" stop-color="#DFE0D7"/>
-            <stop offset="75%" stop-color="#CED0C6"/>
-            <stop offset="100%" stop-color="#B8BAB0"/>
-          </linearGradient>
-
-          <!-- Crepidoma step risers -->
-          <linearGradient id="step-riser-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#C9CAC0"/>
-            <stop offset="50%" stop-color="#B7B9AF"/>
-            <stop offset="100%" stop-color="#A2A49A"/>
-          </linearGradient>
-
-          <!-- Triglyph stone block background -->
-          <linearGradient id="triglyph-bg" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#E6E7DF"/>
-            <stop offset="50%" stop-color="#D6D7CE"/>
-            <stop offset="100%" stop-color="#C1C3B9"/>
-          </linearGradient>
-
-          <!-- Roman Numeral Plaque in frieze -->
-          <linearGradient id="num-plaque-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="40%" stop-color="#F2F3EC"/>
-            <stop offset="100%" stop-color="#D5D6CC"/>
-          </linearGradient>
-
-          <!-- 3D Cylindrical Stone Gradient for Column Shaft -->
-          <linearGradient id="shaft-stone-3d" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#9C9E96"/>
-            <stop offset="5%" stop-color="#B2B4AB"/>
-            <stop offset="18%" stop-color="#E8EAE1"/>
-            <stop offset="34%" stop-color="#F7F8F3"/>
-            <stop offset="56%" stop-color="#DFE0D7"/>
-            <stop offset="80%" stop-color="#B6B8AE"/>
-            <stop offset="94%" stop-color="#9A9C93"/>
-            <stop offset="100%" stop-color="#B2B4AB"/>
-          </linearGradient>
-
-          <!-- Flute concave groove shadow & rim highlight -->
-          <linearGradient id="flute-groove" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#2D302C" stop-opacity="0.55"/>
-            <stop offset="35%" stop-color="#4B4E48" stop-opacity="0.32"/>
-            <stop offset="70%" stop-color="#FFFFFF" stop-opacity="0.10"/>
-            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.35"/>
-          </linearGradient>
-
-          <!-- Soft ambient glow when column is hovered/active -->
-          <linearGradient id="shaft-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#1D473B" stop-opacity="0.28"/>
-            <stop offset="35%" stop-color="#F5DCAC" stop-opacity="0.85"/>
-            <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.95"/>
-            <stop offset="85%" stop-color="#F5DCAC" stop-opacity="0.65"/>
-            <stop offset="100%" stop-color="#A34626" stop-opacity="0.35"/>
-          </linearGradient>
-
-          <!-- Capital Abacus stone -->
-          <linearGradient id="abacus-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="25%" stop-color="#EBEDE5"/>
-            <stop offset="80%" stop-color="#C5C6BC"/>
-            <stop offset="100%" stop-color="#93958C"/>
-          </linearGradient>
-
-          <!-- Capital Echinus ovolo cushion volume -->
-          <linearGradient id="echinus-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="25%" stop-color="#ECEEE6"/>
-            <stop offset="65%" stop-color="#D0D2C8"/>
-            <stop offset="100%" stop-color="#9E9F95"/>
-          </linearGradient>
-
-          <!-- Necking stone gradient -->
-          <linearGradient id="shaft-neck-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#A0A299"/>
-            <stop offset="30%" stop-color="#F2F3EB"/>
-            <stop offset="70%" stop-color="#CED0C6"/>
-            <stop offset="100%" stop-color="#9A9C94"/>
-          </linearGradient>
-
-          <!-- Base Torus convex ring -->
-          <linearGradient id="torus-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="20%" stop-color="#F0F1EA"/>
-            <stop offset="65%" stop-color="#CCCDC4"/>
-            <stop offset="100%" stop-color="#8C8E84"/>
-          </linearGradient>
-
-          <!-- Base Scotia concave shadowed groove -->
-          <linearGradient id="scotia-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#555750"/>
-            <stop offset="50%" stop-color="#3B3D37"/>
-            <stop offset="100%" stop-color="#7B7D74"/>
-          </linearGradient>
-
-          <!-- Base Plinth solid stone block -->
-          <linearGradient id="plinth-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="15%" stop-color="#E8EAE2"/>
-            <stop offset="75%" stop-color="#C7C8BF"/>
-            <stop offset="100%" stop-color="#96988E"/>
-          </linearGradient>
-
-          <!-- Contact shadow under plinth on stylobate floor -->
-          <radialGradient id="plinth-drop-shadow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#141816" stop-opacity="0.55"/>
-            <stop offset="45%" stop-color="#141816" stop-opacity="0.30"/>
-            <stop offset="80%" stop-color="#141816" stop-opacity="0.08"/>
-            <stop offset="100%" stop-color="#141816" stop-opacity="0"/>
-          </radialGradient>
-
-          <!-- Rosette medallion gradients -->
-          <radialGradient id="medallion-grad" cx="40%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#FFFFFF"/>
-            <stop offset="45%" stop-color="#DFE0D7"/>
-            <stop offset="100%" stop-color="#A5A79E"/>
-          </radialGradient>
-          <radialGradient id="medallion-inner-grad" cx="40%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#F2F3EC"/>
-            <stop offset="70%" stop-color="#C4C6BC"/>
-            <stop offset="100%" stop-color="#8E9087"/>
-          </radialGradient>
-
-          <!-- CLASSICAL CAPITAL (Doric profile) -->
-          <g id="classic-capital">
-            <rect x="-22" y="0" width="44" height="8" rx="0.5" fill="url(#abacus-grad)" stroke="#9A9C93" stroke-width="0.75"/>
-            <line x1="-21" y1="0.75" x2="21" y2="0.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.75"/>
-            <line x1="-21.5" y1="8" x2="21.5" y2="8" stroke="#3F423C" stroke-opacity="0.45" stroke-width="0.8"/>
-            
-            <path d="M -21 8 C -21 14.5, -16.5 19, -15 19 L 15 19 C 16.5 19, 21 14.5, 21 8 Z" fill="url(#echinus-grad)" stroke="#92948B" stroke-width="0.75"/>
-            <path d="M -18 9 Q 0 8.2 18 9" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.75"/>
-            <path d="M -16 18.5 Q 0 18.2 16 18.5" fill="none" stroke="#50534C" stroke-opacity="0.5" stroke-width="0.6"/>
-
-            <rect x="-15.5" y="19" width="31" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
-            <line x1="-15" y1="19.4" x2="15" y2="19.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
-            <rect x="-15.3" y="21" width="30.6" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
-            <line x1="-14.8" y1="21.4" x2="14.8" y2="21.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
-            <rect x="-15.1" y="23" width="30.2" height="1.4" fill="url(#abacus-grad)" stroke="#7F8178" stroke-width="0.5"/>
-            <line x1="-14.6" y1="23.4" x2="14.6" y2="23.4" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.5"/>
-
-            <rect x="-15" y="25" width="30" height="3" fill="url(#shaft-neck-grad)" stroke="#8C8E85" stroke-width="0.5"/>
-            <line x1="-14.5" y1="28" x2="14.5" y2="28" stroke="#484B44" stroke-opacity="0.4" stroke-width="0.6"/>
-          </g>
-
-          <!-- CLASSICAL BASE (Attic profile) -->
-          <g id="classic-base">
-            <path d="M -17 0 C -17 1.8, -18 3, -19 4 L 19 4 C 18 3, 17 1.8, 17 0 Z" fill="url(#shaft-stone-3d)" stroke="#94968D" stroke-width="0.5"/>
-            
-            <path d="M -18.5 4 C -20 4, -20.2 7, -18.5 8 L 18.5 8 C 20.2 7, 20 4, 18.5 4 Z" fill="url(#torus-grad)" stroke="#8E9087" stroke-width="0.6"/>
-            <path d="M -17 4.8 Q 0 4.2 17 4.8" fill="none" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.6"/>
-            
-            <path d="M -17.5 8 C -16.2 9, -16.2 12, -17.5 13 L 17.5 13 C 16.2 12, 16.2 9, 17.5 8 Z" fill="url(#scotia-grad)" stroke="#4A4C45" stroke-width="0.5"/>
-            
-            <path d="M -21 13 C -23.2 13, -23.2 18.5, -21 19 L 21 19 C 23.2 18.5, 23.2 13, 21 13 Z" fill="url(#torus-grad)" stroke="#8C8E85" stroke-width="0.75"/>
-            <path d="M -19.5 14.5 Q 0 13.8 19.5 14.5" fill="none" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.7"/>
-            <line x1="-20.5" y1="19" x2="20.5" y2="19" stroke="#3D4039" stroke-opacity="0.45" stroke-width="0.75"/>
-
-            <rect x="-23" y="19" width="46" height="8" rx="0.5" fill="url(#plinth-grad)" stroke="#8E9087" stroke-width="0.75"/>
-            <line x1="-22.5" y1="19.75" x2="22.5" y2="19.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
-            <line x1="-22.5" y1="27" x2="22.5" y2="27" stroke="#3F423C" stroke-opacity="0.5" stroke-width="0.75"/>
-          </g>
-
-          <g id="classic-base-shadow">
-            <ellipse cx="0" cy="27.5" rx="27" ry="3.5" fill="url(#plinth-drop-shadow)" class="col-base-shadow"/>
-          </g>
-        </defs>
-
-        <!-- STATIC TEMPLE ARCHITECTURE -->
-        <!-- Step 3: Euthynteria -->
-        <rect x="2" y="380" width="1176" height="12" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
-        <line x1="2" y1="380.75" x2="1178" y2="380.75" stroke="#FFFFFF" stroke-opacity="0.8" stroke-width="0.8"/>
-        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
-          <line x1="140" y1="380" x2="140" y2="392"/>
-          <line x1="320" y1="380" x2="320" y2="392"/>
-          <line x1="500" y1="380" x2="500" y2="392"/>
-          <line x1="680" y1="380" x2="680" y2="392"/>
-          <line x1="860" y1="380" x2="860" y2="392"/>
-          <line x1="1040" y1="380" x2="1040" y2="392"/>
-        </g>
-
-        <!-- Step 2: Stereobate -->
-        <rect x="12" y="369" width="1156" height="11" fill="url(#step-riser-grad)" stroke="#8E9087" stroke-width="0.75"/>
-        <line x1="12" y1="369.75" x2="1168" y2="369.75" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="0.8"/>
-        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
-          <line x1="230" y1="369" x2="230" y2="380"/>
-          <line x1="410" y1="369" x2="410" y2="380"/>
-          <line x1="590" y1="369" x2="590" y2="380"/>
-          <line x1="770" y1="369" x2="770" y2="380"/>
-          <line x1="950" y1="369" x2="950" y2="380"/>
-        </g>
-
-        <!-- Step 1: Stylobate -->
-        <rect x="22" y="358" width="1136" height="11" fill="url(#step-riser-grad)" stroke="#8C8E85" stroke-width="0.75"/>
-        <line x1="22" y1="358.75" x2="1158" y2="358.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
-        <g stroke="#6A6C63" stroke-width="0.6" stroke-opacity="0.5">
-          <line x1="160" y1="358" x2="160" y2="369"/>
-          <line x1="340" y1="358" x2="340" y2="369"/>
-          <line x1="520" y1="358" x2="520" y2="369"/>
-          <line x1="700" y1="358" x2="700" y2="369"/>
-          <line x1="880" y1="358" x2="880" y2="369"/>
-          <line x1="1060" y1="358" x2="1060" y2="369"/>
-        </g>
-
-        <!-- Architrave -->
-        <rect x="26" y="106" width="1128" height="18" fill="url(#architrave-grad)" stroke="#989A91" stroke-width="0.75"/>
-        <rect x="24" y="106" width="1132" height="3" fill="#D8D9D0" stroke="#888A81" stroke-width="0.5"/>
-        <line x1="24" y1="106.75" x2="1156" y2="106.75" stroke="#FFFFFF" stroke-opacity="0.9" stroke-width="0.75"/>
-        <line x1="26" y1="116" x2="1154" y2="116" stroke="#A0A299" stroke-width="0.6"/>
-        
-        <!-- Frieze background -->
-        <rect x="26" y="80" width="1128" height="26" fill="url(#frieze-stone-grad)" stroke="#9A9C93" stroke-width="0.75"/>
-
-        <!-- Cornice with Dentils -->
-        <rect x="22" y="74" width="1136" height="6" fill="#C9CAC0" stroke="#82847B" stroke-width="0.6"/>
-        <rect x="22" y="74" width="1136" height="6" fill="url(#dentil-pattern)"/>
-        <rect x="18" y="68" width="1144" height="6" fill="url(#corona-grad)" stroke="#8C8E85" stroke-width="0.75"/>
-        <line x1="18" y1="68.75" x2="1162" y2="68.75" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.8"/>
-        <line x1="18" y1="74" x2="1162" y2="74" stroke="#40433C" stroke-opacity="0.4" stroke-width="0.6"/>
-
-        <!-- Pediment Tympanum -->
-        <polygon points="34,68 590,16 1146,68" fill="url(#tympanum-grad)" stroke="#92948B" stroke-width="0.75"/>
-
-        <!-- Rosette of Balance -->
-        <g class="pediment-rosette" transform="translate(590, 48)">
-          <circle r="16" fill="url(#medallion-grad)" stroke="#808279" stroke-width="0.8"/>
-          <circle r="13" fill="none" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="0.6"/>
-          <circle r="9" fill="url(#medallion-inner-grad)" stroke="#6C6E66" stroke-width="0.6"/>
-          <circle r="3.5" fill="#1D473B"/>
-          <g stroke="#6E7068" stroke-width="0.75" stroke-opacity="0.75">
-            <line x1="0" y1="-12" x2="0" y2="-5"/>
-            <line x1="7.05" y1="-9.71" x2="2.94" y2="-4.05"/>
-            <line x1="11.41" y1="-3.71" x2="4.76" y2="-1.55"/>
-            <line x1="11.41" y1="3.71" x2="4.76" y2="1.55"/>
-            <line x1="7.05" y1="9.71" x2="2.94" y2="4.05"/>
-            <line x1="0" y1="12" x2="0" y2="5"/>
-            <line x1="-7.05" y1="9.71" x2="-2.94" y2="4.05"/>
-            <line x1="-11.41" y1="3.71" x2="-4.76" y2="1.55"/>
-            <line x1="-11.41" y1="-3.71" x2="-4.76" y2="-1.55"/>
-            <line x1="-7.05" y1="-9.71" x2="-2.94" y2="-4.05"/>
-          </g>
-        </g>
-
-        <!-- Raking Cornices -->
-        <polygon points="16,70 590,12 590,17 26,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
-        <line x1="16" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
-        <polygon points="1164,70 590,12 590,17 1154,73" fill="url(#raking-cornice-grad)" stroke="#888A81" stroke-width="0.75"/>
-        <line x1="1164" y1="70" x2="590" y2="12" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="0.9"/>
-
-        <!-- Apex Acroterion -->
-        <g transform="translate(590, 8)">
-          <path d="M -8 4 L 8 4 L 6 0 L -6 0 Z" fill="#D2D4CA" stroke="#7A7C73" stroke-width="0.6"/>
-          <path d="M 0 -6 C -5 -2, -6 0, -4 2 C -2 3, 0 1, 0 0 C 0 1, 2 3, 4 2 C 6 0, 5 -2, 0 -6 Z" fill="#ECEEE5" stroke="#686A61" stroke-width="0.6"/>
-        </g>
-
-        <!-- Architrave shadow -->
-        <rect x="26" y="124" width="1128" height="8" fill="url(#architrave-cast-shadow)" pointer-events="none"/>
-
-        <!-- THE 10 INTERACTIVE COLUMNS -->
-        <g id="columns"></g>
-      </svg>
-     </div>
-      <p class="temple-caption">FACHADA DÓRICA DEL BIENESTAR · DIEZ PILARES MONUMENTALES · DESLIZA PARA EXPLORAR</p>
-    </div>
-
-    <!-- ==================== SPEC PANEL (ESTELA DÉLICA) ==================== -->
-    <div class="spec-stele" id="spec">
-      <div class="spec-stele-cornice">
-        <span class="tag">✦ INSCRIPCIÓN DE LA COLUMNA ✦</span>
-        <span class="coord mono" id="spec-coord">ORDEN DÓRICO · ESEN MMXXVI</span>
-      </div>
-      <div class="spec-grid">
-        <div class="num-col">
-          <span class="large-roman" id="spec-num">—</span>
-          <span class="greek-sub" id="spec-greek">PILAR</span>
-        </div>
-        <div class="body">
-          <h3 id="spec-title">Selecciona un pilar del templo</h3>
-          <p id="spec-dates">Toca o pasa el cursor sobre cada columna para consultar el alcance temático, cronograma e hitos evaluados.</p>
-          <span class="hito" id="spec-hito"></span>
-          <div class="spec-actions" id="spec-actions" hidden>
-            <a class="spec-link" id="spec-link-unit" href="#">Abrir material de estudio &rarr;</a>
-            <a class="spec-link repaso" id="spec-link-repaso" href="repaso-control-1/">Repaso Control 1 &rarr;</a>
-          </div>
-        </div>
-        <div class="status-col">
-          <span class="stamp-greek" id="spec-status">—</span>
-        </div>
-      </div>
+    <div class="band" data-reveal>
+      <p><span class="num" data-count="10">10</span> pilares, <span class="num c" data-count="3">3</span> controles presenciales y un Workbook que vale <span class="num b" data-count="20" data-suffix="%">20%</span>. La IA solo revisa el formato: el contenido es <mark>100% mío</mark>.</p>
     </div>
   </header>
 
-  <!-- Divider Greca -->
-  <div class="greek-frieze"></div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-track">
+    <span>Física</span><span class="dot">✱</span><span>Intelectual</span><span class="dot">✱</span><span>Vocacional</span><span class="dot">✱</span><span>Emocional</span><span class="dot">✱</span><span>Relacional</span><span class="dot">✱</span><span>Espiritual</span><span class="dot">✱</span><span>Financiero</span><span class="dot">✱</span><span>Ambiental</span><span class="dot">✱</span><span>Balance</span><span class="dot">✱</span>
+    <span>Física</span><span class="dot">✱</span><span>Intelectual</span><span class="dot">✱</span><span>Vocacional</span><span class="dot">✱</span><span>Emocional</span><span class="dot">✱</span><span>Relacional</span><span class="dot">✱</span><span>Espiritual</span><span class="dot">✱</span><span>Financiero</span><span class="dot">✱</span><span>Ambiental</span><span class="dot">✱</span><span>Balance</span><span class="dot">✱</span>
+  </div></div>
 
-  
-  <!-- Divider Greca -->
-  <div class="greek-frieze"></div>
-
-  <!-- ==================== STUDY AGORA & EXAM REVIEWS ==================== -->
-  <section class="agora-section" id="agora-estudio">
-    <div class="agora-head">
-      <span class="agora-num">🏛</span>
-      <h2>Ágora de Estudio · Materiales y Controles MMXXVI</h2>
+  <!-- ==================== MOSAICO DE UNIDADES ==================== -->
+  <section id="pilares" aria-labelledby="t-pilares">
+    <div class="sec-head">
+      <h2 id="t-pilares">Los diez pilares</h2>
+      <div class="legend"><span><i></i>Disponible</span><span><i></i>Pendiente</span></div>
     </div>
-
-    <!-- Grand Feature Card for Control 1 -->
-    <div class="control-grand-card">
-      <div class="control-header">
-        <div>
-          <span class="control-badge">CONTROL 1 ACUMULADO · UNIDADES I, II Y III</span>
-          <h3 class="control-title">Repaso General para el Control 1</h3>
-        </div>
-        <span class="stamp-greek disponible">Jue 10 Sep · Presencial</span>
-      </div>
-      <p class="control-sub">
-        Compendio integral de estudio personal de Carlos Navas. Abarca desde la redefinición del éxito y el modelo PERMA, pasando por el pilar físico (continuo de salud, hormonas, arquitectura del sueño, ortosomnia y macronutrientes), hasta el pilar intelectual (inteligencias múltiples de Gardner y conexión mente–cuerpo).
-      </p>
-
-      <div class="control-features">
-        <div class="feature-item"><b>10 Láminas</b> · Grabados arquitectónicos</div>
-        <div class="feature-item"><b>Autoevaluación</b> · 25 reactivos con retroalimentación</div>
-        <div class="feature-item"><b>Glosarios</b> · 7–8 términos por unidad</div>
-        <div class="feature-item"><b>Mapas de vacíos</b> · Identificación precisa de ausencias</div>
-      </div>
-
-      <div class="control-actions">
-        <a href="repaso-control-1/" class="btn-greek-gold">Abrir Repaso Acumulado (Control 1) &rarr;</a>
-        <a href="repaso-control-1/#quiz" class="btn-greek-outline">Simulador de Preguntas (Quiz) &rarr;</a>
-      </div>
-    </div>
-
-    <!-- Grand Feature Card for Control 2 -->
-    <div class="control-grand-card">
-      <div class="control-header">
-        <div>
-          <span class="control-badge">CONTROL 2 · UNIDADES V Y VI · EMOCIONAL + RELACIONAL</span>
-          <h3 class="control-title">Repaso para el Control 2</h3>
-        </div>
-        <span class="stamp-greek disponible">Mar 20 Oct · Presencial</span>
-      </div>
-      <p class="control-sub">
-        Repaso de estudio personal de Carlos Navas centrado en el pilar emocional y el pilar relacional: los tres cerebros, las cinco habilidades, el secuestro de la amígdala, la evidencia del bienestar relacional, el apoyo social, la comunicación asertiva y empática, los límites y las relaciones sanas. Solo cubre las Unidades V y VI.
-      </p>
-
-      <div class="control-features">
-        <div class="feature-item"><b>11 Láminas</b> · Fachadas, ciclos y mapa comparativo</div>
-        <div class="feature-item"><b>Autoevaluación</b> · 28 reactivos entre preguntas y casos</div>
-        <div class="feature-item"><b>Tarjetas de memoria</b> · 36 conceptos</div>
-        <div class="feature-item"><b>Mapa de vacíos</b> · Identificación precisa de ausencias</div>
-      </div>
-
-      <div class="control-actions">
-        <a href="repaso-control-2/" class="btn-greek-gold">Abrir Repaso (Control 2) &rarr;</a>
-        <a href="repaso-control-2/#quiz" class="btn-greek-outline">Autoevaluación &rarr;</a>
-      </div>
-    </div>
-
-    <!-- 3 Unit Study Cards -->
-    <div class="triad-grid">
-      <!-- Unidad I -->
-      <div class="study-card">
-        <div class="study-card-top">
-          <span class="study-num">PILAR I · Α</span>
-          <h3>Redefiniendo el Éxito</h3>
-          <div class="study-dates">25 y 27 de agosto · 10 pp.</div>
-          <p class="study-desc">
-            Marcos previos (BT I y BT II PERMA), pirámide de Maslow de 5 niveles, felicidad vs. bienestar objetivo/subjetivo y la fachada de las 8 dimensiones.
-          </p>
-        </div>
-        <div>
-          <a href="unidad-01/" class="study-btn">Estudiar Unidad I (3 Láminas) &rarr;</a>
-        </div>
-      </div>
-
-      <!-- Unidad II -->
-      <div class="study-card">
-        <div class="study-card-top">
-          <span class="study-num">PILAR II · Β</span>
-          <h3>Pilar Físico</h3>
-          <div class="study-dates">1, 3 y 4 de septiembre · Cátedra &amp; Charla</div>
-          <p class="study-desc">
-            Continuo de la salud (enfermedad–bienestar–fitness), las 6 hormonas rectoras, arquitectura del sueño (fases NREM/REM), ciclo de la ortosomnia y macronutrientes completos.
-          </p>
-        </div>
-        <div>
-          <a href="unidad-02/" class="study-btn">Estudiar Unidad II (5 Láminas) &rarr;</a>
-        </div>
-      </div>
-
-      <!-- Unidad III -->
-      <div class="study-card">
-        <div class="study-card-top">
-          <span class="study-num">PILAR III · Γ</span>
-          <h3>Pilar Intelectual</h3>
-          <div class="study-dates">8 y 11 de septiembre · Cátedra ESEN</div>
-          <p class="study-desc">
-            Bienestar intelectual, las 8 inteligencias múltiples de Howard Gardner (rosa délfica) y el triple canal neuroquímico de conexión entre cuerpo y mente.
-          </p>
-        </div>
-        <div>
-          <a href="unidad-03/" class="study-btn">Estudiar Unidad III (2 Láminas) &rarr;</a>
-        </div>
-      </div>
+    <div class="mosaic" id="mosaic">
+      <noscript><p>Activa JavaScript para ver el mosaico de unidades. También puedes abrir directamente <a href="unidad-01/">Unidad I</a>, <a href="unidad-02/">Unidad II</a>, <a href="unidad-03/">Unidad III</a>, <a href="repaso-control-1/">Repaso Control 1</a> o <a href="repaso-control-2/">Repaso Control 2</a>.</p></noscript>
     </div>
   </section>
 
-  <!-- ==================== GREEK PHILOSOPHICAL FOUNDATION ==================== -->
-  <section class="agora-section">
-    <div class="agora-head">
-      <span class="agora-num">I</span>
-      <h2>Fundamentos Clásicos del Bienestar</h2>
+  <!-- ==================== CONTROLES ==================== -->
+  <section id="controles" aria-labelledby="t-controles">
+    <div class="sec-head"><h2 id="t-controles">Repasos y controles</h2></div>
+    <div class="controls">
+
+      <article class="ctl c-a" data-reveal>
+        <div class="badge-line">
+          <span class="control-badge">Control 1 acumulado · Unidades I, II y III</span>
+          <span class="when">Jue 10 Sep · Presencial</span>
+        </div>
+        <h3>Repaso general para el Control 1</h3>
+        <p>Compendio integral de estudio personal de Carlos Navas. Abarca desde la redefinición del éxito y el modelo PERMA, pasando por el pilar físico (continuo de salud, hormonas, arquitectura del sueño, ortosomnia y macronutrientes), hasta el pilar intelectual (inteligencias múltiples de Gardner y conexión mente–cuerpo).</p>
+        <ul>
+          <li><b>10 Láminas</b> · Diagramas ilustrados</li>
+          <li><b>Autoevaluación</b> · 25 reactivos con retroalimentación</li>
+          <li><b>Glosarios</b> · 7–8 términos por unidad</li>
+          <li><b>Mapas de vacíos</b> · Identificación precisa de ausencias</li>
+        </ul>
+        <div class="acts">
+          <a href="repaso-control-1/">Abrir repaso (Control 1) &rarr;</a>
+          <a href="repaso-control-1/#quiz" class="out">Simulador de preguntas &rarr;</a>
+        </div>
+      </article>
+
+      <article class="ctl c-b" data-reveal>
+        <div class="badge-line">
+          <span class="control-badge">Control 2 · Unidades V y VI · Emocional + relacional</span>
+          <span class="when">Mar 20 Oct · Presencial</span>
+        </div>
+        <h3>Repaso para el Control 2</h3>
+        <p>Repaso de estudio personal de Carlos Navas centrado en el pilar emocional y el pilar relacional: los tres cerebros, las cinco habilidades, el secuestro de la amígdala, la evidencia del bienestar relacional, el apoyo social, la comunicación asertiva y empática, los límites y las relaciones sanas. Solo cubre las Unidades V y VI.</p>
+        <ul>
+          <li><b>11 Láminas</b> · Ciclos, fachadas y mapa comparativo</li>
+          <li><b>Autoevaluación</b> · 28 reactivos entre preguntas y casos</li>
+          <li><b>Tarjetas de memoria</b> · 36 conceptos</li>
+          <li><b>Mapa de vacíos</b> · Identificación precisa de ausencias</li>
+        </ul>
+        <div class="acts">
+          <a href="repaso-control-2/">Abrir repaso (Control 2) &rarr;</a>
+          <a href="repaso-control-2/#quiz" class="out">Autoevaluación &rarr;</a>
+        </div>
+      </article>
+
     </div>
-    <div class="triad-grid">
-      <div class="triad-card">
-        <div class="triad-greek">ΕΥΔΑΙΜΟΝΙΑ</div>
-        <div class="triad-trans">Eudaimonía · Florecimiento</div>
-        <p>No el placer pasajero (*hedoné*), sino la plenitud serena que brota de cultivar todas las dimensiones del ser humano en armonía.</p>
+  </section>
+
+  <!-- ==================== IDEAS DE FONDO ==================== -->
+  <section id="ideas" aria-labelledby="t-ideas">
+    <div class="sec-head"><h2 id="t-ideas">Ideas de fondo</h2></div>
+    <div class="ideas">
+      <div class="idea" data-reveal>
+        <span class="gk">ΕΥΔΑΙΜΟΝΙΑ</span>
+        <h3>Eudaimonía · Florecimiento</h3>
+        <p>No el placer pasajero (<i>hedoné</i>), sino la plenitud serena que brota de cultivar todas las dimensiones del ser humano en armonía.</p>
       </div>
-      <div class="triad-card">
-        <div class="triad-greek">ΑΡΕΤΗ</div>
-        <div class="triad-trans">Areté · Excelencia Moral y Personal</div>
+      <div class="idea" data-reveal>
+        <span class="gk">ΑΡΕΤΗ</span>
+        <h3>Areté · Excelencia personal</h3>
         <p>El compromiso constante con dar la mejor versión de uno mismo en lo físico, intelectual, emocional, vocacional y relacional.</p>
       </div>
-      <div class="triad-card">
-        <div class="triad-greek">ΣΩΦΡΟΣΥΝΗ</div>
-        <div class="triad-trans">Sōphrosýnē · Templanza y Balance</div>
-        <p>La sabiduría de la medida justa (*mêden agan*). Como enseña la Unidad X, el verdadero bienestar se sostiene cuando ninguna columna eclipsa a las demás.</p>
+      <div class="idea" data-reveal>
+        <span class="gk">ΣΩΦΡΟΣΥΝΗ</span>
+        <h3>Sōphrosýnē · Templanza y balance</h3>
+        <p>La sabiduría de la medida justa (<i>mêden agan</i>). Como enseña la Unidad X, el verdadero bienestar se sostiene cuando ningún pilar eclipsa a los demás.</p>
       </div>
     </div>
   </section>
 
-  <!-- ==================== COIN SEAL SECTION ==================== -->
-  <section class="agora-section">
-    <div class="agora-head">
-      <span class="agora-num">II</span>
-      <h2>Compromiso Académico y Ético</h2>
-    </div>
-    <div class="sello-wrap">
-      <!-- Ancient Greek Drachma / Terracotta Medallion SVG -->
-      <div class="coin-stamp">
-        <svg width="154" height="154" viewBox="0 0 154 154" role="img" aria-label="Sello griego en terracota de autoría propia">
-          <defs>
-            <radialGradient id="terracotta-coin" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stop-color="#C25A38"/>
-              <stop offset="50%" stop-color="#9E3E1F"/>
-              <stop offset="90%" stop-color="#6B240F"/>
-              <stop offset="100%" stop-color="#4A1608"/>
-            </radialGradient>
-            <radialGradient id="coin-highlight" cx="35%" cy="30%" r="50%">
-              <stop offset="0%" stop-color="#FCE6C2" stop-opacity="0.8"/>
-              <stop offset="100%" stop-color="#FCE6C2" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-
-          <!-- Outer irregular antique coin relief -->
-          <circle cx="77" cy="77" r="73" fill="url(#terracotta-coin)" stroke="#4A1608" stroke-width="2.5"/>
-          <circle cx="77" cy="77" r="73" fill="url(#coin-highlight)"/>
-          
-          <!-- Beaded rim (astragal) -->
-          <circle cx="77" cy="77" r="67" fill="none" stroke="#FCE6C2" stroke-width="1.2" stroke-dasharray="2.5,2.5" stroke-opacity="0.8"/>
-          <circle cx="77" cy="77" r="63" fill="none" stroke="#6B240F" stroke-width="1"/>
-
-          <!-- Laurel wreath ring (Daphne) -->
-          <g stroke="#FCE6C2" stroke-width="1.1" fill="none" stroke-opacity="0.85">
-            <!-- Left branch -->
-            <path d="M 28 85 C 24 60 40 32 77 24"/>
-            <circle cx="34" cy="72" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="36" cy="56" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="45" cy="42" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="60" cy="31" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-
-            <!-- Right branch -->
-            <path d="M 126 85 C 130 60 114 32 77 24"/>
-            <circle cx="120" cy="72" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="118" cy="56" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="109" cy="42" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-            <circle cx="94" cy="31" r="2.5" fill="#FCE6C2" fill-opacity="0.75"/>
-          </g>
-
-          <!-- Center Column / Temple Symbol -->
-          <g transform="translate(77, 75)">
-            <!-- Mini Doric Column in relief -->
-            <rect x="-12" y="-18" width="24" height="4" fill="#FCE6C2" fill-opacity="0.9"/>
-            <path d="M -10 -14 L 10 -14 L 8 -9 L -8 -9 Z" fill="#FCE6C2" fill-opacity="0.9"/>
-            <rect x="-8" y="-9" width="16" height="28" fill="#FCE6C2" fill-opacity="0.85"/>
-            <!-- Column flutes -->
-            <line x1="-4" y1="-9" x2="-4" y2="19" stroke="#6B240F" stroke-width="0.8"/>
-            <line x1="0" y1="-9" x2="0" y2="19" stroke="#6B240F" stroke-width="0.8"/>
-            <line x1="4" y1="-9" x2="4" y2="19" stroke="#6B240F" stroke-width="0.8"/>
-            <!-- Base -->
-            <rect x="-11" y="19" width="22" height="4" fill="#FCE6C2" fill-opacity="0.9"/>
-            <rect x="-13" y="23" width="26" height="5" fill="#FCE6C2" fill-opacity="0.9"/>
-          </g>
-
-          <!-- Chiseled Text in Arch -->
-          <text x="77" y="128" text-anchor="middle" font-family="'Cinzel',serif" font-size="7.5" font-weight="800" fill="#FCE6C2" letter-spacing="1.2">
-            AUTORÍA PROPIA
-          </text>
-          <text x="77" y="137" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="6" font-weight="600" fill="#FCE6C2" fill-opacity="0.9" letter-spacing="0.8">
-            NUNCA IA EN EVALUACIONES
-          </text>
-        </svg>
+  <!-- ==================== INTEGRIDAD ==================== -->
+  <section id="integridad" aria-labelledby="t-integridad">
+    <div class="sec-head"><h2 id="t-integridad">Canon de integridad</h2></div>
+    <div class="seal" data-reveal>
+      <div class="seal-big">
+        <strong>Autoría<br>propia</strong>
+        <span>Nunca IA en evaluaciones</span>
       </div>
-      <div class="sello-content">
-        <h4>Canon de Integridad · Normas ESEN</h4>
-        <p>El Programa del curso permite el uso de inteligencia artificial <b>únicamente como instrumento de revisión gramatical, ortográfica y de formato</b> — jamás para la generación de contenido. Por este principio ético y pedagógico, este sitio web no publicará jamás respuestas de foros, controles, la dinámica vivencial, el Ikigai o el Workbook.</p>
+      <div class="seal-txt">
+        <h3>Normas ESEN</h3>
+        <p>El Programa del curso permite el uso de inteligencia artificial <b>únicamente como instrumento de revisión gramatical, ortográfica y de formato</b>, jamás para la generación de contenido. Por este principio ético y pedagógico, este sitio web no publicará nunca respuestas de foros, controles, la dinámica vivencial, el Ikigai o el Workbook.</p>
         <p>El Workbook <b>«Redefiniendo el Éxito»</b> y los ejercicios de reflexión personal son y seguirán siendo, en su totalidad, obra de autoría humana de <b>Carlos Navas</b>.</p>
       </div>
     </div>
   </section>
 
-  <!-- Divider Greca -->
-  <div class="greek-frieze"></div>
-
-  <!-- ==================== MONUMENTAL FOOTER ==================== -->
-  <footer class="temple-footer">
-    <div class="txt">
-      <b>CÁTEDRA PILARES DEL BIENESTAR · ESEN</b><br>
-      Base de conocimiento persistente y lámina digital. Consulta <code>AGENTS.md</code> en el repositorio para las normas maestras y fuentes de cátedra.
-    </div>
-    <div class="scalebar-greek">
-      <div class="bar"><span></span><span></span><span></span><span></span><span></span><span></span></div>
-      <span class="lab">I · CANON DE PROPORCIÓN</span>
-    </div>
+  <footer>
+    <p><b>CÁTEDRA PILARES DEL BIENESTAR · ESEN</b></p>
+    <p>Base de conocimiento persistente y portal de estudio. Consulta <code>AGENTS.md</code> en el repositorio para las normas maestras y fuentes de cátedra.</p>
   </footer>
-
-  <!-- Bottom Meander Border -->
-  <div class="greek-frieze subtle" style="margin-top:0; margin-bottom:40px;"></div>
 
 </div>
 
 <script>
   const UNIDADES = [
-    {n:1, romano:"I", greek:"Α", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:true, slug:"unidad-01"},
-    {n:2, romano:"II", greek:"Β", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:true, slug:"unidad-02"},
-    {n:3, romano:"III", greek:"Γ", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:true, slug:"unidad-03"},
-    {n:4, romano:"IV", greek:"Δ", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
-    {n:5, romano:"V", greek:"Ε", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:true, repasoUrl:"repaso-control-2/#u5"},
-    {n:6, romano:"VI", greek:"Ϛ", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:true, repasoUrl:"repaso-control-2/#u6"},
-    {n:7, romano:"VII", greek:"Ζ", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
-    {n:8, romano:"VIII", greek:"Η", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
-    {n:9, romano:"IX", greek:"Θ", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
-    {n:10, romano:"X", greek:"Ι", nombre:"La clave está en el balance", fechas:"6 y 9 nov", hito:"Control 3 · 3 nov · Entrega de Workbook · 9 nov (20%)", disponible:false},
+    {n:1, romano:"I", nombre:"Redefiniendo el éxito y pilares del bienestar", fechas:"25 y 27 ago", hito:"", disponible:true, slug:"unidad-01",
+      desc:"Marcos previos (BT I y BT II PERMA), pirámide de Maslow de 5 niveles, felicidad vs. bienestar objetivo/subjetivo y las 8 dimensiones."},
+    {n:2, romano:"II", nombre:"Pilar físico", fechas:"1, 3 y 4 sep", hito:"", disponible:true, slug:"unidad-02",
+      desc:"Continuo de la salud, las 6 hormonas rectoras, arquitectura del sueño, ciclo de la ortosomnia y macronutrientes."},
+    {n:3, romano:"III", nombre:"Pilar intelectual", fechas:"8 y 11 sep", hito:"Control 1 · 10 sep", disponible:true, slug:"unidad-03",
+      desc:"Bienestar intelectual, las 8 inteligencias múltiples de Gardner y el triple canal neuroquímico entre cuerpo y mente."},
+    {n:4, romano:"IV", nombre:"Pilar vocacional", fechas:"17, 19 y 28 sep", hito:"Entrega de Ikigai · 28 sep (10%)", disponible:false},
+    {n:5, romano:"V", nombre:"Pilar emocional", fechas:"22, 24 y 25 sep", hito:"Foro “Wonder” · 25 sep (5%)", disponible:true, repasoUrl:"repaso-control-2/#u5",
+      desc:"Los tres cerebros, las cinco habilidades de la inteligencia emocional y el secuestro de la amígdala."},
+    {n:6, romano:"VI", nombre:"Pilar relacional", fechas:"6, 8 y 10 oct", hito:"Dinámica vivencial · 10 oct (10%)", disponible:true, repasoUrl:"repaso-control-2/#u6",
+      desc:"Evidencia del bienestar relacional, apoyo social, comunicación asertiva y empática, límites y relaciones sanas."},
+    {n:7, romano:"VII", nombre:"Pilar espiritual", fechas:"13, 15, 16 y 24 oct", hito:"Control 2 · 20 oct · Foro “Soul” 16 oct (5%) · Propósito de vida 24 oct (10%)", disponible:false},
+    {n:8, romano:"VIII", nombre:"Pilar financiero", fechas:"22 y 23 oct", hito:"", disponible:false},
+    {n:9, romano:"IX", nombre:"Pilar ambiental", fechas:"29 y 30 oct", hito:"", disponible:false},
+    {n:10, romano:"X", nombre:"La clave está en el balance", fechas:"6 y 9 nov", hito:"Control 3 · 3 nov · Entrega de Workbook · 9 nov (20%)", disponible:false},
   ];
 
-  const svgColumns = document.getElementById("columns");
-  const NS = "http://www.w3.org/2000/svg";
-  const spacing = 1180 / (UNIDADES.length + 1);
-  const uFlutes = [-0.72, -0.48, -0.24, 0.0, 0.24, 0.48, 0.72];
-
-  UNIDADES.forEach((u, i) => {
-    const cx = spacing * (i + 1);
-    const g = document.createElementNS(NS, "g");
-    g.setAttribute("class", "col-group reveal");
-    g.setAttribute("tabindex", "0");
-    g.setAttribute("role", "button");
-    g.setAttribute("aria-label", "Pilar " + u.romano + ": " + u.nombre);
-    g.dataset.index = i;
-
-    // Invisible wide hit area
-    const hit = document.createElementNS(NS, "rect");
-    hit.setAttribute("x", cx - 28);
-    hit.setAttribute("y", 78);
-    hit.setAttribute("width", 56);
-    hit.setAttribute("height", 286);
-    hit.setAttribute("fill", "transparent");
-    g.appendChild(hit);
-
-    // ==================== FRIEZE TRIGLYPH & NUMERAL PLAQUE ====================
-    const trigGroup = document.createElementNS(NS, "g");
-    trigGroup.setAttribute("class", "triglyph-group");
-
-    // Triglyph stone block (y=80 to 106)
-    const trigBlock = document.createElementNS(NS, "rect");
-    trigBlock.setAttribute("x", cx - 14);
-    trigBlock.setAttribute("y", 80);
-    trigBlock.setAttribute("width", 28);
-    trigBlock.setAttribute("height", 26);
-    trigBlock.setAttribute("fill", "url(#triglyph-bg)");
-    trigBlock.setAttribute("stroke", "#B0B2A8");
-    trigBlock.setAttribute("stroke-width", "0.6");
-    trigGroup.appendChild(trigBlock);
-
-    // 3 Carved vertical V-grooves
-    [-6.5, 0, 6.5].forEach(gx => {
-      const groove = document.createElementNS(NS, "line");
-      groove.setAttribute("x1", cx + gx);
-      groove.setAttribute("y1", 82);
-      groove.setAttribute("x2", cx + gx);
-      groove.setAttribute("y2", 104);
-      groove.setAttribute("stroke", "#64675F");
-      groove.setAttribute("stroke-width", "1.4");
-      trigGroup.appendChild(groove);
-
-      const grooveHighlight = document.createElementNS(NS, "line");
-      grooveHighlight.setAttribute("x1", cx + gx + 0.8);
-      grooveHighlight.setAttribute("y1", 82);
-      grooveHighlight.setAttribute("x2", cx + gx + 0.8);
-      grooveHighlight.setAttribute("y2", 104);
-      grooveHighlight.setAttribute("stroke", "#FFFFFF");
-      grooveHighlight.setAttribute("stroke-opacity", "0.65");
-      grooveHighlight.setAttribute("stroke-width", "0.7");
-      trigGroup.appendChild(grooveHighlight);
-    });
-
-    // Regula band under triglyph (y=106 to 109)
-    const regula = document.createElementNS(NS, "rect");
-    regula.setAttribute("x", cx - 14);
-    regula.setAttribute("y", 106);
-    regula.setAttribute("width", 28);
-    regula.setAttribute("height", 3);
-    regula.setAttribute("fill", "#C6C7BD");
-    regula.setAttribute("stroke", "#888A81");
-    regula.setAttribute("stroke-width", "0.5");
-    trigGroup.appendChild(regula);
-
-    // 6 Guttae (gotas clásicas)
-    [-11, -6.6, -2.2, 2.2, 6.6, 11].forEach(gx => {
-      const gutta = document.createElementNS(NS, "circle");
-      gutta.setAttribute("cx", cx + gx);
-      gutta.setAttribute("cy", 107.5);
-      gutta.setAttribute("r", 1.0);
-      gutta.setAttribute("fill", "#4A4D45");
-      trigGroup.appendChild(gutta);
-    });
-
-    // Roman Numeral Carved Stone Plaque
-    const plaque = document.createElementNS(NS, "rect");
-    plaque.setAttribute("x", cx - 12);
-    plaque.setAttribute("y", 85);
-    plaque.setAttribute("width", 24);
-    plaque.setAttribute("height", 17);
-    plaque.setAttribute("rx", 2);
-    plaque.setAttribute("class", "num-plaque");
-    plaque.setAttribute("fill", "url(#num-plaque-grad)");
-    plaque.setAttribute("stroke", "#989A90");
-    plaque.setAttribute("stroke-width", "0.8");
-    trigGroup.appendChild(plaque);
-
-    const numText = document.createElementNS(NS, "text");
-    numText.setAttribute("x", cx);
-    numText.setAttribute("y", 98);
-    numText.setAttribute("class", "col-numeral");
-    numText.setAttribute("text-anchor", "middle");
-    numText.textContent = u.romano;
-    trigGroup.appendChild(numText);
-
-    g.appendChild(trigGroup);
-
-    // ==================== COLUMN ASSEMBLY ====================
-    const colBody = document.createElementNS(NS, "g");
-    colBody.setAttribute("class", "column-body");
-
-    // Floor contact shadow
-    const shadowUse = document.createElementNS(NS, "use");
-    shadowUse.setAttribute("href", "#classic-base-shadow");
-    shadowUse.setAttribute("x", cx);
-    shadowUse.setAttribute("y", 330);
-    colBody.appendChild(shadowUse);
-
-    // Attic Base
-    const baseUse = document.createElementNS(NS, "use");
-    baseUse.setAttribute("href", "#classic-base");
-    baseUse.setAttribute("x", cx);
-    baseUse.setAttribute("y", 330);
-    colBody.appendChild(baseUse);
-
-    // Fluted Shaft with Éntasis (top hw=15, bot hw=17, y=152 to 330)
-    const shaftPath = `M ${cx - 15} 152 Q ${cx - 17.5} 245, ${cx - 17} 330 L ${cx + 17} 330 Q ${cx + 17.5} 245, ${cx + 15} 152 Z`;
-    
-    const shaft = document.createElementNS(NS, "path");
-    shaft.setAttribute("d", shaftPath);
-    shaft.setAttribute("fill", "url(#shaft-stone-3d)");
-    shaft.setAttribute("stroke", "#909289");
-    shaft.setAttribute("stroke-width", "0.75");
-    colBody.appendChild(shaft);
-
-    // 7 Flutes with cosine perspective and 3D highlights
-    const flutesLayer = document.createElementNS(NS, "g");
-    flutesLayer.setAttribute("class", "flutes-layer");
-
-    uFlutes.forEach(uPos => {
-      const cosVal = Math.cos(Math.asin(Math.max(-0.99, Math.min(0.99, uPos))));
-      const fwTop = Math.max(1.8, 3.2 * cosVal);
-      const fwBot = Math.max(2.0, 3.6 * cosVal);
-
-      const xt = cx + uPos * 15.0;
-      const xb = cx + uPos * 17.0;
-
-      const x1t = xt - fwTop / 2;
-      const x2t = xt + fwTop / 2;
-      const x1b = xb - fwBot / 2;
-      const x2b = xb + fwBot / 2;
-
-      const fPath = `M ${x1t.toFixed(2)} 155 Q ${xt.toFixed(2)} 153 ${x2t.toFixed(2)} 155 L ${x2b.toFixed(2)} 327 Q ${xb.toFixed(2)} 329 ${x1b.toFixed(2)} 327 Z`;
-
-      const flute = document.createElementNS(NS, "path");
-      flute.setAttribute("d", fPath);
-      flute.setAttribute("fill", "url(#flute-groove)");
-      flutesLayer.appendChild(flute);
-
-      // Specular ridge line along the crest
-      const rxTop = uPos <= 0 ? x1t : x2t;
-      const rxBot = uPos <= 0 ? x1b : x2b;
-      const ridge = document.createElementNS(NS, "line");
-      ridge.setAttribute("x1", rxTop.toFixed(2));
-      ridge.setAttribute("y1", 155);
-      ridge.setAttribute("x2", rxBot.toFixed(2));
-      ridge.setAttribute("y2", 327);
-      ridge.setAttribute("stroke", "#FFFFFF");
-      ridge.setAttribute("stroke-opacity", "0.45");
-      ridge.setAttribute("stroke-width", "0.6");
-      flutesLayer.appendChild(ridge);
-    });
-    colBody.appendChild(flutesLayer);
-
-    // Classical Capital
-    const capUse = document.createElementNS(NS, "use");
-    capUse.setAttribute("href", "#classic-capital");
-    capUse.setAttribute("x", cx);
-    capUse.setAttribute("y", 124);
-    colBody.appendChild(capUse);
-
-    // Warm ambient illumination overlay (soft light mode)
-    const glow = document.createElementNS(NS, "path");
-    glow.setAttribute("d", shaftPath);
-    glow.setAttribute("fill", "url(#shaft-glow-grad)");
-    glow.setAttribute("class", "shaft-glow");
-    glow.setAttribute("opacity", "0");
-    colBody.appendChild(glow);
-
-    g.appendChild(colBody);
-    svgColumns.appendChild(g);
-  });
-
-  const specTitle = document.getElementById("spec-title");
-  const specDates = document.getElementById("spec-dates");
-  const specHito = document.getElementById("spec-hito");
-  const specNum = document.getElementById("spec-num");
-  const specGreek = document.getElementById("spec-greek");
-  const specCoord = document.getElementById("spec-coord");
-  const specStatus = document.getElementById("spec-status");
-  const specActions = document.getElementById("spec-actions");
-  const groups = Array.from(document.querySelectorAll(".col-group"));
-
-  function showUnidad(i){
-    const u = UNIDADES[i];
-    specNum.textContent = u.romano;
-    specGreek.textContent = "PILAR " + u.greek + " (" + u.romano + ")";
-    specTitle.textContent = u.nombre;
-    specDates.textContent = "Cátedra y sesiones: " + u.fechas;
-    specHito.textContent = u.hito;
-    specCoord.textContent = "COLUMNA " + u.romano + " · SECCIÓN " + (i + 1) + "/10";
-    specStatus.textContent = u.disponible ? "Disponible" : "Pendiente";
-    specStatus.className = "stamp-greek" + (u.disponible ? " disponible" : "");
-    const specActions = document.getElementById("spec-actions");
-    const specLinkUnit = document.getElementById("spec-link-unit");
-    const specLinkRepaso = document.getElementById("spec-link-repaso");
-    if(u.slug){
-      specLinkUnit.href = u.slug + "/";
-      specLinkUnit.textContent = "Abrir Unidad " + u.romano + " →";
-      if(u.n <= 3){
-        specLinkRepaso.href = "repaso-control-1/#u" + u.n;
-        specLinkRepaso.style.display = "inline-flex";
-      } else {
-        specLinkRepaso.style.display = "none";
+  (function renderMosaic(){
+    var host = document.getElementById("mosaic");
+    if(!host) return;
+    var esc = function(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); };
+    var colorIdx = 0;
+    var html = UNIDADES.map(function(u){
+      var cls = "ut u" + u.n + " " + (u.disponible ? "avail c" + ((colorIdx++ % 5) + 1) : "pend") + (u.n === 10 ? " crown" : "");
+      var primary = u.slug ? u.slug + "/" : (u.repasoUrl || "");
+      var primaryLabel = u.slug ? "Abrir Unidad " + u.romano + " &rarr;" : "Abrir repaso &rarr;";
+      var links = "";
+      if(u.disponible && primary){
+        links = '<div class="ut-links"><a class="primary" href="' + primary + '">' + primaryLabel + '</a>';
+        if(u.slug && u.n <= 3) links += '<a class="sec" href="repaso-control-1/#u' + u.n + '">Repaso Control 1</a>';
+        links += "</div>";
       }
-      specActions.hidden = false;
-    } else if(u.repasoUrl){
-      specLinkUnit.href = u.repasoUrl;
-      specLinkUnit.textContent = "Abrir repaso Unidad " + u.romano + " →";
-      specLinkRepaso.style.display = "none";
-      specActions.hidden = false;
-    } else {
-      specActions.hidden = true;
-    }
-    groups.forEach((g, gi) => g.classList.toggle("active", gi === i));
-  }
-
-  groups.forEach((g) => {
-    const i = Number(g.dataset.index);
-    g.addEventListener("mouseenter", () => showUnidad(i));
-    g.addEventListener("focus", () => showUnidad(i));
-    g.addEventListener("click", () => showUnidad(i));
-  });
-
-  requestAnimationFrame(() => {
-    groups.forEach((g, i) => {
-      setTimeout(() => { g.classList.remove("reveal"); g.classList.add("shown"); }, 70 * i);
-    });
-  });
+      return '<article class="' + cls + '"' + (u.disponible ? ' data-tilt' : '') + ' data-reveal>' +
+        '<span class="ut-n" aria-hidden="true">' + u.romano + '</span>' +
+        '<div class="ut-top"><span class="ut-tag">Pilar ' + String(u.n).padStart(2,"0") + '</span>' +
+        '<span class="ut-stamp">' + (u.disponible ? "Disponible" : "Pendiente") + '</span></div>' +
+        '<h3>' + esc(u.nombre) + '</h3>' +
+        '<p class="ut-dates">' + esc(u.fechas) + '</p>' +
+        (u.desc ? '<p class="ut-desc">' + esc(u.desc) + '</p>' : '') +
+        (u.hito ? '<p class="ut-hito">' + esc(u.hito) + '</p>' : '') +
+        links + '</article>';
+    }).join("");
+    host.insertAdjacentHTML("beforeend", html);
+  })();
 </script>
 
-<script>
-  // Classical Greek Theme Toggle (Nix / Helios)
-  function initGreekTheme() {
-    function updateThemeUI(isDark) {
-      var icon = document.getElementById('theme-icon');
-      var text = document.getElementById('theme-text');
-      var btn = document.getElementById('theme-toggle');
-      if(icon) icon.textContent = isDark ? '☀️' : '🌙';
-      if(text) text.textContent = isDark ? 'Modo Día' : 'Modo Noche';
-      if(btn) {
-        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-        btn.setAttribute('aria-label', isDark ? 'Cambiar a modo día' : 'Cambiar a modo noche');
-      }
+<script id="motion">
+/*MOTION:START*/
+/* Pilares del Bienestar — motion design (vanilla, sin dependencias).
+   Fuente única: tools/design/motion.js (se inyecta con tools/apply-design.mjs).
+   Respeta prefers-reduced-motion y nunca deja contenido oculto si algo falla. */
+(function () {
+  'use strict';
+  var doc = document, root = doc.documentElement;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  var $ = function (s, c) { return (c || doc).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
+
+  function init() {
+    progressBar();
+    slamTitles();
+    injectTicker();
+    setupReveal();
+    setupNavSpy();
+    countUps();
+    tilt();
+    quizFeel();
+  }
+
+  /* ---------- Barra de progreso de lectura ---------- */
+  function progressBar() {
+    if (reduce) return;
+    var bar = doc.createElement('div'); bar.className = 'progress';
+    var i = doc.createElement('i'); bar.appendChild(i); doc.body.appendChild(bar);
+    var ticking = false;
+    function update() {
+      var h = root.scrollHeight - window.innerHeight;
+      i.style.setProperty('--p', h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)).toFixed(4) : 0);
+      ticking = false;
     }
-    window.toggleTheme = function() {
-      var current = document.documentElement.getAttribute('data-theme') || 'light';
-      var next = current === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      try { localStorage.setItem('pb_theme', next); } catch (_) {}
-      updateThemeUI(next === 'dark');
-    };
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    updateThemeUI(isDark);
-    var btn = document.getElementById('theme-toggle');
-    if(btn) {
-      btn.onclick = window.toggleTheme;
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  /* ---------- Títulos: palabra por palabra ---------- */
+  function slamTitles() {
+    if (reduce) return;
+    $$('header.top > h1, .hero h1, [data-slam]').forEach(function (h) {
+      var n = 0;
+      (function walk(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+          if (c.nodeType === 3) {
+            var parts = c.textContent.split(/(\s+)/), frag = doc.createDocumentFragment();
+            parts.forEach(function (p) {
+              if (!p) return;
+              if (/^\s+$/.test(p)) { frag.appendChild(doc.createTextNode(' ')); return; }
+              var w = doc.createElement('span'); w.className = 'w';
+              var s = doc.createElement('span'); s.textContent = p; s.style.setProperty('--i', n++);
+              w.appendChild(s); frag.appendChild(w);
+            });
+            c.parentNode.replaceChild(frag, c);
+          } else if (c.nodeType === 1 && c.tagName !== 'BR') { walk(c); }
+        });
+      })(h);
+    });
+  }
+
+  /* ---------- Cinta en movimiento bajo la cabecera ---------- */
+  function injectTicker() {
+    var head = $('header.top');
+    if (!head || $('.ticker') || reduce) return;
+    var h1 = $('h1', head);
+    var label = h1 ? h1.innerHTML.replace(/<br\s*\/?>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() : 'Pilares del Bienestar';
+    var words = [label, 'Estudio personal', 'Autoría 100% propia', 'ESEN · Ciclo III / 2026', 'La clave está en el balance'];
+    var t = doc.createElement('div'); t.className = 'ticker'; t.setAttribute('aria-hidden', 'true');
+    var track = doc.createElement('div'); track.className = 'ticker-track';
+    for (var r = 0; r < 4; r++) words.forEach(function (w) {
+      var s = doc.createElement('span'); s.textContent = w; track.appendChild(s);
+      var d = doc.createElement('span'); d.className = 'dot'; d.textContent = '✱'; track.appendChild(d);
+    });
+    t.appendChild(track);
+    head.parentNode.insertBefore(t, head.nextSibling);
+  }
+
+  /* ---------- Láminas: las formas saltan en cascada al entrar en pantalla ----------
+     El contenido ya es visible por defecto; la clase .in solo dispara la animación.
+     (El revelado del resto de tiles lo hace CSS con animation-timeline: view().) */
+  function setupReveal() {
+    $$('figure.diag svg').forEach(function (svg) {
+      var k = 0;
+      Array.prototype.slice.call(svg.children).forEach(function (c) {
+        if (c.tagName.toLowerCase() === 'defs') return;
+        c.style.setProperty('--i', Math.min(k++, 40));
+      });
+    });
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target); en.target.classList.add('in');
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0 });
+    $$('figure.diag').forEach(function (f) { io.observe(f); });
+  }
+
+  /* ---------- Resaltado de la sección activa en el TOC ---------- */
+  function setupNavSpy() {
+    var links = $$('nav.toc a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+    var map = {};
+    links.forEach(function (a) { var t = $(a.getAttribute('href')); if (t) map[t.id] = a; });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && map[en.target.id]) {
+          links.forEach(function (a) { a.classList.remove('on'); });
+          map[en.target.id].classList.add('on');
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    Object.keys(map).forEach(function (id) { io.observe($('#' + id)); });
+  }
+
+  /* ---------- Contadores ---------- */
+  function countUps() {
+    var els = $$('[data-count]');
+    if (!els.length) return;
+    function run(el) {
+      var to = parseFloat(el.getAttribute('data-count')), suf = el.getAttribute('data-suffix') || '';
+      if (reduce) { el.textContent = to + suf; return; }
+      var t0 = performance.now(), dur = 1300;
+      (function step(t) {
+        var p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 4);
+        el.textContent = Math.round(to * e) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      })(t0);
+    }
+    if (!('IntersectionObserver' in window)) { els.forEach(run); return; }
+    var io = new IntersectionObserver(function (en) {
+      en.forEach(function (x) { if (x.isIntersecting) { io.unobserve(x.target); run(x.target); } });
+    }, { threshold: .4 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Inclinación 3D y parallax con el puntero ---------- */
+  function tilt() {
+    if (reduce || !window.matchMedia('(hover:hover)').matches) return;
+    $$('[data-tilt]').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        var r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+        el.style.setProperty('--ry', (x * 9).toFixed(2) + 'deg');
+        el.style.setProperty('--rx', (-y * 9).toFixed(2) + 'deg');
+        el.style.setProperty('--gx', ((x + .5) * 100).toFixed(1) + '%');
+        el.style.setProperty('--gy', ((y + .5) * 100).toFixed(1) + '%');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg');
+      });
+    });
+    var layers = $$('[data-depth]');
+    if (layers.length) {
+      window.addEventListener('pointermove', function (e) {
+        var x = e.clientX / window.innerWidth - .5, y = e.clientY / window.innerHeight - .5;
+        layers.forEach(function (l) {
+          var d = parseFloat(l.getAttribute('data-depth')) || 10;
+          l.style.setProperty('--px', (x * d).toFixed(1) + 'px'); l.style.setProperty('--py', (y * d).toFixed(1) + 'px');
+        });
+      }, { passive: true });
     }
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initGreekTheme);
-  } else {
-    initGreekTheme();
+
+  /* ---------- Sensación de la autoevaluación ---------- */
+  function burst(btn) {
+    if (reduce || !btn.animate) return;
+    var r = btn.getBoundingClientRect(), cx = r.left + 24, cy = r.top + r.height / 2;
+    var cols = ['#FFD60A', '#FF5C3D', '#6C8BFF', '#2FD68F', '#B79DFF'];
+    for (var i = 0; i < 16; i++) {
+      var c = doc.createElement('i'); c.className = 'confetti';
+      c.style.background = cols[i % cols.length]; c.style.left = cx + 'px'; c.style.top = cy + 'px';
+      doc.body.appendChild(c);
+      var a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 90;
+      var an = c.animate([
+        { transform: 'translate(0,0) rotate(0) scale(1)', opacity: 1 },
+        { transform: 'translate(' + Math.cos(a) * d + 'px,' + (Math.sin(a) * d - 30) + 'px) rotate(' + (Math.random() * 540 - 270) + 'deg) scale(1)', opacity: 1, offset: .65 },
+        { transform: 'translate(' + Math.cos(a) * d * 1.1 + 'px,' + (Math.sin(a) * d + 70) + 'px) rotate(' + (Math.random() * 720 - 360) + 'deg) scale(.4)', opacity: 0 }
+      ], { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(.2,.7,.3,1)' });
+      an.onfinish = (function (n) { return function () { n.remove(); }; })(c);
+    }
   }
+  function quizFeel() {
+    doc.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.opt');
+      if (!b) return;
+      setTimeout(function () { if (b.classList.contains('good')) burst(b); }, 40);
+    });
+    if (reduce || !window.MutationObserver) return;
+    var mo = new MutationObserver(function (list) {
+      var seen = [];
+      list.forEach(function (m) {
+        var el = m.target.nodeType === 3 ? m.target.parentNode : m.target;
+        var s = el && el.closest && el.closest('.score');
+        if (s && seen.indexOf(s) < 0) {
+          seen.push(s); s.classList.remove('bump'); void s.offsetWidth; s.classList.add('bump');
+        }
+      });
+    });
+    $$('.score').forEach(function (s) { mo.observe(s, { childList: true, characterData: true, subtree: true }); });
+  }
+
+  if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', init); else init();
+})();
+/*MOTION:END*/
 </script>
 </body>
 </html>
